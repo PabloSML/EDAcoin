@@ -6,7 +6,7 @@ using namespace std;
 class Node {
 public:
 	Node() { nodeType = string(""); nodeID = string(""); }
-	Node(string nodeType) { this->nodeType = nodeType; }
+	Node(string nodeID, string nodeType) { this->nodeID = nodeID; this->nodeType = nodeType; }
 	~Node(){}
 
 	string getNodeID() const { return nodeID; }

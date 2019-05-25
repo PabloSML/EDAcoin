@@ -5,7 +5,7 @@
 
 class SPVNode : public Node {
 public:
-	SPVNode() : Node(string("SPV Node")){}
+	SPVNode(string nodeID) : Node(nodeID, string("SPV Node")){}
 	~SPVNode(){}
 
 	void notify(EDAMerkleBlock merkleBlock);

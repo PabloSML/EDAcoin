@@ -5,11 +5,10 @@
 class FullNode : public Node {
 
 public:
-	FullNode() : Node(string("Full Node")) {}
+	FullNode(string nodeID) : Node(nodeID, string("Full Node")) {}
 	~FullNode(){}
 
 	void recieveBlock();
-	void setFilter(SPVNode* filter);
 	void requestLatestHeader();
 	void requestHeaderCount();
 	void requestHeader(int num);
