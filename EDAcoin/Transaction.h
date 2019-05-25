@@ -10,6 +10,7 @@
 #include "Input.h"
 #include "Output.h"
 
+//poner json
 using namespace std;
 
 class Transaction {
