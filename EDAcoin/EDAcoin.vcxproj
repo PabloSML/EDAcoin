@@ -118,9 +118,16 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
     <ClInclude Include="FullNode.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Output.h" />
     <ClInclude Include="SPVNode.h" />
     <ClInclude Include="Transaction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Output.cpp" />
+    <ClCompile Include="Transaction.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
