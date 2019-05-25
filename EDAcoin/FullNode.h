@@ -15,7 +15,12 @@ public:
 	void requestHeader(int num);
 	void getNextHeader();
 
+	virtual void attachConnection(Node* connection);
+	virtual void dettachConnection(Node* connection);
+
+	virtual Node* getFilter(void) { return nullptr; }
+
 	void sendInfo2Spv();
 private:
-
+	list<SPVNode*> filters;
 };

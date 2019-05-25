@@ -11,4 +11,6 @@ public:
 	void notify(EDAMerkleBlock merkleBlock);
 	void setFullNodeAdress(FullNode* FNAdress);
 	void pullHeaderfromFullNode();
+
+	virtual Node* getFilter(void) { return this; }
 };

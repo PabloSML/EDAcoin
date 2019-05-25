@@ -5,30 +5,23 @@ using namespace std;
 
 class Node {
 public:
-	Node() { nodeType = string(""); }
+	Node() { nodeType = string(""); nodeID = string(""); }
 	Node(string nodeType) { this->nodeType = nodeType; }
 	~Node(){}
+
+	string getNodeID() const { return nodeID; }
+	void setNodeID(string nodeID) { this->nodeID = nodeID; }
 
 	string getNodeType() const { return nodeType; }
 	void setNodeType(string nodeType) { this->nodeType = nodeType; }
 
-	void attachConnection(Node* connection) { connections.push_back(connection); }
-	void dettachConnection(Node* connection)
-	{
-		bool done = false;
-		list<Node*>::iterator itr = connections.begin();
-		int size = connections.size();
-		for (int i = 0; i < size && !done; i++, itr++)
-		{
-			if (*itr == connection)
-			{
-				connections.erase(itr);
-				done = true;
-			}
-		}
-	}
+	virtual Node* getFilter(void) = 0;
+
+	virtual void attachConnection(Node* connection) { connections.push_back(connection); }
+	virtual void dettachConnection(Node* connection);
 
 protected:
+	string nodeID;
 	string nodeType;
 	list<Node*> connections;
 };

@@ -122,6 +122,10 @@
     <ClInclude Include="SPVNode.h" />
     <ClInclude Include="Transaction.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FullNode.cpp" />
+    <ClCompile Include="Node.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
