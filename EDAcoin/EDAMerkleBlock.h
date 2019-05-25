@@ -4,6 +4,9 @@
 #include <string>
 #include <list>
 #include <iostream>
+#include <nlohmann/json.hpp>
+#include "Transaction.h"
+using json = nlohmann::json;
 using namespace std;
 
 class EDAMerkleBlock {
@@ -14,11 +17,8 @@ public:
 private:
 	unsigned int cantTransaction;
 	list<string> transactionID;
-	//list<Transaction> transactions;
+	list<Transaction> transactions;
 	list<unsigned int> merklePathLength;
-	//necesito una lista de merkle paths. 
-	//que seria una lista de arreglos de strings (ID)
-	// o de unsigned long pasandolo por generateID()
 	list<json> merklePath; 
 	string blockID;
 
