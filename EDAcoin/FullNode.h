@@ -2,6 +2,8 @@
 #include "Node.h"
 #include "SPVNode.h"
 
+class SPVNode; // para que compile
+
 class FullNode : public Node {
 
 public:
