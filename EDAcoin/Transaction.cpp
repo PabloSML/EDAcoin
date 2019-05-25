@@ -7,21 +7,14 @@ Transaction(void) {
 }
 
 Transaction::
-Transaction(string id, Input& input, list<Output> outputs) {
-	this->set_transaction(id, input, outputs);
+Transaction(string id, list<Input> inputs, list<Output> outputs) {
+	this->set_transaction(id, inputs, outputs);
 }
 
-Transaction::
-Transaction(string id, Input& input, Output& output) {
-	list<Output> aux;
-	aux.push_back(output);
-
-	this->set_transaction(id, input, aux);
-}
 
 Transaction::
 Transaction(const Transaction& copy) {
-	this->set_transaction(copy.id, copy.input, copy.outputs);
+	this->set_transaction(copy.id, copy.inputs, copy.outputs);
 }
 
 //destroyers
@@ -32,9 +25,9 @@ Transaction::
 
 //setters
 void Transaction::
-set_transaction(string id, Input input, list<Output> list_output) {
+set_transaction(string id, list<Input> list_input, list<Output> list_output) {
 	this->set_id(id);
-	this->set_input(input);
+	this->set_inputs(list_input);
 	this->set_outputs(list_output);
 }
 
@@ -44,8 +37,8 @@ set_id(string id) {
 }
 
 void Transaction::
-set_input(const Input& input) {
-	this->input = input;
+set_inputs(list<Input> list_input) {
+	this->inputs = list_input;
 }
 
 
@@ -60,9 +53,9 @@ get_id(void) const {
 	return this->id;
 }
 
-Input Transaction::
-get_input(void) const {
-	return this->input;
+list<Input> Transaction::
+get_inputs(void) const {
+	return this->inputs;
 }
 
 list<Output> Transaction::
@@ -72,6 +65,19 @@ get_outputs(void) const {
 
 
 //others functions
+bool Transaction::
+add_input(const Input& input) { //"setter"
+
+	try {
+		this->inputs.push_back(input);
+		return true;
+	}
+	catch (...) {
+		return false;
+	}
+
+}
+
 bool Transaction::
 add_output(const Output& output) { //"setter"
 
@@ -87,23 +93,28 @@ add_output(const Output& output) { //"setter"
 
 void Transaction::
 clear(void) {
-	
 	this->id = "";
-	this->input = Input();
-	
-	this->outputs.clear();
 
+	this->inputs.clear();
+	this->outputs.clear();
 }
 
 string Transaction::
 body(void) {
 	string body;
 	body = this->id;
-	body += (this->input).body();
+
+	for (Input input : this->inputs) {
+		body += input.body();
+	}
+
+	body += to_string((this->inputs).size());
 	
 	for (Output output : this->outputs) {
 		body += output.body();
 	}
+
+	body += to_string((this->outputs).size());
 
 	return body;
 }
@@ -114,9 +125,9 @@ bool Transaction::
 operator==(Transaction& op) {
 
 	bool ret;
-	
 
-	ret = (this->id == op.id) && (this->input == op.input);
+
+	ret = (this->id == op.id);
 
 	if (ret == true)
 	{
@@ -145,11 +156,33 @@ operator==(Transaction& op) {
 		{
 			ret = false;
 		}
-	} 
 
-	return ret;
+	}
 
-	
+	if (ret == true)
+	{
+		if (inputs.size() == op.inputs.size()) {
+
+			bool found;
+
+			for (Input input : this->inputs) {
+
+				found = false;
+
+				for (Input input_copy : op.inputs) {
+
+					if (input == input_copy) {
+						found = true;
+						break;
+					}
+				}
+
+				if (!found) {
+					ret = false;
+				}
+			}
+		}
+	}
+		return ret;
 }
-
 

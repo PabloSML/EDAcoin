@@ -14,7 +14,7 @@ FullNode::dettachConnection(Node* connection)
 {
 	bool done = false;
 	list<Node*>::iterator conecItr = connections.begin();
-	int size = connections.size();
+	int size = (int) connections.size();
 	for (int i = 0; i < size && !done; i++, conecItr++)
 	{
 		if (*conecItr == connection)
@@ -26,7 +26,7 @@ FullNode::dettachConnection(Node* connection)
 
 	done = false;
 	list<SPVNode*>::iterator filterItr = filters.begin();
-	size = filters.size();
+	size = (int) filters.size();
 	for (int i = 0; i < size && !done; i++, filterItr++)
 	{
 		if (*filterItr == (SPVNode*)connection)
