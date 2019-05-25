@@ -122,6 +122,9 @@
     <ClInclude Include="SPVNode.h" />
     <ClInclude Include="Transaction.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EDAMerkleBlock.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
