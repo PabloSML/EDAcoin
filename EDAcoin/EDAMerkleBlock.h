@@ -11,8 +11,8 @@ using namespace std;
 
 class EDAMerkleBlock {
 public:
-	EDAMerkleBlock();
-	~EDAMerkleBlock();
+	EDAMerkleBlock() {};
+	~EDAMerkleBlock() {};
 
 private:
 	unsigned int cantTransaction;
