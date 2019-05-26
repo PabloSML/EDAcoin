@@ -1,25 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="FullNode.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Output.cpp" />
-    <ClCompile Include="SPVNode.cpp" />
-    <ClCompile Include="Transaction.cpp" />
+    <ClCompile Include="FullNode.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Output.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SPVNode.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Transaction.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Block.h" />
-    <ClInclude Include="EDAMerkleBlock.h" />
-    <ClInclude Include="FullNode.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Output.h" />
-    <ClInclude Include="SPVNode.h" />
-    <ClInclude Include="Transaction.h" />
+    <ClInclude Include="Block.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="EDAMerkleBlock.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FullNode.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Output.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SPVNode.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Transaction.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{109dd6d0-0f7b-4d14-a26d-67ff9cd54379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{51d07e5f-bf3b-4889-96d3-5db9ea5a17e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
