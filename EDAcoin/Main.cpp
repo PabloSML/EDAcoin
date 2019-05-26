@@ -6,6 +6,8 @@
 using namespace std;
 using json = nlohmann::json;
 
+#define TEN_SEC 10000
+
 // Aux Function
 bool getBlockChainJson(json* dest, const char* file);
 
@@ -24,7 +26,19 @@ int main()
 
 	if (getBlockChainJson(&blockChainJson, "test.json"))
 	{
-		// magic stuff
+		int size = blockChainJson.size();
+		for (int i = 0; i < size; i++)
+		{
+			json tempBlock = blockChainJson[i];
+			f1.recieveBlock(tempBlock);
+			f2.recieveBlock(tempBlock);
+			f1.sendInfo2Spv();
+			f2.sendInfo2Spv();
+			s1.pullHeaderfromFullNode();
+
+			_sleep(TEN_SEC);
+		}
+		// magic stuff (display stuff)
 	}
 
 	return 0;

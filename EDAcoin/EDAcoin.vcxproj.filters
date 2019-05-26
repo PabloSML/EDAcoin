@@ -22,6 +22,9 @@
     <ClCompile Include="Transaction.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">

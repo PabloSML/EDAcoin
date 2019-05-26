@@ -38,7 +38,7 @@ FullNode::dettachConnection(Node* connection)
 }
 
 void 
-FullNode::recieveBlock()
+FullNode::recieveBlock(json& jsonBlock)
 {
 
 }

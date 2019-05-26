@@ -6,12 +6,13 @@
 
 #include <string>
 #include <list>
-
+#include <nlohmann/json.hpp>
 #include "Input.h"
 #include "Output.h"
 
 //poner json
 using namespace std;
+using json = nlohmann::json;
 
 class Transaction {
 
@@ -21,6 +22,7 @@ public:
 	Transaction(void);
 	Transaction(string id, list<Input> inputs, list<Output> outputs);
 	Transaction(const Transaction& copy);
+	Transaction(json jsonTransaction); // Falta hacer
 
 	//destroyers
 	~Transaction(void);

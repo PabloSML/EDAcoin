@@ -1,6 +1,8 @@
 #pragma once
 #include "Node.h"
 #include "SPVNode.h"
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 class SPVNode; // para que compile
 
@@ -10,7 +12,7 @@ public:
 	FullNode(string nodeID) : Node(nodeID, string("Full Node")) {}
 	~FullNode(){}
 
-	void recieveBlock();
+	void recieveBlock(json& jsonBlock);
 	void requestLatestHeader();
 	void requestHeaderCount();
 	void requestHeader(int num);
