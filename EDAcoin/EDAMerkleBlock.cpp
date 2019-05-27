@@ -12,7 +12,6 @@ EDAMerkleBlock(Block& block, string ID_node)
 	this->set_cant_transactions(block, ID_node);
 	
 
-	
 }
 
 //destroyers
