@@ -22,3 +22,15 @@ Block::getBlockHeader(void) const
 	temp.merkleRoot = merkleRoot;
 	return temp;
 }
+
+string Block::
+getBlockID(void) const { return this->blockID; }
+
+unsigned long Block::
+getMerkleRoot(void) const { return this->merkleRoot; }
+
+unsigned int Block::
+getTxsCount(void) const { return this->txsCount; }
+
+vector<Transaction> Block::
+get_transactions(void) const { return this->transactions; }

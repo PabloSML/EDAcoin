@@ -51,8 +51,37 @@ body(void) {
 	return body;
 }
 
+bool Input::
+is_transaction_id(string transaction_id)
+{
+	bool is_id_bool = false;
+
+	if (!((this->transaction_id).compare(transaction_id)))
+	{
+		is_id_bool = true;
+	}
+
+	return is_id_bool;
+}
+
+bool Input::
+is_block_id(string block_id)
+{
+	bool is_id_bool = false;
+
+	if (!((this->block_id).compare(block_id)))
+	{
+		is_id_bool = true;
+	}
+
+	return is_id_bool;
+}
+
+
 //operators
 bool Input::
 operator==(const Input& compare) {
 	return (this->block_id == compare.block_id) && (this->transaction_id == compare.transaction_id);
 }
+
+

@@ -125,6 +125,45 @@ body(void) {
 	return body;
 }
 
+bool Transaction::
+does_appear_ID(string ID_node)
+{
+	bool appear_ID = false;
+
+	vector<Input> temp_inputs = this->inputs;
+	vector<Output> temp_outputs = this->outputs;
+
+	unsigned int cant_inputs_tx_i = temp_inputs.size();
+	unsigned int cant_outputs_tx_i = temp_outputs.size();
+
+
+	for (unsigned int input = 0; (input < cant_inputs_tx_i) && (!appear_ID); input++)
+	{
+		if ((temp_inputs[input]).is_transaction_id(ID_node))
+		{
+			appear_ID = true;
+		}
+	}
+
+
+	for (unsigned int output = 0; (output < cant_outputs_tx_i) && (!appear_ID); output++)
+	{
+		if ((temp_outputs[output]).is_output_id(ID_node))
+		{
+			appear_ID = true;
+		}
+	}
+
+	return appear_ID;
+
+}
+
+
+	
+
+	
+
+
 
 //operators
 bool Transaction::

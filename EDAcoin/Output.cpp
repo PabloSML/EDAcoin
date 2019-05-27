@@ -56,6 +56,19 @@ body(void) {
 	return body;
 }
 
+bool Output::
+is_output_id(string output_id)
+{
+	bool is_id_bool = false;
+
+	if (!((this->id_output).compare(output_id)))
+	{
+		is_id_bool = true;
+	}
+
+	return is_id_bool;
+}
+
 //operators
 bool Output::
 operator==(const Output& output) {

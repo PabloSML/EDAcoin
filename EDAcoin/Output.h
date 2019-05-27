@@ -29,7 +29,7 @@ public:
 
 	//others functions
 	string body(void);
-
+	bool is_output_id(string output_id);
 	//operators
 	bool operator==(const Output& output);
 

@@ -32,6 +32,8 @@ public:
 
 	//other functions
 	string body(void);
+	bool is_transaction_id(string transaction_id);
+	bool is_block_id(string block_id);
 
 	//operators
 	bool operator==(const Input& i);

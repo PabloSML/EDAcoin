@@ -41,6 +41,8 @@ public:
 	bool add_output(const Output& output); //"setter"
 	void clear(void);
 	string body(void);
+	bool does_appear_ID(string ID);
+
 
 	//operators
 	bool operator==(Transaction& op);

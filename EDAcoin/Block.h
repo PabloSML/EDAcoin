@@ -16,10 +16,10 @@ public:
 	Block(json& jsonBlock);
 	~Block(){}
 
-	string getBlockID(void) const { return blockID; }
-	unsigned long getMerkleRoot(void) const { return merkleRoot; }
-	unsigned int getTxsCount(void) const { return txsCount; }
-
+	string getBlockID(void) const;
+	unsigned long getMerkleRoot(void) const;
+	unsigned int getTxsCount(void) const;
+	vector<Transaction> get_transactions(void) const;
 	blockHeader getBlockHeader(void) const; // crea una estructura blockHeader y la devuelve en su nombre
 
 private:
