@@ -1,14 +1,15 @@
 #include "Block.h"
+#include "Labels.h"
 
 Block::Block(json& jsonBlock)
 {
-	blockID = string(jsonBlock["BlockID"]);
-	merkleRoot = stol(string(jsonBlock["MerkleRoot"]));
-	txsCount = stoi(string(jsonBlock["TxsCount"]));
+	blockID = string(jsonBlock[LABEL_BLOCK_BLOCK_ID]);
+	merkleRoot = stol(string(jsonBlock[LABEL_BLOCK_MERKLE_ROOT]));
+	txsCount = stoi(string(jsonBlock[LABEL_BLOCK_TXS_COUNT]));
 	
 	for (unsigned int i = 0; i < txsCount; i++)
 	{
-		Transaction temp(jsonBlock["Txs"][i]);
+		Transaction temp(jsonBlock[LABEL_BLOCK_TXS][i]);
 		transactions.push_back(temp);
 	}
 }

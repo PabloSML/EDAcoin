@@ -119,6 +119,7 @@
     <ClInclude Include="EDAMerkleBlock.h" />
     <ClInclude Include="FullNode.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Labels.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Output.h" />
     <ClInclude Include="SPVNode.h" />

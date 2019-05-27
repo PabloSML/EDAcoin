@@ -1,18 +1,24 @@
 #include "Transaction.h"
+#include "Labels.h"
 
 //builders
 
 Transaction::
 Transaction(json json_transaction) {
 
-	this->id = string(json_transaction["TxID"]);
+	this->id = string(json_transaction[LABEL_TXS_TXID]);
 
+	for (int i = 0; i < (json_transaction[LABEL_TXS_INPUT]).size(); i++)
+	{
+		Input temp_input(json_transaction[LABEL_TXS_INPUT][i]);
+		(this->inputs).push_back(temp_input);
+	}
 
-	Input temp_input(json_transaction["input"]);
-	(this->inputs).push_back(temp_input);
-
-	Output temp_output(json_transaction["output"]);
-	(this->outputs).push_back(temp_output);
+	for (int i = 0; i < (json_transaction[LABEL_TXS_OUTPUT]).size(); i++)
+	{
+		Output temp_output(json_transaction[LABEL_TXS_OUTPUT][i]);
+		(this->outputs).push_back(temp_output);
+	}
 
 }
 

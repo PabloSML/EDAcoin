@@ -1,13 +1,11 @@
 #include "Output.h"
-
+#include "Labels.h"
 
 //builders
 Output::
 Output(json json_output) {
-
-	this->id_output = string(json_output["publicKey"]);
-	this->amount = stod(string(json_output["EDACoins"]));
-	
+	this->id_output = string(json_output[LABEL_OUTPUT_ID]);
+	this->amount = stod(string(json_output[LABEL_OUTPUT_AMOUNT]));
 }
 
 

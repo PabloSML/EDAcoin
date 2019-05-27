@@ -51,6 +51,9 @@
     <ClInclude Include="Transaction.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Labels.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

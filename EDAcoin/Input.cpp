@@ -1,11 +1,12 @@
 #include "Input.h"
+#include "Labels.h"
 
 //builders
 Input::
 Input(json json_input) {
 
-	this->block_id = string(json_input["BlockID"]);
-	this->transaction_id = string(json_input["TxID"]);
+	this->block_id = string(json_input[LABEL_INPUT_BLOCK_ID]);
+	this->transaction_id = string(json_input[LABEL_INPUT_TX_ID]);
 
 }
 
