@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <string>
+#include <vector>
 #include <list>
 #include <nlohmann/json.hpp>
 #include "Input.h"
@@ -19,24 +19,21 @@ class Transaction {
 public:
 
 	//builders
-	Transaction(void);
-	Transaction(string id, list<Input> inputs, list<Output> outputs);
-	Transaction(const Transaction& copy);
-	Transaction(json jsonTransaction); // Falta hacer
+	Transaction(json json_transaction);
 
 	//destroyers
 	~Transaction(void);
 
 	//setters
-	void set_transaction(string id, list<Input> list_input, list<Output> list_output);
+	void set_transaction(string id, vector<Input> list_input, vector<Output> list_output);
 	void set_id(string id);
-	void set_inputs(list<Input> input);
-	void set_outputs(list<Output> list_output);
+	void set_inputs(vector<Input> input);
+	void set_outputs(vector<Output> list_output);
 
 	//getters
 	string get_id(void) const;
-	list<Input> get_inputs(void) const;
-	list<Output> get_outputs(void) const;
+	vector<Input> get_inputs(void) const;
+	vector<Output> get_outputs(void) const;
 
 	//others functions
 	bool add_input(const Input& input);	   //"setter"
@@ -49,8 +46,8 @@ public:
 
 private:
 	string id;
-	list<Input> inputs;
-	list<Output> outputs;
+	vector<Input> inputs;
+	vector<Output> outputs;
 };
 
 

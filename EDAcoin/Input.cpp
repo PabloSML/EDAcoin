@@ -2,17 +2,11 @@
 
 //builders
 Input::
-Input() {
-}
+Input(json json_input) {
 
-Input::
-Input(string tx_id, string block_id) {
-	this->set_input(tx_id, block_id);
-}
+	this->block_id = string(json_input["BlockID"]);
+	this->transaction_id = string(json_input["TxID"]);
 
-Input::
-Input(const Input& copy) {
-	this->set_input(copy.transaction_id, copy.block_id);
 }
 
 

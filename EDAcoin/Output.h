@@ -3,16 +3,16 @@
 
 #include <string>
 
+#include <nlohmann/json.hpp>
 using namespace std;
+using json = nlohmann::json;
 
 class Output {
 
 public:
 
 	//builders
-	Output();
-	Output(string ID, double amount);
-	Output(const Output& copy);
+	Output(json json_output);
 
 	//destroyers
 	~Output();

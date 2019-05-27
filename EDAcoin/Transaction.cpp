@@ -1,21 +1,21 @@
 #include "Transaction.h"
 
 //builders
+
 Transaction::
-Transaction(void) {
+Transaction(json json_transaction) {
+
+	this->id = string(json_transaction["TxID"]);
+
+
+	Input temp_input(json_transaction["input"]);
+	(this->inputs).push_back(temp_input);
+
+	Output temp_output(json_transaction["output"]);
+	(this->outputs).push_back(temp_output);
 
 }
 
-Transaction::
-Transaction(string id, list<Input> inputs, list<Output> outputs) {
-	this->set_transaction(id, inputs, outputs);
-}
-
-
-Transaction::
-Transaction(const Transaction& copy) {
-	this->set_transaction(copy.id, copy.inputs, copy.outputs);
-}
 
 //destroyers
 Transaction::
@@ -25,7 +25,7 @@ Transaction::
 
 //setters
 void Transaction::
-set_transaction(string id, list<Input> list_input, list<Output> list_output) {
+set_transaction(string id, vector<Input> list_input, vector<Output> list_output) {
 	this->set_id(id);
 	this->set_inputs(list_input);
 	this->set_outputs(list_output);
@@ -37,13 +37,13 @@ set_id(string id) {
 }
 
 void Transaction::
-set_inputs(list<Input> list_input) {
+set_inputs(vector<Input> list_input) {
 	this->inputs = list_input;
 }
 
 
 void Transaction::
-set_outputs(list<Output> list_output) {
+set_outputs(vector<Output> list_output) {
 	this->outputs = list_output;
 }
 
@@ -53,12 +53,12 @@ get_id(void) const {
 	return this->id;
 }
 
-list<Input> Transaction::
+vector<Input> Transaction::
 get_inputs(void) const {
 	return this->inputs;
 }
 
-list<Output> Transaction::
+vector<Output> Transaction::
 get_outputs(void) const {
 	return this->outputs;
 }

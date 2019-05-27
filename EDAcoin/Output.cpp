@@ -3,21 +3,14 @@
 
 //builders
 Output::
-Output()
-{
-	this->amount = 0;
+Output(json json_output) {
+
+	this->id_output = string(json_output["publicKey"]);
+	this->amount = stod(string(json_output["EDACoins"]));
+	
 }
 
-Output::
-Output(string ID, double amount) {
 
-	this->set_output(ID, amount);
-}
-
-Output::
-Output(const Output& copy) {
-	this->set_output(copy.id_output, copy.amount);
-}
 
 //destroyers
 Output::

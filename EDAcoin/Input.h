@@ -4,16 +4,16 @@
 #include <string>
 #include <vector>
 
+#include <nlohmann/json.hpp>
 using namespace std;
+using json = nlohmann::json;
 
 class Input {
 
 public:
 
 	//builders
-	Input();
-	Input(string tx_id, string block_id);
-	Input(const Input& copy);
+	Input(json json_input);
 	
 	//destroyers
 	~Input();
