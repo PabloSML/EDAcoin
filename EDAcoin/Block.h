@@ -6,13 +6,15 @@
 //#include "Transaction.h"
 #include <nlohmann/json.hpp>
 #include "ImageDescriptor.h"
-#include "Node.h"
+#include "Definitions.h"
 
 using namespace std;
 using json = nlohmann::json;
 
-
-
+typedef struct {		// estructura de blockHeader por si sirve
+	string blockID;
+	unsigned long merkleRoot;
+}blockHeader;
 
 class Block : public ImageDescriptor {
 public:

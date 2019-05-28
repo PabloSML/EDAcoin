@@ -2,6 +2,7 @@
 #include "Node.h"
 #include "FullNode.h"
 #include "EDAMerkleBlock.h"
+#include "Definitions.h"
 
 class SPVNode : public Node {
 public:

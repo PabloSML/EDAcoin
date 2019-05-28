@@ -1,7 +1,7 @@
 #include "SPVNode.h"
 
 void 
-SPVNode::notify(EDAMerkleBlock merkleBlock)
+SPVNode::notify(EdaMerkleBlockS merkleBlock)
 {
 
 }

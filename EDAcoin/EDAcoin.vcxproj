@@ -124,35 +124,27 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Definitions.h" />
-    <ClInclude Include="EDAMerkleBlock.h" />
     <ClInclude Include="FullNode.h" />
     <ClInclude Include="ImageDescriptor.h" />
     <ClInclude Include="ImagesManager.h" />
-    <ClInclude Include="Input.h" />
     <ClInclude Include="Labels.h" />
     <ClInclude Include="MerkleNode.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="Output.h" />
     <ClInclude Include="SPVNode.h" />
     <ClInclude Include="Supervisor.h" />
-    <ClInclude Include="Transaction.h" />
     <ClInclude Include="Viewer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="EDAMerkleBlock.cpp" />
     <ClCompile Include="FullNode.cpp" />
     <ClCompile Include="ImageDescriptor.cpp" />
     <ClCompile Include="ImagesManager.cpp" />
-    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MerkleNode.cpp" />
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Output.cpp" />
     <ClCompile Include="SPVNode.cpp" />
     <ClCompile Include="Supervisor.cpp" />
-    <ClCompile Include="Transaction.cpp" />
     <ClCompile Include="Viewer.cpp" />
   </ItemGroup>
   <ItemGroup>

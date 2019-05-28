@@ -6,6 +6,7 @@
 #include "MerkleNode.h"
 #include <nlohmann/json.hpp>
 #include <vector>
+#include "Definitions.h"
 
 using namespace std;
 using json = nlohmann::json;
