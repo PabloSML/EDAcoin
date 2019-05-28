@@ -91,7 +91,34 @@ FullNode::getNextHeader()
 void
 FullNode::sendInfo2Spv()
 {
-
+	vector<Block>::iterator bChainItr = blockChain.end();
+	bChainItr--;
+	vector<TransactionS> allTrans = bChainItr->get_transactions();	// obtiene las transacciones del ultimo bloque agregado
+	for (SPVNode* s : filters)
+	{
+		vector<TransactionS> spvTrans;
+		string spvID = s->getNodeID();
+		for (TransactionS t : allTrans)
+		{
+			string txActor = t.txActor;
+			if (txActor == spvID)
+				spvTrans.push_back(t);
+			else
+			{
+				int outputCount = t.outputs.size();
+				bool done = false;
+				for (int i = 0; i < outputCount && !done; i++)
+				{
+					if (t.outputs[i].publicID == spvID)
+					{
+						done = true;
+						spvTrans.push_back(t);
+					}
+				}
+			}
+		}
+		// aca habria que hacer el merkleBlock y mandarlo (ya esta la lista de tx que involucra al spv)
+	}
 }
 
 void 
