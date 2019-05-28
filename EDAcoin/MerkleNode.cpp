@@ -22,6 +22,7 @@ void buildMerkleTree(MerkleNode* root, int currentLevel, int finalLevel, vector<
 
 string createNodeID(MerkleNode* root)
 {
+	string returnStr = string("");
 	if (root != NULL)
 	{
 		MerkleNode* left = root->getLeft();
@@ -29,12 +30,28 @@ string createNodeID(MerkleNode* root)
 
 		if (left->isLeaf() && right->isLeaf())
 		{
+			string tempStrID = left->getNodeID() + right->getNodeID();
+			const unsigned char* tempCStrID = (const unsigned char*)tempStrID.c_str();
+			unsigned long numID = generateID(tempCStrID);
+			returnStr = to_string(numID);
+		}
+		else
+		{
+			string leftNodeID = createNodeID(left);
+			string rightNodeID = createNodeID(right);
+			left->setNodeID(leftNodeID);
+			right->setNodeID(rightNodeID);
 
+			string tempStrID = leftNodeID + rightNodeID;
+			const unsigned char* tempCStrID = (const unsigned char*)tempStrID.c_str();
+			unsigned long numID = generateID(tempCStrID);
+			returnStr = to_string(numID);
 		}
 	}
+	return returnStr;
 }
 
-static unsigned long generateID(unsigned char* str)
+static unsigned long generateID(const unsigned char* str)
 {
 	unsigned long ID = 0;
 	int c;

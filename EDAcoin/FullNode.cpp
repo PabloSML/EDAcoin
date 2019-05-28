@@ -54,6 +54,8 @@ FullNode::recieveBlock(json& jsonBlock)
 	
 	MerkleNode* root = new MerkleNode;
 	buildMerkleTree(root, 0, log(txsCount) / log(2), txIDs, currentLeaf);
+	string rootID = createNodeID(root);
+	root->setNodeID(rootID);
 	merkleTrees.push_back(root);
 
 }
