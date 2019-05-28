@@ -22,23 +22,23 @@ typedef struct {
 	vector<OutputS> outputs;
 }TransactionS;
 
-typedef struct {
+/*typedef struct {
 	unsigned long merkleRoot;
 	string blockID;
 	unsigned int txCount;
 	vector<TransactionS> transactions;
-}BlockS;
+}BlockS;*/
 
-typedef struct {		// estructura de blockHeader por si sirve
+/*typedef struct {		// estructura de blockHeader por si sirve
 	string blockID;
 	unsigned long merkleRoot;
-}blockHeader;
+}blockHeader;*/
 
 typedef struct {
 	unsigned int txCount;
 	vector<TransactionS> transactions;
 	unsigned int merklePathLen;
-	json merklePath;
+	vector<Step> merklePath;
 	string blockID;
 }EdaMerkleBlockS;
 

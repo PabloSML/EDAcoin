@@ -52,6 +52,41 @@ string createNodeID(MerkleNode* root)
 	return returnStr;
 }
 
+bool buildMerklePath(MerkleNode* root, string& txID, vector<Step>& path)
+{
+	if (root != NULL)
+	{
+		if (root->isLeaf())
+		{
+			if (root->getNodeID() == txID)
+				return true;
+			else
+				return false;
+		}
+		else
+		{
+			MerkleNode* left = root->getLeft();
+			MerkleNode* right = root->getRight();
+
+			bool isLeft = buildMerklePath(left, txID, path);
+			bool isRight = buildMerklePath(right, txID, path);
+
+			if (isLeft)
+			{
+				string tempID = right->getNodeID();
+				Step tempStep(tempID, RIGHT);
+				path.push_back(tempStep);
+			}
+			if (isRight)
+			{
+				string tempID = left->getNodeID();
+				Step tempStep(tempID, LEFT);
+				path.push_back(tempStep);
+			}
+		}
+	}
+}
+
 unsigned long generateID(const unsigned char* str)
 {
 	unsigned long ID = 0;
