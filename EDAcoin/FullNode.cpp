@@ -41,6 +41,8 @@ FullNode::dettachConnection(Node* connection)
 void 
 FullNode::recieveBlock(json& jsonBlock)
 {
+	string blockID = string(jsonBlock[LABEL_BLOCK_BLOCK_ID]);
+
 	vector<TransactionS> transactions;
 	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];
 	unsigned int txsCount = (unsigned int) jsonTxs.size();
@@ -57,7 +59,13 @@ FullNode::recieveBlock(json& jsonBlock)
 	string rootID = createNodeID(root);
 	root->setNodeID(rootID);
 	merkleTrees.push_back(root);
+	
+	const unsigned char* tempCStr = (const unsigned char*)rootID.c_str();
+	unsigned long numID = generateID(tempCStr);
 
+	Block newBlock(blockID, numID, txsCount, transactions);
+
+	blockChain.push_back(newBlock);
 }
 void
 FullNode::requestLatestHeader()
@@ -83,7 +91,34 @@ FullNode::getNextHeader()
 void
 FullNode::sendInfo2Spv()
 {
-
+	vector<Block>::iterator bChainItr = blockChain.end();
+	bChainItr--;
+	vector<TransactionS> allTrans = bChainItr->get_transactions();	// obtiene las transacciones del ultimo bloque agregado
+	for (SPVNode* s : filters)
+	{
+		vector<TransactionS> spvTrans;
+		string spvID = s->getNodeID();
+		for (TransactionS t : allTrans)
+		{
+			string txActor = t.txActor;
+			if (txActor == spvID)
+				spvTrans.push_back(t);
+			else
+			{
+				int outputCount = t.outputs.size();
+				bool done = false;
+				for (int i = 0; i < outputCount && !done; i++)
+				{
+					if (t.outputs[i].publicID == spvID)
+					{
+						done = true;
+						spvTrans.push_back(t);
+					}
+				}
+			}
+		}
+		// aca habria que hacer el merkleBlock y mandarlo (ya esta la lista de tx que involucra al spv)
+	}
 }
 
 void 

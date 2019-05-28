@@ -29,6 +29,7 @@ public:
 
 	void sendInfo2Spv();
 private:
+	vector<Block> blockChain;
 	list<SPVNode*> filters;
 	vector<MerkleNode*> merkleTrees;
 
