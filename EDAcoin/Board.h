@@ -31,7 +31,7 @@ class board
 		void set_image_size(unsigned int sizeX_, unsigned int sizeY_);
 		void set_button_size(unsigned int botonSizeX, unsigned int botonSizeY);
 
-		vector <ImageDescriptor> & get_images(void);
+		vector <ImageDescriptor> & get_block_images(void);
 		vector <ImageDescriptor> & get_buttons(void);
 
 		int get_size_x(void);

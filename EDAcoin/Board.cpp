@@ -149,7 +149,7 @@ void board::set_button_size(unsigned int button_size_x, unsigned int button_size
 }
 
 //listo
-vector <ImageDescriptor> & board::get_images(void)
+vector <ImageDescriptor> & board::get_block_images(void)
 {
 	return (this->blocks_images);
 }

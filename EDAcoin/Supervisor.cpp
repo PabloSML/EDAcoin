@@ -73,7 +73,7 @@ void supervisor::dispatcher(viewer& viewer, board& board)
 	ALLEGRO_EVENT ev;
 	al_get_next_event(ev_queue, &ev);
 	unsigned int key_pressed;
-	std::vector<ImageDescriptor> & vector_images = board.get_images();
+	std::vector<ImageDescriptor> & vector_images = board.get_block_images();
 
 	switch (ev.type)
 	{
@@ -97,9 +97,20 @@ void supervisor::dispatcher(viewer& viewer, board& board)
 
 			key_pressed = ev.keyboard.keycode - ALLEGRO_KEY_1;
 
-			vector_images = board.get_images();
+			vector_images = board.get_block_images();
 
-			#error "aca hay que poner la funcion que muestre ese merkle tree"
+			for (unsigned int i = 0; (i < vector_images.size()); i++)
+			{
+				if ((vector_images[i]).is_select())
+				{
+					#error "aca hay que poner la funcion que muestre ese merkle tree"
+
+					(vector_images)[i].toggle_selection();
+					found_touched = true;
+
+				}
+			}
+
 
 			(vector_images)[key_pressed].toggle_selection();
 
