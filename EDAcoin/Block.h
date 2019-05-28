@@ -1,8 +1,11 @@
 #pragma once
+
 #include <string>
 #include <vector>
 #include "Transaction.h"
 #include <nlohmann/json.hpp>
+#include "ImageDescriptor.h"
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -11,7 +14,7 @@ typedef struct {		// estructura de blockHeader por si sirve
 	unsigned long merkleRoot;
 }blockHeader;
 
-class Block {
+class Block : public ImageDescriptor {
 public:
 	Block(json& jsonBlock);
 	~Block(){}

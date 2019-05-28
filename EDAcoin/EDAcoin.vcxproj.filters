@@ -28,6 +28,21 @@
     <ClCompile Include="EDAMerkleBlock.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="ImageDescriptor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImagesManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Supervisor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -55,6 +70,24 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Labels.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageDescriptor.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ImagesManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Supervisor.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Definitions.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
