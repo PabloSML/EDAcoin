@@ -28,6 +28,9 @@
     <ClCompile Include="EDAMerkleBlock.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="MerkleNode.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -57,9 +60,9 @@
     <ClInclude Include="Labels.h">
       <Filter>Headers</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ClInclude Include="MerkleNode.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -68,5 +71,8 @@
     <Filter Include="Headers">
       <UniqueIdentifier>{51d07e5f-bf3b-4889-96d3-5db9ea5a17e0}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

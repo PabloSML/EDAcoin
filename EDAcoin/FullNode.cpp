@@ -1,4 +1,5 @@
 #include "FullNode.h"
+#include "Labels.h"
 
 void
 FullNode::attachConnection(Node* connection)
@@ -40,6 +41,20 @@ FullNode::dettachConnection(Node* connection)
 void 
 FullNode::recieveBlock(json& jsonBlock)
 {
+	vector<TransactionS> transactions;
+	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];
+	unsigned int txsCount = jsonTxs.size();
+
+	buildTxList(transactions, jsonTxs, txsCount);
+
+	vector<string> txIDs;
+	for (TransactionS t : transactions)
+		txIDs.push_back(t.txID);
+	int currentLeaf = 0;
+	
+	MerkleNode* root = new MerkleNode;
+	buildMerkleTree(root, 0, log(txsCount) / log(2), txIDs, currentLeaf);
+	merkleTrees.push_back(root);
 
 }
 void
@@ -67,4 +82,36 @@ void
 FullNode::sendInfo2Spv()
 {
 
+}
+
+void 
+FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int& txsCount)
+{
+	for (unsigned int i = 0; i < txsCount; i++)
+	{
+		TransactionS tempTx;
+		unsigned int inputCount = jsonTxs[LABEL_TXS_INPUT].size();
+		unsigned int outputCount = jsonTxs[LABEL_TXS_OUTPUT].size();
+
+		tempTx.txID = string(jsonTxs[LABEL_TXS_TXID]);
+		tempTx.txActor = string(jsonTxs[LABEL_TXS_TXACTOR]);
+
+		for (unsigned int j = 0; j < inputCount; j++)
+		{
+			InputS tempInput;
+			tempInput.blockID = string(jsonTxs[LABEL_TXS_INPUT][j][LABEL_INPUT_BLOCK_ID]);
+			tempInput.txID = string(jsonTxs[LABEL_TXS_INPUT][j][LABEL_INPUT_TX_ID]);
+			tempTx.inputs.push_back(tempInput);
+		}
+		
+		for (unsigned int j = 0; j < outputCount; j++)
+		{
+			OutputS tempOutput;
+			tempOutput.publicID = string(jsonTxs[LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_ID]);
+			tempOutput.amount = stoi(string(jsonTxs[LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_AMOUNT]));
+			tempTx.outputs.push_back(tempOutput);
+		}
+
+		transactions.push_back(tempTx);
+	}
 }

@@ -1,7 +1,10 @@
 #pragma once
 #include "Node.h"
 #include "SPVNode.h"
+#include "MerkleNode.h"
 #include <nlohmann/json.hpp>
+#include <vector>
+using namespace std;
 using json = nlohmann::json;
 
 class SPVNode; // para que compile
@@ -13,6 +16,7 @@ public:
 	~FullNode(){}
 
 	void recieveBlock(json& jsonBlock);
+
 	void requestLatestHeader();
 	void requestHeaderCount();
 	void requestHeader(int num);
@@ -26,4 +30,7 @@ public:
 	void sendInfo2Spv();
 private:
 	list<SPVNode*> filters;
+	vector<MerkleNode*> merkleTrees;
+
+	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int& txsCount);
 };
