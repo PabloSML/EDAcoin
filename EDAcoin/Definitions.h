@@ -3,6 +3,10 @@
 
 #include "allegro5/allegro.h"
 #include "allegro5/color.h"
+#include <string>
+#include <vector>
+#include "MerkleNode.h"
+using namespace std;
 
 #define WIDTH_DEFAULT			1000
 #define HEIGHT_DEFAULT			600
@@ -28,5 +32,30 @@
 #define NODE_FONT_PATH			"Font.ttf"
 #define NODE_FONT_COLOR			"red"
 #define NODE_FONT_SIZE			8
+
+typedef struct {
+	string blockID;
+	string txID;
+}InputS;
+
+typedef struct {
+	string publicID;
+	unsigned int amount;
+}OutputS;
+
+typedef struct {
+	string txID;
+	string txActor; // seria el nombre de quien hace la tx. (provisional)
+	vector<InputS> inputs;
+	vector<OutputS> outputs;
+}TransactionS;
+
+typedef struct {
+	unsigned int txCount;
+	vector<TransactionS> transactions;
+	unsigned int merklePathLen;
+	vector<Step> merklePath;
+	string blockID;
+}EdaMerkleBlockS;
 
 #endif // !DEFINITIONS_H

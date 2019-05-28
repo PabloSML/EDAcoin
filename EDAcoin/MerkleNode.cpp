@@ -85,6 +85,7 @@ bool buildMerklePath(MerkleNode* root, string& txID, vector<Step>& path)
 			}
 		}
 	}
+	return true;
 }
 
 unsigned long generateID(const unsigned char* str)
