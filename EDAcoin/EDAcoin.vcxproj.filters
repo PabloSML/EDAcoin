@@ -28,19 +28,7 @@
     <ClCompile Include="EDAMerkleBlock.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="ImageDescriptor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="ImagesManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Supervisor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Viewer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Board.cpp">
+    <ClCompile Include="MerkleNode.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,27 +60,9 @@
     <ClInclude Include="Labels.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="ImageDescriptor.h">
+    <ClInclude Include="MerkleNode.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="ImagesManager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Supervisor.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Viewer.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Board.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Definitions.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -101,5 +71,8 @@
     <Filter Include="Headers">
       <UniqueIdentifier>{51d07e5f-bf3b-4889-96d3-5db9ea5a17e0}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

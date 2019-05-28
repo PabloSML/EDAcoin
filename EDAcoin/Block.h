@@ -9,10 +9,12 @@
 using namespace std;
 using json = nlohmann::json;
 
+/*
 typedef struct {		// estructura de blockHeader por si sirve
 	string blockID;
 	unsigned long merkleRoot;
 }blockHeader;
+*/
 
 class Block : public ImageDescriptor {
 public:
