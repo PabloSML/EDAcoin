@@ -30,3 +30,4 @@ private:
 
 void buildMerkleTree(MerkleNode* root, int currentLevel, int finalLevel, vector<string>& txIDs, int& currentLeaf);
 string createNodeID(MerkleNode* root);
+unsigned long generateID(const unsigned char* str);

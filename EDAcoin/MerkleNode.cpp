@@ -51,7 +51,7 @@ string createNodeID(MerkleNode* root)
 	return returnStr;
 }
 
-static unsigned long generateID(const unsigned char* str)
+unsigned long generateID(const unsigned char* str)
 {
 	unsigned long ID = 0;
 	int c;

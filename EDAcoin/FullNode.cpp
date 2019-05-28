@@ -41,6 +41,8 @@ FullNode::dettachConnection(Node* connection)
 void 
 FullNode::recieveBlock(json& jsonBlock)
 {
+	string blockID = string(jsonBlock[LABEL_BLOCK_BLOCK_ID]);
+
 	vector<TransactionS> transactions;
 	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];
 	unsigned int txsCount = jsonTxs.size();
@@ -57,7 +59,13 @@ FullNode::recieveBlock(json& jsonBlock)
 	string rootID = createNodeID(root);
 	root->setNodeID(rootID);
 	merkleTrees.push_back(root);
+	
+	const unsigned char* tempCStr = (const unsigned char*)rootID.c_str();
+	unsigned long numID = generateID(tempCStr);
 
+	Block newBlock(blockID, numID, txsCount, transactions);
+
+	blockChain.push_back(newBlock);
 }
 void
 FullNode::requestLatestHeader()
