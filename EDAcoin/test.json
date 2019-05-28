@@ -1,0 +1,86 @@
+[
+  {
+    "BlockID": "A",
+    "MerkleRoot": "??",
+    "TxsCount": "2",
+    "Txs": [
+      {
+        "TxID": "1",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "aa"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+      },
+      {
+        "TxID": "8",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      }
+    ]
+  },
+  {
+    "BlockID": "S",
+    "MerkleRoot": "??",
+    "TxsCount": "2",
+    "Txs": [
+      {
+        "TxID": "5",
+        "input": [
+          {
+            "BlockID": "S",
+            "TxID": "a2a"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+      },
+      {
+        "TxID": "4",
+        "input": [
+          {
+            "BlockID": "S",
+            "TxID": "a3"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      }
+    ]
+  }
+
+
+
+
+]

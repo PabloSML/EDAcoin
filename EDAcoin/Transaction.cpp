@@ -6,7 +6,7 @@
 Transaction::
 Transaction(json json_transaction) {
 
-	this->id = string(json_transaction[LABEL_TXS_TXID]);
+	this->id = json_transaction[LABEL_TXS_TXID].get<string>();
 
 	for (int i = 0; i < (json_transaction[LABEL_TXS_INPUT]).size(); i++)
 	{

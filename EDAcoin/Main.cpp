@@ -3,6 +3,21 @@
 #include <nlohmann/json.hpp>
 #include "FullNode.h"
 #include "SPVNode.h"
+#include <windows.h>
+
+
+
+#include <vector>
+#include <allegro5\allegro.h>
+#include "Supervisor.h"
+#include "Board.h"
+#include "Viewer.h"
+#include "Definitions.h"
+
+
+void display_stuff(json& blockChainJson, vector<MerkleNode *> merkle_trees);
+
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -22,6 +37,8 @@ int main()
 	s1.attachConnection(&f1);
 	s1.attachConnection(&f2);
 
+
+	vector<MerkleNode *> merkleTrees;
 	json blockChainJson;
 
 	if (getBlockChainJson(&blockChainJson, "test.json"))
@@ -36,13 +53,91 @@ int main()
 			f2.sendInfo2Spv();
 			s1.pullHeaderfromFullNode();
 
-			_sleep(TEN_SEC);
+			merkleTrees = f1.get_merkle_trees();
+
+			Sleep(TEN_SEC);
 		}
-		// magic stuff (display stuff)
+		
+		display_stuff(blockChainJson, merkleTrees);
+
 	}
 
 	return 0;
 }
+
+void display_stuff(json& blockChainJson, vector<MerkleNode *> merkle_trees)
+{
+	//bloques
+
+	bool all_ok = true;
+	
+
+	if (!al_init())
+	{
+		cout << "Allegro Failed to initialize" << endl;
+	}
+	else
+	{
+
+		viewer view;
+
+		vector<ImageDescriptor> block_images;
+		vector<ImageDescriptor> buttons;
+
+		for (int i = 0; i < ((int)blockChainJson.size()); i++)
+		{
+			ImageDescriptor image(IMAGE_BLOCK_PATH); //init de todas las imagenes
+			block_images.push_back(image);
+			
+		}
+
+	
+		ImageDescriptor button_left(PATH_BUTTON_LEFT); //init de los botones
+		ImageDescriptor button_right(PATH_BUTTON_RIGHT);
+
+		buttons.push_back(button_left);
+		buttons.push_back(button_right);
+
+		board boar(WIDTH_DEFAULT, HEIGHT_DEFAULT, block_images, buttons, merkle_trees);
+
+		if (boar.is_images_error())
+		{
+			cout << "Image initialization Failed" << endl;
+			all_ok = ERROR;
+		}
+
+		boar.set_image_size(IMAGE_SIZE_X, IMAGE_SIZE_Y);
+
+		boar.refresh();
+
+		view.update_display(boar);
+
+		al_set_target_backbuffer(view.get_display());
+
+		al_flip_display();
+
+		if (!(view.is_init()))
+		{
+			cout << "Viewer Failed to initialize" << endl;
+			all_ok = ERROR;
+		}
+
+		supervisor superv(view);
+
+		while (!(superv.is_finish()))
+		{
+			superv.dispatcher(view, boar);
+		}
+
+		block_images.erase(block_images.begin());
+		buttons.erase(buttons.begin());
+	}
+
+
+
+}
+
+
 
 bool getBlockChainJson(json* dest, const char* file)
 {

@@ -4,8 +4,8 @@
 //builders
 Output::
 Output(json json_output) {
-	this->id_output = string(json_output[LABEL_OUTPUT_ID]);
-	this->amount = stod(string(json_output[LABEL_OUTPUT_AMOUNT]));
+	this->id_output = json_output[LABEL_OUTPUT_ID].get<string>();
+	this->amount = stod(json_output[LABEL_OUTPUT_AMOUNT].get<string>());
 }
 
 

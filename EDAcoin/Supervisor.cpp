@@ -5,7 +5,7 @@
 
 //auxiliar function
 void refresh_display(viewer& viewer_, board& board_);
-bool draw_merkle_tree(MerkleNode & merkleRoot, ALLEGRO_DISPLAY * * new_display);
+bool draw_merkle_tree(MerkleNode * merkleRoot, ALLEGRO_DISPLAY * * new_display);
 
 void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
 	unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font);
@@ -13,7 +13,7 @@ void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int l
 unsigned int get_depth_tree(MerkleNode * merkle_root);
 
 //listo
-supervisor::supervisor(viewer& viewer, double threshold)
+supervisor::supervisor(viewer& viewer)
 {
 	this->init = true;
 	this->finish = false;
@@ -79,7 +79,7 @@ void supervisor::dispatcher(viewer& viewer, board& board)
 	al_get_next_event(ev_queue, &ev);
 	unsigned int key_pressed;
 	std::vector<ImageDescriptor> & vector_images = board.get_block_images();
-	std::vector<MerkleNode> & merkleTrees = board.get_merkle_trees();
+	std::vector<MerkleNode *> & merkleTrees = board.get_merkle_trees();
 
 	switch (ev.type)
 	{
@@ -185,7 +185,7 @@ void refresh_display(viewer& viewer_, board& board_)
 	al_flip_display();
 }
 
-bool draw_merkle_tree(MerkleNode & merkleRoot, ALLEGRO_DISPLAY * * new_display)
+bool draw_merkle_tree(MerkleNode * merkleRoot, ALLEGRO_DISPLAY * * new_display)
 {
 	bool all_ok = true;
 
@@ -197,7 +197,7 @@ bool draw_merkle_tree(MerkleNode & merkleRoot, ALLEGRO_DISPLAY * * new_display)
 		return all_ok;
 	}
 
-	unsigned int depth_tree = get_depth_tree(&merkleRoot);
+	unsigned int depth_tree = get_depth_tree(merkleRoot);
 	unsigned int level = 0;
 	unsigned int root_pos_y = HEIGHT_DEFAULT / depth_tree;
 	unsigned int root_pos_x = WIDTH_DEFAULT / 2;
@@ -211,7 +211,7 @@ bool draw_merkle_tree(MerkleNode & merkleRoot, ALLEGRO_DISPLAY * * new_display)
 		return all_ok;
 	}
 		
-	draw_nodes(&merkleRoot, root_pos_x, root_pos_y, depth_tree, level + 1, WIDTH_DEFAULT, HEIGHT_DEFAULT, font_nodes);
+	draw_nodes(merkleRoot, root_pos_x, root_pos_y, depth_tree, level + 1, WIDTH_DEFAULT, HEIGHT_DEFAULT, font_nodes);
 
 	return all_ok; //true
 

@@ -23,7 +23,7 @@ public:
 	//getters
 	unsigned int get_cant_transactions(void);
 	list<string> get_transactions_ID(void);
-	list<Transaction> get_transactions(void);
+	list<TransactionS> get_transactions(void);
 	list<unsigned int> get_merkle_path_lenght(void);
 	list<json> get_merkle_path(void);
 	string get_merkle_block_id(void);
@@ -37,7 +37,7 @@ private:
 
 	unsigned int cant_transactions;
 	list<string> transactions_ID;
-	list<Transaction> transactions;
+	list<TransactionS> transactions;
 	list<unsigned int> merkle_path_lenght;
 	list<json> merkle_path; 
 	string merkle_block_id;

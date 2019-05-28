@@ -5,8 +5,8 @@
 Input::
 Input(json json_input) {
 
-	this->block_id = string(json_input[LABEL_INPUT_BLOCK_ID]);
-	this->transaction_id = string(json_input[LABEL_INPUT_TX_ID]);
+	this->block_id = json_input[LABEL_INPUT_BLOCK_ID].get<string>();
+	this->transaction_id = json_input[LABEL_INPUT_TX_ID].get<string>();
 
 }
 

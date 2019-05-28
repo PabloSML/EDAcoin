@@ -21,7 +21,7 @@
 class board
 {
 	public:
-		board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons, vector<MerkleNode> merkleTrees);
+		board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons, vector<MerkleNode *> merkleTrees);
 		~board();
 
 		void refresh(void);
@@ -46,9 +46,9 @@ class board
 
 		bool is_images_error(void);
 
-		vector<MerkleNode> & get_merkle_trees(void);
+		vector<MerkleNode*> & get_merkle_trees(void);
 		
-		void set_merkle_trees(vector<MerkleNode> & new_merkle_trees);
+		void set_merkle_trees(vector<MerkleNode *> & new_merkle_trees);
 		void set_blocks_images(vector<ImageDescriptor> & new_blocks_images);
 
 
@@ -57,7 +57,7 @@ class board
 
 		vector<ImageDescriptor> blocks_images;
 		vector<ImageDescriptor> buttons;
-		vector<MerkleNode> merkleTrees;
+		vector<MerkleNode *> merkleTrees;
 
 		unsigned int image_size_x; //tamaño de cada image
 		unsigned int image_size_y;

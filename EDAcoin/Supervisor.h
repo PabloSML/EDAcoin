@@ -11,7 +11,7 @@
 
 class supervisor {
 public:
-	supervisor(viewer& viewer, double threshold);
+	supervisor(viewer& viewer);
 	~supervisor();
 
 	void dispatcher(viewer& viewer, board& board);

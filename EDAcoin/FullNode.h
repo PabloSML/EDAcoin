@@ -1,9 +1,12 @@
 #pragma once
+
+#include "Block.h"
 #include "Node.h"
 #include "SPVNode.h"
 #include "MerkleNode.h"
 #include <nlohmann/json.hpp>
 #include <vector>
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -26,6 +29,8 @@ public:
 	virtual void dettachConnection(Node* connection);
 
 	virtual Node* getFilter(void) { return nullptr; }
+
+	vector<MerkleNode*> get_merkle_trees(void);
 
 	void sendInfo2Spv();
 private:

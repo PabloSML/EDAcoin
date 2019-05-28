@@ -1,6 +1,9 @@
 #include "EDAMerkleBlock.h"
 
-
+//auxiliar functions
+bool does_appear_ID(TransactionS * tx, string ID_node);
+bool is_transaction_id(InputS * input, string transaction_id);
+bool is_output_id(OutputS * output, string output_id);
 
 EDAMerkleBlock::
 EDAMerkleBlock(Block& block, string ID_node)
@@ -31,7 +34,7 @@ get_transactions_ID(void) {
 }
 
 
-list<Transaction> EDAMerkleBlock::
+list<TransactionS> EDAMerkleBlock::
 get_transactions(void) {
 	return this->transactions;
 }
@@ -62,9 +65,10 @@ set_transactions(Block& block, string ID_node)
 
 	for (unsigned int tx = 0; tx < max_cant; tx++)
 	{
-		Transaction temp_tx = (block.get_transactions())[tx];
+		
+		TransactionS temp_tx = (block.get_transactions())[tx];
 
-		if (temp_tx.does_appear_ID(ID_node))
+		if (does_appear_ID(&temp_tx,ID_node))
 		{
 			(this->transactions).push_back(temp_tx);
 		}
@@ -79,9 +83,9 @@ set_transactions_ID(Block& block, string ID_node)
 
 	for (unsigned int tx = 0; tx < max_cant; tx++)
 	{
-		Transaction temp_tx = (block.get_transactions())[tx];
+		TransactionS temp_tx = (block.get_transactions())[tx];
 
-		if (temp_tx.does_appear_ID(ID_node))
+		if (does_appear_ID(&temp_tx,ID_node))
 		{
 			(this->transactions_ID).push_back(ID_node);
 		}
@@ -96,9 +100,9 @@ set_cant_transactions(Block& block, string ID_node)
 
 	for (unsigned int tx = 0; tx < max_cant; tx++)
 	{
-		Transaction temp_tx = (block.get_transactions())[tx];
+		TransactionS temp_tx = (block.get_transactions())[tx];
 
-		if (temp_tx.does_appear_ID(ID_node))
+		if (does_appear_ID(&temp_tx,ID_node))
 		{
 			(this->cant_transactions)++;
 		}
@@ -109,3 +113,62 @@ set_cant_transactions(Block& block, string ID_node)
 
 
 
+
+bool 
+does_appear_ID(TransactionS * tx, string ID_node)
+{
+	bool appear_ID = false;
+
+	vector<InputS> temp_inputs = tx->inputs;
+	vector<OutputS> temp_outputs = tx->outputs;
+
+	unsigned int cant_inputs_tx_i = (unsigned int)temp_inputs.size();
+	unsigned int cant_outputs_tx_i = (unsigned int)temp_outputs.size();
+
+
+	for (unsigned int input = 0; (input < cant_inputs_tx_i) && (!appear_ID); input++)
+	{
+		if (is_transaction_id(&(temp_inputs[input]), ID_node))
+		{
+			appear_ID = true;
+		}
+	}
+
+
+	for (unsigned int output = 0; (output < cant_outputs_tx_i) && (!appear_ID); output++)
+	{
+		if (is_output_id(&(temp_outputs[output]),ID_node))
+		{
+			appear_ID = true;
+		}
+	}
+
+	return appear_ID;
+
+}
+
+bool
+is_transaction_id(InputS * input, string transaction_id)
+{
+	bool is_id_bool = false;
+
+	if (!((input->blockID).compare(transaction_id)))
+	{
+		is_id_bool = true;
+	}
+
+	return is_id_bool;
+}
+
+bool
+is_output_id(OutputS * output, string output_id)
+{
+	bool is_id_bool = false;
+
+	if (!((output->publicID).compare(output_id)))
+	{
+		is_id_bool = true;
+	}
+
+	return is_id_bool;
+}

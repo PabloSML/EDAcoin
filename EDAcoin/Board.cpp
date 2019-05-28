@@ -4,7 +4,7 @@
 
 
 //listo
-board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons, vector<MerkleNode> merkleTrees)
+board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons, vector<MerkleNode *> merkleTrees)
 {
 	this->width = width;
 	this->height = height;
@@ -213,12 +213,12 @@ bool board::is_images_error(void)
 	return error;
 }
 
-vector<MerkleNode> & board::get_merkle_trees(void)
+vector<MerkleNode *> & board::get_merkle_trees(void)
 {
 	return (this->merkleTrees);
 }
 
-void board::set_merkle_trees(vector<MerkleNode> & new_merkle_trees)
+void board::set_merkle_trees(vector<MerkleNode *> & new_merkle_trees)
 {
 	this->merkleTrees = new_merkle_trees;
 }

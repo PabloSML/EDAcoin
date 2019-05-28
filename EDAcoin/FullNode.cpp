@@ -41,7 +41,7 @@ FullNode::dettachConnection(Node* connection)
 void 
 FullNode::recieveBlock(json& jsonBlock)
 {
-	string blockID = string(jsonBlock[LABEL_BLOCK_BLOCK_ID]);
+	string blockID = jsonBlock[LABEL_BLOCK_BLOCK_ID].get<string>();
 
 	vector<TransactionS> transactions;
 	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];
@@ -105,7 +105,7 @@ FullNode::sendInfo2Spv()
 				spvTrans.push_back(t);
 			else
 			{
-				int outputCount = t.outputs.size();
+				int outputCount = (int) t.outputs.size();
 				bool done = false;
 				for (int i = 0; i < outputCount && !done; i++)
 				{
@@ -130,25 +130,29 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 		unsigned int inputCount = (unsigned int) jsonTxs[LABEL_TXS_INPUT].size();
 		unsigned int outputCount = (unsigned int) jsonTxs[LABEL_TXS_OUTPUT].size();
 
-		tempTx.txID = string(jsonTxs[LABEL_TXS_TXID]);
-		tempTx.txActor = string(jsonTxs[LABEL_TXS_TXACTOR]);
+		tempTx.txID = jsonTxs[LABEL_TXS_TXID].get<string>();
+		tempTx.txActor = jsonTxs[LABEL_TXS_TXACTOR].get<string>();
 
 		for (unsigned int j = 0; j < inputCount; j++)
 		{
 			InputS tempInput;
-			tempInput.blockID = string(jsonTxs[LABEL_TXS_INPUT][j][LABEL_INPUT_BLOCK_ID]);
-			tempInput.txID = string(jsonTxs[LABEL_TXS_INPUT][j][LABEL_INPUT_TX_ID]);
+			tempInput.blockID = jsonTxs[LABEL_TXS_INPUT][j][LABEL_INPUT_BLOCK_ID].get<string>();
+			tempInput.txID = jsonTxs[LABEL_TXS_INPUT][j][LABEL_INPUT_TX_ID].get<string>();
 			tempTx.inputs.push_back(tempInput);
 		}
 		
 		for (unsigned int j = 0; j < outputCount; j++)
 		{
 			OutputS tempOutput;
-			tempOutput.publicID = string(jsonTxs[LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_ID]);
-			tempOutput.amount = stoi(string(jsonTxs[LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_AMOUNT]));
+			tempOutput.publicID = jsonTxs[LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_ID].get<string>();
+			tempOutput.amount = stoi(jsonTxs[LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_AMOUNT].get<string>());
 			tempTx.outputs.push_back(tempOutput);
 		}
 
 		transactions.push_back(tempTx);
 	}
+}
+
+vector<MerkleNode*> FullNode::get_merkle_trees(void) {
+	return this->merkleTrees;
 }
