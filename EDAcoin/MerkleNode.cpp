@@ -29,15 +29,15 @@ string createNodeID(MerkleNode* root)
 		MerkleNode* left = root->getLeft();
 		MerkleNode* right = root->getRight();
 
-		if (left->isLeaf() && right->isLeaf())
+		if (left->isLeaf() && right->isLeaf())		//Si left y right son nodos hoja, se concatenan los IDs y llama a la funcion generate ID. Luego se pasa en numero obtenido a un string.
 		{
 			string tempStrID = left->getNodeID() + right->getNodeID();
 			const unsigned char* tempCStrID = (const unsigned char*)tempStrID.c_str();
 			unsigned long numID = generateID(tempCStrID);
-			returnStr = to_string(numID);
+			returnStr = to_string(numID);			
 		}
 		else
-		{
+		{											//En caso contrario, se llama a la funcion en forma recursiva hasta llegar al ultimo nivel donde estan las hojas.
 			string leftNodeID = createNodeID(left);
 			string rightNodeID = createNodeID(right);
 			left->setNodeID(leftNodeID);

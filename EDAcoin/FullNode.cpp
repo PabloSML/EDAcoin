@@ -4,8 +4,8 @@
 void
 FullNode::attachConnection(Node* connection)
 {
-	connections.push_back(connection);
-	Node* temp = connection->getFilter();
+	connections.push_back(connection);		//Pone el puntero al nodo a la lista de conecciones.
+	Node* temp = connection->getFilter();	//Pide el filtro al nodo. Si es un fullnode devuelve nullptr, si es un spv node devuelve su direccion.
 	if (temp != nullptr)
 		filters.push_back((SPVNode*)connection);
 }
@@ -41,30 +41,29 @@ FullNode::dettachConnection(Node* connection)
 void 
 FullNode::recieveBlock(json& jsonBlock)
 {
-	string blockID = jsonBlock[LABEL_BLOCK_BLOCK_ID].get<string>();
+	string blockID = jsonBlock[LABEL_BLOCK_BLOCK_ID].get<string>();		//Obtengo el BlockID(string) del bloque(json) ingresado.
 
 	vector<TransactionS> transactions;
-	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];
-	unsigned int txsCount = (unsigned int) jsonTxs.size();
+	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];							//Obtengo las transacciones(json) del bloque(json) ingresado.
+	unsigned int txsCount = (unsigned int) jsonTxs.size();				//Guardo la cantidad de transacciones del bloque en una variable temporal.
 
-	buildTxList(transactions, jsonTxs, txsCount);
+	buildTxList(transactions, jsonTxs, txsCount);			//Guardo todas las transacciones en el vector de TransactionS.
 
-	vector<string> txIDs;
+	vector<string> txIDs;					//Obtengo todos los IDs de las transacciones.
 	for (TransactionS t : transactions)
 		txIDs.push_back(t.txID);
 	int currentLeaf = 0;
 	
 	MerkleNode* root = new MerkleNode;
-	buildMerkleTree(root, 0, log(txsCount) / log(2), txIDs, currentLeaf);
-	string rootID = createNodeID(root);
+	buildMerkleTree(root, 0, log(txsCount) / log(2), txIDs, currentLeaf);		//Se crea el merkle tree.
+	string rootID = createNodeID(root);											//Genera el rootID.
 	root->setNodeID(rootID);
 	merkleTrees.push_back(root);
 	
 	const unsigned char* tempCStr = (const unsigned char*)rootID.c_str();
 	unsigned long numID = generateID(tempCStr);
 
-	Block newBlock(blockID, numID, txsCount, transactions);
-
+	Block newBlock(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
 	blockChain.push_back(newBlock);
 }
 void
@@ -121,19 +120,21 @@ FullNode::sendInfo2Spv()
 	}
 }
 
+
+/*Esta funcion guarda en el vector de TransactionS todas las transacciones que estan en el json ingresado*/
 void 
 FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int& txsCount)
 {
-	for (unsigned int i = 0; i < txsCount; i++)
+	for (unsigned int i = 0; i < txsCount; i++)		//Para cada transaccion se evaluan los inputs y los outputs y se ponen en el vector de TransactionS
 	{
 		TransactionS tempTx;
-		unsigned int inputCount = (unsigned int) jsonTxs[LABEL_TXS_INPUT].size();
+		unsigned int inputCount = (unsigned int) jsonTxs[LABEL_TXS_INPUT].size();			//Guardo la cantidad de "inputs" y "outputs" en variables temporales
 		unsigned int outputCount = (unsigned int) jsonTxs[LABEL_TXS_OUTPUT].size();
 
-		tempTx.txID = jsonTxs[LABEL_TXS_TXID].get<string>();
-		tempTx.txActor = jsonTxs[LABEL_TXS_TXACTOR].get<string>();
+		tempTx.txID = jsonTxs[LABEL_TXS_TXID].get<string>();			//Guardo el ID de la transaccion dentro de la estructura de TransactionS.
+		tempTx.txActor = jsonTxs[LABEL_TXS_TXACTOR].get<string>();		//Guardo el nombre del actor dentro de la estructura de TransactionS.
 
-		for (unsigned int j = 0; j < inputCount; j++)
+		for (unsigned int j = 0; j < inputCount; j++)		//Para cada input, se obtiene el ID del bloque y de la transaccion y se ponen en el vector con todos los inputs.
 		{
 			InputS tempInput;
 			tempInput.blockID = jsonTxs[LABEL_TXS_INPUT][j][LABEL_INPUT_BLOCK_ID].get<string>();
@@ -141,7 +142,7 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 			tempTx.inputs.push_back(tempInput);
 		}
 		
-		for (unsigned int j = 0; j < outputCount; j++)
+		for (unsigned int j = 0; j < outputCount; j++)		//Para cada output, se obtiene el publicID y el monto y se ponen en el vector con todos los outputs.
 		{
 			OutputS tempOutput;
 			tempOutput.publicID = jsonTxs[LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_ID].get<string>();
