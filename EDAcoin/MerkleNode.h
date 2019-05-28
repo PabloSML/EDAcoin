@@ -3,6 +3,16 @@
 #include <vector>
 using namespace std;
 
+typedef enum {LEFT, RIGHT} direction;
+
+class Step{
+public:
+	Step(string& ID, direction dir) { this->ID = ID; this->leftOrRight = dir; }
+private:
+	string ID;
+	direction leftOrRight;
+};
+
 class MerkleNode {
 public:
 	MerkleNode(MerkleNode* left = nullptr, MerkleNode* right = nullptr)
@@ -29,5 +39,6 @@ private:
 };
 
 void buildMerkleTree(MerkleNode* root, int currentLevel, int finalLevel, vector<string>& txIDs, int& currentLeaf);
+bool buildMerklePath(MerkleNode* root, string& txID, vector<Step>& path);
 string createNodeID(MerkleNode* root);
 unsigned long generateID(const unsigned char* str);

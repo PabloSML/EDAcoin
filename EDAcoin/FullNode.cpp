@@ -92,9 +92,13 @@ FullNode::sendInfo2Spv()
 {
 	vector<Block>::iterator bChainItr = blockChain.end();
 	bChainItr--;
+	vector<MerkleNode*>::iterator mkTreeItr = merkleTrees.end();
+	mkTreeItr--;
+	MerkleNode* root = *mkTreeItr;
 	vector<TransactionS> allTrans = bChainItr->get_transactions();	// obtiene las transacciones del ultimo bloque agregado
-	for (SPVNode* s : filters)
+	for (SPVNode* s : filters)	//ejecuta el siguiente codigo por cada nodo spv conectado al full
 	{
+		EdaMerkleBlockS merkleBlock;
 		vector<TransactionS> spvTrans;
 		string spvID = s->getNodeID();
 		for (TransactionS t : allTrans)
@@ -117,6 +121,22 @@ FullNode::sendInfo2Spv()
 			}
 		}
 		// aca habria que hacer el merkleBlock y mandarlo (ya esta la lista de tx que involucra al spv)
+		unsigned int txCount = spvTrans.size();
+		if (txCount) // solo notifica al spv si hay txs que le interesen
+		{
+			string blockID = bChainItr->getBlockID();
+			vector<Step> merklePath;
+			buildMerklePath(root, spvID, merklePath);
+			unsigned int merklePathLen = merklePath.size();
+
+			merkleBlock.txCount = txCount;
+			merkleBlock.transactions = spvTrans;
+			merkleBlock.merklePathLen = merklePathLen;
+			merkleBlock.merklePath = merklePath;
+			merkleBlock.blockID = blockID;
+
+			s->notify(merkleBlock);
+		}
 	}
 }
 

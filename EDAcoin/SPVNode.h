@@ -8,7 +8,7 @@ public:
 	SPVNode(string nodeID) : Node(nodeID, string("SPV Node")){}
 	~SPVNode(){}
 
-	void notify(EDAMerkleBlock merkleBlock);
+	void notify(EdaMerkleBlockS merkleBlock); // luego recibira un json
 	void pullHeaderfromFullNode();
 
 	virtual Node* getFilter(void) { return this; }
