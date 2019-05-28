@@ -29,7 +29,6 @@ class ImageDescriptor
 public:
 	ImageDescriptor();
 	ImageDescriptor(const char * path_image);
-	ImageDescriptor(const char * path_image, int no_image);
 	~ImageDescriptor();
 
 	bool is_select(void);
@@ -44,12 +43,13 @@ public:
 	unsigned int get_heigth();
 
 	const char * get_path(void);
-	const char * get_name_file(void);
+	const char * get_image_name(void);
 	
 	ALLEGRO_BITMAP* get_bitmap(void);
 
 	bool get_error(void);
 
+	void set_image_name(string image_name);
 
 private:
 
@@ -57,7 +57,7 @@ private:
 
 	const char * path;
 
-	string file_name;
+	string image_name;
 
 	ALLEGRO_BITMAP* bitmap;
 
@@ -69,8 +69,6 @@ private:
 	unsigned int width;
 	unsigned int height;
 
-
-	string extract_name_file(const char * path_);
 };
 
 

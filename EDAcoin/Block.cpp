@@ -1,7 +1,8 @@
 #include "Block.h"
 #include "Labels.h"
+#include "Definitions.h"
 
-Block::Block(json& jsonBlock)
+Block::Block(json& jsonBlock) : ImageDescriptor(IMAGE_BLOCK_PATH)
 {
 	blockID = string(jsonBlock[LABEL_BLOCK_BLOCK_ID]);
 	merkleRoot = stol(string(jsonBlock[LABEL_BLOCK_MERKLE_ROOT]));
@@ -12,6 +13,9 @@ Block::Block(json& jsonBlock)
 		Transaction temp(jsonBlock[LABEL_BLOCK_TXS][i]);
 		transactions.push_back(temp);
 	}
+
+	this->set_image_name(this->blockID);
+
 }
 
 blockHeader
@@ -21,6 +25,7 @@ Block::getBlockHeader(void) const
 	temp.blockID = blockID;
 	temp.merkleRoot = merkleRoot;
 	return temp;
+
 }
 
 string Block::
@@ -34,3 +39,5 @@ getTxsCount(void) const { return this->txsCount; }
 
 vector<Transaction> Block::
 get_transactions(void) const { return this->transactions; }
+
+

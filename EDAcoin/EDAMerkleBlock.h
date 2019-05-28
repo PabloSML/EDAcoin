@@ -11,9 +11,6 @@
 using json = nlohmann::json;
 using namespace std;
 
-typedef void(*callback_void)(void);
-typedef void(*callback_string)(string);
-typedef void(*callback_transaction)(Transaction);
 
 class EDAMerkleBlock {
 public:
@@ -37,13 +34,6 @@ private:
 	void set_cant_transactions(Block& block, string ID_node);
 
 
-	void search_id_and_do_callback(Block& block, string ID_node, callback_void function);
-	void search_id_and_do_callback(Block& block, string ID_node, callback_string function);
-	void search_id_and_do_callback(Block& block, string ID_node, callback_transaction function);
-	
-	void increase_cant_transactions(void);
-	void push_transaction_ID(string ID);
-	void push_transaction(Transaction transaction);
 
 	unsigned int cant_transactions;
 	list<string> transactions_ID;

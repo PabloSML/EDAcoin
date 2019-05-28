@@ -4,7 +4,7 @@
 
 
 //listo
-board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons)
+board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons, vector<MerkleNode> merkleTrees)
 {
 	this->width = width;
 	this->height = height;
@@ -14,6 +14,7 @@ board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vec
 
 	this->blocks_images = blocks_images;
 	
+	this->merkleTrees = merkleTrees;
 	
 
 	(buttons[BUTTON_LEFT]).set_pos(BUTTON_SIZE_X * MARGIN_RATE, this->height - BUTTON_SIZE_Y);
@@ -212,6 +213,19 @@ bool board::is_images_error(void)
 	return error;
 }
 
+vector<MerkleNode> & board::get_merkle_trees(void)
+{
+	return (this->merkleTrees);
+}
+
+void board::set_merkle_trees(vector<MerkleNode> & new_merkle_trees)
+{
+	this->merkleTrees = new_merkle_trees;
+}
+
+void board::set_blocks_images(vector<ImageDescriptor> & new_blocks_images) {
+	this->blocks_images = new_blocks_images;
+}
 
 
 
@@ -228,4 +242,6 @@ void board::change_board(int button_pressed)
 			break;
 		}
 }
+
+
 

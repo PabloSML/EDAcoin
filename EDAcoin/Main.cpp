@@ -26,7 +26,7 @@ int main()
 
 	if (getBlockChainJson(&blockChainJson, "test.json"))
 	{
-		int size = blockChainJson.size();
+		int size = (unsigned int) blockChainJson.size();
 		for (int i = 0; i < size; i++)
 		{
 			json tempBlock = blockChainJson[i];

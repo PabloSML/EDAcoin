@@ -1,9 +1,6 @@
 #include "ImageDescriptor.h"
 #include "Definitions.h"
 
-#define ASCII_BARRA_INV 92 // de '\'
-
-#define MAX_SIZE_FILENAME 50
 
 //listo
 ImageDescriptor::ImageDescriptor()
@@ -18,7 +15,6 @@ ImageDescriptor::ImageDescriptor()
 //listo
 ImageDescriptor::ImageDescriptor(const char * path_image) :path(path_image)
 {
-	this->file_name = extract_name_file(path_image);
 	this->error = false;
 	this->bitmap = resize_image(path_image, IMAGE_SIZE_X, IMAGE_SIZE_Y);
 
@@ -42,14 +38,7 @@ ImageDescriptor::ImageDescriptor(const char * path_image) :path(path_image)
 
 }
 
-ImageDescriptor::ImageDescriptor(const char * path_image, int no_image) : path(path_image)
-{
-	if (no_image == FLAG_NO_IMAGE_DESCOMPR)
-	{
-		this->file_name = extract_name_file(path_image);
-	}
-	
-}
+
 
 //listo
 ImageDescriptor::~ImageDescriptor()
@@ -107,9 +96,9 @@ const char * ImageDescriptor::get_path(void)
 }
 
 //listo
-const char * ImageDescriptor::get_name_file(void)
+const char * ImageDescriptor::get_image_name(void)
 {
-	return ((this->file_name).c_str());
+	return ((this->image_name).c_str());
 }
 
 //listo
@@ -118,6 +107,7 @@ ALLEGRO_BITMAP * ImageDescriptor::get_bitmap(void)
 	return (this->bitmap);
 }
 
+
 //listo
 bool ImageDescriptor::get_error(void)
 {
@@ -125,28 +115,8 @@ bool ImageDescriptor::get_error(void)
 }
 
 
-//listo
-string ImageDescriptor::extract_name_file(const char * image_path) 
+void ImageDescriptor::set_image_name(string image_name)
 {
-	string aux (image_path);
-	string aux_reverse;
-	string name_file = ".-";
-
-
-	int j = 0;
-
-	for (int i = (int)aux.size(); (i > 0) && (aux.back() != '/') && (j < MAX_SIZE_FILENAME) ; i--, j++) //guardo el fileName en un string auxiliar, maximo filename es MAX_SIZE_FILENAME
-	{																				
-		aux_reverse.push_back(aux.back());
-		aux.pop_back();
-	}
-
-
-	//hasta aqui se obtuvo un string del nombre pero con las letras ordenadas alrevés
-	for (int i = (int)aux_reverse.size(); i > 0; i--) //doy vuelta el string
-	{
-		name_file.push_back(aux_reverse.back());
-		aux_reverse.pop_back();
-	}
-	return name_file;
+	this->image_name = image_name;
 }
+

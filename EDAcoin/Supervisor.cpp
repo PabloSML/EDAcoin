@@ -1,10 +1,16 @@
 #include "Supervisor.h"
-
 #include <iostream>
+
+#define INDEX_PRINCIPAL_DISPLAY 0
 
 //auxiliar function
 void refresh_display(viewer& viewer_, board& board_);
+bool draw_merkle_tree(MerkleNode & merkleRoot, ALLEGRO_DISPLAY * * new_display);
 
+void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
+	unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font);
+
+unsigned int get_depth_tree(MerkleNode * merkle_root);
 
 //listo
 supervisor::supervisor(viewer& viewer, double threshold)
@@ -46,8 +52,7 @@ supervisor::supervisor(viewer& viewer, double threshold)
 		al_register_event_source(ev_queue, al_get_mouse_event_source());
 		al_register_event_source(ev_queue, al_get_keyboard_event_source());
 
-		this->threshold = threshold;
-
+		(this->displays).push_back(viewer.get_display());
 	}
 	
 }
@@ -74,6 +79,7 @@ void supervisor::dispatcher(viewer& viewer, board& board)
 	al_get_next_event(ev_queue, &ev);
 	unsigned int key_pressed;
 	std::vector<ImageDescriptor> & vector_images = board.get_block_images();
+	std::vector<MerkleNode> & merkleTrees = board.get_merkle_trees();
 
 	switch (ev.type)
 	{
@@ -103,11 +109,17 @@ void supervisor::dispatcher(viewer& viewer, board& board)
 			{
 				if ((vector_images[i]).is_select())
 				{
-					#error "aca hay que poner la funcion que muestre ese merkle tree"
+					
+					ALLEGRO_DISPLAY * new_display;
+
+					draw_merkle_tree(merkleTrees[i], &new_display);
+
+					(this->displays).push_back(new_display);
 
 					(vector_images)[i].toggle_selection();
 					
-
+					al_flip_display();
+					
 				}
 			}
 
@@ -133,9 +145,17 @@ void supervisor::dispatcher(viewer& viewer, board& board)
 		{
 			if ((vector_images[i]).is_select())
 			{
-				#error "aca hay que poner la funcion que muestre ese merkle tree"
+						
+				ALLEGRO_DISPLAY * new_display;
+
+				draw_merkle_tree(merkleTrees[i], &new_display);
+
+				(this->displays).push_back(new_display);
 
 				(vector_images)[i].toggle_selection();
+
+				al_flip_display();
+				
 				found_touched = true;
 
 			}
@@ -163,4 +183,80 @@ void refresh_display(viewer& viewer_, board& board_)
 	al_set_target_backbuffer(viewer_.get_display());
 	viewer_.update_display(board_);
 	al_flip_display();
+}
+
+bool draw_merkle_tree(MerkleNode & merkleRoot, ALLEGRO_DISPLAY * * new_display)
+{
+	bool all_ok = true;
+
+	*new_display = al_create_display(WIDTH_DEFAULT*(UNIT), HEIGHT_DEFAULT*(UNIT));
+
+	if (*new_display == nullptr)
+	{
+		all_ok = false;
+		return all_ok;
+	}
+
+	unsigned int depth_tree = get_depth_tree(&merkleRoot);
+	unsigned int level = 0;
+	unsigned int root_pos_y = HEIGHT_DEFAULT / depth_tree;
+	unsigned int root_pos_x = WIDTH_DEFAULT / 2;
+
+
+	ALLEGRO_FONT* font_nodes = al_load_ttf_font(NODE_FONT_PATH, NODE_FONT_SIZE, 0);
+	
+	if (font_nodes == nullptr)
+	{
+		all_ok = false;
+		return all_ok;
+	}
+		
+	draw_nodes(&merkleRoot, root_pos_x, root_pos_y, depth_tree, level + 1, WIDTH_DEFAULT, HEIGHT_DEFAULT, font_nodes);
+
+	return all_ok; //true
+
+}
+
+
+void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
+				unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font)
+{
+	al_draw_filled_circle(last_pos_x, last_pos_x, NODE_RADIUS, NODE_COLOR);
+	
+	if (!(merkleRoot->getLeft() == nullptr))
+	{
+		unsigned int child_pos_x = last_pos_x - height / pow(2, level + 1);
+		unsigned int child_pos_y = last_pos_y + (level + 1)*(height / depth);
+
+		al_draw_line((float)(last_pos_x), (float)(last_pos_y), (float)child_pos_x, (float)child_pos_y, LINE_COLOR, LINE_THICKNESS);
+
+		draw_nodes(merkleRoot->getLeft(), child_pos_x , child_pos_y, depth, level + 1, width, height, font);
+	}
+
+	if (!(merkleRoot->getRight() == nullptr))
+	{
+		unsigned int child_pos_x = last_pos_x + height / pow(2, level + 1);
+		unsigned int child_pos_y = last_pos_y + (level + 1)*(height / depth);
+
+		al_draw_line((float)(last_pos_x), (float)(last_pos_y), (float)child_pos_x, (float)child_pos_y, LINE_COLOR, LINE_THICKNESS);
+
+		draw_nodes(merkleRoot->getRight(), child_pos_x, child_pos_y, depth, level + 1, width, height, font);
+	}
+	
+
+	al_draw_text(font, MESSAGE_NODE_COLOR, (float)(last_pos_x), (float)(last_pos_y),
+				ALLEGRO_ALIGN_CENTER, (merkleRoot->getNodeID()).c_str());
+
+}
+
+unsigned int get_depth_tree(MerkleNode * merkle_root)
+{
+	if (merkle_root->getLeft() == nullptr)
+	{
+		return 0;
+	}
+	else
+	{
+		return (1 + get_depth_tree(merkle_root->getLeft()));
+	}
 }

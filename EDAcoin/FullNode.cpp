@@ -43,7 +43,7 @@ FullNode::recieveBlock(json& jsonBlock)
 {
 	vector<TransactionS> transactions;
 	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];
-	unsigned int txsCount = jsonTxs.size();
+	unsigned int txsCount = (unsigned int) jsonTxs.size();
 
 	buildTxList(transactions, jsonTxs, txsCount);
 
@@ -92,8 +92,8 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 	for (unsigned int i = 0; i < txsCount; i++)
 	{
 		TransactionS tempTx;
-		unsigned int inputCount = jsonTxs[LABEL_TXS_INPUT].size();
-		unsigned int outputCount = jsonTxs[LABEL_TXS_OUTPUT].size();
+		unsigned int inputCount = (unsigned int) jsonTxs[LABEL_TXS_INPUT].size();
+		unsigned int outputCount = (unsigned int) jsonTxs[LABEL_TXS_OUTPUT].size();
 
 		tempTx.txID = string(jsonTxs[LABEL_TXS_TXID]);
 		tempTx.txActor = string(jsonTxs[LABEL_TXS_TXACTOR]);

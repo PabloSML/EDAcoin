@@ -133,8 +133,8 @@ does_appear_ID(string ID_node)
 	vector<Input> temp_inputs = this->inputs;
 	vector<Output> temp_outputs = this->outputs;
 
-	unsigned int cant_inputs_tx_i = temp_inputs.size();
-	unsigned int cant_outputs_tx_i = temp_outputs.size();
+	unsigned int cant_inputs_tx_i = (unsigned int) temp_inputs.size();
+	unsigned int cant_outputs_tx_i = (unsigned int) temp_outputs.size();
 
 
 	for (unsigned int input = 0; (input < cant_inputs_tx_i) && (!appear_ID); input++)

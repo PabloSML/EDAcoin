@@ -1,5 +1,7 @@
 #include "MerkleNode.h"
 
+static unsigned long generateID(const unsigned char* str);
+
 void buildMerkleTree(MerkleNode* root, int currentLevel, int finalLevel, vector<string>& txIDs, int& currentLeaf)
 {
 	if (root != NULL)

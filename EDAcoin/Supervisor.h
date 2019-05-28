@@ -20,9 +20,9 @@ public:
 
 private:
 	ALLEGRO_EVENT_QUEUE* ev_queue;
+	vector<ALLEGRO_DISPLAY *> displays;
 	bool init;
 	bool finish;
-	double threshold;
 };
 
 

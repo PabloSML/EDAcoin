@@ -6,6 +6,7 @@
 
 #include <vector>
 #include "ImageDescriptor.h"
+#include "MerkleNode.h"
 #include "Definitions.h"
 
 #define MAX_IMAGES_IN_THE_BOARD 9
@@ -20,7 +21,7 @@
 class board
 {
 	public:
-		board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons);
+		board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons, vector<MerkleNode> merkleTrees);
 		~board();
 
 		void refresh(void);
@@ -45,10 +46,18 @@ class board
 
 		bool is_images_error(void);
 
+		vector<MerkleNode> & get_merkle_trees(void);
+		
+		void set_merkle_trees(vector<MerkleNode> & new_merkle_trees);
+		void set_blocks_images(vector<ImageDescriptor> & new_blocks_images);
+
+
+
 	private:
 
 		vector<ImageDescriptor> blocks_images;
 		vector<ImageDescriptor> buttons;
+		vector<MerkleNode> merkleTrees;
 
 		unsigned int image_size_x; //tamaño de cada image
 		unsigned int image_size_y;
