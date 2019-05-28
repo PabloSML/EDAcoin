@@ -106,7 +106,7 @@ void supervisor::dispatcher(viewer& viewer, board& board)
 					#error "aca hay que poner la funcion que muestre ese merkle tree"
 
 					(vector_images)[i].toggle_selection();
-					found_touched = true;
+					
 
 				}
 			}
