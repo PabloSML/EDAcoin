@@ -10,7 +10,21 @@ using namespace std;
 
 #define WIDTH_DEFAULT			1000
 #define HEIGHT_DEFAULT			600
-#define FONT_SIZE_DEFAULT		30
+#define FONT_SIZE_DEFAULT		20
+#define MARGIN_X_DISPLAY		50
+#define MARGIN_Y_DISPLAY		50
+
+#define IMAGE_SIZE_X 180 //256 
+#define IMAGE_SIZE_Y 100 //130
+#define BUTTON_SIZE_X 80
+#define BUTTON_SIZE_Y 80
+#define SPACE 10
+
+
+#define UNIT 1
+#define MARGIN_RATE 0.1
+
+
 
 #define BACKGROUND_PATH			"background2.png" //Imagen de fondo
 
@@ -22,7 +36,7 @@ using namespace std;
 #define PATH_BUTTON_LEFT		"button_left2.png"
 #define PATH_BUTTON_RIGHT		"button_right2.png"
 
-#define NODE_RADIUS				40
+#define NODE_RADIUS				25
 #define NODE_COLOR				(al_map_rgb(0,0,204)) // verde oscuro
 
 #define LINE_COLOR				(al_map_rgb(102,204,255)) // azul claro
@@ -31,7 +45,7 @@ using namespace std;
 #define MESSAGE_NODE_COLOR		(al_map_rgb(255,0,0)) // rojo puro
 #define NODE_FONT_PATH			"Font.ttf"
 #define NODE_FONT_COLOR			"red"
-#define NODE_FONT_SIZE			8
+#define NODE_FONT_SIZE			16
 
 typedef struct {
 	string blockID;

@@ -127,10 +127,14 @@ void display_stuff(json& blockChainJson, vector<MerkleNode *> merkle_trees)
 			all_ok = ERROR;
 		}
 
+
+
 		supervisor superv(view);
+		superv.set_start();
 
 		while (!(superv.is_finish()))
 		{
+
 			superv.dispatcher(view, boar);
 		}
 
