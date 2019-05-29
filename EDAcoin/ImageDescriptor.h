@@ -8,19 +8,6 @@
 
 #include "ImagesManager.h"
 
-#define IMAGE_SIZE_X 180 //256 
-#define IMAGE_SIZE_Y 100 //130
-#define BUTTON_SIZE_X 80
-#define BUTTON_SIZE_Y 80
-#define SPACE 10
-
-
-#define UNIT 1
-#define MARGIN_RATE 0.1
-
-#define FLAG_NO_IMAGE_DESCOMPR 0
-
-
 
 using namespace std;
 
