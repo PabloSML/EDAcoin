@@ -44,4 +44,5 @@ private:
 	vector<MerkleNode*> merkleTrees;
 
 	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int& txsCount);
+	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& spvID);
 };

@@ -177,7 +177,7 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 	}
 }
 
-void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& spvID)
+void FullNode::buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& spvID)
 {
 	buildMerklePath(root, spvID, dest.merklePath);
 	dest.merklePathLen = dest.merklePath.size();
