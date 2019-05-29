@@ -11,7 +11,7 @@ using json = nlohmann::json;
 
 class Node {
 public:
-	Node() { nodeType = string(""); nodeID = string(""); }
+	Node():nodeType(""),nodeID("") { }
 	Node(string nodeID, string nodeType) { this->nodeID = nodeID; this->nodeType = nodeType; }
 	~Node(){}
 

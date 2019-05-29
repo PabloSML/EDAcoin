@@ -148,25 +148,25 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 	for (unsigned int i = 0; i < txsCount; i++)		//Para cada transaccion se evaluan los inputs y los outputs y se ponen en el vector de TransactionS
 	{
 		TransactionS tempTx;
-		unsigned int inputCount = (unsigned int) jsonTxs[LABEL_TXS_INPUT].size();			//Guardo la cantidad de "inputs" y "outputs" en variables temporales
-		unsigned int outputCount = (unsigned int) jsonTxs[LABEL_TXS_OUTPUT].size();
+		unsigned int inputCount = (unsigned int) jsonTxs[i][LABEL_TXS_INPUT].size();			//Guardo la cantidad de "inputs" y "outputs" en variables temporales
+		unsigned int outputCount = (unsigned int) jsonTxs[i][LABEL_TXS_OUTPUT].size();
 
-		tempTx.txID = jsonTxs[LABEL_TXS_TXID].get<string>();			//Guardo el ID de la transaccion dentro de la estructura de TransactionS.
-		tempTx.txActor = jsonTxs[LABEL_TXS_TXACTOR].get<string>();		//Guardo el nombre del actor dentro de la estructura de TransactionS.
+		tempTx.txID = jsonTxs[i][LABEL_TXS_TXID].get<string>();			//Guardo el ID de la transaccion dentro de la estructura de TransactionS.
+		tempTx.txActor = jsonTxs[i][LABEL_TXS_TXACTOR].get<string>();		//Guardo el nombre del actor dentro de la estructura de TransactionS.
 
 		for (unsigned int j = 0; j < inputCount; j++)		//Para cada input, se obtiene el ID del bloque y de la transaccion y se ponen en el vector con todos los inputs.
 		{
 			InputS tempInput;
-			tempInput.blockID = jsonTxs[LABEL_TXS_INPUT][j][LABEL_INPUT_BLOCK_ID].get<string>();
-			tempInput.txID = jsonTxs[LABEL_TXS_INPUT][j][LABEL_INPUT_TX_ID].get<string>();
+			tempInput.blockID = jsonTxs[i][LABEL_TXS_INPUT][j][LABEL_INPUT_BLOCK_ID].get<string>();
+			tempInput.txID = jsonTxs[i][LABEL_TXS_INPUT][j][LABEL_INPUT_TX_ID].get<string>();
 			tempTx.inputs.push_back(tempInput);
 		}
 		
 		for (unsigned int j = 0; j < outputCount; j++)		//Para cada output, se obtiene el publicID y el monto y se ponen en el vector con todos los outputs.
 		{
 			OutputS tempOutput;
-			tempOutput.publicID = jsonTxs[LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_ID].get<string>();
-			tempOutput.amount = stoi(jsonTxs[LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_AMOUNT].get<string>());
+			tempOutput.publicID = jsonTxs[i][LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_ID].get<string>();
+			tempOutput.amount = stoi(jsonTxs[i][LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_AMOUNT].get<string>());
 			tempTx.outputs.push_back(tempOutput);
 		}
 

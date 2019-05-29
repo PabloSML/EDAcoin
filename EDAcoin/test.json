@@ -6,6 +6,7 @@
     "Txs": [
       {
         "TxID": "1",
+        "TxActor": "SPV Node",
         "input": [
           {
             "BlockID": "A",
@@ -22,6 +23,7 @@
       },
       {
         "TxID": "8",
+        "TxActor": "SPV Node",
         "input": [
           {
             "BlockID": "A",
@@ -46,6 +48,7 @@
     "Txs": [
       {
         "TxID": "5",
+        "TxActor": "SPV Node",
         "input": [
           {
             "BlockID": "S",
@@ -62,6 +65,7 @@
       },
       {
         "TxID": "4",
+        "TxActor": "SPV Node",
         "input": [
           {
             "BlockID": "S",
