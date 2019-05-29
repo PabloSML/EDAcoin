@@ -60,8 +60,7 @@ FullNode::recieveBlock(json& jsonBlock)
 	root->setNodeID(rootID);
 	merkleTrees.push_back(root);
 	
-	const unsigned char* tempCStr = (const unsigned char*)rootID.c_str();
-	unsigned long numID = generateID(tempCStr);
+	unsigned long numID = stoi(rootID);
 
 	Block newBlock(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
 	blockChain.push_back(newBlock);
