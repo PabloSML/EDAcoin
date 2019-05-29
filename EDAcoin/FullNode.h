@@ -17,7 +17,11 @@ class FullNode : public Node {
 
 public:
 	FullNode(string nodeID) : Node(nodeID, string("Full Node")) {}
-	~FullNode(){}
+	~FullNode()
+	{
+		for (MerkleNode* m : merkleTrees)
+			destroyMerkleTree(m);
+	}
 
 	void recieveBlock(json& jsonBlock);
 

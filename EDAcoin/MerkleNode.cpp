@@ -21,6 +21,24 @@ void buildMerkleTree(MerkleNode* root, int currentLevel, int finalLevel, vector<
 	}
 }
 
+void destroyMerkleTree(MerkleNode* root)
+{
+	if (root != NULL)
+	{
+		if (root->isLeaf())
+			delete root;
+		else
+		{
+			MerkleNode* left = root->getLeft();
+			MerkleNode* right = root->getRight();
+
+			destroyMerkleTree(left);
+			destroyMerkleTree(right);
+			delete root;
+		}
+	}
+}
+
 string createNodeID(MerkleNode* root)
 {
 	string returnStr = string("");

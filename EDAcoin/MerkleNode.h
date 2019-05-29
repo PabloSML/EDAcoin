@@ -39,6 +39,7 @@ private:
 };
 
 void buildMerkleTree(MerkleNode* root, int currentLevel, int finalLevel, vector<string>& txIDs, int& currentLeaf);
+void destroyMerkleTree(MerkleNode* root);
 bool buildMerklePath(MerkleNode* root, string& txID, vector<Step>& path);
 string createNodeID(MerkleNode* root);
 unsigned long generateID(const unsigned char* str);

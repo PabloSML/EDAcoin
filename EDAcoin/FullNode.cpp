@@ -89,22 +89,27 @@ FullNode::getNextHeader()
 void
 FullNode::sendInfo2Spv()
 {
-	vector<Block>::iterator bChainItr = blockChain.end();
-	bChainItr--;
-	vector<MerkleNode*>::iterator mkTreeItr = merkleTrees.end();
-	mkTreeItr--;
+	vector<Block>::reverse_iterator bChainItr = blockChain.rbegin();
+	string blockID = bChainItr->getBlockID();
+	vector<MerkleNode*>::reverse_iterator mkTreeItr = merkleTrees.rbegin();
 	MerkleNode* root = *mkTreeItr;
 	vector<TransactionS> allTrans = bChainItr->get_transactions();	// obtiene las transacciones del ultimo bloque agregado
 	for (SPVNode* s : filters)	//ejecuta el siguiente codigo por cada nodo spv conectado al full
 	{
 		EdaMerkleBlockS merkleBlock;
 		vector<TransactionS> spvTrans;
+		vector<MerkleValidationData> spvMerkleData;
 		string spvID = s->getNodeID();
 		for (TransactionS t : allTrans)
 		{
 			string txActor = t.txActor;
 			if (txActor == spvID)
+			{
 				spvTrans.push_back(t);
+				MerkleValidationData tempData;
+				buildMerkleValidationData(tempData, root, spvID);
+				spvMerkleData.push_back(tempData);
+			}
 			else
 			{
 				int outputCount = (int) t.outputs.size();
@@ -115,6 +120,9 @@ FullNode::sendInfo2Spv()
 					{
 						done = true;
 						spvTrans.push_back(t);
+						MerkleValidationData tempData;
+						buildMerkleValidationData(tempData, root, spvID);
+						spvMerkleData.push_back(tempData);
 					}
 				}
 			}
@@ -123,15 +131,11 @@ FullNode::sendInfo2Spv()
 		unsigned int txCount = spvTrans.size();
 		if (txCount) // solo notifica al spv si hay txs que le interesen
 		{
-			string blockID = bChainItr->getBlockID();
-			vector<Step> merklePath;
-			buildMerklePath(root, spvID, merklePath);
-			unsigned int merklePathLen = merklePath.size();
+			
 
 			merkleBlock.txCount = txCount;
 			merkleBlock.transactions = spvTrans;
-			merkleBlock.merklePathLen = merklePathLen;
-			merkleBlock.merklePath = merklePath;
+			merkleBlock.merklePathDataForTxs = spvMerkleData;
 			merkleBlock.blockID = blockID;
 
 			s->notify(merkleBlock);
@@ -171,6 +175,12 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 
 		transactions.push_back(tempTx);
 	}
+}
+
+void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& spvID)
+{
+	buildMerklePath(root, spvID, dest.merklePath);
+	dest.merklePathLen = dest.merklePath.size();
 }
 
 vector<MerkleNode*> FullNode::get_merkle_trees(void) {

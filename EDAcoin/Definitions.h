@@ -51,11 +51,16 @@ typedef struct {
 }TransactionS;
 
 typedef struct {
-	unsigned int txCount;
-	vector<TransactionS> transactions;
 	unsigned int merklePathLen;
 	vector<Step> merklePath;
+}MerkleValidationData;
+
+typedef struct {
+	unsigned int txCount;
+	vector<TransactionS> transactions;
+	vector<MerkleValidationData> merklePathDataForTxs;
 	string blockID;
 }EdaMerkleBlockS;
+
 
 #endif // !DEFINITIONS_H
