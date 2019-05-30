@@ -272,7 +272,7 @@ bool draw_merkle_tree(MerkleNode * merkleRoot, ALLEGRO_DISPLAY * * new_display)
 	}
 
 	unsigned int depth_tree = get_depth_tree(merkleRoot);
-	unsigned int level = 0;
+	unsigned int level = 1;
 	unsigned int root_pos_y = 0;
 	unsigned int root_pos_x = WIDTH_DEFAULT / 2;
 
@@ -299,7 +299,7 @@ void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int l
 	if (!(merkleRoot->getLeft() == nullptr))
 	{
 		unsigned int child_pos_x = last_pos_x - width / pow(2, level + 1);
-		unsigned int child_pos_y = last_pos_y + (level + 1)*(height / depth);
+		unsigned int child_pos_y =  (level)*(height / depth);
 
 		al_draw_line((float)(last_pos_x + MARGIN_X_DISPLAY * (UNIT)), (float)(last_pos_y + MARGIN_Y_DISPLAY * (UNIT)),
 			(float)(child_pos_x + MARGIN_X_DISPLAY * (UNIT)), (float)(child_pos_y + MARGIN_Y_DISPLAY * (UNIT)),
@@ -312,7 +312,7 @@ void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int l
 	if (!(merkleRoot->getRight() == nullptr))
 	{
 		unsigned int child_pos_x = last_pos_x + width / pow(2, level + 1);
-		unsigned int child_pos_y = last_pos_y + (level + 1)*(height / depth);
+		unsigned int child_pos_y = (level)*(height / depth);
 
 		al_draw_line((float)(last_pos_x + MARGIN_X_DISPLAY * (UNIT)), (float)(last_pos_y + MARGIN_Y_DISPLAY * (UNIT)),
 					(float)(child_pos_x + MARGIN_X_DISPLAY * (UNIT)), (float)(child_pos_y + MARGIN_Y_DISPLAY * (UNIT)),
@@ -323,9 +323,14 @@ void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int l
 	
 	al_draw_filled_circle(last_pos_x + MARGIN_X_DISPLAY * (UNIT), last_pos_y + MARGIN_Y_DISPLAY * (UNIT), NODE_RADIUS, NODE_COLOR);
 
-	al_draw_text(font, MESSAGE_NODE_COLOR, (float)(last_pos_x+MARGIN_X_DISPLAY*(UNIT)), (float)(last_pos_y+MARGIN_Y_DISPLAY*(UNIT)),
-				ALLEGRO_ALIGN_CENTER, (merkleRoot->getNodeID()).c_str());
+	if (merkleRoot->isLeaf())
+	{
+		al_draw_text(font, MESSAGE_NODE_COLOR, (float)(last_pos_x + MARGIN_X_DISPLAY * (UNIT)), (float)(last_pos_y + MARGIN_Y_DISPLAY * (UNIT) - DX_TEXT),
+			ALLEGRO_ALIGN_CENTER, (merkleRoot->getNodeID()).c_str());
 
+	}
+
+	
 }
 
 unsigned int get_depth_tree(MerkleNode * merkle_root)

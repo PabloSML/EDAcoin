@@ -82,8 +82,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <Filter>Headers</Filter>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

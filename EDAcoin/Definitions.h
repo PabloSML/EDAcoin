@@ -42,10 +42,11 @@ using namespace std;
 #define LINE_COLOR				(al_map_rgb(102,204,255)) // azul claro
 #define LINE_THICKNESS			10
 
-#define MESSAGE_NODE_COLOR		(al_map_rgb(255,0,0)) // rojo puro
+#define MESSAGE_NODE_COLOR		(al_map_rgb(255,255,255)) // blanco
 #define NODE_FONT_PATH			"Font.ttf"
 #define NODE_FONT_COLOR			"red"
-#define NODE_FONT_SIZE			16
+#define NODE_FONT_SIZE			23
+#define DX_TEXT					10
 
 typedef struct {
 	string blockID;

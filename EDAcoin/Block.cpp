@@ -22,13 +22,13 @@ Block::Block(json& jsonBlock) : ImageDescriptor(IMAGE_BLOCK_PATH)
 */
 
 
-Block::Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions) : ImageDescriptor(IMAGE_BLOCK_PATH)
+Block::Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions) : 
+	ImageDescriptor(IMAGE_BLOCK_PATH), blockID(blockID), merkleRoot(merkleRoot), txsCount (txsCount), transactions(transactions)
 {
-	this->blockID = blockID;
-	this->merkleRoot = merkleRoot;
-	this->txsCount = txsCount;
-	this->transactions = transactions;
-	this->set_image_name(this->blockID);
+
+	string aux = "Block ID: ";
+
+	this->set_image_name(aux + this->blockID);
 }
 
 blockHeader

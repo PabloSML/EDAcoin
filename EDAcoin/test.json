@@ -2,7 +2,7 @@
   {
     "BlockID": "A",
     "MerkleRoot": "??",
-    "TxsCount": "2",
+    "TxsCount": "8",
     "Txs": [
       {
         "TxID": "1",
@@ -20,6 +20,114 @@
           }
 
         ]
+      },
+      {
+        "TxID": "2",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "3",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "4",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "5",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "6",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "7",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
       },
       {
         "TxID": "8",
@@ -47,7 +155,7 @@
     "TxsCount": "2",
     "Txs": [
       {
-        "TxID": "5",
+        "TxID": "9",
         "TxActor": "SPV Node",
         "input": [
           {
@@ -64,7 +172,7 @@
         ]
       },
       {
-        "TxID": "4",
+        "TxID": "10",
         "TxActor": "SPV Node",
         "input": [
           {
