@@ -25,8 +25,8 @@ public:
 
 	void recieveBlock(json& jsonBlock);
 
-	void requestLatestHeader();
-	void requestHeaderCount();
+	blockHeader requestLatestHeader();
+	unsigned int requestHeaderCount();
 	void requestHeader(int num);
 	void getNextHeader();
 

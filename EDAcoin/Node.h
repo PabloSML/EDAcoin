@@ -16,10 +16,10 @@ public:
 	~Node(){}
 
 	string getNodeID() const { return nodeID; }
-	void setNodeID(string nodeID) { this->nodeID = nodeID; }
+	void setNodeID(string& nodeID) { this->nodeID = nodeID; }
 
 	string getNodeType() const { return nodeType; }
-	void setNodeType(string nodeType) { this->nodeType = nodeType; }
+	void setNodeType(string& nodeType) { this->nodeType = nodeType; }
 
 	virtual Node* getFilter(void) = 0;
 
