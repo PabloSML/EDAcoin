@@ -32,14 +32,12 @@ int main()
 	//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
 	FullNode f1(string("FullNode One")), f2(string("FullNode Two"));
 	SPVNode s1(string("SPVNode One"));
-	//Se conectan los fullnodes con los spvnodes y entre ellos
-	//	f1 <-> f2
+	//Se conectan los fullnodes con los spvnodes
+	//	f1    f2
 	//	  \  /
 	//	   \/	
 	//	   s1
-	f1.attachConnection(&f2);
 	f1.attachConnection(&s1);
-	f2.attachConnection(&f1);
 	f2.attachConnection(&s1);
 	s1.attachConnection(&f1);
 	s1.attachConnection(&f2);
