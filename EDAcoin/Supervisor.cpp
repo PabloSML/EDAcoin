@@ -257,7 +257,7 @@ bool draw_merkle_tree(MerkleNode * merkleRoot, ALLEGRO_DISPLAY * * new_display)
 	unsigned int root_pos_x = WIDTH_DEFAULT / 2;
 
 
-	ALLEGRO_FONT* font_nodes = al_load_ttf_font(NODE_FONT_PATH, NODE_FONT_SIZE, 0);
+	ALLEGRO_FONT* font_nodes = al_load_ttf_font(NODE_FONT_PATH, NODE_FONT_SIZE*(1+(SCALE_LEVEL_SIZE_TEXT_NODE -1)/depth_tree), 0);
 	
 	if (font_nodes == nullptr)
 	{
@@ -301,11 +301,11 @@ void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int l
 		draw_nodes(merkleRoot->getRight(), child_pos_x, child_pos_y, depth, level + 1, width, height, font);
 	}
 	
-	al_draw_filled_circle(last_pos_x + MARGIN_X_DISPLAY * (UNIT), last_pos_y + MARGIN_Y_DISPLAY * (UNIT), NODE_RADIUS, NODE_COLOR);
+	al_draw_filled_circle(last_pos_x + MARGIN_X_DISPLAY * (UNIT), last_pos_y + MARGIN_Y_DISPLAY * (UNIT), NODE_RADIUS*(1+SCALE_LEVEL_SIZE_NODE/level), NODE_COLOR);
 
 	if (merkleRoot->isLeaf())
 	{
-		al_draw_text(font, MESSAGE_NODE_COLOR, (float)(last_pos_x + MARGIN_X_DISPLAY * (UNIT)), (float)(last_pos_y + MARGIN_Y_DISPLAY * (UNIT) - DX_TEXT),
+		al_draw_text(font, MESSAGE_NODE_COLOR, (float)(last_pos_x + MARGIN_X_DISPLAY * (UNIT)), (float)(last_pos_y + MARGIN_Y_DISPLAY * (UNIT) -(1+1/depth) *DX_TEXT),
 			ALLEGRO_ALIGN_CENTER, (merkleRoot->getNodeID()).c_str());
 
 	}

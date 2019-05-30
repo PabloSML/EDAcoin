@@ -38,17 +38,20 @@ using namespace std;
 #define PATH_BUTTON_LEFT		"button_left2.png"
 #define PATH_BUTTON_RIGHT		"button_right2.png"
 
-#define NODE_RADIUS				25
+#define SCALE_LEVEL_SIZE_NODE	3
+#define NODE_RADIUS				12
 #define NODE_COLOR				(al_map_rgb(0,0,204)) // verde oscuro
 
 #define LINE_COLOR				(al_map_rgb(102,204,255)) // azul claro
 #define LINE_THICKNESS			10
 
-#define MESSAGE_NODE_COLOR		(al_map_rgb(255,255,255)) // blanco
-#define NODE_FONT_PATH			"Font.ttf"
-#define NODE_FONT_COLOR			"red"
-#define NODE_FONT_SIZE			23
-#define DX_TEXT					10
+#define MESSAGE_NODE_COLOR			(al_map_rgb(0,0,0)) // negro
+#define NODE_FONT_PATH				"Font.ttf"
+#define NODE_FONT_SIZE				10
+#define SCALE_LEVEL_SIZE_TEXT_NODE	2
+#define DX_TEXT						5
+
+
 
 typedef struct {
 	string blockID;

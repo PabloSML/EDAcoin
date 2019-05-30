@@ -65,16 +65,18 @@ FullNode::recieveBlock(json& jsonBlock)
 	Block newBlock(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
 	blockChain.push_back(newBlock);
 }
-void
+
+blockHeader
 FullNode::requestLatestHeader()
 {
-
+	blockHeader ret;
+	return ret;
 }
 
-void 
+unsigned int 
 FullNode::requestHeaderCount()
 {
-
+	return 0;
 }
 void 
 FullNode::requestHeader(int num)

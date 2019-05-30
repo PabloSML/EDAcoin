@@ -2,7 +2,7 @@
   {
     "BlockID": "A",
     "MerkleRoot": "??",
-    "TxsCount": "8",
+    "TxsCount": "32",
     "Txs": [
       {
         "TxID": "1",
@@ -131,6 +131,435 @@
       },
       {
         "TxID": "8",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "75",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "aa"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+      },
+      {
+        "TxID": "77",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "54",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "55",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "0",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "30",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "71",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "833",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "111",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "aa"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+      },
+      {
+        "TxID": "2222",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "3333",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "444",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "5555",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "663",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "237",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "8039",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "705",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "aa"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+      },
+      {
+        "TxID": "771",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "542",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "545",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "640",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "3021",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "7421",
+        "TxActor": "SPV Node",
+        "input": [
+          {
+            "BlockID": "A",
+            "TxID": "ab"
+          }
+        ],
+        "output": [
+          {
+            "publicKey": "nodo1",
+            "EDACoins": "15"
+          }
+
+        ]
+
+      },
+      {
+        "TxID": "83213",
         "TxActor": "SPV Node",
         "input": [
           {
