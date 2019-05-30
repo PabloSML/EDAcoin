@@ -156,7 +156,7 @@ void viewer::print_board(board& board)
 		
 		al_draw_bitmap(aux_bitmap , pos_x, pos_y, 0); 
 	
-		const char * text = (board.get_block_images())[i].get_image_name();
+		const char * text = (vector_images)[i].get_image_name();
 
 		al_draw_text(this->font, color, pos_x + (IMAGE_SIZE_X / 2.0), pos_y + IMAGE_SIZE_Y + 10, ALLEGRO_ALIGN_CENTRE, text);
 		

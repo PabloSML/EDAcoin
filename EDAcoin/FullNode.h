@@ -36,6 +36,8 @@ public:
 	virtual Node* getFilter(void) { return nullptr; }
 
 	vector<MerkleNode*> get_merkle_trees(void);
+	vector<Block> * get_blockChain(void);
+
 
 	void sendInfo2Spv();
 private:

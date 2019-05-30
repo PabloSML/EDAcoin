@@ -186,3 +186,8 @@ void FullNode::buildMerkleValidationData(MerkleValidationData& dest, MerkleNode*
 vector<MerkleNode*> FullNode::get_merkle_trees(void) {
 	return this->merkleTrees;
 }
+
+vector<Block> * FullNode::
+get_blockChain(void) {
+	return &(this->blockChain);
+}

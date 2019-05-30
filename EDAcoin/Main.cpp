@@ -15,7 +15,8 @@
 #include "Definitions.h"
 
 
-void display_stuff(json& blockChainJson, vector<MerkleNode *> merkle_trees);
+
+void display_stuff(vector<Block> * blockChain, vector<MerkleNode *> merkle_trees);
 
 
 using namespace std;
@@ -63,14 +64,14 @@ int main()
 			Sleep(100);
 		}
 		
-		display_stuff(blockChainJson, merkleTrees);
+		display_stuff(f1.get_blockChain(), merkleTrees);
 
 	}
 
 	return 0;
 }
 
-void display_stuff(json& blockChainJson, vector<MerkleNode *> merkle_trees)
+void display_stuff(vector<Block> * blockChain, vector<MerkleNode *> merkle_trees)
 {
 	//bloques
 
@@ -89,9 +90,9 @@ void display_stuff(json& blockChainJson, vector<MerkleNode *> merkle_trees)
 		vector<ImageDescriptor> block_images;
 		vector<ImageDescriptor> buttons;
 
-		for (int i = 0; i < ((int)blockChainJson.size()); i++)
+		for (int i = 0; i < ((int)blockChain->size()); i++)
 		{
-			ImageDescriptor image(IMAGE_BLOCK_PATH); //init de todas las imagenes
+			ImageDescriptor image = (*blockChain)[i];
 			block_images.push_back(image);
 			
 		}
