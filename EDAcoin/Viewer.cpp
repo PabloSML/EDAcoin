@@ -35,6 +35,26 @@ viewer::viewer(unsigned int width, unsigned int height, double font_size)
 	
 	
 }
+/*
+viewer::
+viewer(const viewer & copia) {
+
+	this->height = copia.height;
+	this->width = copia.width;
+	this->display = copia.display;
+	this->background = copia.background;
+	this->font = copia.font;
+	this->font_size = copia.font_size;
+	this->is_init_bool = copia.is_init_bool;
+
+
+	this->image_block = copia.image_block;
+	this->error_image_block = copia.error_image_block;
+
+}
+
+*/
+
 
 //listo
 viewer:: ~viewer()
@@ -88,6 +108,7 @@ bool viewer::init_allegro_elements(const char* path_background, const char* font
 {
 
 	bool init_allegro_el = true;
+
 
 	this->display = al_create_display( (this->width)*(UNIT), (this->height)*(UNIT) );
 	

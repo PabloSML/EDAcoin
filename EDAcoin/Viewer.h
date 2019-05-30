@@ -20,6 +20,7 @@ class viewer //Se ocupa de todo lo relacionado con el output de la simulacion
 public:
 	viewer(unsigned int width = WIDTH_DEFAULT, unsigned int height = HEIGHT_DEFAULT, double font_size = FONT_SIZE_DEFAULT );
 	~viewer();
+	
 	bool is_init(void);					 //listo
 	void update_display(board & board); //listo
 	ALLEGRO_DISPLAY* get_display(void);
@@ -35,7 +36,7 @@ private:
 	double font_size;
 	bool is_init_bool;
 
-	//datos miembros para descompressor
+
 	ALLEGRO_BITMAP * image_block;
 	bool error_image_block; 
 

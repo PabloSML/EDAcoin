@@ -125,6 +125,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="FullNode.h" />
+    <ClInclude Include="General_Controller.h" />
     <ClInclude Include="ImageDescriptor.h" />
     <ClInclude Include="ImagesManager.h" />
     <ClInclude Include="Labels.h" />
@@ -138,6 +139,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="FullNode.cpp" />
+    <ClCompile Include="General_Controller.cpp" />
     <ClCompile Include="ImageDescriptor.cpp" />
     <ClCompile Include="ImagesManager.cpp" />
     <ClCompile Include="Main.cpp" />

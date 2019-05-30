@@ -34,6 +34,9 @@
     <ClCompile Include="Viewer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="General_Controller.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -70,6 +73,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Board.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="General_Controller.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

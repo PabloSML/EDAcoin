@@ -8,6 +8,8 @@
 #include "MerkleNode.h"
 using namespace std;
 
+#define FPS	50
+
 #define WIDTH_DEFAULT			1000
 #define HEIGHT_DEFAULT			600
 #define FONT_SIZE_DEFAULT		20
@@ -28,7 +30,7 @@ using namespace std;
 
 #define BACKGROUND_PATH			"background2.png" //Imagen de fondo
 
-#define FONT_PATH				"Font.ttf"
+#define FONT_PATH				"American Captain.ttf"
 #define FONT_COLOR				"red"
 
 #define IMAGE_BLOCK_PATH		"block-image.png"

@@ -2,7 +2,7 @@
 #include <iostream>
 
 #define INDEX_PRINCIPAL_DISPLAY 0
-#define FPS	50
+
 
 //auxiliar function
 void refresh_display(viewer& viewer_, board& board_, ALLEGRO_DISPLAY * display);
@@ -20,82 +20,55 @@ supervisor::supervisor(viewer& viewer)
 	this->finish = false;
 	this->start = false;
 
-	if (!al_install_keyboard())
-	{
-		this->init = false;
-		this->finish = false;
-	}
 	
-	if ( (!al_install_mouse()) && (this->init))
-	{
-		if (this->init)
-		{
-			al_uninstall_keyboard();
-		}
+	this->timer_fps = al_create_timer(1.0 / FPS);
 
+	if ((this->timer_fps == nullptr))
+	{
+		
 		this->init = false;
 		this->finish = false;
+
 	}
 	else
 	{
-		this->timer_fps = al_create_timer(1.0 / FPS);
+		this->ev_queue = al_create_event_queue();
 
-		if ((this->timer_fps == nullptr) && (this->init))
+		if ((ev_queue == nullptr) && (this->init))
 		{
 			if (this->init)
 			{
-				al_uninstall_mouse();
-				al_uninstall_keyboard();
+				al_destroy_timer(this->timer_fps);
 			}
 
 			this->init = false;
 			this->finish = false;
 
 		}
-		else
+		else if (this->init)
 		{
-			this->ev_queue = al_create_event_queue();
+			al_register_event_source(ev_queue, al_get_timer_event_source(this->timer_fps));
+			al_register_event_source(ev_queue, al_get_display_event_source(viewer.get_display()));
+			al_register_event_source(ev_queue, al_get_mouse_event_source());
+			al_register_event_source(ev_queue, al_get_keyboard_event_source());
 
-			if ((ev_queue == nullptr) && (this->init))
-			{
-				if (this->init)
-				{
-					al_uninstall_mouse();
-					al_uninstall_keyboard();
-					al_destroy_timer(this->timer_fps);
-				}
-
-				this->init = false;
-				this->finish = false;
-
-			}
-			else if (this->init)
-			{
-				al_register_event_source(ev_queue, al_get_timer_event_source(this->timer_fps));
-				al_register_event_source(ev_queue, al_get_display_event_source(viewer.get_display()));
-				al_register_event_source(ev_queue, al_get_mouse_event_source());
-				al_register_event_source(ev_queue, al_get_keyboard_event_source());
-
-				this->actual_display = viewer.get_display();
-				(this->displays).push_back(viewer.get_display());
-			}
-
-
+			this->actual_display = viewer.get_display();
+			(this->displays).push_back(viewer.get_display());
 		}
 
-
 	}
+}
+
+
+
 
 	
-}
 
 //listo
 supervisor::~supervisor()
 {
 	if (this->init)
 	{
-		al_uninstall_mouse();
-		al_uninstall_keyboard();
 		al_destroy_timer(this->timer_fps);
 		al_destroy_event_queue(this->ev_queue);
 
@@ -105,6 +78,13 @@ supervisor::~supervisor()
 	}
 	
 }
+
+supervisor::supervisor(void)
+{
+
+}
+
+
 
 void supervisor::
 set_start(void) {

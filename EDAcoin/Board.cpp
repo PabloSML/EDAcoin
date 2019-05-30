@@ -4,17 +4,11 @@
 
 
 //listo
-board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons, vector<MerkleNode *> merkleTrees)
+board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vector<ImageDescriptor> & buttons, vector<MerkleNode *> merkleTrees):
+	width(width), height(height), margin_x(width * MARGIN_RATE), margin_y(height * MARGIN_RATE)
 {
-	this->width = width;
-	this->height = height;
-
-	this->margin_x = width * MARGIN_RATE;
-	this->margin_y = height * MARGIN_RATE;
-
-	this->blocks_images = blocks_images;
 	
-	this->merkleTrees = merkleTrees;
+	
 	
 
 	(buttons[BUTTON_LEFT]).set_pos(BUTTON_SIZE_X * MARGIN_RATE, this->height - BUTTON_SIZE_Y);
@@ -22,6 +16,10 @@ board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vec
 
 
 	this->buttons = buttons;
+
+	this->blocks_images = blocks_images;
+
+	this->merkleTrees = merkleTrees;
 
 	this->board_cant = (int)( (this->blocks_images).size() / MAX_IMAGES_IN_THE_BOARD);
 
@@ -34,9 +32,37 @@ board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vec
 	this->board_actual = 0;
 }
 
+board::board(void)
+{
+
+}
+
 //listo
 board::~board()
 {
+}
+
+board::
+board(const board &copia)
+{
+	this->blocks_images = copia.blocks_images;
+	this->buttons = copia.buttons;
+	this->merkleTrees = copia.merkleTrees;
+
+	this->image_size_x = copia.image_size_x;
+	this->image_size_y = copia.image_size_y;
+
+	this->button_size_x = copia.button_size_x; //tamaño de los botones
+	this->button_size_y = copia.button_size_y;
+
+	this->margin_x = copia.margin_x; //margenes
+	this->margin_y = copia.margin_y;
+
+	this->width = copia.width; //dimensiones del damero
+	this->height = copia.height;
+
+	this->board_actual = copia.board_actual; // de cero a la cantidad de board -1
+	this->board_cant = copia.board_cant; // cantidad de board
 }
 
 //listo
@@ -228,7 +254,6 @@ void board::set_blocks_images(vector<ImageDescriptor> & new_blocks_images) {
 }
 
 
-
 //listo
 void board::change_board(int button_pressed)
 {
@@ -243,5 +268,20 @@ void board::change_board(int button_pressed)
 		}
 }
 
+
+void board::update_board(vector<ImageDescriptor> & blocks_images, vector<MerkleNode *> merkleTrees)
+{
+	this->blocks_images = blocks_images;
+
+	this->merkleTrees = merkleTrees;
+
+	this->board_cant = (int)((this->blocks_images).size() / MAX_IMAGES_IN_THE_BOARD);
+
+	if (!((this->blocks_images).size() % MAX_IMAGES_IN_THE_BOARD)) //si la division es exacta
+	{
+		(this->board_cant)--;
+	}
+
+}
 
 

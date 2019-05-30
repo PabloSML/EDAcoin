@@ -12,6 +12,7 @@
 class supervisor {
 public:
 	supervisor(viewer& viewer);
+	supervisor(void);
 	~supervisor();
 
 	void dispatcher(viewer& viewer, board& board);
