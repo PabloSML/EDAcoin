@@ -44,11 +44,61 @@ SPVNode::pullHeaderfromFullNode()	// analogamente, luego recibira json
 void
 SPVNode::searchAndValidate(blockHeader& headerToValidate)
 {
-
+	EdaMerkleBlockS* blockReceptor;
+	searchForMatch(headerToValidate, blockReceptor);
+	validateTxs(headerToValidate, *blockReceptor);
 }
 
 void
 SPVNode::searchAndValidate(EdaMerkleBlockS& blockToValidate)
+{
+	blockHeader* headerReceptor;
+	searchForMatch(blockToValidate, headerReceptor);
+	validateTxs(*headerReceptor, blockToValidate);
+}
+
+void
+SPVNode::searchForMatch(blockHeader& headerToValidate, EdaMerkleBlockS* dest)
+{
+	bool found = false;
+	string blockIDTarget = headerToValidate.blockID;
+	vector<EdaMerkleBlockS>::reverse_iterator itr = edaMerkleBlockChain.rbegin();
+	for (itr; itr < edaMerkleBlockChain.rend() && !found; itr++)
+	{
+		if (itr->blockID == blockIDTarget)
+		{
+			found = true;
+			itr--; // se corrige el incremento que sucedera al terminar este ciclo
+		}
+	}
+	if (found)
+	{
+		dest = &(*itr);	// se iguala el puntero destino a la direccion del bloque encontrado
+	}
+}
+
+void
+SPVNode::searchForMatch(EdaMerkleBlockS& blockToValidate, blockHeader* dest)
+{
+	bool found = false;
+	string blockIDTarget = blockToValidate.blockID;
+	vector<blockHeader>::reverse_iterator itr = blockHeaders.rbegin();
+	for (itr; itr < blockHeaders.rend() && !found; itr++)
+	{
+		if (itr->blockID == blockIDTarget)
+		{
+			found == true;
+			itr--;
+		}
+	}
+	if (found)
+	{
+		dest = &(*itr);
+	}
+}
+
+void
+SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToValidate)
 {
 
 }

@@ -76,7 +76,8 @@ FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 		if (ritr->getBlockID() == latestID)
 		{
 			found = true;
-			ritr--;
+			ritr--;	// se corrige el offset que generara el incremento al terminar el ciclo
+			ritr--;	// se vuelve al primer block no conocido (siguiente al conocido)
 		}
 	}
 	if (found)	// luego de ser encontrado, se llena el vector destino con los headers pedidos
