@@ -119,10 +119,7 @@ bool getBlockChainJson(json* dest, const char* file)
 		int length = blockChainFile.tellg();
 		blockChainFile.seekg(0, blockChainFile.beg);
 		char * buffer = new char[length];
-		//string strBuffer = string("");
 		blockChainFile.read(buffer, length);
-		//for (int i = 0; i < length; i++)
-		//	strBuffer.push_back(buffer[i]);
 		string strBuffer(buffer, length);
 		delete[] buffer;
 
