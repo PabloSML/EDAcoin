@@ -29,8 +29,14 @@ SPVNode::pullHeaderfromFullNode()	// analogamente, luego recibira json
 		if (fullHeaderCount > blockHeaderCount)
 		{
 			vector<blockHeader> headerReceptor;
-			vector<blockHeader>::reverse_iterator itr = blockHeaders.rbegin();	// obtengo un iterador al ultimo header recibido para conseguir su blockID
-			tempFull->requestLatestHeaders(&headerReceptor, itr->blockID);	// luego de esta funcion, la conexion con el full deja de ser necesaria y se pasa a procesar lo recibido
+			if (blockHeaderCount == 0)
+				tempFull->requestAllHeaders(&headerReceptor);
+			else
+			{
+				vector<blockHeader>::reverse_iterator itr = blockHeaders.rbegin();	// obtengo un iterador al ultimo header recibido para conseguir su blockID
+				string tempBlockID = itr->blockID;
+				tempFull->requestLatestHeaders(&headerReceptor, tempBlockID);	// luego de esta funcion, la conexion con el full deja de ser necesaria y se pasa a procesar lo recibido
+			}
 			for (blockHeader b : headerReceptor)
 			{
 				searchAndValidate(b);
@@ -44,20 +50,22 @@ SPVNode::pullHeaderfromFullNode()	// analogamente, luego recibira json
 void
 SPVNode::searchAndValidate(blockHeader& headerToValidate)
 {
-	EdaMerkleBlockS* blockReceptor;
-	searchForMatch(headerToValidate, blockReceptor);
-	validateTxs(headerToValidate, *blockReceptor);
+	EdaMerkleBlockS blockReceptor;
+	bool found = searchForMatch(headerToValidate, &blockReceptor);
+	if(found)
+		validateTxs(headerToValidate, blockReceptor);
 }
 
 void
 SPVNode::searchAndValidate(EdaMerkleBlockS& blockToValidate)
 {
-	blockHeader* headerReceptor;
-	searchForMatch(blockToValidate, headerReceptor);
-	validateTxs(*headerReceptor, blockToValidate);
+	blockHeader* headerReceptor = nullptr;
+	bool found = searchForMatch(blockToValidate, headerReceptor);
+	if(found)
+		validateTxs(*headerReceptor, blockToValidate);
 }
 
-void
+bool
 SPVNode::searchForMatch(blockHeader& headerToValidate, EdaMerkleBlockS* dest)
 {
 	bool found = false;
@@ -68,16 +76,18 @@ SPVNode::searchForMatch(blockHeader& headerToValidate, EdaMerkleBlockS* dest)
 		if (itr->blockID == blockIDTarget)
 		{
 			found = true;
-			itr--; // se corrige el incremento que sucedera al terminar este ciclo
 		}
 	}
 	if (found)
 	{
-		dest = &(*itr);	// se iguala el puntero destino a la direccion del bloque encontrado
+		itr--; // se corrige el incremento que sucedera al terminar este ciclo
+		*dest = *itr;	
 	}
+
+	return found;
 }
 
-void
+bool
 SPVNode::searchForMatch(EdaMerkleBlockS& blockToValidate, blockHeader* dest)
 {
 	bool found = false;
@@ -87,18 +97,55 @@ SPVNode::searchForMatch(EdaMerkleBlockS& blockToValidate, blockHeader* dest)
 	{
 		if (itr->blockID == blockIDTarget)
 		{
-			found == true;
-			itr--;
+			found = true;
 		}
 	}
 	if (found)
 	{
-		dest = &(*itr);
+		itr--;
+		*dest = *itr;
 	}
+
+	return found;
 }
 
 void
 SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToValidate)
 {
+	if (headerToValidate.blockID == blockToValidate.blockID) // validacion redundante
+	{
+		unsigned long wantedRoot = headerToValidate.merkleRoot;
 
+		vector<MerkleValidationData>::iterator dataItr = blockToValidate.merklePathDataForTxs.begin();
+		for (TransactionS tx : blockToValidate.transactions)
+		{
+			unsigned long obtainedRoot;
+			string ID = tx.txID;	// el ID inicial sera el ID de la transaccion
+			string concat;
+
+			for (Step stp : dataItr->merklePath)
+			{
+				direction stepDir = stp.getDir();
+
+				if (stepDir == RIGHT)
+					concat = ID + stp.getID();
+				else if (stepDir == LEFT)
+					concat = stp.getID() + ID;
+
+				obtainedRoot = generateID((const unsigned char*)concat.c_str());
+				ID = to_string(obtainedRoot);
+			}
+
+			if (obtainedRoot == wantedRoot)
+				cout << "A transaction has been successfully validated!" << endl;
+			else
+				cout << "A transaction validation has returned an error" << endl;
+
+			dataItr++;
+		}
+	}
+	else
+	{
+		cout << "Validate fun recieved uncoherent data" << endl;
+	}
 }

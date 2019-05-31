@@ -8,6 +8,10 @@ typedef enum {LEFT, RIGHT} direction;
 class Step{
 public:
 	Step(string& ID, direction dir) { this->ID = ID; this->leftOrRight = dir; }
+
+	string getID(void) const { return ID; }
+	direction getDir(void) const { return leftOrRight; }
+
 private:
 	string ID;
 	direction leftOrRight;

@@ -31,7 +31,7 @@ int main()
 {
 	//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
 	FullNode f1(string("FullNode One")), f2(string("FullNode Two"));
-	SPVNode s1(string("SPVNode One"));
+	SPVNode s1(string("SPV Node"));
 	//Se conectan los fullnodes con los spvnodes y entre ellos
 	//	f1 <-> f2
 	//	  \  /

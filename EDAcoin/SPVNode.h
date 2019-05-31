@@ -23,8 +23,8 @@ private:
 	void searchAndValidate(blockHeader& headerToValidate);
 	void searchAndValidate(EdaMerkleBlockS& blockToValidate);
 
-	void searchForMatch(blockHeader& headerToValidate, EdaMerkleBlockS* dest);
-	void searchForMatch(EdaMerkleBlockS& blockToValidate, blockHeader* dest);
+	bool searchForMatch(blockHeader& headerToValidate, EdaMerkleBlockS* dest);
+	bool searchForMatch(EdaMerkleBlockS& blockToValidate, blockHeader* dest);
 
 	void validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToValidate);
 };

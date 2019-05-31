@@ -76,18 +76,28 @@ FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 		if (ritr->getBlockID() == latestID)
 		{
 			found = true;
-			ritr--;	// se corrige el offset que generara el incremento al terminar el ciclo
-			ritr--;	// se vuelve al primer block no conocido (siguiente al conocido)
 		}
 	}
 	if (found)	// luego de ser encontrado, se llena el vector destino con los headers pedidos
 	{
+		ritr--;	// se corrige el offset que generara el incremento al terminar el ciclo
+		ritr--;	// se vuelve al primer block no conocido (siguiente al conocido)
 		vector<Block>::iterator itr = ritr.base();
 		for (itr; itr < blockChain.end(); itr++)
 		{
-			blockHeader tempHeader{ itr->getBlockID(), itr->getMerkleRoot() };
+			blockHeader tempHeader = itr->getBlockHeader();
 			dest->push_back(tempHeader);
 		}
+	}
+}
+
+void
+FullNode::requestAllHeaders(vector<blockHeader>* dest)
+{
+	for (Block B : blockChain)
+	{
+		blockHeader tempHeader = B.getBlockHeader();
+		dest->push_back(tempHeader);
 	}
 }
 
@@ -119,7 +129,7 @@ FullNode::sendInfo2Spv()
 			{
 				spvTrans.push_back(t);
 				MerkleValidationData tempData;
-				buildMerkleValidationData(tempData, root, spvID);
+				buildMerkleValidationData(tempData, root, t.txID);
 				spvMerkleData.push_back(tempData);
 			}
 			else
@@ -133,7 +143,7 @@ FullNode::sendInfo2Spv()
 						done = true;
 						spvTrans.push_back(t);
 						MerkleValidationData tempData;
-						buildMerkleValidationData(tempData, root, spvID);
+						buildMerkleValidationData(tempData, root, t.txID);
 						spvMerkleData.push_back(tempData);
 					}
 				}
@@ -188,9 +198,9 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 	}
 }
 
-void FullNode::buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& spvID)
+void FullNode::buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID)
 {
-	buildMerklePath(root, spvID, dest.merklePath);
+	buildMerklePath(root, txID, dest.merklePath);
 	dest.merklePathLen = dest.merklePath.size();
 }
 
