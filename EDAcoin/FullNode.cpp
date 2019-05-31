@@ -167,7 +167,7 @@ FullNode::sendInfo2Spv()
 
 /*Esta funcion guarda en el vector de TransactionS todas las transacciones que estan en el json ingresado*/
 void 
-FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int& txsCount)
+FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount)
 {
 	for (unsigned int i = 0; i < txsCount; i++)		//Para cada transaccion se evaluan los inputs y los outputs y se ponen en el vector de TransactionS
 	{
