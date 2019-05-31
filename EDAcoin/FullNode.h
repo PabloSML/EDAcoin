@@ -25,10 +25,8 @@ public:
 
 	void recieveBlock(json& jsonBlock);
 
-	blockHeader requestLatestHeader();
+	void requestLatestHeaders(vector<blockHeader>* dest, string& latestID);
 	unsigned int requestHeaderCount();
-	void requestHeader(int num);
-	void getNextHeader();
 
 	virtual void attachConnection(Node* connection);
 	virtual void dettachConnection(Node* connection);

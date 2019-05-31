@@ -19,4 +19,7 @@ private:
 	unsigned int blockHeaderCount;
 	vector<EdaMerkleBlockS> edaMerkleBlockChain;
 	vector<blockHeader> blockHeaders;
+
+	void searchAndValidate(blockHeader& headerToValidate);
+	void searchAndValidate(EdaMerkleBlockS& blockToValidate);
 };

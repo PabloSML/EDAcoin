@@ -66,28 +66,37 @@ FullNode::recieveBlock(json& jsonBlock)
 	blockChain.push_back(newBlock);
 }
 
-blockHeader
-FullNode::requestLatestHeader()
+void
+FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 {
-	blockHeader ret;
-	return ret;
+	bool found = false;
+	vector<Block>::reverse_iterator ritr = blockChain.rbegin();
+	for (ritr; ritr < blockChain.rend() && !found; ritr++)		// primero se busca el match empezando desde los ultimos headers (si el spv ya esta conectado esto supone el metodo mas eficiente de recorrer el vector).
+	{
+		if (ritr->getBlockID() == latestID)
+		{
+			found = true;
+			ritr--;
+		}
+	}
+	if (found)	// luego de ser encontrado, se llena el vector destino con los headers pedidos
+	{
+		vector<Block>::iterator itr = ritr.base();
+		for (itr; itr < blockChain.end(); itr++)
+		{
+			blockHeader tempHeader{ itr->getBlockID(), itr->getMerkleRoot() };
+			dest->push_back(tempHeader);
+		}
+	}
 }
 
 unsigned int 
 FullNode::requestHeaderCount()
 {
-	return 0;
+	return blockChain.size();
 }
-void 
-FullNode::requestHeader(int num)
-{
 
-}
-void 
-FullNode::getNextHeader()
-{
 
-}
 void
 FullNode::sendInfo2Spv()
 {
@@ -129,7 +138,6 @@ FullNode::sendInfo2Spv()
 				}
 			}
 		}
-		// aca habria que hacer el merkleBlock y mandarlo (ya esta la lista de tx que involucra al spv)
 		unsigned int txCount = spvTrans.size();
 		if (txCount) // solo notifica al spv si hay txs que le interesen
 		{

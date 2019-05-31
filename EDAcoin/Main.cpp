@@ -86,13 +86,7 @@ int main()
 					controller.dispatcher();
 					index--;
 				}
-
-				
-
-				
-
 			}
-
 
 			controller.update(f1.get_blockChain(), merkleTrees);
 
@@ -101,8 +95,6 @@ int main()
 				controller.dispatcher();
 
 			}
-
-
 		}
 
 		return 0;
