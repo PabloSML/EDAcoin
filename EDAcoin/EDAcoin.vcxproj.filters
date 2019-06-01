@@ -78,6 +78,12 @@
     <ClInclude Include="General_Controller.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

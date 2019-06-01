@@ -301,7 +301,8 @@ void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int l
 		draw_nodes(merkleRoot->getRight(), child_pos_x, child_pos_y, depth, level + 1, width, height, font);
 	}
 	
-	al_draw_filled_circle(last_pos_x + MARGIN_X_DISPLAY * (UNIT), last_pos_y + MARGIN_Y_DISPLAY * (UNIT), NODE_RADIUS*(1+SCALE_LEVEL_SIZE_NODE/level), NODE_COLOR);
+	al_draw_filled_circle(last_pos_x + MARGIN_X_DISPLAY * (UNIT), last_pos_y + MARGIN_Y_DISPLAY * (UNIT),
+							NODE_RADIUS*(1+SCALE_LEVEL_SIZE_NODE/level), NODE_COLOR);
 
 	if (merkleRoot->isLeaf())
 	{

@@ -131,7 +131,9 @@
     <ClInclude Include="Labels.h" />
     <ClInclude Include="MerkleNode.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="SPVNode.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="Supervisor.h" />
     <ClInclude Include="Viewer.h" />
   </ItemGroup>
