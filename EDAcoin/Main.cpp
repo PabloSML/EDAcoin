@@ -31,7 +31,7 @@ int main()
 {
 	//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
 	FullNode f1(string("FullNode One")), f2(string("FullNode Two"));
-	SPVNode s1(string("SPVNode One"));
+	SPVNode s1(string("SPV Node"));
 	//Se conectan los fullnodes con los spvnodes y entre ellos
 	//	f1 <-> f2
 	//	  \  /
@@ -86,13 +86,7 @@ int main()
 					controller.dispatcher();
 					index--;
 				}
-
-				
-
-				
-
 			}
-
 
 			controller.update(f1.get_blockChain(), merkleTrees);
 
@@ -101,8 +95,6 @@ int main()
 				controller.dispatcher();
 
 			}
-
-
 		}
 
 		return 0;
@@ -127,10 +119,7 @@ bool getBlockChainJson(json* dest, const char* file)
 		int length = blockChainFile.tellg();
 		blockChainFile.seekg(0, blockChainFile.beg);
 		char * buffer = new char[length];
-		//string strBuffer = string("");
 		blockChainFile.read(buffer, length);
-		//for (int i = 0; i < length; i++)
-		//	strBuffer.push_back(buffer[i]);
 		string strBuffer(buffer, length);
 		delete[] buffer;
 

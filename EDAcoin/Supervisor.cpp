@@ -9,7 +9,7 @@ void refresh_display(viewer& viewer_, board& board_, ALLEGRO_DISPLAY * display);
 bool draw_merkle_tree(MerkleNode * merkleRoot, ALLEGRO_DISPLAY * * new_display);
 
 void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
-	unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font);
+	unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font, ALLEGRO_BITMAP* nodeImg);
 
 unsigned int get_depth_tree(MerkleNode * merkle_root);
 
@@ -264,8 +264,15 @@ bool draw_merkle_tree(MerkleNode * merkleRoot, ALLEGRO_DISPLAY * * new_display)
 		all_ok = false;
 		return all_ok;
 	}
-		
-	draw_nodes(merkleRoot, root_pos_x, root_pos_y, depth_tree, level, WIDTH_DEFAULT, HEIGHT_DEFAULT, font_nodes);
+	
+	ALLEGRO_BITMAP* nodeImg = al_load_bitmap("MerkelNode.png");
+	if (nodeImg == nullptr)
+	{
+		all_ok = false;
+		return all_ok;
+	}
+
+	draw_nodes(merkleRoot, root_pos_x, root_pos_y, depth_tree, level, WIDTH_DEFAULT, HEIGHT_DEFAULT, font_nodes, nodeImg);
 
 	return all_ok; //true
 
@@ -273,7 +280,7 @@ bool draw_merkle_tree(MerkleNode * merkleRoot, ALLEGRO_DISPLAY * * new_display)
 
 
 void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
-				unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font)
+				unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font, ALLEGRO_BITMAP* nodeImg)
 {
 	
 	if (!(merkleRoot->getLeft() == nullptr))
@@ -286,7 +293,7 @@ void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int l
 			LINE_COLOR, LINE_THICKNESS);
 
 
-		draw_nodes(merkleRoot->getLeft(), child_pos_x , child_pos_y, depth, level + 1, width, height, font);
+		draw_nodes(merkleRoot->getLeft(), child_pos_x , child_pos_y, depth, level + 1, width, height, font, nodeImg);
 	}
 
 	if (!(merkleRoot->getRight() == nullptr))
@@ -298,11 +305,13 @@ void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int l
 					(float)(child_pos_x + MARGIN_X_DISPLAY * (UNIT)), (float)(child_pos_y + MARGIN_Y_DISPLAY * (UNIT)),
 					LINE_COLOR, LINE_THICKNESS);
 
-		draw_nodes(merkleRoot->getRight(), child_pos_x, child_pos_y, depth, level + 1, width, height, font);
+		draw_nodes(merkleRoot->getRight(), child_pos_x, child_pos_y, depth, level + 1, width, height, font, nodeImg);
 	}
 	
-	al_draw_filled_circle(last_pos_x + MARGIN_X_DISPLAY * (UNIT), last_pos_y + MARGIN_Y_DISPLAY * (UNIT),
-							NODE_RADIUS*(1+SCALE_LEVEL_SIZE_NODE/level), NODE_COLOR);
+	/*al_draw_scaled_bitmap(nodeImg, 0, 0, al_get_bitmap_width(nodeImg), al_get_bitmap_height(nodeImg), (last_pos_x + MARGIN_X_DISPLAY * (UNIT)) - NODE_RADIUS * (1 + SCALE_LEVEL_SIZE_NODE / level),
+		last_pos_y + MARGIN_Y_DISPLAY * (UNIT) - NODE_RADIUS * (1 + SCALE_LEVEL_SIZE_NODE / level), NODE_RADIUS*(1 + SCALE_LEVEL_SIZE_NODE / level)*2, NODE_RADIUS*(1 + SCALE_LEVEL_SIZE_NODE / level) * 2, 0);  Imagen para el nodo (graciosa)*/	
+
+	al_draw_filled_circle(last_pos_x + MARGIN_X_DISPLAY * (UNIT), last_pos_y + MARGIN_Y_DISPLAY * (UNIT), NODE_RADIUS*(1+SCALE_LEVEL_SIZE_NODE/level), NODE_COLOR);
 
 	if (merkleRoot->isLeaf())
 	{

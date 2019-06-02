@@ -25,10 +25,9 @@ public:
 
 	void recieveBlock(json& jsonBlock);
 
-	blockHeader requestLatestHeader();
+	void requestLatestHeaders(vector<blockHeader>* dest, string& latestID);
+	void requestAllHeaders(vector<blockHeader>* dest);
 	unsigned int requestHeaderCount();
-	void requestHeader(int num);
-	void getNextHeader();
 
 	virtual void attachConnection(Node* connection);
 	virtual void dettachConnection(Node* connection);
@@ -45,6 +44,6 @@ private:
 	list<SPVNode*> filters;
 	vector<MerkleNode*> merkleTrees;
 
-	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int& txsCount);
-	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& spvID);
+	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount);
+	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID);
 };

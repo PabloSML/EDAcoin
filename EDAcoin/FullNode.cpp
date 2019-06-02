@@ -66,28 +66,48 @@ FullNode::recieveBlock(json& jsonBlock)
 	blockChain.push_back(newBlock);
 }
 
-blockHeader
-FullNode::requestLatestHeader()
+void
+FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 {
-	blockHeader ret;
-	return ret;
+	bool found = false;
+	vector<Block>::reverse_iterator ritr = blockChain.rbegin();
+	for (ritr; ritr < blockChain.rend() && !found; ritr++)		// primero se busca el match empezando desde los ultimos headers (si el spv ya esta conectado esto supone el metodo mas eficiente de recorrer el vector).
+	{
+		if (ritr->getBlockID() == latestID)
+		{
+			found = true;
+		}
+	}
+	if (found)	// luego de ser encontrado, se llena el vector destino con los headers pedidos
+	{
+		ritr--;	// se corrige el offset que generara el incremento al terminar el ciclo
+		ritr--;	// se vuelve al primer block no conocido (siguiente al conocido)
+		vector<Block>::iterator itr = ritr.base();
+		for (itr; itr < blockChain.end(); itr++)
+		{
+			blockHeader tempHeader = itr->getBlockHeader();
+			dest->push_back(tempHeader);
+		}
+	}
+}
+
+void
+FullNode::requestAllHeaders(vector<blockHeader>* dest)
+{
+	for (Block B : blockChain)
+	{
+		blockHeader tempHeader = B.getBlockHeader();
+		dest->push_back(tempHeader);
+	}
 }
 
 unsigned int 
 FullNode::requestHeaderCount()
 {
-	return 0;
+	return blockChain.size();
 }
-void 
-FullNode::requestHeader(int num)
-{
 
-}
-void 
-FullNode::getNextHeader()
-{
 
-}
 void
 FullNode::sendInfo2Spv()
 {
@@ -109,7 +129,7 @@ FullNode::sendInfo2Spv()
 			{
 				spvTrans.push_back(t);
 				MerkleValidationData tempData;
-				buildMerkleValidationData(tempData, root, spvID);
+				buildMerkleValidationData(tempData, root, t.txID);
 				spvMerkleData.push_back(tempData);
 			}
 			else
@@ -123,13 +143,12 @@ FullNode::sendInfo2Spv()
 						done = true;
 						spvTrans.push_back(t);
 						MerkleValidationData tempData;
-						buildMerkleValidationData(tempData, root, spvID);
+						buildMerkleValidationData(tempData, root, t.txID);
 						spvMerkleData.push_back(tempData);
 					}
 				}
 			}
 		}
-		// aca habria que hacer el merkleBlock y mandarlo (ya esta la lista de tx que involucra al spv)
 		unsigned int txCount = spvTrans.size();
 		if (txCount) // solo notifica al spv si hay txs que le interesen
 		{
@@ -148,7 +167,7 @@ FullNode::sendInfo2Spv()
 
 /*Esta funcion guarda en el vector de TransactionS todas las transacciones que estan en el json ingresado*/
 void 
-FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int& txsCount)
+FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount)
 {
 	for (unsigned int i = 0; i < txsCount; i++)		//Para cada transaccion se evaluan los inputs y los outputs y se ponen en el vector de TransactionS
 	{
@@ -179,9 +198,9 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 	}
 }
 
-void FullNode::buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& spvID)
+void FullNode::buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID)
 {
-	buildMerklePath(root, spvID, dest.merklePath);
+	buildMerklePath(root, txID, dest.merklePath);
 	dest.merklePathLen = dest.merklePath.size();
 }
 
