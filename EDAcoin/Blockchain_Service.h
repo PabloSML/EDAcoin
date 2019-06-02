@@ -16,8 +16,8 @@ using namespace std;
 class blockchain_service {
 
 public:
-
-	blockchain_service(vector<UTXO>& utxos);
+	blockchain_service(){}
+	blockchain_service(vector<UTXO>* utxos);
 	~blockchain_service(void);
 
 
@@ -39,5 +39,5 @@ public:
 private:
 	double get_amount(vector<UTXO>& utxos);
 
-	vector<UTXO>& utxos;
+	vector<UTXO>* utxos;
 };

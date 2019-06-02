@@ -104,6 +104,8 @@ bool buildMerklePath(MerkleNode* root, string& txID, vector<Step>& path)
 			return (isLeft || isRight);
 		}
 	}
+	else
+		return false;
 }
 
 unsigned long generateID(const unsigned char* str)

@@ -1,22 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="FullNode.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SPVNode.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="MerkleNode.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Board.cpp">
@@ -37,36 +22,45 @@
     <ClCompile Include="General_Controller.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulation.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
     <ClCompile Include="Subject.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\MVC Base</Filter>
     </ClCompile>
-    <ClCompile Include="UTXO.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="SimView.cpp">
+      <Filter>Source\Views</Filter>
     </ClCompile>
-    <ClCompile Include="Blockchain_Service.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="RegularNodeView.cpp">
+      <Filter>Source\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Source\BlockChain</Filter>
     </ClCompile>
     <ClCompile Include="Blockchain_Message.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\BlockChain</Filter>
+    </ClCompile>
+    <ClCompile Include="Blockchain_Service.cpp">
+      <Filter>Source\BlockChain</Filter>
+    </ClCompile>
+    <ClCompile Include="FullNode.cpp">
+      <Filter>Source\BlockChain</Filter>
+    </ClCompile>
+    <ClCompile Include="MerkleNode.cpp">
+      <Filter>Source\BlockChain</Filter>
+    </ClCompile>
+    <ClCompile Include="SPVNode.cpp">
+      <Filter>Source\BlockChain</Filter>
+    </ClCompile>
+    <ClCompile Include="UTXO.cpp">
+      <Filter>Source\BlockChain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Block.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="FullNode.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="SPVNode.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Labels.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MerkleNode.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Definitions.h">
@@ -90,20 +84,44 @@
     <ClInclude Include="General_Controller.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Subject.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="RegularNodeView.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="SimView.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation.h">
+      <Filter>Headers\Models</Filter>
     </ClInclude>
     <ClInclude Include="Observer.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\MVC Base</Filter>
     </ClInclude>
-    <ClInclude Include="Blockchain_Service.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Subject.h">
+      <Filter>Headers\MVC Base</Filter>
     </ClInclude>
-    <ClInclude Include="UTXO.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Block.h">
+      <Filter>Headers\BlockChain</Filter>
     </ClInclude>
     <ClInclude Include="Blockchain_Message.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="Blockchain_Service.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="FullNode.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="SPVNode.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="MerkleNode.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="UTXO.h">
+      <Filter>Headers\BlockChain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +130,30 @@
     </Filter>
     <Filter Include="Headers">
       <UniqueIdentifier>{51d07e5f-bf3b-4889-96d3-5db9ea5a17e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Views">
+      <UniqueIdentifier>{3aa329d3-d4e2-41e2-9f42-74d28247ce93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Models">
+      <UniqueIdentifier>{47247c25-9992-441d-a731-010b6c94ecc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\MVC Base">
+      <UniqueIdentifier>{094f2a8e-3f73-40a4-aa31-2b4cfde6049d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Models">
+      <UniqueIdentifier>{a63e488c-44d8-4040-89af-091bdc206109}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MVC Base">
+      <UniqueIdentifier>{4177c3c6-5ee7-4281-a466-6674d2da41d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Views">
+      <UniqueIdentifier>{c825fa41-5123-4162-bf35-212277981c8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\BlockChain">
+      <UniqueIdentifier>{69ce277e-e34d-4ff5-88af-4495215e665b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\BlockChain">
+      <UniqueIdentifier>{b69e3308-1365-4337-ad9b-d2c749cab48a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
