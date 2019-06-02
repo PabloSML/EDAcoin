@@ -1,7 +1,7 @@
 #include "Blockchain_Service.h"
 
 blockchain_service::
-blockchain_service(vector<UTXO>& _utxos) : utxos(_utxos) {
+blockchain_service(vector<UTXO>* _utxos) : utxos(_utxos) {
 
 }
 
@@ -18,7 +18,7 @@ fetch_balance(string who_i_want_balance) {
 
 	double balance_resquest = 0;
 
-	for (UTXO utxo : utxos) {
+	for (UTXO utxo : *utxos) {
 
 		if ((utxo.get_output()).publicID.compare(who_i_want_balance) == 0) {
 
@@ -36,7 +36,7 @@ fetch_utxos(string who_i_want_utxos) {
 	vector<UTXO> utxos_request;
 	utxos_request.clear();
 
-	for (UTXO utxo : utxos) {
+	for (UTXO utxo : *utxos) {
 
 		if ((utxo.get_output()).publicID.compare(who_i_want_utxos) == 0) {
 			utxos_request.push_back(utxo);
