@@ -11,8 +11,8 @@ public:
 	/*
 	* Constructores y destructores
 	*/
-	Observer(void);
-	virtual ~Observer(void);
+	Observer(void){}
+	virtual ~Observer(void){}
 
 	/*
 	* update

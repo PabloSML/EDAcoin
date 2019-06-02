@@ -4,12 +4,13 @@
 #include <nlohmann/json.hpp>
 #include "MerkleNode.h"
 #include "Definitions.h"
+#include "Subject.h"
 using namespace std;
 using json = nlohmann::json;
 
 
 
-class Node {
+class Node : public Subject{
 public:
 	Node():nodeType(""),nodeID("") { }
 	Node(string nodeID, string nodeType) { this->nodeID = nodeID; this->nodeType = nodeType; }
@@ -25,6 +26,8 @@ public:
 
 	virtual void attachConnection(Node* connection) { connections.push_back(connection); }
 	virtual void dettachConnection(Node* connection);
+
+	void updateNode(/*evento*/);
 
 protected:
 	string nodeID;
