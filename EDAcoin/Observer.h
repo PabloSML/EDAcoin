@@ -19,5 +19,5 @@ public:
 	* La implementacion del update es llamada cuando los modelos
 	* realizan una notificacion de todos los observers.
 	*/
-	virtual void update(void) = 0;
+	virtual void update(void* model) = 0;
 };

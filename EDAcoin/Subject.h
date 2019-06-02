@@ -2,6 +2,7 @@
 #include "Observer.h"
 
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -17,14 +18,14 @@ public:
 	/*
 	* Constructores y destructores
 	*/
-	Subject(void);
-	virtual ~Subject(void);
+	Subject(void){}
+	virtual ~Subject(void){}
 
 	/*
 	* attach
 	* Agrega observers al sujeto
 	*/
-	bool attach(Observer* ptr);
+	void attach(Observer* ptr);
 
 	/*
 	* detach

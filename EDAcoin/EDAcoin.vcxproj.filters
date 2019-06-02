@@ -37,6 +37,9 @@
     <ClCompile Include="General_Controller.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">

@@ -148,6 +148,7 @@
     <ClCompile Include="MerkleNode.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="SPVNode.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Supervisor.cpp" />
     <ClCompile Include="Viewer.cpp" />
   </ItemGroup>
