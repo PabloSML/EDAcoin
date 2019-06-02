@@ -18,6 +18,31 @@ RegularNodeView::RegularNodeView(const char* imgPath, unsigned int newPosx, unsi
 }
 
 void
+RegularNodeView::setPos(unsigned int newPosx, unsigned int newPosy)
+{
+	posX = newPosx;
+	posY = newPosy;
+}
+
+void
+RegularNodeView::setImage(ALLEGRO_BITMAP* newImage)
+{
+	if (image != nullptr)
+		al_destroy_bitmap(image);
+	image = newImage;
+}
+
+void
+RegularNodeView::setImage(const char* imgPath)
+{
+	if (image != nullptr)
+		al_destroy_bitmap(image);
+	image = al_load_bitmap(imgPath);
+	if (!image)
+		std::cout << "RNV bitmap incorrect load" << std::endl;
+}
+
+void
 RegularNodeView::update(void* model)
 {
 	Node* nodeModel = (Node*)model;

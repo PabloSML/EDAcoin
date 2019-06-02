@@ -135,6 +135,8 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="RegularNodeView.h" />
+    <ClInclude Include="Simulation.h" />
+    <ClInclude Include="SimView.h" />
     <ClInclude Include="SPVNode.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Supervisor.h" />
@@ -154,6 +156,8 @@
     <ClCompile Include="MerkleNode.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="RegularNodeView.cpp" />
+    <ClCompile Include="Simulation.cpp" />
+    <ClCompile Include="SimView.cpp" />
     <ClCompile Include="SPVNode.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Supervisor.cpp" />
