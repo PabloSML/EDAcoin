@@ -8,6 +8,8 @@
 #include <vector>
 #include "Definitions.h"
 
+#include "Blockchain_Service.h"
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -37,12 +39,16 @@ public:
 	vector<MerkleNode*> get_merkle_trees(void);
 	vector<Block> * get_blockChain(void);
 
+	bool transfer(Node& from, Node& to,	double amount);
+
 
 	void sendInfo2Spv();
 private:
 	vector<Block> blockChain;
 	list<SPVNode*> filters;
 	vector<MerkleNode*> merkleTrees;
+	
+	blockchain_service bc_service;
 
 	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount);
 	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID);

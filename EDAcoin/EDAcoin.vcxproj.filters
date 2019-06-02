@@ -40,6 +40,15 @@
     <ClCompile Include="Subject.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="UTXO.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Blockchain_Service.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Blockchain_Message.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -85,6 +94,15 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Observer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blockchain_Service.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="UTXO.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blockchain_Message.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

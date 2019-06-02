@@ -22,3 +22,10 @@ Node::updateNode(/*evento*/)
 	//manejo del evento recibido
 	notifyObservers();
 }
+
+
+void 
+Node::push_message(blockchain_message& message)
+{
+	(this->buffer_messages).push_back(message);
+}

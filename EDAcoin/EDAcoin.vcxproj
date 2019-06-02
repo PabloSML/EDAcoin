@@ -122,6 +122,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Blockchain_Message.h" />
+    <ClInclude Include="Blockchain_Service.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="FullNode.h" />
@@ -135,10 +137,13 @@
     <ClInclude Include="SPVNode.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Supervisor.h" />
+    <ClInclude Include="UTXO.h" />
     <ClInclude Include="Viewer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Blockchain_Service.cpp" />
+    <ClCompile Include="Blockchain_Message.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="FullNode.cpp" />
     <ClCompile Include="General_Controller.cpp" />
@@ -150,6 +155,7 @@
     <ClCompile Include="SPVNode.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Supervisor.cpp" />
+    <ClCompile Include="UTXO.cpp" />
     <ClCompile Include="Viewer.cpp" />
   </ItemGroup>
   <ItemGroup>

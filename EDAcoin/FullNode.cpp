@@ -212,3 +212,28 @@ vector<Block> * FullNode::
 get_blockChain(void) {
 	return &(this->blockChain);
 }
+
+
+bool FullNode::
+transfer(Node& from, Node& to, double amount)
+{
+
+	bool all_ok = true;
+
+	TransactionS transaction;
+
+	if (bc_service.create_transaction(from.getNodeID(), to.getNodeID(), amount, transaction)) {
+
+		blockchain_message message;
+		message = bc_service.create_blockchain_message(transaction);
+
+		this->push_message(message);
+
+		return true;
+	}
+	else {
+		all_ok = false;
+	}
+
+	return all_ok;
+}

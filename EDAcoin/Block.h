@@ -20,7 +20,8 @@ class Block : public ImageDescriptor {
 public:
 	//Block(json& jsonBlock);
 	Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions);
-	~Block(){}
+	Block();
+	~Block();
 
 	string getBlockID(void) const;
 	unsigned long getMerkleRoot(void) const;

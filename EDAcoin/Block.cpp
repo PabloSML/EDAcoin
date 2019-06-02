@@ -1,6 +1,8 @@
 #include "Block.h"
 #include "Labels.h"
 #include "Definitions.h"
+
+
 /*
 Block::Block(json& jsonBlock) : ImageDescriptor(IMAGE_BLOCK_PATH)
 {
@@ -18,7 +20,6 @@ Block::Block(json& jsonBlock) : ImageDescriptor(IMAGE_BLOCK_PATH)
 
 }
 
-
 */
 
 
@@ -29,6 +30,14 @@ Block::Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount,
 	string aux = "Block ID: ";
 
 	this->set_image_name(aux + this->blockID);
+}
+
+Block::Block(void)
+{}
+
+Block::~Block(void)
+{
+
 }
 
 blockHeader

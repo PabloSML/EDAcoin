@@ -5,6 +5,9 @@
 #include "MerkleNode.h"
 #include "Definitions.h"
 #include "Subject.h"
+
+#include "Blockchain_Message.h"
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -29,8 +32,12 @@ public:
 
 	void updateNode(/*evento*/);
 
+	void push_message(blockchain_message& message);
+
 protected:
 	string nodeID;
 	string nodeType;
 	list<Node*> connections;
+
+	vector<blockchain_message> buffer_messages;
 };
