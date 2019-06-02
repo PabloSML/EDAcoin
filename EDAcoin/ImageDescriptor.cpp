@@ -3,6 +3,8 @@
 
 
 //listo
+
+//**Se necesita este constructor? Se podria construir un ImageDescriptor sin un path?
 ImageDescriptor::ImageDescriptor()
 {
 	this->error = true;
@@ -10,13 +12,24 @@ ImageDescriptor::ImageDescriptor()
 	this->width = 0;
 	this->height = 0;
 
+	//**this->image_selected = false;
+	//**this->path = nullptr;
+	//**this->image_name = "Noname";
+
+
 }
 
 //listo
+/*
+Constructor:
+-Crea un bitmap con el path de la imagen.
+-Guarda el tamano original de la imagen en width y height.
+*/
 ImageDescriptor::ImageDescriptor(const char * path_image) :path(path_image)
 {
 	this->error = false;
 	this->bitmap = resize_image(path_image, IMAGE_SIZE_X, IMAGE_SIZE_Y);
+	//**this->path = path_image;
 
 	if (bitmap == nullptr)
 	{
