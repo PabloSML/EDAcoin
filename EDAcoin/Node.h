@@ -30,7 +30,7 @@ public:
 	virtual void attachConnection(Node* connection) { connections.push_back(connection); }
 	virtual void dettachConnection(Node* connection);
 
-	void updateNode(/*evento*/);
+	//void updateNode(/*evento*/);
 
 	void push_message(blockchain_message& message);
 

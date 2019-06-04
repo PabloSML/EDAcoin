@@ -1,14 +1,14 @@
 #include "RegularNodeView.h"
 #include <iostream>
 
-RegularNodeView::RegularNodeView(ALLEGRO_BITMAP* newImage, unsigned int newPosx, unsigned int newPosy)
+RegularNodeView::RegularNodeView(ALLEGRO_BITMAP* newImage, float newPosx, float newPosy)
 {
 	image = newImage;
 	posX = newPosx;
 	posY = newPosy;
 }
 
-RegularNodeView::RegularNodeView(const char* imgPath, unsigned int newPosx, unsigned int newPosy)
+RegularNodeView::RegularNodeView(const char* imgPath, float newPosx, float newPosy)
 {
 	image = al_load_bitmap(imgPath);
 	if (!image)
@@ -18,7 +18,7 @@ RegularNodeView::RegularNodeView(const char* imgPath, unsigned int newPosx, unsi
 }
 
 void
-RegularNodeView::setPos(unsigned int newPosx, unsigned int newPosy)
+RegularNodeView::setPos(float newPosx, float newPosy)
 {
 	posX = newPosx;
 	posY = newPosy;
@@ -46,5 +46,6 @@ void
 RegularNodeView::update(void* model)
 {
 	Node* nodeModel = (Node*)model;
-
+	nodeID = nodeModel->getNodeID();
+	nodeType = nodeModel->getNodeType();
 }

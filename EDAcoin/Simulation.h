@@ -9,8 +9,8 @@ public:
 	Simulation(){}
 	~Simulation(){}
 
-	void attach(Node* node);
-	bool detach(Node* node);
+	void attachNode(Node* node);
+	bool detachNode(Node* node);
 
 private:
 	list<Node*> nodes;
