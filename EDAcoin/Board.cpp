@@ -10,7 +10,7 @@ board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vec
 	
 	
 	
-
+	//**Por que hay botones de right left?
 	(buttons[BUTTON_LEFT]).set_pos(BUTTON_SIZE_X * MARGIN_RATE, this->height - BUTTON_SIZE_Y);
 	(buttons[BUTTON_RIGHT]).set_pos(this->width - BUTTON_SIZE_X , this->height - BUTTON_SIZE_Y - (BUTTON_SIZE_Y * MARGIN_RATE));
 
@@ -21,7 +21,9 @@ board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vec
 
 	this->merkleTrees = merkleTrees;
 
-	this->board_cant = (int)( (this->blocks_images).size() / MAX_IMAGES_IN_THE_BOARD);
+	//**No deberia sumarle 1? porque si hago 2/9 -> 0 
+	//** se esta tomando 0 como una pagina y 1 como dos paginas
+	this->board_cant = (int)( (this->blocks_images).size() / MAX_IMAGES_IN_THE_BOARD);		//Solo se puede mostrar como maximo 9 imagenes en el display.
 
 	if (!((this->blocks_images).size() % MAX_IMAGES_IN_THE_BOARD)) //si la division es exacta
 	{
@@ -42,6 +44,7 @@ board::~board()
 {
 }
 
+/*Constructor copiador*/
 board::
 board(const board &copia)
 {
