@@ -185,7 +185,7 @@ void viewer::print_board(board& board)
 		pos_x = (vector_images)[i].get_pos_x();
 		pos_y = (vector_images)[i].get_pos_y();
 
-		aux_bitmap = this->image_block;
+		aux_bitmap = this->image_block;		//**Esto podria ir afuera del for().
 		
 		al_draw_bitmap(aux_bitmap , pos_x, pos_y, 0); 
 	

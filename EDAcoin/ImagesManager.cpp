@@ -67,7 +67,6 @@ Genera un bitmap con el tamano que se determina a partir de otro bitmap.
 resize_x: ancho de la imagen.
 resize_y: alto de la imagen.
 */
-
 ALLEGRO_BITMAP * resize_bitmap(ALLEGRO_BITMAP * bitmap, int resize_x, int resize_y)
 {
 	bool all_ok = true;

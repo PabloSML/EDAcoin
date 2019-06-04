@@ -69,14 +69,17 @@ board(const board &copia)
 }
 
 //listo
+/*
+Actualizo las posiciones de cada imagen en el display (sin mostrarlo).
+*/
 void board::refresh(void)
 {
 	unsigned int aux_pos_x = this->margin_x;
 	unsigned int aux_pos_y = this->margin_y;
 
-	for (unsigned int i = FIRST_IMAGE_BOARD(this->board_actual); (i < LAST_IMAGE_BOARD(this->board_actual)) && (i < (this->blocks_images).size()); i++)
+	for (unsigned int i = FIRST_IMAGE_BOARD(this->board_actual); (i < LAST_IMAGE_BOARD(this->board_actual)) && (i < (this->blocks_images).size()); i++)			//Para todas las imagenes del board actual...
 	{
-
+		/*asigno posiciones en el display para cada imagen.*/
 		int image_size = this->image_size_x;
 		int margin = this->margin_x;
 
@@ -101,11 +104,12 @@ void board::touch(unsigned int cordx_touch, unsigned int cordy_touch)
 	unsigned int aux_pos_x = 0;
 	unsigned int aux_pos_y = 0;
 
+	//Para cada imagen de la board actual, comparo las coordenadas de me ingresaron con el lugar que ocupa cada imagen.
 	for (unsigned int i = FIRST_IMAGE_BOARD(this->board_actual); (i < LAST_IMAGE_BOARD(this->board_actual)) && (image_touched == false) && (i < (this->blocks_images).size()); i++)
 	{
 		aux_pos_x = ((this->blocks_images)[i]).get_pos_x();
 		aux_pos_y = ((this->blocks_images)[i]).get_pos_y();
-
+		//Si las coordenadas corresponden a una imagen, se selecciona o deselecciona.
 		if (((cordx_touch >= aux_pos_x) && (cordx_touch <= (aux_pos_x + this->image_size_x))) && ((cordy_touch >= aux_pos_y) && (cordy_touch <= (aux_pos_y + image_size_y)))) //si se toco una imagen
 		{
 			image_touched = true;
@@ -113,8 +117,8 @@ void board::touch(unsigned int cordx_touch, unsigned int cordy_touch)
 		}
 	}
 
-
-	if (image_touched == false)
+	
+	if (image_touched == false)		//Si no se toco ninguna imagen...
 	{
 		if (this->board_cant != 0)  //habilito botones si tengo mas de un damero 
 		{

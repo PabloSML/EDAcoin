@@ -38,7 +38,7 @@ private:
 
 
 	ALLEGRO_BITMAP * image_block;
-	bool error_image_block; 
+	bool error_image_block;
 
 
 	//private methods
