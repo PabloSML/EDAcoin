@@ -9,6 +9,11 @@ bool init_allegro(void);			//inicializa allegro --- listo
 
 
 //listo
+/*
+Constructor:
+-Inicializa allegro y crea el display, el fondo y ttf.
+-Crea el bitmap del bloque.
+*/
 viewer::viewer(unsigned int width, unsigned int height, double font_size)
 {
 	
@@ -19,10 +24,10 @@ viewer::viewer(unsigned int width, unsigned int height, double font_size)
 		this->width = width;
 		this->height = height;
 		this->font_size = font_size;
-		this->is_init_bool = init_allegro_elements(BACKGROUND_PATH, FONT_PATH);
+		this->is_init_bool = init_allegro_elements(BACKGROUND_PATH, FONT_PATH);		//Crear display, el bitmap del fondo y la tipografia de letra.
 	
 		this->error_image_block = false;
-		this->image_block = resize_image(IMAGE_BLOCK_PATH, IMAGE_SIZE_X, IMAGE_SIZE_Y);
+		this->image_block = resize_image(IMAGE_BLOCK_PATH, IMAGE_SIZE_X, IMAGE_SIZE_Y);		//Crea el bitmap de la imagen del bloque.
 
 
 		if (this->image_block == nullptr)
@@ -35,6 +40,7 @@ viewer::viewer(unsigned int width, unsigned int height, double font_size)
 	
 	
 }
+
 /*
 viewer::
 viewer(const viewer & copia) {
@@ -57,6 +63,7 @@ viewer(const viewer & copia) {
 
 
 //listo
+/*Destructor*/
 viewer:: ~viewer()
 {
 
@@ -86,7 +93,7 @@ void viewer::update_display(board & board)
 
 	al_set_target_backbuffer(this->display);
 	
-	al_draw_bitmap(this->background, 0.0, 0.0, 0.0);
+	al_draw_bitmap(this->background, 0.0, 0.0, 0.0);		//Dibujo el fondo en el display.
 
 	print_board(board);
 
@@ -104,6 +111,12 @@ ALLEGRO_DISPLAY* viewer::get_display(void)
 
 
 //listo
+/*
+Recibe las direcciones del fondo y del ttf.
+-Crea el display.
+-Crea el bitmap del fondo.
+-Carga la tipografia de letra.
+*/
 bool viewer::init_allegro_elements(const char* path_background, const char* font_path)
 {
 
@@ -112,20 +125,19 @@ bool viewer::init_allegro_elements(const char* path_background, const char* font
 
 	this->display = al_create_display( (this->width)*(UNIT), (this->height)*(UNIT) );
 	
-	if (this->display == nullptr)
+	if (this->display == nullptr)		//si no se creo el display...
 	{
 		init_allegro_el = false;
-
 	}
 
-	if (init_allegro_el)
+	if (init_allegro_el)				//si se pudo crear el display...
 	{
-		this->background = resize_image(path_background, (this->width)*(UNIT), (this->height)*(UNIT));
+		this->background = resize_image(path_background, (this->width)*(UNIT), (this->height)*(UNIT));		//Crea el bitmap del fondo con el tamano del display.
 
-		if (background == nullptr)
+		if (background == nullptr)		//si no se pudo crear el bitmap...
 		{
-			al_draw_bitmap(this->background, 0, 0, 0);
-			al_destroy_display(this->display);
+			al_draw_bitmap(this->background, 0, 0, 0);		//**No se creo el bitmap del fondo!!!!!!!
+			al_destroy_display(this->display);				//Destruyo el display.
 			init_allegro_el = false;
 		}
 	}
@@ -133,7 +145,7 @@ bool viewer::init_allegro_elements(const char* path_background, const char* font
 	
 	if (init_allegro_el)
 	{
-		this->font = al_load_ttf_font(font_path, this->font_size, 0);
+		this->font = al_load_ttf_font(font_path, this->font_size, 0);		
 		
 		if (this->font == nullptr)
 		{
