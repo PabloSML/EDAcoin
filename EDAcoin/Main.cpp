@@ -42,14 +42,16 @@ int main()
 
 
 		Simulation sim;	// se crea el sujeto Simulation
+		SimView simulationView;
+		sim.attach(&simulationView);
 
 		//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
 		FullNode f1(string("FullNode One")), f2(string("FullNode Two"));
 		SPVNode s1(string("SPV Node"));
 
-		RegularNodeView f1RView(FULL_IMG_PATH, WIDTH_DEFAULT/3, HEIGHT_DEFAULT/3); // se crean las views base de cada nodo 
-		RegularNodeView f2RView(FULL_IMG_PATH, WIDTH_DEFAULT*(2.0/3.0), HEIGHT_DEFAULT/3);	
-		RegularNodeView s1RView(SPV_IMG_PATH, WIDTH_DEFAULT/2, HEIGHT_DEFAULT*(2.0/3.0));
+		RegularNodeView f1RView(FULL_IMG_PATH, WIDTH_DEFAULT/3 - 75, HEIGHT_DEFAULT/3 - 75); // se crean las views base de cada nodo		LA POSICION ESTA HARDCODEADA PORQUE NO EXISTE AUN UNA FUNCION FACTORY QUE CREE TODO EN LUGARES APROPIADOS!!!!!
+		RegularNodeView f2RView(FULL_IMG_PATH, WIDTH_DEFAULT*(2.0/3.0) - 75, HEIGHT_DEFAULT/3 - 75);
+		RegularNodeView s1RView(SPV_IMG_PATH, WIDTH_DEFAULT/2 - 75, HEIGHT_DEFAULT*(2.0/3.0) - 75);
 
 		f1.attach(&f1RView); // se conectan los observers a los subjects
 		f2.attach(&f2RView);
@@ -59,9 +61,10 @@ int main()
 		sim.attachNode(&f2);
 		sim.attachNode(&s1);
 
-		SimView simulationView;
+		simulationView.attach(&f1RView);
+		simulationView.attach(&f2RView);
+		simulationView.attach(&s1RView);
 
-		sim.attach(&simulationView);
 
 	//Se conectan los fullnodes con los spvnodes y entre ellos
 	//	f1 <-> f2

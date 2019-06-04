@@ -17,6 +17,8 @@ public:
 
 	virtual void update(void* model);
 
+	virtual void draw();
+
 private:
 	ALLEGRO_BITMAP* image;
 	float posX;

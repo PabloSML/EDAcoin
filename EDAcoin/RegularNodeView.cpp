@@ -49,3 +49,9 @@ RegularNodeView::update(void* model)
 	nodeID = nodeModel->getNodeID();
 	nodeType = nodeModel->getNodeType();
 }
+
+void
+RegularNodeView::draw(void)
+{
+	al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), posX, posY, 150, 150, 0);
+}
