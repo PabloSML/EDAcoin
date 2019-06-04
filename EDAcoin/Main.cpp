@@ -49,9 +49,9 @@ int main()
 		FullNode f1(string("FullNode One")), f2(string("FullNode Two"));
 		SPVNode s1(string("SPV Node"));
 
-		RegularNodeView f1RView(FULL_IMG_PATH, WIDTH_DEFAULT/3 - 75, HEIGHT_DEFAULT/3 - 75); // se crean las views base de cada nodo		LA POSICION ESTA HARDCODEADA PORQUE NO EXISTE AUN UNA FUNCION FACTORY QUE CREE TODO EN LUGARES APROPIADOS!!!!!
-		RegularNodeView f2RView(FULL_IMG_PATH, WIDTH_DEFAULT*(2.0/3.0) - 75, HEIGHT_DEFAULT/3 - 75);
-		RegularNodeView s1RView(SPV_IMG_PATH, WIDTH_DEFAULT/2 - 75, HEIGHT_DEFAULT*(2.0/3.0) - 75);
+		RegularNodeView f1RView(FULL_IMG_PATH, FIRST_POS_W, FIRST_POS_H); // se crean las views base de cada nodo		LA POSICION ESTA HARDCODEADA PORQUE NO EXISTE AUN UNA FUNCION FACTORY QUE CREE TODO EN LUGARES APROPIADOS!!!!!
+		RegularNodeView f2RView(FULL_IMG_PATH, SECOND_POS_W, SECOND_POS_H);
+		RegularNodeView s1RView(SPV_IMG_PATH, THIRD_POS_W, THIRD_POS_H);
 
 		f1.attach(&f1RView); // se conectan los observers a los subjects
 		f2.attach(&f2RView);
