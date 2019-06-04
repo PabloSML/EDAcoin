@@ -26,12 +26,19 @@ using namespace std;
 #define UNIT 1
 #define MARGIN_RATE 0.1
 
-
-
 #define BACKGROUND_PATH			"background2.png" //Imagen de fondo
+
+#define NODE_IMG_SIZE 150
 
 #define SPV_IMG_PATH			"spv.png"	//Imagen para SPV
 #define FULL_IMG_PATH			"full.png"	//Imagen para Full
+
+#define FIRST_POS_W				WIDTH_DEFAULT/3 - NODE_IMG_SIZE/2
+#define FIRST_POS_H				HEIGHT_DEFAULT/3 - NODE_IMG_SIZE/2
+#define SECOND_POS_W			WIDTH_DEFAULT*(2.0/3.0) - NODE_IMG_SIZE/2
+#define	SECOND_POS_H			HEIGHT_DEFAULT/3 - NODE_IMG_SIZE/2
+#define	THIRD_POS_W				WIDTH_DEFAULT/2 - NODE_IMG_SIZE/2
+#define THIRD_POS_H				HEIGHT_DEFAULT*(2.0/3.0) - NODE_IMG_SIZE/2
 
 #define FONT_PATH				"American Captain.ttf"
 #define FONT_COLOR				"red"
