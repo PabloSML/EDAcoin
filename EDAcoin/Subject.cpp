@@ -4,6 +4,7 @@ void
 Subject::attach(Observer* ptr)
 {
 	observers.push_back(ptr);
+	notifyObservers();
 }
 
 bool
@@ -15,7 +16,10 @@ Subject::detach(Observer* ptr)
 	observers.remove(ptr);
 
 	if (currentSize - 1 == observers.size())	// verifica haber eliminado un elemento. Se puede sacar para eliminar las operaciones extra.
+	{
 		success = true;
+		notifyObservers();
+	}
 
 	return success;
 }

@@ -7,18 +7,22 @@
 class RegularNodeView : public Observer {
 public:
 	RegularNodeView() { image = nullptr; }
-	RegularNodeView(ALLEGRO_BITMAP* newImage, unsigned int newPosx, unsigned int newPosy);
-	RegularNodeView(const char* imgPath, unsigned int newPosx, unsigned int newPosy);
-	~RegularNodeView() { al_destroy_bitmap(image); }
+	RegularNodeView(ALLEGRO_BITMAP* newImage, float newPosx, float newPosy);
+	RegularNodeView(const char* imgPath, float newPosx, float newPosy);
+	~RegularNodeView() { if(image != nullptr) al_destroy_bitmap(image); }
 
 	void setImage(ALLEGRO_BITMAP* newImage);
 	void setImage(const char* imgPath);
-	void setPos(unsigned int newPosx, unsigned int newPosy);
+	void setPos(float newPosx, float newPosy);
 
 	virtual void update(void* model);
 
 private:
 	ALLEGRO_BITMAP* image;
-	unsigned int posX;
-	unsigned int posY;
+	float posX;
+	float posY;
+
+	// subject data
+	string nodeID;
+	string nodeType;
 };

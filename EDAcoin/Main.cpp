@@ -5,7 +5,9 @@
 #include "SPVNode.h"
 #include <windows.h>
 
-
+#include "Simulation.h"
+#include "RegularNodeView.h"
+#include "SimView.h"
 
 #include <vector>
 #include <allegro5\allegro.h>
@@ -29,21 +31,7 @@ bool getBlockChainJson(json* dest, const char* file);
 
 int main()
 {
-	//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
-	FullNode f1(string("FullNode One")), f2(string("FullNode Two"));
-	SPVNode s1(string("SPV Node"));
-	//Se conectan los fullnodes con los spvnodes y entre ellos
-	//	f1 <-> f2
-	//	  \  /
-	//	   \/	
-	//	   s1
-
-
-	
-	
-
 	bool init = init_resources();
-
 
 	if (init)
 	{
@@ -52,6 +40,34 @@ int main()
 		supervisor super(controller.get_viewer());
 		controller.set_supervisor(super);
 
+
+		Simulation sim;	// se crea el sujeto Simulation
+
+		//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
+		FullNode f1(string("FullNode One")), f2(string("FullNode Two"));
+		SPVNode s1(string("SPV Node"));
+
+		RegularNodeView f1RView(FULL_IMG_PATH, WIDTH_DEFAULT/3, HEIGHT_DEFAULT/3); // se crean las views base de cada nodo 
+		RegularNodeView f2RView(FULL_IMG_PATH, WIDTH_DEFAULT*(2.0/3.0), HEIGHT_DEFAULT/3);	
+		RegularNodeView s1RView(SPV_IMG_PATH, WIDTH_DEFAULT/2, HEIGHT_DEFAULT*(2.0/3.0));
+
+		f1.attach(&f1RView); // se conectan los observers a los subjects
+		f2.attach(&f2RView);
+		s1.attach(&s1RView);
+
+		sim.attachNode(&f1); // se agregan los nodos a la lista de la simulacion
+		sim.attachNode(&f2);
+		sim.attachNode(&s1);
+
+		SimView simulationView;
+
+		sim.attach(&simulationView);
+
+	//Se conectan los fullnodes con los spvnodes y entre ellos
+	//	f1 <-> f2
+	//	  \  /
+	//	   \/	
+	//	   s1
 		f1.attachConnection(&f2);
 		f1.attachConnection(&s1);
 		f2.attachConnection(&f1);

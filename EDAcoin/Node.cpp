@@ -16,12 +16,12 @@ Node::dettachConnection(Node* connection)
 	}
 }
 
-void
-Node::updateNode(/*evento*/)
+/*void
+Node::updateNode()
 {
 	//manejo del evento recibido
 	notifyObservers();
-}
+}*/
 
 
 void 

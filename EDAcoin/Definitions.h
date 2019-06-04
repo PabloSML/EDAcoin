@@ -30,6 +30,9 @@ using namespace std;
 
 #define BACKGROUND_PATH			"background2.png" //Imagen de fondo
 
+#define SPV_IMG_PATH			"spv.png"	//Imagen para SPV
+#define FULL_IMG_PATH			"full.png"	//Imagen para Full
+
 #define FONT_PATH				"American Captain.ttf"
 #define FONT_COLOR				"red"
 

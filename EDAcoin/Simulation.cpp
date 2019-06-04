@@ -1,13 +1,14 @@
 #include "Simulation.h"
 
 void
-Simulation::attach(Node* node)
+Simulation::attachNode(Node* node)
 {
 	nodes.push_back(node);
+	notifyObservers();
 }
 
 bool
-Simulation::detach(Node* node)
+Simulation::detachNode(Node* node)
 {
 	bool success = false;
 	size_t currentSize = nodes.size();
