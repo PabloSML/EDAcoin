@@ -126,6 +126,9 @@
     <ClInclude Include="Blockchain_Message.h" />
     <ClInclude Include="Blockchain_Service.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="BoxPanel.h" />
+    <ClInclude Include="Model_BoxText.h" />
+    <ClInclude Include="Model_PushButton.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="FullNode.h" />
@@ -144,6 +147,8 @@
     <ClInclude Include="Supervisor.h" />
     <ClInclude Include="UTXO.h" />
     <ClInclude Include="Viewer.h" />
+    <ClInclude Include="View_BoxText.h" />
+    <ClInclude Include="View_PushButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Allegro.cpp" />
@@ -151,6 +156,8 @@
     <ClCompile Include="Blockchain_Service.cpp" />
     <ClCompile Include="Blockchain_Message.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="BoxPanel.cpp" />
+    <ClCompile Include="Model_BoxText.cpp" />
     <ClCompile Include="FullNode.cpp" />
     <ClCompile Include="General_Controller.cpp" />
     <ClCompile Include="ImageDescriptor.cpp" />
@@ -158,6 +165,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MerkleNode.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Model_PushButton.cpp" />
     <ClCompile Include="RegularNodeView.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="SimView.cpp" />
@@ -166,6 +174,8 @@
     <ClCompile Include="Supervisor.cpp" />
     <ClCompile Include="UTXO.cpp" />
     <ClCompile Include="Viewer.cpp" />
+    <ClCompile Include="View_BoxText.cpp" />
+    <ClCompile Include="View_PushButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

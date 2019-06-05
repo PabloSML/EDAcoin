@@ -4,6 +4,14 @@ void
 SimView::update(void* model)
 {
 	Simulation* simModel = (Simulation*)model;
+
+	al_clear_to_color(al_color_name("aquamarine"));
+	
+	for (Observer* o : views)
+	{
+		o->update(this);
+	}
+	al_flip_display();
 }
 
 void
@@ -30,13 +38,3 @@ SimView::detach(Observer* view)
 	return success;
 }
 
-void
-SimView::draw(void)
-{
-	al_clear_to_color(al_color_name("aquamarine"));
-	for (Observer* o : views)
-	{
-		o->draw();
-	}
-	al_flip_display();
-}

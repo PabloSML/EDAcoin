@@ -30,7 +30,7 @@ public:
 	* detach
 	* Remueve un observer del sujeto
 	*/
-	bool detach(Observer* ptr);
+	bool dettach(Observer* ptr);
 
 protected:
 

@@ -20,5 +20,5 @@ public:
 	* realizan una notificacion de todos los observers.
 	*/
 	virtual void update(void* model) = 0;
-	virtual void draw(void) = 0;
+
 };

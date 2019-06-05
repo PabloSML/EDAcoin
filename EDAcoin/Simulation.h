@@ -13,5 +13,6 @@ public:
 	bool detachNode(Node* node);
 
 private:
-	list<Node*> nodes;
+	list<Node*> nodes; //aca no iria vector???
+
 };

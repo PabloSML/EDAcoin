@@ -8,7 +8,7 @@ Subject::attach(Observer* ptr)
 }
 
 bool
-Subject::detach(Observer* ptr)
+Subject::dettach(Observer* ptr)
 {
 	bool success = false;
 	size_t currentSize = observers.size();

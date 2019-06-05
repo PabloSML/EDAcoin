@@ -61,6 +61,21 @@
     <ClCompile Include="Allegro.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Model_BoxText.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_PushButton.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxPanel.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="View_BoxText.cpp">
+      <Filter>Source\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="View_PushButton.cpp">
+      <Filter>Source\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Labels.h">
@@ -131,6 +146,21 @@
     </ClInclude>
     <ClInclude Include="Allegro.h">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Model_BoxText.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Model_PushButton.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxPanel.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="View_BoxText.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="View_PushButton.h">
+      <Filter>Headers\Views</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
