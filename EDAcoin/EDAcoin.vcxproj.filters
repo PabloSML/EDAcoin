@@ -58,6 +58,9 @@
     <ClCompile Include="UTXO.cpp">
       <Filter>Source\BlockChain</Filter>
     </ClCompile>
+    <ClCompile Include="Allegro.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Labels.h">
@@ -122,6 +125,12 @@
     </ClInclude>
     <ClInclude Include="UTXO.h">
       <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Headers\MVC Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Allegro.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

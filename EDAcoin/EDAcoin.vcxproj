@@ -121,10 +121,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Allegro.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Blockchain_Message.h" />
     <ClInclude Include="Blockchain_Service.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="FullNode.h" />
     <ClInclude Include="General_Controller.h" />
@@ -144,6 +146,7 @@
     <ClInclude Include="Viewer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Allegro.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Blockchain_Service.cpp" />
     <ClCompile Include="Blockchain_Message.cpp" />

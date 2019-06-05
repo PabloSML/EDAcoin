@@ -96,8 +96,8 @@ int main()
 
 				merkleTrees = f1.get_merkle_trees();
 
-				controller.update(f1.get_blockChain(), merkleTrees);
-
+				//controller.update(f1.get_blockChain(), merkleTrees);
+				//No es necesario para el MVC porque no deberia mostrar la blockchain.
 				unsigned long index = 20000000;
 
 				while (index && !(controller.is_finish()))
@@ -105,9 +105,10 @@ int main()
 					controller.dispatcher();
 					index--;
 				}
+				
 			}
 
-			controller.update(f1.get_blockChain(), merkleTrees);
+			//controller.update(f1.get_blockChain(), merkleTrees);
 
 			while (controller.is_finish() == false)
 			{
