@@ -18,7 +18,7 @@ void
 SimView::attach(Observer* view)
 {
 	views.push_back(view);
-	draw();
+	this->update(this);
 }
 
 bool
@@ -32,7 +32,7 @@ SimView::detach(Observer* view)
 	if (currentSize - 1 == views.size())	// verifica haber eliminado un elemento. Se puede sacar para eliminar las operaciones extra.
 	{
 		success = true;
-		draw();
+		this->update(this);
 	}
 
 	return success;

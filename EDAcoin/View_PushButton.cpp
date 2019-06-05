@@ -29,7 +29,7 @@ update(void * model)
 
 	ALLEGRO_COLOR actual_color_edit;
 
-	if (model_observed->is_select == true) //toggle previo = estado 2
+	if (model_observed->is_select() == true) //toggle previo = estado 2
 	{
 		actual_color_edit = this->color_toggle1;
 	}

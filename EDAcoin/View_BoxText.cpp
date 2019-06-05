@@ -58,7 +58,7 @@ update(void * model)
 
 	ALLEGRO_COLOR actual_color_edit;
 
-	if (model_observed->is_select == true)
+	if (model_observed->is_select() == true)
 	{
 		actual_color_edit = this->color_edit_select;
 	}

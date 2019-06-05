@@ -15,7 +15,6 @@ public:
 
 	virtual void update(void* model);
 
-	virtual void draw(void);
 
 private:
 	list<Observer*> views;
