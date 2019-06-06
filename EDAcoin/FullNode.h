@@ -18,7 +18,7 @@ class SPVNode; // para que compile
 class FullNode : public Node {
 
 public:
-	FullNode(string nodeID) : Node(nodeID, string("Full Node")) {}
+	FullNode(const char* nodeID) : Node(nodeID, "Full Node") {}
 	~FullNode()
 	{
 		for (MerkleNode* m : merkleTrees)

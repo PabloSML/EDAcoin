@@ -6,7 +6,7 @@
 
 class SPVNode : public Node {
 public:
-	SPVNode(string nodeID) : Node(nodeID, string("SPV Node")), blockChainCount(0), blockHeaderCount(0) {}
+	SPVNode(const char* nodeID) : Node(nodeID, "SPV Node"), blockChainCount(0), blockHeaderCount(0) {}
 	~SPVNode(){}
 
 	void notify(EdaMerkleBlockS merkleBlock); // luego recibira un json
