@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Observer.h"
-#include "Model_Blockchain.h"
+
 
 #include "ImageDescriptor.h"
 #include "Allegro.h"
@@ -17,7 +17,7 @@ class View_Blockchain : public Observer {
 	
 	private:
 
-		Model_Blockchain * model_observed;
+		
 		Allegro graph_resources;
 		
 		vector<ImageDescriptor> buttons;

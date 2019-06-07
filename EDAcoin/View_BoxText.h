@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Observer.h"
-#include "Model_BoxText.h"
+
 #include "allegro5/allegro_font.h"
 #include "allegro5/color.h"
 
@@ -20,8 +20,7 @@ class View_BoxText : public Observer
 
 	private:
 
-		Model_BoxText * model_observed;
-
+		
 		ALLEGRO_FONT * font_title;
 		ALLEGRO_FONT * font_edit_text;
 

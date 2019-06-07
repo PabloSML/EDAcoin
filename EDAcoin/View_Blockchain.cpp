@@ -1,5 +1,6 @@
 #include "View_Blockchain.h"
 
+#include "Model_Blockchain.h"
 #include "View_Block.h"
 #include "Model_Block.h"
 #include <vector>
@@ -34,7 +35,7 @@ View_Blockchain::
 void View_Blockchain::
 update(void* model) {
 
-	this->model_observed = (Model_Blockchain *) model;
+	Model_Blockchain * model_observed = (Model_Blockchain *) model;
 
 	vector<Model_Block> aux_blockchain = model_observed->get_blockchain();
 

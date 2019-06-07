@@ -2,6 +2,8 @@
 #include "allegro5/allegro_color.h"
 #include "allegro5/allegro_primitives.h"
 
+#include "Model_BoxText.h"
+
 #define MARGIN_Y_TITLE 5
 #define PERCENT_POSITION_Y_EDIT_TEXT 0.6
 
@@ -31,7 +33,7 @@ View_BoxText::
 void View_BoxText::
 update(void * model)
 {
-	this->model_observed = (Model_BoxText *) model;
+	Model_BoxText * model_observed = (Model_BoxText *) model;
 
 	float panel_x1 = (float) model_observed->get_pos_x();
 	float panel_x2 = panel_x1 + (float)model_observed->get_width();
