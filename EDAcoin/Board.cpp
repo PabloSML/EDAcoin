@@ -11,11 +11,18 @@ board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vec
 	
 	
 	//**Por que hay botones de right left?
-	(buttons[BUTTON_LEFT]).set_pos(BUTTON_SIZE_X * MARGIN_RATE, this->height - BUTTON_SIZE_Y);
-	(buttons[BUTTON_RIGHT]).set_pos(this->width - BUTTON_SIZE_X , this->height - BUTTON_SIZE_Y - (BUTTON_SIZE_Y * MARGIN_RATE));
+	/*
+		(buttons[BUTTON_LEFT]).set_pos(BUTTON_SIZE_X * MARGIN_RATE, this->height - BUTTON_SIZE_Y);
+		(buttons[BUTTON_RIGHT]).set_pos(this->width - BUTTON_SIZE_X , this->height - BUTTON_SIZE_Y - (BUTTON_SIZE_Y * MARGIN_RATE));
 
 
-	this->buttons = buttons;
+		this->buttons = buttons;
+		
+	
+	*/
+	
+	
+	
 
 	this->blocks_images = blocks_images;
 
@@ -23,15 +30,21 @@ board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vec
 
 	//**No deberia sumarle 1? porque si hago 2/9 -> 0 
 	//** se esta tomando 0 como una pagina y 1 como dos paginas
-	this->board_cant = (int)( (this->blocks_images).size() / MAX_IMAGES_IN_THE_BOARD);		//Solo se puede mostrar como maximo 9 imagenes en el display.
+	//this->board_cant = (int)( (this->blocks_images).size() / MAX_IMAGES_IN_THE_BOARD);		//Solo se puede mostrar como maximo 9 imagenes en el display.
 
+	/* listo
+	
 	if (!((this->blocks_images).size() % MAX_IMAGES_IN_THE_BOARD)) //si la division es exacta
 	{
 		(this->board_cant)--;
-	}							
+	}
 
 
 	this->board_actual = 0;
+
+	
+	*/
+	
 }
 
 board::board(void)
@@ -72,6 +85,7 @@ board(const board &copia)
 /*
 Actualizo las posiciones de cada imagen en el display (sin mostrarlo).
 */
+
 void board::refresh(void)
 {
 	unsigned int aux_pos_x = this->margin_x;
@@ -153,98 +167,8 @@ void board::touch(unsigned int cordx_touch, unsigned int cordy_touch)
 	}
 }
 
-//listo
-bool board::is_some_image_select(void)
-{
-	bool is_select_something = false;
 
-	for (unsigned int i = 0; (i < (this->blocks_images).size()) && (is_select_something == false) ; i++)
-	{
-		if (blocks_images[i].is_select() == true)
-		{
-			is_select_something = true;
-		}
-	}
-	return is_select_something;
-}
 
-//listo
-void board::set_image_size(unsigned int image_size_x, unsigned int image_size_y)
-{
-	this->image_size_x = image_size_x;
-	this->image_size_y = image_size_y;
-}
-
-//listo
-void board::set_button_size(unsigned int button_size_x, unsigned int button_size_y)
-{
-	this->button_size_x = button_size_x;
-	this->button_size_y = button_size_y;
-}
-
-//listo
-vector <ImageDescriptor> & board::get_block_images(void)
-{
-	return (this->blocks_images);
-}
-
-//listo
-vector <ImageDescriptor> & board::get_buttons(void)
-{
-	return (this->buttons);
-}
-
-//listo
-int board::get_size_x(void)
-{
-	return (this->image_size_x);
-}
-
-//listo
-int board::get_size_y(void)
-{
-	return (this->image_size_y);
-}
-
-//listo
-int board::get_margin_x(void)
-{
-	return (this->margin_x);
-}
-
-//listo
-int board::get_margin_y(void)
-{
-	return (this->margin_y);
-}
-
-//listo
-int board::get_actual_board(void)
-{
-	return (this->board_actual);
-}
-
-//listo
-int board::get_cant(void)
-{
-	return (this->board_cant);
-}
-
-//listo
-bool board::is_images_error(void)
-{
-	bool error = false;
-
-	for (unsigned int i = 0; (i < (this->blocks_images).size()) && (error == false); i++)
-	{
-		if ((this->blocks_images)[i].get_error())
-		{
-			error = true;
-		}
-	}
-
-	return error;
-}
 
 vector<MerkleNode *> & board::get_merkle_trees(void)
 {

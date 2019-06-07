@@ -2,26 +2,23 @@
 
 #include <string>
 #include <vector>
-//#include "Node.h"
-//#include "Transaction.h"
-#include <nlohmann/json.hpp>
 #include "ImageDescriptor.h"
 #include "Definitions.h"
 
+
+
 using namespace std;
-using json = nlohmann::json;
 
 typedef struct {		// estructura de blockHeader por si sirve
 	string blockID;
 	unsigned long merkleRoot;
 }blockHeader;
 
-class Block : public ImageDescriptor {
+class Model_Block : public ImageDescriptor {
 public:
-	//Block(json& jsonBlock);
-	Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions);
-	Block();
-	~Block();
+	Model_Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions);
+	Model_Block();
+	~Model_Block();
 
 	string getBlockID(void) const;
 	unsigned long getMerkleRoot(void) const;
@@ -29,9 +26,29 @@ public:
 	vector<TransactionS> get_transactions(void) const;
 	blockHeader getBlockHeader(void) const; // crea una estructura blockHeader y la devuelve en su nombre
 
+
+
+	unsigned int get_pos_x(void);
+	unsigned int get_pos_y(void);
+	unsigned int get_size_x(void);
+	unsigned int get_size_y(void);
+
+
+	void set_pos_x(unsigned int new_pos_x);
+	void set_pos_y(unsigned int new_pos_y);
+	void set_size_x(unsigned int new_size_x);
+	void set_size_y(unsigned int new_size_y);
+
 private:
 	string blockID;
 	unsigned long merkleRoot;
 	unsigned int txsCount;
 	vector<TransactionS> transactions;
+
+	unsigned int pos_x;
+	unsigned int pos_y;
+
+	unsigned int width_image;
+	unsigned int heigth_image;
+
 };

@@ -16,9 +16,6 @@
     <ClCompile Include="Supervisor.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Viewer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="General_Controller.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -36,9 +33,6 @@
     </ClCompile>
     <ClCompile Include="RegularNodeView.cpp">
       <Filter>Source\Views</Filter>
-    </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Source\BlockChain</Filter>
     </ClCompile>
     <ClCompile Include="Blockchain_Message.cpp">
       <Filter>Source\BlockChain</Filter>
@@ -76,6 +70,21 @@
     <ClCompile Include="View_PushButton.cpp">
       <Filter>Source\Views</Filter>
     </ClCompile>
+    <ClCompile Include="Model_Blockchain.h">
+      <Filter>Headers\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_Blockchain.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="View_Blockchain.cpp">
+      <Filter>Source\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_Block.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="View_Block.cpp">
+      <Filter>Source\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Labels.h">
@@ -91,9 +100,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Supervisor.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Viewer.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Board.h">
@@ -119,9 +125,6 @@
     </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Headers\MVC Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Headers\BlockChain</Filter>
     </ClInclude>
     <ClInclude Include="Blockchain_Message.h">
       <Filter>Headers\BlockChain</Filter>
@@ -160,6 +163,15 @@
       <Filter>Headers\Views</Filter>
     </ClInclude>
     <ClInclude Include="View_PushButton.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="View_Blockchain.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Model_Block.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="View_Block.h">
       <Filter>Headers\Views</Filter>
     </ClInclude>
   </ItemGroup>

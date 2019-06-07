@@ -43,7 +43,13 @@ using namespace std;
 #define FONT_PATH				"American Captain.ttf"
 #define FONT_COLOR				"red"
 
-#define IMAGE_BLOCK_PATH		"block-image.png"
+#define DEFAULT_WIDTH_BLOCK					60
+#define DEFAULT_HEIGTH_BLOCK				(DEFAULT_WIDTH_BLOCK)
+#define MARGIN_BLOCK_BTW_NAME_AND_IMAGE		10
+#define IMAGE_BLOCK_PATH					"block-image.png"
+#define FONT_PATH_BLOCK_NAME				"American Captain.ttf"
+#define FONT_SIZE_BLOCK_NAME				9
+#define FONT_COLOR_BLOCK_NAME				"white"
 
 #define PATH_BUTTON_LEFT		"button_left2.png"
 #define PATH_BUTTON_RIGHT		"button_right2.png"
@@ -60,6 +66,8 @@ using namespace std;
 #define NODE_FONT_SIZE				10
 #define SCALE_LEVEL_SIZE_TEXT_NODE	2
 #define DX_TEXT						5
+
+#define MAX_BLOCKS_PER_DISPLAY 9
 
 
 
