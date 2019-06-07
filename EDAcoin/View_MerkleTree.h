@@ -2,7 +2,7 @@
 
 #include "Observer.h"
 #include "Allegro.h"
-#include "Model_MerkleTree.h"
+
 #include "allegro5/bitmap.h"
 
 #include "Definitions.h"
@@ -19,7 +19,7 @@ class View_MerkleTree : public Observer {
 		void update(void * model);
 
 	private:
-		Model_MerkleTree * model_observed;
+		
 		Allegro graph_resources;
 
 		ALLEGRO_BITMAP * node_image;

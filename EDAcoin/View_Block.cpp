@@ -1,5 +1,6 @@
 #include "View_Block.h"
 #include "Definitions.h"
+#include "Model_Block.h"
 
 #include "ImagesManager.h"
 #include "allegro5/allegro_color.h"
@@ -47,15 +48,15 @@ View_Block::
 void View_Block::
 update(void * model) {
 
-	this->model_observed = (Model_Block *) model;
+	 Model_Block * model_observed = (Model_Block *) model;
 
-	float size_x = (float) this->model_observed->get_size_x();
-	float size_y = (float)this->model_observed->get_size_y();
+	float size_x = (float) model_observed->get_size_x();
+	float size_y = (float) model_observed->get_size_y();
 
-	float pos_x = (float)this->model_observed->get_pos_x() + size_x/2;
-	float pos_y = (float)this->model_observed->get_pos_y() + size_y + MARGIN_BLOCK_BTW_NAME_AND_IMAGE;
+	float pos_x = (float) model_observed->get_pos_x() + size_x/2;
+	float pos_y = (float) model_observed->get_pos_y() + size_y + MARGIN_BLOCK_BTW_NAME_AND_IMAGE;
 
-	const char * name_block = ((this->model_observed)->getBlockID()).c_str();
+	const char * name_block = ((model_observed)->getBlockID()).c_str();
 
 	this->bitmap = resize_bitmap(this->bitmap, size_x, size_y);
 

@@ -2,6 +2,7 @@
 #include "allegro5/allegro_color.h"
 #include "allegro5/allegro_primitives.h"
 
+#include "Model_PushButton.h"
 
 View_PushButton::
 View_PushButton(char const * name_color_toggle1, char const * name_color_toggle2, 
@@ -25,7 +26,7 @@ View_PushButton::
 void View_PushButton::
 update(void * model)
 {
-	this->model_observed = (Model_PushButton *)model;
+	Model_PushButton * model_observed = (Model_PushButton *)model;
 
 	ALLEGRO_COLOR actual_color_edit;
 
@@ -40,11 +41,11 @@ update(void * model)
 
 
 
-	float panel_x1 = (float)model_observed->get_pos_x();
+	float panel_x1 = (float) model_observed->get_pos_x();
 	float panel_x2 = panel_x1 + (float)model_observed->get_width();
 
-	float panel_y1 = (float)model_observed->get_pos_x();
-	float panel_y2 = panel_y1 + (float)model_observed->get_heigth();
+	float panel_y1 = (float) model_observed->get_pos_x();
+	float panel_y2 = panel_y1 + (float) model_observed->get_heigth();
 
 
 	al_draw_filled_rectangle(panel_x1, panel_y1, panel_x2, panel_y2, actual_color_edit);

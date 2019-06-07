@@ -1,6 +1,6 @@
 #pragma once
 #include "Observer.h"
-#include "Model_PushButton.h"
+
 #include "allegro5/allegro_font.h"
 #include "allegro5/color.h"
 
@@ -15,8 +15,6 @@ class View_PushButton : public Observer
 	void update(void * model);
 
 private:
-
-	Model_PushButton * model_observed;
 
 	ALLEGRO_FONT * font_title;
 

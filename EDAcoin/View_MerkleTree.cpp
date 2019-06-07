@@ -2,6 +2,7 @@
 #include "allegro5/allegro_font.h"
 #include "allegro5/allegro_primitives.h"
 
+#include "Model_MerkleTree.h"
 #include "ImagesManager.h"
 
 //auxiliar functions
@@ -41,9 +42,9 @@ View_MerkleTree::
 void View_MerkleTree::
 update(void * model) {
 
-	this->model_observed = (Model_MerkleTree *) model;
+	Model_MerkleTree * model_observed = (Model_MerkleTree *) model;
 
-	MerkleNode * merkle_root = this->model_observed->get_merkle_root();
+	MerkleNode * merkle_root = model_observed->get_merkle_root();
 	unsigned int width = (this->graph_resources).GetDisplayW();
 	unsigned int height = (this->graph_resources).GetDisplayH();
 
