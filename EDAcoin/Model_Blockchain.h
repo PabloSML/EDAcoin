@@ -13,7 +13,7 @@ class Model_Blockchain: public Subject
 		~Model_Blockchain();
 
 		//getters
-		vector<Model_Block> get_blockchain(void);
+		vector<Model_Block> * get_blockchain(void);
 		unsigned int get_cant_boards(void);
 		unsigned int get_actual_board(void);
 
@@ -22,7 +22,8 @@ class Model_Blockchain: public Subject
 		void set_actual_board(unsigned int new_actual_board);
 
 	private:
-		vector<Model_Block> blockchain;
+		vector<Model_Block> * blockchain;
+		vector<MerkleNode *> * merkle_tree;
 
 		Node* owner;
 
