@@ -49,6 +49,12 @@ set_blockchain(vector<Model_Block>* new_blockchain) {
 
 }
 
+void Model_Blockchain::
+set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manejamos esto
+{
+
+}
+
 
 void Model_Blockchain::
 set_actual_board(unsigned int new_actual_board) { this->actual_board = new_actual_board; }

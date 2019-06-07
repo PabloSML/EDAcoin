@@ -17,6 +17,7 @@ class Model_Blockchain: public Subject
 
 		//setters
 		void set_blockchain(vector<Model_Block>* new_blockchain);
+		void set_blockchain(vector<blockHeader>* new_blockHeaders);
 		void set_actual_board(unsigned int new_actual_board);
 
 	private:

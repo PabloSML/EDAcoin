@@ -48,6 +48,18 @@ SPVNode::pullHeaderfromFullNode()	// analogamente, luego recibira json
 }
 
 void
+SPVNode::createBlockChainModel(void)
+{
+	if (myBlockChainModel == nullptr)
+	{
+		myBlockChainModel = new Model_Blockchain;
+		myBlockChainModel->set_blockchain(&blockHeaders);
+		View_Blockchain* tempView = new View_Blockchain(WIDTH_DEFAULT, HEIGHT_DEFAULT);
+		myBlockChainModel->attach(tempView);
+	}
+}
+
+void
 SPVNode::searchAndValidate(blockHeader& headerToValidate)
 {
 	EdaMerkleBlockS blockReceptor;

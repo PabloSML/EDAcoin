@@ -14,6 +14,8 @@ public:
 
 	virtual Node* getFilter(void) { return this; }
 
+	virtual void createBlockChainModel(void);
+
 private:
 	unsigned int blockChainCount;
 	unsigned int blockHeaderCount;
