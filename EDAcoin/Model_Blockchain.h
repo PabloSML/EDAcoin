@@ -21,6 +21,7 @@ class Model_Blockchain: public Subject
 
 	private:
 		vector<Model_Block>* blockchain;
+		vector<MerkleNode *> * merkle_tree;
 
 		unsigned int cant_board;
 		unsigned int actual_board;
