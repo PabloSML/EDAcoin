@@ -152,6 +152,17 @@ FullNode::sendInfo2Spv()
 	}
 }
 
+void
+FullNode::createBlockChainModel(void)
+{
+	if (myBlockChainModel == nullptr)
+	{
+		myBlockChainModel = new Model_Blockchain;
+		myBlockChainModel->set_blockchain(&blockChain);
+		View_Blockchain* tempView = new View_Blockchain(WIDTH_DEFAULT, HEIGHT_DEFAULT);
+		myBlockChainModel->attach(tempView);
+	}
+}
 
 /*Esta funcion guarda en el vector de TransactionS todas las transacciones que estan en el json ingresado*/
 void 

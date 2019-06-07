@@ -21,17 +21,6 @@ Node::push_message(blockchain_message& message)
 }
 
 void
-Node::createBlockChainModel(void)
-{
-	if (myBlockChainModel == nullptr)
-	{
-		myBlockChainModel = new Model_Blockchain(this);
-		View_Blockchain* tempView = new View_Blockchain(WIDTH_DEFAULT, HEIGHT_DEFAULT);
-		myBlockChainModel->attach(tempView);
-	}
-}
-
-void
 Node::destroyBlockChainModel(void)
 {
 	if (myBlockChainModel != nullptr) 

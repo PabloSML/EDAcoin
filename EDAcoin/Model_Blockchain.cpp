@@ -3,18 +3,16 @@
 
 
 Model_Blockchain::
-Model_Blockchain(Node* creator)
+Model_Blockchain()
 {
-	this->cant_board = (unsigned int)((this->blockchain).size() / MAX_BLOCKS_PER_DISPLAY);	
+	this->cant_board = (unsigned int)(blockchain->size() / MAX_BLOCKS_PER_DISPLAY);	
 
-	if (!((this->blockchain).size() % MAX_BLOCKS_PER_DISPLAY)) //si la division es exacta
+	if (!(blockchain->size() % MAX_BLOCKS_PER_DISPLAY)) //si la division es exacta
 	{
 		(this->cant_board)--;
 	}
 
 	this->actual_board = 0;
-	
-	owner = creator;
 }
 
 Model_Blockchain::
@@ -25,7 +23,7 @@ Model_Blockchain::
 
 //getters
 
-vector<Model_Block> Model_Blockchain::
+vector<Model_Block>* Model_Blockchain::
 get_blockchain(void) { return this->blockchain; }
 
 unsigned int Model_Blockchain::
@@ -38,13 +36,13 @@ get_actual_board(void) { return this->actual_board; }
 
 //setters
 void Model_Blockchain::
-set_blockchain(vector<Model_Block>& new_blockchain) {
+set_blockchain(vector<Model_Block>* new_blockchain) {
 	
 	this->blockchain = new_blockchain; 
 	
-	this->cant_board = (unsigned int)((this->blockchain).size() / MAX_BLOCKS_PER_DISPLAY);
+	this->cant_board = (unsigned int)(blockchain->size() / MAX_BLOCKS_PER_DISPLAY);
 
-	if (!((this->blockchain).size() % MAX_BLOCKS_PER_DISPLAY)) //si la division es exacta
+	if (!(blockchain->size() % MAX_BLOCKS_PER_DISPLAY)) //si la division es exacta
 	{
 		(this->cant_board)--;
 	}

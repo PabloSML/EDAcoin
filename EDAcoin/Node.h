@@ -41,7 +41,7 @@ public:
 
 	void push_message(blockchain_message& message);
 
-	void createBlockChainModel(void);
+	virtual void createBlockChainModel(void) = 0;
 	void destroyBlockChainModel(void);
 
 	/*

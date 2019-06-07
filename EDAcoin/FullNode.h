@@ -41,6 +41,7 @@ public:
 
 	bool transfer(Node& from, Node& to,	double amount);
 
+	virtual void createBlockChainModel(void);
 
 	void sendInfo2Spv();
 private:
