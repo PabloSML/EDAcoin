@@ -18,7 +18,7 @@ public:
 	* Constructores y destructores
 	*/
 	Subject(void){}
-	virtual ~Subject(void){}
+	virtual ~Subject(void);
 
 	/*
 	* attach

@@ -1,19 +1,17 @@
 #include "Node.h"
 
-void
+bool
 Node::dettachConnection(Node* connection)
 {
-	bool done = false;
-	list<Node*>::iterator itr = connections.begin();
-	int size = (int) connections.size();
-	for (int i = 0; i < size && !done; i++, itr++)
-	{
-		if (*itr == connection)
-		{
-			connections.erase(itr);
-			done = true;
-		}
-	}
+	bool success = false;
+	size_t currentSize = connections.size();
+
+	connections.remove(connection);
+
+	if (currentSize - 1 == connections.size())
+		success = true;
+
+	return success;
 }
 
 void 
@@ -21,3 +19,37 @@ Node::push_message(blockchain_message& message)
 {
 	(this->buffer_messages).push_back(message);
 }
+
+void
+Node::createBlockChainModel(void)
+{
+	if (myBlockChainModel == nullptr)
+	{
+		myBlockChainModel = new Model_Blockchain(this);
+		View_Blockchain* tempView = new View_Blockchain(WIDTH_DEFAULT, HEIGHT_DEFAULT);
+		myBlockChainModel->attach(tempView);
+	}
+}
+
+void
+Node::destroyBlockChainModel(void)
+{
+	if (myBlockChainModel != nullptr) 
+	{
+		delete myBlockChainModel;
+	}
+}
+
+/*
+Controller_BlockChain*
+Node::createBlockChainController(void)
+{
+	return new Controller_BlockChain(myBlockChainModel);
+}
+
+void
+Node::destroyBlockChainController(Controller_BlockChain* target)
+{
+	delete target;
+}
+*/

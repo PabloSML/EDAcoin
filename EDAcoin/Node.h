@@ -8,6 +8,9 @@
 
 #include "Blockchain_Message.h"
 
+#include "Model_Blockchain.h"
+#include "View_Blockchain.h"
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -18,8 +21,8 @@ typedef struct {
 
 class Node : public Subject{
 public:
-	Node():nodeType(""),nodeID("") { }
-	Node(const char* nodeID, const char* nodeType) { this->nodeID = string(nodeID); this->nodeType = string(nodeType); }
+	Node():nodeType(""),nodeID(""), myBlockChainModel(nullptr) { }
+	Node(const char* nodeID, const char* nodeType) { this->nodeID = string(nodeID); this->nodeType = string(nodeType); myBlockChainModel = nullptr; }
 	~Node(){}
 
 	string getNodeID() const { return nodeID; }
@@ -34,15 +37,25 @@ public:
 	virtual Node* getFilter(void) = 0;
 
 	virtual void attachConnection(Node* connection) { connections.push_back(connection); }
-	virtual void dettachConnection(Node* connection);
+	virtual bool dettachConnection(Node* connection);
 
 	void push_message(blockchain_message& message);
+
+	void createBlockChainModel(void);
+	void destroyBlockChainModel(void);
+
+	/*
+	Controller_BlockChain* createBlockChainController(void);
+	void destroyBlockChainController(Controller_BlockChain* target);
+	*/
 
 protected:
 	string nodeID;
 	string nodeType;
 	pos_t pos;
 	list<Node*> connections;
+
+	Model_Blockchain* myBlockChainModel; // veremos si no es necesario.
 
 	vector<blockchain_message> buffer_messages;
 };

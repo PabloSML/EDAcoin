@@ -3,7 +3,7 @@
 
 
 Model_Blockchain::
-Model_Blockchain(void)
+Model_Blockchain(Node* creator)
 {
 	this->cant_board = (unsigned int)((this->blockchain).size() / MAX_BLOCKS_PER_DISPLAY);	
 
@@ -12,9 +12,9 @@ Model_Blockchain(void)
 		(this->cant_board)--;
 	}
 
-
 	this->actual_board = 0;
-
+	
+	owner = creator;
 }
 
 Model_Blockchain::

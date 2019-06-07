@@ -30,3 +30,9 @@ Subject::notifyObservers(void)
 	for (Observer* o : observers)
 		o->update(this);
 }
+
+Subject::~Subject(void)
+{
+	for (Observer* o : observers)
+		delete o;
+}

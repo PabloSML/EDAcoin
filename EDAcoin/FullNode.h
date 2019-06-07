@@ -32,7 +32,7 @@ public:
 	unsigned int requestHeaderCount();
 
 	virtual void attachConnection(Node* connection);
-	virtual void dettachConnection(Node* connection);
+	virtual bool dettachConnection(Node* connection);
 
 	virtual Node* getFilter(void) { return nullptr; }
 

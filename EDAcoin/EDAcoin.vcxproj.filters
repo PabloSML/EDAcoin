@@ -224,6 +224,12 @@
     <Filter Include="Source\BlockChain">
       <UniqueIdentifier>{b69e3308-1365-4337-ad9b-d2c749cab48a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Controllers">
+      <UniqueIdentifier>{cba2c5e5-514c-4432-a579-eeb09a6ba094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Controllers">
+      <UniqueIdentifier>{02aea093-b2e4-44c1-a83b-d752dd6f3431}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

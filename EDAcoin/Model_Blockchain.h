@@ -2,13 +2,14 @@
 
 #include "Subject.h"
 #include "Model_Block.h"
+#include "Node.h"
 #include <vector>
 
 
 class Model_Blockchain: public Subject
 {
 	public:
-		Model_Blockchain(void);
+		Model_Blockchain(Node* creator);
 		~Model_Blockchain();
 
 		//getters
@@ -22,6 +23,8 @@ class Model_Blockchain: public Subject
 
 	private:
 		vector<Model_Block> blockchain;
+
+		Node* owner;
 
 		unsigned int cant_board;
 		unsigned int actual_board;
