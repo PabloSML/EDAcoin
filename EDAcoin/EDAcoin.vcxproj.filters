@@ -61,9 +61,6 @@
     <ClCompile Include="Model_PushButton.cpp">
       <Filter>Source\Models</Filter>
     </ClCompile>
-    <ClCompile Include="BoxPanel.cpp">
-      <Filter>Source\Models</Filter>
-    </ClCompile>
     <ClCompile Include="View_BoxText.cpp">
       <Filter>Source\Views</Filter>
     </ClCompile>
@@ -83,6 +80,18 @@
       <Filter>Source\Models</Filter>
     </ClCompile>
     <ClCompile Include="View_Block.cpp">
+      <Filter>Source\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="EDAMerkleBlock.cpp">
+      <Filter>Source\BlockChain</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxPanel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_MerkleTree.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="View_MerkleTree.cpp">
       <Filter>Source\Views</Filter>
     </ClCompile>
   </ItemGroup>
@@ -156,9 +165,6 @@
     <ClInclude Include="Model_PushButton.h">
       <Filter>Headers\Models</Filter>
     </ClInclude>
-    <ClInclude Include="BoxPanel.h">
-      <Filter>Headers\Models</Filter>
-    </ClInclude>
     <ClInclude Include="View_BoxText.h">
       <Filter>Headers\Views</Filter>
     </ClInclude>
@@ -172,6 +178,18 @@
       <Filter>Headers\Models</Filter>
     </ClInclude>
     <ClInclude Include="View_Block.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="EDAMerkleBlock.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxPanel.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Model_MerkleTree.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="View_MerkleTree.h">
       <Filter>Headers\Views</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Block.h"
+#include "Model_Block.h"
 #include "Node.h"
 #include "SPVNode.h"
 #include "MerkleNode.h"
@@ -37,14 +37,14 @@ public:
 	virtual Node* getFilter(void) { return nullptr; }
 
 	vector<MerkleNode*> get_merkle_trees(void);
-	vector<Block> * get_blockChain(void);
+	vector<Model_Block> * get_blockChain(void);
 
 	bool transfer(Node& from, Node& to,	double amount);
 
 
 	void sendInfo2Spv();
 private:
-	vector<Block> blockChain;
+	vector<Model_Block> blockChain;
 	list<SPVNode*> filters;
 	vector<MerkleNode*> merkleTrees;
 	

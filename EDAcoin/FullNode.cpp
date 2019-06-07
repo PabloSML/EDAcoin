@@ -62,7 +62,7 @@ FullNode::recieveBlock(json& jsonBlock)
 	
 	unsigned long numID = stoi(rootID);
 
-	Block newBlock(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
+	Model_Block newBlock(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
 	blockChain.push_back(newBlock);
 }
 
@@ -70,7 +70,7 @@ void
 FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 {
 	bool found = false;
-	vector<Block>::reverse_iterator ritr = blockChain.rbegin();
+	vector<Model_Block>::reverse_iterator ritr = blockChain.rbegin();
 	for (ritr; ritr < blockChain.rend() && !found; ritr++)		// primero se busca el match empezando desde los ultimos headers (si el spv ya esta conectado esto supone el metodo mas eficiente de recorrer el vector).
 	{
 		if (ritr->getBlockID() == latestID)
@@ -82,7 +82,7 @@ FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 	{
 		ritr--;	// se corrige el offset que generara el incremento al terminar el ciclo
 		ritr--;	// se vuelve al primer block no conocido (siguiente al conocido)
-		vector<Block>::iterator itr = ritr.base();
+		vector<Model_Block>::iterator itr = ritr.base();
 		for (itr; itr < blockChain.end(); itr++)
 		{
 			blockHeader tempHeader = itr->getBlockHeader();
@@ -94,7 +94,7 @@ FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 void
 FullNode::requestAllHeaders(vector<blockHeader>* dest)
 {
-	for (Block B : blockChain)
+	for (Model_Block B : blockChain)
 	{
 		blockHeader tempHeader = B.getBlockHeader();
 		dest->push_back(tempHeader);
@@ -104,14 +104,14 @@ FullNode::requestAllHeaders(vector<blockHeader>* dest)
 unsigned int 
 FullNode::requestHeaderCount()
 {
-	return blockChain.size();
+	return (unsigned int) blockChain.size();
 }
 
 
 void
 FullNode::sendInfo2Spv()
 {
-	vector<Block>::reverse_iterator bChainItr = blockChain.rbegin();
+	vector<Model_Block>::reverse_iterator bChainItr = blockChain.rbegin();
 	string blockID = bChainItr->getBlockID();
 	vector<MerkleNode*>::reverse_iterator mkTreeItr = merkleTrees.rbegin();
 	MerkleNode* root = *mkTreeItr;
@@ -149,7 +149,7 @@ FullNode::sendInfo2Spv()
 				}
 			}
 		}
-		unsigned int txCount = spvTrans.size();
+		unsigned int txCount = (unsigned int) spvTrans.size();
 		if (txCount) // solo notifica al spv si hay txs que le interesen
 		{
 			
@@ -201,14 +201,14 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 void FullNode::buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID)
 {
 	buildMerklePath(root, txID, dest.merklePath);
-	dest.merklePathLen = dest.merklePath.size();
+	dest.merklePathLen = (unsigned int) dest.merklePath.size();
 }
 
 vector<MerkleNode*> FullNode::get_merkle_trees(void) {
 	return this->merkleTrees;
 }
 
-vector<Block> * FullNode::
+vector<Model_Block> * FullNode::
 get_blockChain(void) {
 	return &(this->blockChain);
 }

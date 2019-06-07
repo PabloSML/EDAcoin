@@ -71,6 +71,10 @@ using namespace std;
 
 
 
+#define MERKLE_DISPLAY_MARGIN_DEFAULT_WIDTH		20
+#define MERKLE_DISPLAY_MARGIN_DEFAULT_HEIGTH	15
+#define MERKLE_NODE_IMAGE_PATH					"MerkelNode.png"
+
 typedef struct {
 	string blockID;
 	string txID;

@@ -6,7 +6,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include "Transaction.h"
-#include "Block.h"
+#include "Model_Block.h"
 
 using json = nlohmann::json;
 using namespace std;
@@ -15,7 +15,7 @@ using namespace std;
 class EDAMerkleBlock {
 public:
 	//builders
-	EDAMerkleBlock(Block& block, string ID_node);
+	EDAMerkleBlock(Model_Block& block, string ID_node);
 
 	//destroyers
 	~EDAMerkleBlock();
@@ -29,9 +29,9 @@ public:
 	string get_merkle_block_id(void);
 
 private:
-	void set_transactions(Block& block, string ID_node);
-	void set_transactions_ID(Block& block, string ID_node);
-	void set_cant_transactions(Block& block, string ID_node);
+	void set_transactions(Model_Block& block, string ID_node);
+	void set_transactions_ID(Model_Block& block, string ID_node);
+	void set_cant_transactions(Model_Block& block, string ID_node);
 
 
 

@@ -47,40 +47,6 @@ board::board(int width, int height, vector<ImageDescriptor> & blocks_images, vec
 	
 }
 
-board::board(void)
-{
-
-}
-
-//listo
-board::~board()
-{
-}
-
-/*Constructor copiador*/
-board::
-board(const board &copia)
-{
-	this->blocks_images = copia.blocks_images;
-	this->buttons = copia.buttons;
-	this->merkleTrees = copia.merkleTrees;
-
-	this->image_size_x = copia.image_size_x;
-	this->image_size_y = copia.image_size_y;
-
-	this->button_size_x = copia.button_size_x; //tamaño de los botones
-	this->button_size_y = copia.button_size_y;
-
-	this->margin_x = copia.margin_x; //margenes
-	this->margin_y = copia.margin_y;
-
-	this->width = copia.width; //dimensiones del damero
-	this->height = copia.height;
-
-	this->board_actual = copia.board_actual; // de cero a la cantidad de board -1
-	this->board_cant = copia.board_cant; // cantidad de board
-}
-
 //listo
 /*
 Actualizo las posiciones de cada imagen en el display (sin mostrarlo).

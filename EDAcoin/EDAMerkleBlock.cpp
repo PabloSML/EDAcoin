@@ -6,7 +6,7 @@ bool is_transaction_id(InputS * input, string transaction_id);
 bool is_output_id(OutputS * output, string output_id);
 
 EDAMerkleBlock::
-EDAMerkleBlock(Block& block, string ID_node)
+EDAMerkleBlock(Model_Block& block, string ID_node)
 {
 	this->cant_transactions = 0;
 	
@@ -59,7 +59,7 @@ get_merkle_block_id(void) {
 
 
 void EDAMerkleBlock::
-set_transactions(Block& block, string ID_node)
+set_transactions(Model_Block& block, string ID_node)
 {
 	unsigned int max_cant = block.getTxsCount();
 
@@ -77,7 +77,7 @@ set_transactions(Block& block, string ID_node)
 }
 
 void EDAMerkleBlock::
-set_transactions_ID(Block& block, string ID_node)
+set_transactions_ID(Model_Block& block, string ID_node)
 {
 	unsigned int max_cant = block.getTxsCount();
 
@@ -94,7 +94,7 @@ set_transactions_ID(Block& block, string ID_node)
 }
 
 void EDAMerkleBlock::
-set_cant_transactions(Block& block, string ID_node)
+set_cant_transactions(Model_Block& block, string ID_node)
 {
 	unsigned int max_cant = block.getTxsCount();
 

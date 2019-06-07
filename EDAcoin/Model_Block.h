@@ -40,6 +40,7 @@ public:
 	void set_size_y(unsigned int new_size_y);
 
 private:
+	
 	string blockID;
 	unsigned long merkleRoot;
 	unsigned int txsCount;

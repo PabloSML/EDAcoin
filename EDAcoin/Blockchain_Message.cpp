@@ -5,7 +5,7 @@ blockchain_message(void) {
 }
 
 blockchain_message::
-blockchain_message(type_message type, vector<Block> blockchain) {
+blockchain_message(type_message type, vector<Model_Block> blockchain) {
 	this->type = type;
 	this->blockchain = blockchain;
 }
@@ -24,7 +24,7 @@ blockchain_message(type_message type) {
 
 
 blockchain_message::
-blockchain_message(type_message type, Block block) {
+blockchain_message(type_message type, Model_Block block) {
 	this->type = type;
 	this->block = block;
 }
@@ -59,7 +59,7 @@ set_detail(string detail) {
 }
 
 void blockchain_message::
-set_block(Block block) {
+set_block(Model_Block block) {
 	this->block = block;
 }
 
@@ -69,7 +69,7 @@ set_transaction(TransactionS transaction) {
 }
 
 void blockchain_message::
-set_blockchain(vector<Block> blockchain) {
+set_blockchain(vector<Model_Block> blockchain) {
 	this->blockchain = blockchain;
 }
 
@@ -85,7 +85,7 @@ get_detail(void) const {
 	return this->detail;
 }
 
-Block blockchain_message::
+Model_Block blockchain_message::
 get_block(void) const {
 	return this->block;
 }
@@ -95,7 +95,7 @@ get_transaction(void) const {
 	return this->transaction;
 }
 
-vector<Block> blockchain_message::
+vector<Model_Block> blockchain_message::
 get_blockchain(void) const {
 	return this->blockchain;
 }
