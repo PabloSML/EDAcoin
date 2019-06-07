@@ -16,14 +16,6 @@ Node::dettachConnection(Node* connection)
 	}
 }
 
-/*void
-Node::updateNode()
-{
-	//manejo del evento recibido
-	notifyObservers();
-}*/
-
-
 void 
 Node::push_message(blockchain_message& message)
 {
