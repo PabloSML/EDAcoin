@@ -7,13 +7,12 @@ SimView::update(void* model)
 
 	al_clear_to_color(al_color_name("aquamarine"));
 	
-	for (Observer* o : views)
-	{
-		o->update(this);
-	}
+	simModel->updateInsiderModels();
+	
 	al_flip_display();
 }
 
+/*
 void
 SimView::attach(Observer* view)
 {
@@ -37,4 +36,4 @@ SimView::detach(Observer* view)
 
 	return success;
 }
-
+*/

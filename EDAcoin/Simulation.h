@@ -20,6 +20,8 @@ public:
 	void addButton(Model_PushButton* button);
 	bool removeButton(Model_PushButton* button);
 
+	void updateInsiderModels(void);
+
 private:
 	list<Node*> nodes; //aca no iria vector??? por?
 	list<Model_BoxText*> textBoxes;

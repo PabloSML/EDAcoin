@@ -10,12 +10,12 @@ public:
 	SimView(){}
 	~SimView(){}
 
-	void attach(Observer* view);
-	bool detach(Observer* view);
+	/*void attach(Observer* view);	probablemente lo volemos
+	bool detach(Observer* view);*/
 
 	virtual void update(void* model);
 
 
 private:
-	list<Observer*> views;
+	//list<Observer*> views;
 };

@@ -71,3 +71,14 @@ Simulation::removeButton(Model_PushButton* button)
 
 	return success;
 }
+
+void
+Simulation::updateInsiderModels(void)
+{
+	for (Node* N : nodes)
+		N->ping();
+	for (Model_BoxText* TB : textBoxes)
+		TB->ping();
+	for (Model_PushButton* BU : buttons)
+		BU->ping();
+}

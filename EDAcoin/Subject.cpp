@@ -25,6 +25,12 @@ Subject::dettach(Observer* ptr)
 }
 
 void
+Subject::ping(void)
+{
+	notifyObservers();
+}
+
+void
 Subject::notifyObservers(void)
 {
 	for (Observer* o : observers)

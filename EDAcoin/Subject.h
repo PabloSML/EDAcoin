@@ -32,6 +32,12 @@ public:
 	*/
 	bool dettach(Observer* ptr);
 
+	/*
+	* ping
+	* llamada externa a notifyAllObservers
+	*/
+	void ping(void);
+
 protected:
 
 	/*
