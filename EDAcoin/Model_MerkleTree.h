@@ -14,10 +14,15 @@ class Model_MerkleTree : public Subject
 
 		//getters
 		MerkleNode * get_merkle_root(void);
+		ALLEGRO_DISPLAY* getDisplay(void);
+		bool shouldEnd(void);
 
 		//setters
 		void set_merkle_root(MerkleNode * new_merkle_root);
+		void triggerEnd(void);
 
 	private:
 		MerkleNode * merkle_root;
+		ALLEGRO_DISPLAY* display;
+		bool end;
 };

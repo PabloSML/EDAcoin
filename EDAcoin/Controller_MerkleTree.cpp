@@ -25,18 +25,39 @@ parseTimerEvent(EventData * ev) //refresh
 	{
 		model->ping();
 	}
-	
 }
 
 
 void Controller_MerkleTree::
-parseMouseEvent(EventData * ev) //nothing
+parseMouseEvent(EventData * ev)
 {
+	if (isThisMine(ev))
+	{
 
+	}
 }
 
 void Controller_MerkleTree::
 parseKeyboardEvent(EventData * ev) //nothing
 {
 
+}
+
+bool
+Controller_MerkleTree::shouldModelDie(void)
+{
+	return model->shouldEnd();
+}
+
+
+bool 
+Controller_MerkleTree::isThisMine(EventData* ev)
+{
+	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->display.source;
+	ALLEGRO_DISPLAY* myDisplay = model->getDisplay();
+
+	if (evDisplay == myDisplay)
+		return true;
+	else
+		return false;
 }

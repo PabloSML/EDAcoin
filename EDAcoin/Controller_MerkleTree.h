@@ -14,7 +14,9 @@ public:
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
 
+	bool shouldModelDie(void);
 
 private:
 	Model_MerkleTree* model;
+	bool isThisMine(EventData* ev);
 };
