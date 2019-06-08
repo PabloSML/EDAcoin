@@ -57,9 +57,9 @@ int main()
 		f2.attach(&f2RView);
 		s1.attach(&s1RView);
 
-		sim.attachNode(&f1); // se agregan los nodos a la lista de la simulacion
-		sim.attachNode(&f2);
-		sim.attachNode(&s1);
+		sim.addNode(&f1); // se agregan los nodos a la lista de la simulacion
+		sim.addNode(&f2);
+		sim.addNode(&s1);
 
 		simulationView.attach(&f1RView);
 		simulationView.attach(&f2RView);

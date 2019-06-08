@@ -11,8 +11,14 @@ public:
 	Simulation(){}
 	~Simulation(){}
 
-	void attachNode(Node* node);
-	bool detachNode(Node* node);
+	void addNode(Node* node);
+	bool removeNode(Node* node);
+
+	void addTextBox(Model_BoxText* box);
+	bool removeTextBox(Model_BoxText* box);
+
+	void addButton(Model_PushButton* button);
+	bool removeButton(Model_PushButton* button);
 
 private:
 	list<Node*> nodes; //aca no iria vector??? por?
