@@ -2,9 +2,8 @@
 
 #include <string>
 #include <vector>
-#include "ImageDescriptor.h"
 #include "Definitions.h"
-
+#include "Subject.h"
 
 
 using namespace std;
@@ -14,7 +13,9 @@ typedef struct {		// estructura de blockHeader por si sirve
 	unsigned long merkleRoot;
 }blockHeader;
 
-class Model_Block : public ImageDescriptor {
+
+
+class Model_Block : public Subject {
 public:
 	Model_Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions);
 	Model_Block();

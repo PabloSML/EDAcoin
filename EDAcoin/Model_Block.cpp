@@ -6,12 +6,10 @@
 
 
 Model_Block::Model_Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions) :
-	ImageDescriptor(IMAGE_BLOCK_PATH), blockID(blockID), merkleRoot(merkleRoot), txsCount(txsCount), transactions(transactions)
+  blockID(blockID), merkleRoot(merkleRoot), txsCount(txsCount), transactions(transactions)
 {
 
-	string aux = "Block ID: ";
 
-	this->set_image_name(aux + this->blockID);
 	this->pos_x = 0;
 	this->pos_y = 0;
 	this->width_image = DEFAULT_WIDTH_BLOCK;

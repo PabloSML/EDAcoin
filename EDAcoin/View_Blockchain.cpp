@@ -37,7 +37,7 @@ update(void* model) {
 
 	Model_Blockchain * model_observed = (Model_Blockchain *) model;
 
-	vector<Model_Block> aux_blockchain = model_observed->get_blockchain();
+	vector<Model_Block> * aux_blockchain = model_observed->get_blockchain();
 
 	View_Block aux_viewer_block = View_Block();
 	
@@ -76,13 +76,13 @@ update(void* model) {
 	unsigned int actual_board = model_observed->get_actual_board();
 	unsigned int cant_boards = model_observed->get_cant_boards();
 
-	unsigned int cant_blocks = (unsigned int)(model_observed->get_blockchain()).size();
+	unsigned int cant_blocks = (unsigned int)(model_observed->get_blockchain())->size();
 
 	if (cant_blocks != 0) //si tengo por lo menos una imagen en el tablero
 	{
 		bool button_touched = false;
 		int first_button = 0;  //en principio, deseo tener en cuenta todo el vector de botones.
-		int last_button = (this->buttons).size();
+		int last_button = (int) (this->buttons).size();
 
 
 
@@ -113,10 +113,10 @@ update(void* model) {
 	}
 	
 
-	for (unsigned int index = 0; (index + actual_board*MAX_BLOCKS_PER_DISPLAY  < aux_blockchain.size())&&(index < MAX_BLOCKS_PER_DISPLAY); index++)
+	for (unsigned int index = 0; (index + actual_board*MAX_BLOCKS_PER_DISPLAY  < (*aux_blockchain).size())&&(index < MAX_BLOCKS_PER_DISPLAY); index++)
 	{
 
-		Model_Block block = aux_blockchain[index + actual_board * MAX_BLOCKS_PER_DISPLAY];
+		Model_Block block = (*aux_blockchain)[index + actual_board * MAX_BLOCKS_PER_DISPLAY];
 		Model_Block * p_block = &block;
 		aux_viewer_block.update((void*)p_block);
 

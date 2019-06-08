@@ -58,10 +58,17 @@ update(void * model) {
 
 	const char * name_block = ((model_observed)->getBlockID()).c_str();
 
+
 	this->bitmap = resize_bitmap(this->bitmap, size_x, size_y);
 
-	al_draw_bitmap(this->bitmap, pos_x, pos_y, 0);
-	al_draw_text(this->font, al_color_name(FONT_COLOR_BLOCK_NAME), pos_x, pos_y, ALLEGRO_ALIGN_CENTER, name_block);
+	al_draw_bitmap(this->bitmap, (float)model_observed->get_pos_x(), (float)model_observed->get_pos_y(), 0);
+
+	string aux = "Block ID: ";
+	string id = string(name_block);
+
+	id = aux + id;
+
+	al_draw_text(this->font, al_color_name(FONT_COLOR_BLOCK_NAME), pos_x, pos_y, ALLEGRO_ALIGN_CENTER, id.c_str());
 
 }
 

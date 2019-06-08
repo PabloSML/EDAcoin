@@ -97,6 +97,12 @@
     <ClCompile Include="Controller_Blockchain.cpp">
       <Filter>Source\Controllers</Filter>
     </ClCompile>
+    <ClCompile Include="Controller_Block.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller_MerkleTree.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Labels.h">
@@ -199,6 +205,9 @@
       <Filter>Headers\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Controller_Block.h">
+      <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller_MerkleTree.h">
       <Filter>Headers\Controllers</Filter>
     </ClInclude>
   </ItemGroup>
