@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Model_MerkleTree.h"
 #include "Controller.h"
 
 class Controller_MerkleTree : public Controller
 {
+public:
 	Controller_MerkleTree();
 	~Controller_MerkleTree();
 
@@ -13,5 +15,6 @@ class Controller_MerkleTree : public Controller
 	void parseTimerEvent(EventData * ev);
 
 
-
+private:
+	Model_MerkleTree* model;
 };

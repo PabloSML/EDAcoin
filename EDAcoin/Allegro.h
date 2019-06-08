@@ -37,6 +37,8 @@ public:
 	ALLEGRO_EVENT getNextEvent(void);
 	void printText(const char* text, int x,int y,enum align al, ALLEGRO_FONT * al_font = NULL);
 
+	ALLEGRO_DISPLAY* getDisplay(void) { return display; }
+
 	unsigned int GetDisplayW();
 	unsigned int GetDisplayH();
 

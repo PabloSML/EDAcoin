@@ -1,9 +1,11 @@
 #pragma once
 
 #include "Controller.h"
+#include "MerkleNode.h"
 
 class Controller_Block : public Controller
 {
+public:
 	Controller_Block();
 	~Controller_Block();
 
@@ -11,5 +13,7 @@ class Controller_Block : public Controller
 	//void parseNetworkEvent(EventData * ev);
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
+
+	void recieveMouseEv(EventData* ev, MerkleNode* tree);
 
 };

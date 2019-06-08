@@ -41,3 +41,10 @@ parseKeyboardEvent(EventData * ev) //nothing
 {
 
 }
+
+
+void
+Controller_Block::recieveMouseEv(EventData* ev, MerkleNode* tree)
+{
+
+}

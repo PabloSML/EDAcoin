@@ -19,7 +19,7 @@ Controller_Blockchain::parseMouseEvent(EventData* ev)
 		for (int i = 0; i < (int)blockControllers.size(); i++)
 		{
 			MerkleNode* tree = model->getMerkleTree(i);
-			blockControllers[i]->recieveEvent(ev, tree);	// recieve event tiene que estar en Controller_Block y tiene que llamar a parseMouseEvent con el ev y tiene el tree por si lo necesita
+			blockControllers[i]->recieveMouseEv(ev, tree);	// recieve event tiene que estar en Controller_Block y tiene que llamar a parseMouseEvent con el ev y tiene el tree por si lo necesita
 		}
 	}
 }

@@ -6,9 +6,10 @@
 #include "ImagesManager.h"
 
 //auxiliar functions
-void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
+static void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
 	unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font, ALLEGRO_BITMAP* nodeImge);
-unsigned int get_depth_tree(MerkleNode * merkle_root);
+
+static unsigned int get_depth_tree(MerkleNode * merkle_root);
 
 
 View_MerkleTree::
@@ -59,11 +60,13 @@ update(void * model) {
 
 }
 
+ALLEGRO_DISPLAY*
+View_MerkleTree::getDisplay(void)
+{
+	return graph_resources.getDisplay();
+}
 
-
-
-
-void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
+static void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
 	unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font, ALLEGRO_BITMAP* nodeImg)
 {
 
@@ -103,13 +106,11 @@ void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int l
 			ALLEGRO_ALIGN_CENTER, (merkleRoot->getNodeID()).c_str());
 
 	}
-
-
 }
 
-unsigned int get_depth_tree(MerkleNode * merkle_root)
+static unsigned int get_depth_tree(MerkleNode * merkle_root)
 {
-	if (merkle_root->getLeft() == nullptr)
+	if (merkle_root->isLeaf())
 	{
 		return 0;
 	}

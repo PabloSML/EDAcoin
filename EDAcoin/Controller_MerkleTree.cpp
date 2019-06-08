@@ -1,7 +1,6 @@
 #include "Controller_MerkleTree.h"
 #include <list>
 #include "Subject.h"
-#include "Model_MerkleTree.h"
 
 
 using namespace std;
@@ -9,7 +8,8 @@ using namespace std;
 Controller_MerkleTree::
 Controller_MerkleTree()
 {
-
+	Subject* subj = this->get_subject_attach();
+	model = (Model_MerkleTree *)subj;
 }
 
 Controller_MerkleTree::
@@ -23,9 +23,7 @@ parseTimerEvent(EventData * ev) //refresh
 {
 	if (this->is_subject_attached == true)
 	{
-		Subject* subj = this->get_subject_attach();
-		Model_MerkleTree * p_merkle_tree = (Model_MerkleTree *)subj;
-		p_merkle_tree->ping();
+		model->ping();
 	}
 	
 }

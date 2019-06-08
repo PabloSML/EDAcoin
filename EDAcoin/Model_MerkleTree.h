@@ -2,13 +2,14 @@
 
 #include "MerkleNode.h"
 #include "Subject.h"
-
+#include "Allegro.h"
 #include <vector>
 
 class Model_MerkleTree : public Subject
 {
 	public:
 		Model_MerkleTree();
+		Model_MerkleTree(MerkleNode* new_merkle_root);
 		~Model_MerkleTree();
 
 		//getters
