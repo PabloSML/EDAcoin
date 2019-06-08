@@ -14,6 +14,7 @@ class Model_Blockchain: public Subject
 		vector<Model_Block>* get_blockchain(void);
 		unsigned int get_cant_boards(void);
 		unsigned int get_actual_board(void);
+		MerkleNode* getMerkleTree(int index);
 
 		//setters
 		void set_blockchain(vector<Model_Block>* new_blockchain);

@@ -94,6 +94,9 @@
     <ClCompile Include="View_MerkleTree.cpp">
       <Filter>Source\Views</Filter>
     </ClCompile>
+    <ClCompile Include="Controller_Blockchain.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Labels.h">
@@ -191,6 +194,12 @@
     </ClInclude>
     <ClInclude Include="View_MerkleTree.h">
       <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller_Blockchain.h">
+      <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller_Block.h">
+      <Filter>Headers\Controllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

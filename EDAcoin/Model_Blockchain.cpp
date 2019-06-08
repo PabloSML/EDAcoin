@@ -32,6 +32,11 @@ get_cant_boards(void) { return this->cant_board; }
 unsigned int Model_Blockchain::
 get_actual_board(void) { return this->actual_board; }
 
+MerkleNode* Model_Blockchain::getMerkleTree(int index)
+{
+	return (*merkle_tree)[index];
+}
+
 
 
 //setters
