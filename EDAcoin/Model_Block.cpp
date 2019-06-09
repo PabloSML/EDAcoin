@@ -112,3 +112,4 @@ Model_Block::getMerkleTreeModel()
 {
 	return myMerkleTreeModel;
 }
+

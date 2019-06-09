@@ -94,3 +94,8 @@ Controller_Blockchain::isThisMine(EventData* ev)
 	else
 		return false;
 }
+
+bool Controller_Blockchain::shouldModelDie(void)
+{
+	return model->shouldEnd();
+}

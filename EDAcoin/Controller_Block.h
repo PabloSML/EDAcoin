@@ -26,4 +26,6 @@ private:
 	bool isThisMine(EventData* ev);
 	void createMerkleTreeCtrl(void);
 	bool clickInMe(EventData* ev);
+
+
 };

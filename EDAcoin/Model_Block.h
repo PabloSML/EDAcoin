@@ -46,6 +46,10 @@ public:
 	void destroyMerkleTreeModel(void);
 	Model_MerkleTree* getMerkleTreeModel(void);
 
+
+
+
+
 private:
 	
 	string blockID;

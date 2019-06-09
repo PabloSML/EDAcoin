@@ -129,6 +129,7 @@
     <ClInclude Include="Controller_Block.h" />
     <ClInclude Include="Controller_Blockchain.h" />
     <ClInclude Include="Controller_MerkleTree.h" />
+    <ClInclude Include="Controller_Node.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
     <ClInclude Include="Model_Block.h" />
     <ClInclude Include="Model_BoxText.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Controller_Block.cpp" />
     <ClCompile Include="Controller_Blockchain.cpp" />
     <ClCompile Include="Controller_MerkleTree.cpp" />
+    <ClCompile Include="Controller_Node.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
     <ClCompile Include="Model_Block.cpp" />
     <ClCompile Include="Model_Blockchain.cpp" />

@@ -10,6 +10,9 @@
 
 #include "Model_Blockchain.h"
 #include "View_Blockchain.h"
+#include "Allegro.h"
+
+#define RADIUS 10  //**Need to define radios of node
 
 using namespace std;
 using json = nlohmann::json;
@@ -49,6 +52,10 @@ public:
 	void destroyBlockChainController(Controller_BlockChain* target);
 	*/
 
+	ALLEGRO_DISPLAY* getEnviroment(void);
+
+	Model_Blockchain* getBlockChainModel(void);
+
 protected:
 	string nodeID;
 	string nodeType;
@@ -58,4 +65,6 @@ protected:
 	Model_Blockchain* myBlockChainModel; // veremos si no es necesario.
 
 	vector<blockchain_message> buffer_messages;
+
+	ALLEGRO_DISPLAY * environment;
 };

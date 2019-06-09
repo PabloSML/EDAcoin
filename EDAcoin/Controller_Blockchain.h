@@ -16,6 +16,9 @@ public:
 	virtual void parseKeyboardEvent(EventData * ev);
 	virtual void parseTimerEvent(EventData * ev);
 
+	bool shouldModelDie(void);
+
+
 private:
 	Model_Blockchain* model;
 	vector<Controller_Block*> blockControllers;
