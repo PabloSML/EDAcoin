@@ -6,7 +6,7 @@
 using namespace std;
 
 Controller_MerkleTree::
-Controller_MerkleTree()
+Controller_MerkleTree(Subject* creator) : Controller(creator)
 {
 	Subject* subj = this->get_subject_attach();
 	model = (Model_MerkleTree *)subj;
@@ -33,7 +33,10 @@ parseMouseEvent(EventData * ev)
 {
 	if (isThisMine(ev))
 	{
-
+		if (ev->al_ev->type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		{
+			model->triggerEnd();
+		}
 	}
 }
 

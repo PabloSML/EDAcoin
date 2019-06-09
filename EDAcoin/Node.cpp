@@ -26,6 +26,7 @@ Node::destroyBlockChainModel(void)
 	if (myBlockChainModel != nullptr) 
 	{
 		delete myBlockChainModel;
+		myBlockChainModel = nullptr;
 	}
 }
 

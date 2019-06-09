@@ -2,11 +2,13 @@
 
 #include "Controller.h"
 #include "MerkleNode.h"
+#include "Model_Block.h"
+#include "Controller_MerkleTree.h"
 
 class Controller_Block : public Controller
 {
 public:
-	Controller_Block();
+	Controller_Block(Subject* creator);
 	~Controller_Block();
 
 	void parseMouseEvent(EventData * ev);
@@ -16,4 +18,10 @@ public:
 
 	void recieveMouseEv(EventData* ev, MerkleNode* tree);
 
+
+private:
+	Model_Block* model;
+	Controller_MerkleTree* myMerkleTreeCtrl;
+	bool isThisMine(EventData* ev);
+	void createMerkleTreeCtrl(void);
 };

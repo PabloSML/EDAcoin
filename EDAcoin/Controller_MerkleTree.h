@@ -6,7 +6,7 @@
 class Controller_MerkleTree : public Controller
 {
 public:
-	Controller_MerkleTree();
+	Controller_MerkleTree(Subject* creator);
 	~Controller_MerkleTree();
 
 	void parseMouseEvent(EventData * ev);

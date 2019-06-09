@@ -60,12 +60,6 @@ update(void * model) {
 
 }
 
-ALLEGRO_DISPLAY*
-View_MerkleTree::getDisplay(void)
-{
-	return graph_resources.getDisplay();
-}
-
 static void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigned int last_pos_y,
 	unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font, ALLEGRO_BITMAP* nodeImg)
 {

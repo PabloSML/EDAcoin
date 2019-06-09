@@ -13,7 +13,7 @@ struct EventData
 
 class Controller{
 public:
-	Controller(void);
+	Controller(Subject* creator) : subject_attach(creator) {}
 	virtual void parseMouseEvent(EventData * ev) = 0;
 	//virtual void parseNetworkEvent(EventData * ev) = 0;
 	virtual void parseKeyboardEvent(EventData * ev) = 0;
