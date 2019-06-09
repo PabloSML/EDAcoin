@@ -25,7 +25,7 @@ Model_Block::Model_Block(void) : myMerkleTreeModel(nullptr)
 
 Model_Block::~Model_Block(void)
 {
-
+	
 }
 
 blockHeader
@@ -87,12 +87,12 @@ void Model_Block::
 set_size_y(unsigned int new_size_y) { this->heigth_image = new_size_y; }
 
 void
-Model_Block::createMerkleTreeModel(MerkleNode* root)
+Model_Block::createMerkleTreeModel(MerkleNode* root, ALLEGRO_EVENT_QUEUE* event_queue)
 {
 	if (myMerkleTreeModel == nullptr)
 	{
 		myMerkleTreeModel = new Model_MerkleTree(root);
-		View_MerkleTree* tempView = new View_MerkleTree(WIDTH_DEFAULT, HEIGHT_DEFAULT);
+		View_MerkleTree* tempView = new View_MerkleTree(event_queue,WIDTH_DEFAULT, HEIGHT_DEFAULT);
 		myMerkleTreeModel->attach(tempView);
 	}
 }

@@ -14,22 +14,43 @@
 #define LAST_IMAGE_BOARD(button_actual) (MAX_BLOCKS_PER_DISPLAY * (button_actual + 1))
 
 View_Blockchain::
-View_Blockchain(unsigned int width_display, unsigned int heigth_display):
-	graph_resources(width_display,heigth_display),
+View_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue, unsigned int width_display, unsigned int heigth_display):
+	graph_resources(),
 	margin_x(MARGIN_RATE*width_display), margin_y(MARGIN_RATE*heigth_display)
 {
+	//**
+	display = al_create_display(width_display , heigth_display ); // Intenta crear display de fallar devuelve NULL
+	if (!display) {
+		fprintf(stderr, "failed to create display!\n");
+		init_ok = false;
+		return;
+	}
+	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
+	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
+	//**
+
+
 	(this->buttons)[BUTTON_LEFT] = ImageDescriptor(PATH_BUTTON_LEFT);
 	(this->buttons)[BUTTON_RIGHT] = ImageDescriptor(PATH_BUTTON_RIGHT);
 
 	(buttons[BUTTON_LEFT]).set_pos(BUTTON_SIZE_X * MARGIN_RATE, heigth_display - BUTTON_SIZE_Y);
 	(buttons[BUTTON_RIGHT]).set_pos(width_display - BUTTON_SIZE_X, heigth_display - BUTTON_SIZE_Y - (BUTTON_SIZE_Y * MARGIN_RATE));
 
+	//**
+	this->width = width_display;
+	this->height = heigth_display;
+	//**
+
 }
 
 View_Blockchain::
 ~View_Blockchain(void)
 {
-
+	if (init_ok == true)
+	{
+		al_destroy_display(display);
+		init_ok = false;
+	}
 }
 
 void View_Blockchain::
@@ -116,6 +137,7 @@ update(void* model) {
 	for (unsigned int index = 0; (index + actual_board*MAX_BLOCKS_PER_DISPLAY  < (*aux_blockchain).size())&&(index < MAX_BLOCKS_PER_DISPLAY); index++)
 	{
 
+		//**Model_Block *p_block = &(*aux_blockchain)[index + actual_board * MAX_BLOCKS_PER_DISPLAY];
 		Model_Block block = (*aux_blockchain)[index + actual_board * MAX_BLOCKS_PER_DISPLAY];
 		Model_Block * p_block = &block;
 		aux_viewer_block.update((void*)p_block);

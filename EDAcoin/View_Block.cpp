@@ -9,7 +9,6 @@
 View_Block::
 View_Block(void)
 {
-	
 	this->bitmap = al_load_bitmap(IMAGE_BLOCK_PATH);
 
 	if (this->bitmap == nullptr) {

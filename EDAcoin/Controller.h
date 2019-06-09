@@ -9,6 +9,7 @@ using namespace std;
 struct EventData
 {
 	ALLEGRO_EVENT * al_ev;
+	ALLEGRO_EVENT_QUEUE* event_queue;
 };
 
 class Controller{

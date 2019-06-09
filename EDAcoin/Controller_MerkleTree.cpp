@@ -5,23 +5,24 @@
 
 using namespace std;
 
-Controller_MerkleTree::
-Controller_MerkleTree(Subject* creator) : Controller(creator)
+
+//Constructor:attach del model
+Controller_MerkleTree::Controller_MerkleTree(Subject* creator) : Controller(creator)
 {
 	Subject* subj = this->get_subject_attach();
 	model = (Model_MerkleTree *)subj;
 }
 
-Controller_MerkleTree::
-~Controller_MerkleTree()
+Controller_MerkleTree::~Controller_MerkleTree()
 {
-
+	//**dettach?
 }
+
 
 void Controller_MerkleTree::
 parseTimerEvent(EventData * ev) //refresh
 {
-	if (this->is_subject_attached == true)
+	if (this->is_subject_attached() == true)
 	{
 		model->ping();
 	}
@@ -29,7 +30,7 @@ parseTimerEvent(EventData * ev) //refresh
 
 
 void Controller_MerkleTree::
-parseMouseEvent(EventData * ev)
+parseMouseEvent(EventData * ev)		//manage display close
 {
 	if (isThisMine(ev))
 	{
@@ -47,14 +48,14 @@ parseKeyboardEvent(EventData * ev) //nothing
 }
 
 bool
-Controller_MerkleTree::shouldModelDie(void)
+Controller_MerkleTree::shouldModelDie(void)		//pregunta si se debe destruir.(despues del close display)
 {
 	return model->shouldEnd();
 }
 
 
 bool 
-Controller_MerkleTree::isThisMine(EventData* ev)
+Controller_MerkleTree::isThisMine(EventData* ev)		//evalua si el evento corresponde al display donde esta ubicado.
 {
 	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->display.source;
 	ALLEGRO_DISPLAY* myDisplay = model->getDisplay();

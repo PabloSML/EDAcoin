@@ -16,7 +16,10 @@
 #include "Viewer.h"
 #include "Definitions.h"
 #include "General_Controller.h"
-
+//**
+#include "Allegro.h"
+#include "Controller.h"
+//**
 
 
 using namespace std;
@@ -31,6 +34,20 @@ bool getBlockChainJson(json* dest, const char* file);
 
 int main()
 {
+	/*
+	//**Ejemplo de la inicializacion de allegro.
+	EventData ev_data;
+	ALLEGRO_EVENT_QUEUE* queue = initAllegro();
+	if (queue == nullptr)
+	{
+		cout << "Error in initialize Allegro" << endl;
+		return 0;
+	}
+	else
+		ev_data.event_queue = queue;
+	*/
+
+
 	bool init = init_resources();
 
 	if (init)

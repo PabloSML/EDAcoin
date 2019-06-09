@@ -5,14 +5,14 @@ Model_MerkleTree() : end(false) {
 
 }
 
-Model_MerkleTree::Model_MerkleTree(MerkleNode* new_merkle_root) : merkle_root(new_merkle_root), end(false)
+Model_MerkleTree::
+Model_MerkleTree(MerkleNode* new_merkle_root) : merkle_root(new_merkle_root), end(false)
 {
 
 }
 
-Model_MerkleTree::
-~Model_MerkleTree() {
-
+Model_MerkleTree::~Model_MerkleTree() {
+	
 }
 
 //getters

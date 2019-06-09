@@ -153,13 +153,13 @@ FullNode::sendInfo2Spv()
 }
 
 void
-FullNode::createBlockChainModel(void)
+FullNode::createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue)
 {
 	if (myBlockChainModel == nullptr)
 	{
 		myBlockChainModel = new Model_Blockchain;
 		myBlockChainModel->set_blockchain(&blockChain);
-		View_Blockchain* tempView = new View_Blockchain(WIDTH_DEFAULT, HEIGHT_DEFAULT);
+		View_Blockchain* tempView = new View_Blockchain(event_queue, WIDTH_DEFAULT, HEIGHT_DEFAULT);
 		myBlockChainModel->attach(tempView);
 	}
 }

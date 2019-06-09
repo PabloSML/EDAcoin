@@ -9,6 +9,7 @@
 #include "Definitions.h"
 
 #include "Blockchain_Service.h"
+#include "Allegro.h"
 
 using namespace std;
 using json = nlohmann::json;
@@ -41,7 +42,7 @@ public:
 
 	bool transfer(Node& from, Node& to,	double amount);
 
-	virtual void createBlockChainModel(void);
+	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue);
 
 	void sendInfo2Spv();
 private:

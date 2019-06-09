@@ -41,7 +41,8 @@ public:
 	void set_size_x(unsigned int new_size_x);
 	void set_size_y(unsigned int new_size_y);
 
-	void createMerkleTreeModel(MerkleNode* root);
+	//**Le agregue el event_queue para que el constructor de la view pueda registrar el display creado.
+	void createMerkleTreeModel(MerkleNode* root, ALLEGRO_EVENT_QUEUE* event_queue);
 	void destroyMerkleTreeModel(void);
 	Model_MerkleTree* getMerkleTreeModel(void);
 
@@ -54,6 +55,7 @@ private:
 
 	unsigned int pos_x;
 	unsigned int pos_y;
+
 
 	unsigned int width_image;
 	unsigned int heigth_image;

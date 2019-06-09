@@ -13,12 +13,24 @@ static unsigned int get_depth_tree(MerkleNode * merkle_root);
 
 
 View_MerkleTree::
-View_MerkleTree(unsigned int width_display, unsigned int heigth_display, unsigned int margin_x, unsigned int margin_y) :
-	graph_resources(width_display + 2*margin_x, heigth_display + 2*margin_y)
+View_MerkleTree(ALLEGRO_EVENT_QUEUE* event_queue, unsigned int width_display, unsigned int heigth_display, unsigned int margin_x, unsigned int margin_y) :
+	graph_resources()
 {
+	//**
+	display = al_create_display(width_display + 2 * margin_x, heigth_display + 2 * margin_y); // Intenta crear display de fallar devuelve NULL
+	if (!display) {
+		fprintf(stderr, "failed to create display!\n");
+		init_ok = false;
+		return;
+	}
+	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
+	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
+	//**
+
+
 	this->node_image = al_load_bitmap(MERKLE_NODE_IMAGE_PATH);
 
-	if (this->node_image == nullptr)
+	if (this->node_image == nullptr)		//**en la documentacion de allegro dice que al_load_bitmap returns NULL on error.
 	{
 		this->init_ok = false;
 	}
@@ -26,12 +38,16 @@ View_MerkleTree(unsigned int width_display, unsigned int heigth_display, unsigne
 		this->init_ok = true;
 	}
 
+	//**
+	this->width = width_display;
+	this->height = heigth_display;
+	//**
 }
 
 View_MerkleTree::
 ~View_MerkleTree(void)
 {
-
+	al_destroy_display(display);
 	if (this->init_ok == true)
 	{
 		al_destroy_bitmap(this->node_image);
@@ -46,8 +62,11 @@ update(void * model) {
 	Model_MerkleTree * model_observed = (Model_MerkleTree *) model;
 
 	MerkleNode * merkle_root = model_observed->get_merkle_root();
+	/*
 	unsigned int width = (this->graph_resources).GetDisplayW();
 	unsigned int height = (this->graph_resources).GetDisplayH();
+	*/
+
 
 	unsigned int depth_tree = get_depth_tree(merkle_root);
 	unsigned int level = 1;
@@ -56,7 +75,7 @@ update(void * model) {
 
 	ALLEGRO_FONT* font_nodes = al_load_ttf_font(NODE_FONT_PATH, NODE_FONT_SIZE*(1 + (SCALE_LEVEL_SIZE_TEXT_NODE - 1) / depth_tree), 0);
 
-	draw_nodes(merkle_root, root_pos_x, root_pos_y, depth_tree, level, width, height, font_nodes, this->node_image);
+	draw_nodes(merkle_root, root_pos_x, root_pos_y, depth_tree, level, this->width, this->height, font_nodes, this->node_image);
 
 }
 

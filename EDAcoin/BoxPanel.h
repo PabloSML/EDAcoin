@@ -27,7 +27,10 @@ public:
 	void set_pos_y(unsigned int new_pos_y);
 	void set_width(unsigned int new_width);
 	void set_heigth(unsigned int new_heigth);
-
+	
+	//**
+	void toggleSelect(void);
+	//**
 
 private:
 	string title;

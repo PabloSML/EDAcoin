@@ -6,24 +6,21 @@
 
 using namespace std;
 
-Controller_Block::
-Controller_Block(Subject* owner) : Controller(owner), myMerkleTreeCtrl(nullptr)
+Controller_Block::Controller_Block(Subject* owner) : Controller(owner), myMerkleTreeCtrl(nullptr)
 {
 	Subject* subj = this->get_subject_attach();
 	model = (Model_Block *)subj;
 }
 
-Controller_Block::
-~Controller_Block()
+Controller_Block::~Controller_Block()
 {
 	if (myMerkleTreeCtrl != nullptr)
 		delete myMerkleTreeCtrl;
 }
 
-void Controller_Block::
-parseTimerEvent(EventData * ev) //refresh
+void Controller_Block::parseTimerEvent(EventData * ev) //refresh
 {
-	if (this->is_subject_attached == true)
+	if (this->is_subject_attached() == true)
 	{
 		model->ping();
 		if(myMerkleTreeCtrl != nullptr)
@@ -32,8 +29,7 @@ parseTimerEvent(EventData * ev) //refresh
 }
 
 
-void Controller_Block::
-parseMouseEvent(EventData * ev)
+void Controller_Block::parseMouseEvent(EventData * ev)
 {
 	if (myMerkleTreeCtrl != nullptr)
 	{
@@ -64,7 +60,7 @@ Controller_Block::recieveMouseEv(EventData* ev, MerkleNode* tree)
 	{
 		if (clickInMe(ev))	// se evalua despues ya que si el click fue en el display apropiado pero en otro lado no hay que pasar el ev mas adelante
 		{
-			model->createMerkleTreeModel(tree);	// tener en cuenta que ninguno de estos metodos crea si ya habia algo de antes
+			model->createMerkleTreeModel(tree,ev->event_queue);	// tener en cuenta que ninguno de estos metodos crea si ya habia algo de antes
 			createMerkleTreeCtrl();
 		}
 	}

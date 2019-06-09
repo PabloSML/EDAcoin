@@ -30,6 +30,8 @@ Controller_Blockchain::parseMouseEvent(EventData* ev)
 				blockControllers[i]->recieveMouseEv(ev, tree);
 			}
 		}
+
+		//**Para ver si se presionaron los botones left o right necesito que sus posiciones esten en el model (ahora estan en view)
 	}
 	else // si el evento no fue en la pantalla de bchain, se sabe que es de merkleTree y pasa directo
 	{
@@ -41,13 +43,32 @@ Controller_Blockchain::parseMouseEvent(EventData* ev)
 void
 Controller_Blockchain::parseKeyboardEvent(EventData* ev) // nothing
 {
+	if (isThisMine(ev))
+	{
+		switch (ev->al_ev->keyboard.keycode)
+		{
+		case ALLEGRO_KEY_RIGHT:
+			if (model->get_cant_boards() > model->get_actual_board())
+			{
+				model->set_actual_board(model->get_actual_board()+1);
+			}
+			break;
+		case ALLEGRO_KEY_LEFT:
+			if (model->get_actual_board() > 0)
+			{
+				model->set_actual_board(model->get_actual_board() - 1);
+			}
+			break;
+		}
+		//**update blocks en la pagina.
+	}
 
 }
 
 void
 Controller_Blockchain::parseTimerEvent(EventData* ev)
 {
-	if (this->is_subject_attached == true)
+	if (this->is_subject_attached() == true)
 	{
 		unsigned int blockCount = model->getBlockCount();	// cuantos blocks hay?
 		unsigned int pending = model->recountBlocks();	// cuantos nuevos hay ahora? (se refresca la blockChain del modelo)

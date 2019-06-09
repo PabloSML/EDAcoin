@@ -3,6 +3,7 @@
 #include "FullNode.h"
 #include "EDAMerkleBlock.h"
 #include "Definitions.h"
+#include "Allegro.h"
 
 class SPVNode : public Node {
 public:
@@ -14,7 +15,7 @@ public:
 
 	virtual Node* getFilter(void) { return this; }
 
-	virtual void createBlockChainModel(void);
+	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue);
 
 private:
 	unsigned int blockChainCount;

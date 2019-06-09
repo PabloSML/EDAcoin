@@ -94,6 +94,7 @@ set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manej
 		unsigned int tx_count = 0;
 		vector<TransactionS> txs;
 
+		//**No se deberia hacerse con new?
 		(*this->blockchain)[i] = Model_Block(str, merkle_root, tx_count, txs);
 	}
 

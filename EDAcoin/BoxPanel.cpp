@@ -45,7 +45,14 @@ bool BoxPanel::
 is_select(void) { return this->is_selected; }
 
 
-
+void BoxPanel::
+toggleSelect(void)
+{
+	if (is_selected)
+		is_selected = false;
+	else
+		is_selected = true;
+}
 
 void BoxPanel::
 set_pos_x(unsigned int new_pos_x) { this->pos_x = new_pos_x; }
