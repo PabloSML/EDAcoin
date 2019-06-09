@@ -26,14 +26,28 @@ parseTimerEvent(EventData * ev) //refresh
 	if (this->is_subject_attached == true)
 	{
 		model->ping();
+		if(myMerkleTreeCtrl != nullptr)
+			myMerkleTreeCtrl->parseTimerEvent(ev);
 	}
 }
 
 
 void Controller_Block::
-parseMouseEvent(EventData * ev) //nothing (se usa la funcion especial que recibe root)
+parseMouseEvent(EventData * ev)
 {
-
+	if (myMerkleTreeCtrl != nullptr)
+	{
+		myMerkleTreeCtrl->parseMouseEvent(ev);
+		if (myMerkleTreeCtrl->shouldModelDie())	// el evento puede haber sido de Close
+		{
+			model->destroyMerkleTreeModel();
+			if (myMerkleTreeCtrl != nullptr)
+			{
+				delete myMerkleTreeCtrl;
+				myMerkleTreeCtrl = nullptr;
+			}
+		}
+	}
 }
 
 void Controller_Block::
@@ -52,22 +66,6 @@ Controller_Block::recieveMouseEv(EventData* ev, MerkleNode* tree)
 		{
 			model->createMerkleTreeModel(tree);	// tener en cuenta que ninguno de estos metodos crea si ya habia algo de antes
 			createMerkleTreeCtrl();
-		}
-	}
-	else  // si el click no fue en la pantalla de blockChain se pasa para adelante
-	{
-		if (myMerkleTreeCtrl != nullptr)
-		{
-			myMerkleTreeCtrl->parseMouseEvent(ev);
-			if (myMerkleTreeCtrl->shouldModelDie())	// el evento puede haber sido de Close
-			{
-				model->destroyMerkleTreeModel();
-				if (myMerkleTreeCtrl != nullptr)
-				{
-					delete myMerkleTreeCtrl;
-					myMerkleTreeCtrl = nullptr;
-				}
-			}
 		}
 	}
 }

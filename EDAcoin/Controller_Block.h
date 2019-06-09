@@ -8,7 +8,7 @@
 class Controller_Block : public Controller
 {
 public:
-	Controller_Block(Subject* creator);
+	Controller_Block(Subject* owner);
 	~Controller_Block();
 
 	void parseMouseEvent(EventData * ev);

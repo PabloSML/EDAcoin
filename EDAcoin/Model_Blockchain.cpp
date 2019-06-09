@@ -1,10 +1,12 @@
 #include "Model_Blockchain.h"
 #include "Definitions.h"
+#include <iostream>
+#include "View_Block.h"
 
 #define CANT_TX_SPV	0 //cualquier numero
 
 Model_Blockchain::
-Model_Blockchain()
+Model_Blockchain() : blockCount(0)
 {
 	this->cant_board = (unsigned int)(blockchain->size() / MAX_BLOCKS_PER_DISPLAY);	
 
@@ -37,10 +39,23 @@ get_actual_board(void) { return this->actual_board; }
 bool Model_Blockchain::
 can_show_merkle_trees(void) { return this->enable_show_merkle_trees; }
 
+bool Model_Blockchain::shouldEnd(void) { return end; }
+
+ALLEGRO_DISPLAY* Model_Blockchain::getDisplay(void) { return display; }
+
 MerkleNode* Model_Blockchain::getMerkleTree(int index)
 {
+	if (index > merkle_tree->size())
+		std::cout << "Tried to get inexisting merkle tree (modelBlockChain)" << std::endl;
 	return (*merkle_tree)[index];
 }
+
+Model_Block* Model_Blockchain::getBlockbyIndex(unsigned int index)
+{
+	return &((*blockchain)[index]);
+}
+
+unsigned int Model_Blockchain::getBlockCount(void) { return blockCount; }
 
 //setters
 void Model_Blockchain::
@@ -48,6 +63,8 @@ set_blockchain(vector<Model_Block>* new_blockchain) {
 	
 	this->blockchain = new_blockchain; 
 	
+	recountBlocks();
+
 	this->cant_board = (unsigned int)(blockchain->size() / MAX_BLOCKS_PER_DISPLAY);
 
 	if (!(blockchain->size() % MAX_BLOCKS_PER_DISPLAY)) //si la division es exacta
@@ -85,8 +102,27 @@ set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manej
 
 }
 
+void Model_Blockchain::triggerEnd(void) { end = true; }
 
 void Model_Blockchain::
 set_actual_board(unsigned int new_actual_board) { this->actual_board = new_actual_board; }
+
+unsigned int
+Model_Blockchain::recountBlocks(void)
+{
+	unsigned int oldCount = blockCount;
+	blockCount = (unsigned int)blockchain->size();
+
+	if (blockCount > oldCount)
+	{
+		for (unsigned int i = oldCount; i < blockCount; i++)	// se le dan views a los bloques nuevos
+		{
+			View_Block* tempView = new View_Block;
+			(*blockchain)[i].attach(tempView);
+		}
+	}
+
+	return blockCount - oldCount;
+}
 
 
