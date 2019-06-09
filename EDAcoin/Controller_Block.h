@@ -22,6 +22,8 @@ public:
 private:
 	Model_Block* model;
 	Controller_MerkleTree* myMerkleTreeCtrl;
+
 	bool isThisMine(EventData* ev);
 	void createMerkleTreeCtrl(void);
+	bool clickInMe(EventData* ev);
 };

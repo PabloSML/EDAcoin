@@ -31,7 +31,7 @@ parseTimerEvent(EventData * ev) //refresh
 
 
 void Controller_Block::
-parseMouseEvent(EventData * ev) //nothing
+parseMouseEvent(EventData * ev) //nothing (se usa la funcion especial que recibe root)
 {
 
 }
@@ -48,7 +48,11 @@ Controller_Block::recieveMouseEv(EventData* ev, MerkleNode* tree)
 {
 	if (isThisMine(ev))
 	{
-
+		if (clickInMe(ev))	// se evalua despues ya que si el click fue en el display apropiado pero en otro lado no hay que pasar el ev mas adelante
+		{
+			model->createMerkleTreeModel(tree);	// tener en cuenta que ninguno de estos metodos crea si ya habia algo de antes
+			createMerkleTreeCtrl();
+		}
 	}
 	else  // si el click no fue en la pantalla de blockChain se pasa para adelante
 	{
@@ -71,7 +75,7 @@ Controller_Block::recieveMouseEv(EventData* ev, MerkleNode* tree)
 bool
 Controller_Block::isThisMine(EventData* ev)
 {
-	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->display.source;
+	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->mouse.display;
 	ALLEGRO_DISPLAY* myDisplay = model->getEnviroment();
 
 	if (evDisplay == myDisplay)
@@ -87,4 +91,20 @@ Controller_Block::createMerkleTreeCtrl(void)
 	{
 		myMerkleTreeCtrl = new Controller_MerkleTree(model->getMerkleTreeModel());
 	}
+}
+
+bool
+Controller_Block::clickInMe(EventData* ev)
+{
+	int myPosX = model->get_pos_x();
+	int myPosY = model->get_pos_y();
+	int limitX = myPosX + model->get_size_x();
+	int limitY = myPosY + model->get_size_y();
+	int clickPosX = ev->al_ev->mouse.x;
+	int clickPosY = ev->al_ev->mouse.y;
+
+	if (clickPosX >= myPosX && clickPosX <= limitX && clickPosY >= myPosY && clickPosY <= limitY)	// checkea si el click fue en el rango de la imagen
+		return true;
+	else
+		return false;
 }
