@@ -7,7 +7,7 @@
 using namespace std;
 
 Controller_Block::
-Controller_Block(Subject* creator) : Controller(creator), myMerkleTreeCtrl(nullptr)
+Controller_Block(Subject* owner) : Controller(owner), myMerkleTreeCtrl(nullptr)
 {
 	Subject* subj = this->get_subject_attach();
 	model = (Model_Block *)subj;
@@ -59,7 +59,10 @@ Controller_Block::recieveMouseEv(EventData* ev, MerkleNode* tree)
 			{
 				model->destroyMerkleTreeModel();
 				if (myMerkleTreeCtrl != nullptr)
+				{
 					delete myMerkleTreeCtrl;
+					myMerkleTreeCtrl = nullptr;
+				}
 			}
 		}
 	}
@@ -82,6 +85,6 @@ Controller_Block::createMerkleTreeCtrl(void)
 {
 	if (myMerkleTreeCtrl == nullptr)
 	{
-		myMerkleTreeCtrl = new Controller_MerkleTree(model);
+		myMerkleTreeCtrl = new Controller_MerkleTree(model->getMerkleTreeModel());
 	}
 }

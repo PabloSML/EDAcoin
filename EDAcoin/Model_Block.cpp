@@ -106,3 +106,9 @@ Model_Block::destroyMerkleTreeModel(void)
 		myMerkleTreeModel = nullptr;
 	}
 }
+
+Model_MerkleTree*
+Model_Block::getMerkleTreeModel()
+{
+	return myMerkleTreeModel;
+}

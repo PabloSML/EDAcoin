@@ -43,6 +43,7 @@ public:
 
 	void createMerkleTreeModel(MerkleNode* root);
 	void destroyMerkleTreeModel(void);
+	Model_MerkleTree* getMerkleTreeModel(void);
 
 private:
 	
