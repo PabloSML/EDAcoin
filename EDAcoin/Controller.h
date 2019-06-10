@@ -20,6 +20,8 @@ public:
 	virtual void parseKeyboardEvent(EventData * ev) = 0;
 	virtual void parseTimerEvent(EventData * ev) = 0;
 
+	virtual void forwardMouseEvent(EventData* ev) = 0;
+	virtual void forwardKeyboardEvent(EventData* ev) = 0;
 
 	void attach_subject(Subject * subject_to_attach);
 	void dettach_subject(void);

@@ -50,9 +50,6 @@ getTxsCount(void) const { return this->txsCount; }
 vector<TransactionS> Model_Block::
 get_transactions(void) const { return this->transactions; }
 
-ALLEGRO_DISPLAY* Model_Block::
-getEnviroment(void) { return this->enviroment; }
-
 unsigned int Model_Block::
 get_pos_x(void) { return this->pos_x; }
 

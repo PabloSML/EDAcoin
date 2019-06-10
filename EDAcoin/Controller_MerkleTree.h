@@ -14,6 +14,9 @@ public:
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
 
+	virtual void forwardMouseEvent(EventData* ev);
+	virtual void forwardKeyboardEvent(EventData* ev);
+
 	bool shouldModelDie(void);
 
 private:

@@ -106,6 +106,9 @@
     <ClCompile Include="Controller_Node.cpp">
       <Filter>Source\Controllers</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source\MVC Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Labels.h">
