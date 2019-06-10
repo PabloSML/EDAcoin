@@ -23,11 +23,17 @@ Controller_Sim::parseMouseEvent(EventData* ev)
 		{
 			model->triggerEnd();
 		}
+		else
+		{
+			for (Controller_Node* C : nodeControllers)
+				C->parseMouseEvent(ev);
+			//**llamar a parseMouseEvent de los edit box.
+		}
 	}
 	else // si el evento no fue en la pantalla de bchain, se sabe que es de merkleTree y pasa directo
 	{
 		for (Controller_Node* C : nodeControllers)
-			C->parseMouseEvent(ev);
+			C->forwardMouseEvent(ev);
 	}
 }
 
@@ -44,6 +50,8 @@ Controller_Sim::parseKeyboardEvent(EventData* ev) // nothing
 	}
 	else
 	{
+		for (Controller_Node* C : nodeControllers)
+			C->forwardKeyboardEvent(ev);
 		//**llamar a forwardkeyboard de node.
 	}
 

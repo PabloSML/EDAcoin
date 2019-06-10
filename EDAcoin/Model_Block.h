@@ -34,7 +34,6 @@ public:
 	unsigned int get_size_x(void);
 	unsigned int get_size_y(void);
 
-	void setEnviroment(ALLEGRO_DISPLAY* newEnviroment);
 	void set_pos_x(unsigned int new_pos_x);
 	void set_pos_y(unsigned int new_pos_y);
 	void set_size_x(unsigned int new_size_x);
