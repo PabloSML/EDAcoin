@@ -22,8 +22,18 @@ public:
 
 	void updateInsiderModels(void);
 
+	void triggerEnd(void);
+	ALLEGRO_DISPLAY* getDisplay(void);
+	bool shouldEnd(void);
+
+
+
 private:
 	list<Node*> nodes; //aca no iria vector??? por?
 	list<Model_BoxText*> textBoxes;
 	list<Model_PushButton*> buttons;
+	bool end;
+	ALLEGRO_DISPLAY* display;
+
+
 };

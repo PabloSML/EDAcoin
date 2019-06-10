@@ -82,3 +82,10 @@ Simulation::updateInsiderModels(void)
 	for (Model_PushButton* BU : buttons)
 		BU->ping();
 }
+
+void Simulation::triggerEnd(void) { end = true; }
+
+ALLEGRO_DISPLAY* Simulation::getDisplay(void) { return display; }
+
+bool Simulation::shouldEnd(void) { return end; }
+

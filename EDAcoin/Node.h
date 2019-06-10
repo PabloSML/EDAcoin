@@ -12,7 +12,6 @@
 #include "View_Blockchain.h"
 #include "Allegro.h"
 
-#define RADIUS 10  //**Need to define radios of node
 
 using namespace std;
 using json = nlohmann::json;
