@@ -2,9 +2,10 @@
 
 #include "Observer.h"
 
-
+#include "Allegro.h"
 #include "allegro5/bitmap.h"
 #include "allegro5/allegro_font.h"
+
 
 class View_Block : public Observer {
 
@@ -16,7 +17,7 @@ class View_Block : public Observer {
 		bool init_was_ok(void);
 
 	private:
-
+		Allegro graph_resources;
 		ALLEGRO_BITMAP * bitmap;
 		ALLEGRO_FONT * font;
 		bool init_ok;
