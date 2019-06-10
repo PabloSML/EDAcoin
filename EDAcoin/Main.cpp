@@ -31,8 +31,6 @@ bool getBlockChainJson(json* dest, const char* file);
 
 int main()
 {
-	/*
-	//**Ejemplo de la inicializacion de allegro.
 	EventData ev_data;
 	ALLEGRO_EVENT_QUEUE* queue = initAllegro();
 	if (queue == nullptr)
@@ -42,94 +40,74 @@ int main()
 	}
 	else
 		ev_data.event_queue = queue;
-	*/
 
+	Simulation sim(ev_data.event_queue);	// se crea el sujeto Simulation
+	SimView* simulationView = new SimView;
+	sim.attach(simulationView);
 
-	//bool init = init_resources();
+	//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
+	FullNode f1("FullNode One"), f2("FullNode Two");
+	SPVNode s1("SPV Node");
 
-	//if (init)
-	//{
-		EventData ev_data;
-		ALLEGRO_EVENT_QUEUE* queue = initAllegro();
-		if (queue == nullptr)
+	RegularNodeView* f1RView = new RegularNodeView(FULL_IMG_PATH); // se crean las views base de cada nodo		LA POSICION ESTA HARDCODEADA PORQUE NO EXISTE AUN UNA FUNCION FACTORY QUE CREE TODO EN LUGARES APROPIADOS!!!!!
+	RegularNodeView* f2RView = new RegularNodeView(FULL_IMG_PATH);
+	RegularNodeView* s1RView = new RegularNodeView(SPV_IMG_PATH);
+
+	f1.attach(f1RView); // se conectan los observers a los subjects
+	f2.attach(f2RView);
+	s1.attach(s1RView);
+
+	sim.addNode(&f1); // se agregan los nodos a la lista de la simulacion
+	sim.addNode(&f2);
+	sim.addNode(&s1);
+
+	//simulationView.attach(&f1RView);
+	//simulationView.attach(&f2RView);
+	//simulationView.attach(&s1RView);
+	//**cada vez que hace el attach, llama a draw????
+
+//Se conectan los fullnodes con los spvnodes y entre ellos
+//	f1 <-> f2
+//	  \  /
+//	   \/	
+//	   s1
+	f1.attachConnection(&f2);
+	f1.attachConnection(&s1);
+	f2.attachConnection(&f1);
+	f2.attachConnection(&s1);
+	s1.attachConnection(&f1);
+	s1.attachConnection(&f2);
+
+	vector<MerkleNode *> merkleTrees;
+	json blockChainJson;
+
+	if (getBlockChainJson(&blockChainJson, "test.json"))	//Se obtienen los bloques de "test.json"
+	{
+
+		int size = (unsigned int)blockChainJson.size();
+		for (int i = 0; (i < size); i++)
 		{
-			cout << "Error in initialize Allegro" << endl;
-			return 0;
+			json tempBlock = blockChainJson[i];			//Por cada bloque del json, se lo manda a los full nodes. 
+			f1.recieveBlock(tempBlock);
+			f2.recieveBlock(tempBlock);
+			f1.sendInfo2Spv();
+			f2.sendInfo2Spv();
+			s1.pullHeaderfromFullNode();
+
+			merkleTrees = f1.get_merkle_trees();
+
+
+			//No es necesario para el MVC porque no deberia mostrar la blockchain.
+			unsigned long index = 20000000;
+
 		}
-		else
-			ev_data.event_queue = queue;
-
-		Simulation sim(ev_data.event_queue);	// se crea el sujeto Simulation
-		SimView simulationView;
-		sim.attach(&simulationView);
-
-		//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
-		FullNode f1("FullNode One"), f2("FullNode Two");
-		SPVNode s1("SPV Node");
-
-		RegularNodeView f1RView(FULL_IMG_PATH); // se crean las views base de cada nodo		LA POSICION ESTA HARDCODEADA PORQUE NO EXISTE AUN UNA FUNCION FACTORY QUE CREE TODO EN LUGARES APROPIADOS!!!!!
-		RegularNodeView f2RView(FULL_IMG_PATH);
-		RegularNodeView s1RView(SPV_IMG_PATH);
-
-		f1.attach(&f1RView); // se conectan los observers a los subjects
-		f2.attach(&f2RView);
-		s1.attach(&s1RView);
-
-		sim.addNode(&f1); // se agregan los nodos a la lista de la simulacion
-		sim.addNode(&f2);
-		sim.addNode(&s1);
-
-		//simulationView.attach(&f1RView);
-		//simulationView.attach(&f2RView);
-		//simulationView.attach(&s1RView);
-		//**cada vez que hace el attach, llama a draw????
-
-	//Se conectan los fullnodes con los spvnodes y entre ellos
-	//	f1 <-> f2
-	//	  \  /
-	//	   \/	
-	//	   s1
-		f1.attachConnection(&f2);
-		f1.attachConnection(&s1);
-		f2.attachConnection(&f1);
-		f2.attachConnection(&s1);
-		s1.attachConnection(&f1);
-		s1.attachConnection(&f2);
-
-		vector<MerkleNode *> merkleTrees;
-		json blockChainJson;
-
-		if (getBlockChainJson(&blockChainJson, "test.json"))	//Se obtienen los bloques de "test.json"
-		{
-
-			int size = (unsigned int)blockChainJson.size();
-			for (int i = 0; (i < size); i++)
-			{
-				json tempBlock = blockChainJson[i];			//Por cada bloque del json, se lo manda a los full nodes. 
-				f1.recieveBlock(tempBlock);
-				f2.recieveBlock(tempBlock);
-				f1.sendInfo2Spv();
-				f2.sendInfo2Spv();
-				s1.pullHeaderfromFullNode();
-
-				merkleTrees = f1.get_merkle_trees();
-
-
-				//No es necesario para el MVC porque no deberia mostrar la blockchain.
-				unsigned long index = 20000000;
-
-			}
 
 		
-		}
-		destroyAllegro(ev_data.event_queue);
+	}
+	destroyAllegro(ev_data.event_queue);
 
-		return 0;
-	//}
-	//else
-	//{
-	//	return 1;
-	//}
+	return 0;
+
 	
 }
 
