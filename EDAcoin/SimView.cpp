@@ -1,17 +1,5 @@
 #include "SimView.h"
 
-SimView::SimView(void)
-{
-	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT);
-	if (!display)
-		cout << "Error creating sim display!" << endl;
-}
-
-SimView::~SimView(void)
-{
-	al_destroy_display(display);
-}
-
 void 
 SimView::update(void* model)
 {

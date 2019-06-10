@@ -9,8 +9,8 @@ using namespace std;
 
 class SimView : public Observer {
 public:
-	SimView();
-	~SimView();
+	SimView(){}
+	~SimView(){}
 
 	virtual void update(void* model);
 
