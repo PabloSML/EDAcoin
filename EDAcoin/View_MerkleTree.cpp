@@ -30,8 +30,9 @@ View_MerkleTree(ALLEGRO_EVENT_QUEUE* event_queue, unsigned int width_display, un
 
 	this->node_image = al_load_bitmap(MERKLE_NODE_IMAGE_PATH);
 
-	if (this->node_image == nullptr)		//**en la documentacion de allegro dice que al_load_bitmap returns NULL on error.
+	if (this->node_image == NULL)		//**en la documentacion de allegro dice que al_load_bitmap returns NULL on error.
 	{
+		al_destroy_display(display);
 		this->init_ok = false;
 	}
 	else {
@@ -47,9 +48,9 @@ View_MerkleTree(ALLEGRO_EVENT_QUEUE* event_queue, unsigned int width_display, un
 View_MerkleTree::
 ~View_MerkleTree(void)
 {
-	al_destroy_display(display);
 	if (this->init_ok == true)
 	{
+		al_destroy_display(display);
 		al_destroy_bitmap(this->node_image);
 		this->init_ok = false;
 	}
