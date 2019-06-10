@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "MerkleNode.h"
+
 using namespace std;
 
 #define FPS	50
@@ -75,6 +76,10 @@ using namespace std;
 #define MERKLE_DISPLAY_MARGIN_DEFAULT_WIDTH		20
 #define MERKLE_DISPLAY_MARGIN_DEFAULT_HEIGTH	15
 #define MERKLE_NODE_IMAGE_PATH					"MerkelNode.png"
+
+
+#define MAX_SIZE_TEXT_BOXTEXT						25
+
 
 typedef struct {
 	string blockID;
