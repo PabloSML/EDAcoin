@@ -11,11 +11,8 @@
 
 #include <vector>
 #include <allegro5\allegro.h>
-#include "Supervisor.h"
-#include "Board.h"
-#include "Viewer.h"
 #include "Definitions.h"
-#include "General_Controller.h"
+
 //**
 #include "Allegro.h"
 #include "Controller.h"
@@ -52,11 +49,7 @@ int main()
 
 	if (init)
 	{
-		General_Controller controller;
-
-		supervisor super(controller.get_viewer());
-		controller.set_supervisor(super);
-
+		
 
 		Simulation sim;	// se crea el sujeto Simulation
 		SimView simulationView;
@@ -78,9 +71,9 @@ int main()
 		sim.addNode(&f2);
 		sim.addNode(&s1);
 
-		simulationView.attach(&f1RView);
-		simulationView.attach(&f2RView);
-		simulationView.attach(&s1RView);
+		//simulationView.attach(&f1RView);
+		//simulationView.attach(&f2RView);
+		//simulationView.attach(&s1RView);
 		//**cada vez que hace el attach, llama a draw????
 
 	//Se conectan los fullnodes con los spvnodes y entre ellos
@@ -102,7 +95,7 @@ int main()
 		{
 
 			int size = (unsigned int)blockChainJson.size();
-			for (int i = 0; (i < size) && (!controller.is_finish()); i++)
+			for (int i = 0; (i < size); i++)
 			{
 				json tempBlock = blockChainJson[i];			//Por cada bloque del json, se lo manda a los full nodes. 
 				f1.recieveBlock(tempBlock);
@@ -113,25 +106,13 @@ int main()
 
 				merkleTrees = f1.get_merkle_trees();
 
-				//controller.update(f1.get_blockChain(), merkleTrees);
+
 				//No es necesario para el MVC porque no deberia mostrar la blockchain.
 				unsigned long index = 20000000;
 
-				while (index && !(controller.is_finish()))
-				{
-					controller.dispatcher();
-					index--;
-				}
-				
 			}
 
-			//controller.update(f1.get_blockChain(), merkleTrees);
-
-			while (controller.is_finish() == false)
-			{
-				controller.dispatcher();
-
-			}
+		
 		}
 
 		return 0;

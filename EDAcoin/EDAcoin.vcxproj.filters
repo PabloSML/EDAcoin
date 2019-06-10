@@ -4,13 +4,7 @@
     <ClCompile Include="Allegro.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Board.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="BoxPanel.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="General_Controller.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="ImageDescriptor.cpp">
@@ -20,9 +14,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Supervisor.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Model_Blockchain.h">
@@ -112,21 +103,21 @@
     <ClCompile Include="View_PushButton.cpp">
       <Filter>Source\Views</Filter>
     </ClCompile>
+    <ClCompile Include="Controller_BoxText.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller_PushButton.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Board.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="BoxPanel.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Definitions.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="General_Controller.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="ImageDescriptor.h">
@@ -136,9 +127,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Labels.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Supervisor.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Controller_Block.h">
@@ -224,6 +212,12 @@
     </ClInclude>
     <ClInclude Include="UTXO.h">
       <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller_BoxText.h">
+      <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller_PushButton.h">
+      <Filter>Headers\Controllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

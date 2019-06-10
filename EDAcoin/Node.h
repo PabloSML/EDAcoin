@@ -43,7 +43,7 @@ public:
 
 	void push_message(blockchain_message& message);
 
-	virtual void createBlockChainModel(void) = 0;
+	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue) = 0;
 	void destroyBlockChainModel(void);
 
 	/*
