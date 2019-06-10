@@ -52,7 +52,7 @@ void Controller_Node::parseMouseEvent(EventData * ev)
 
 void Controller_Node::parseKeyboardEvent(EventData * ev)
 {
-	//Nada por ahora
+	//**Nada por ahora
 }
 
 void Controller_Node::parseTimerEvent(EventData * ev)
