@@ -17,6 +17,7 @@ enum align {center, right, left};
 
 
 ALLEGRO_EVENT_QUEUE* initAllegro(void);
+void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue);
 
 class Allegro
 {

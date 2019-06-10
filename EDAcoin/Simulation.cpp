@@ -1,6 +1,6 @@
 #include "Simulation.h"
 
-Simulation::Simulation(void)
+Simulation::Simulation(ALLEGRO_EVENT_QUEUE* queue)
 {
 	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT);
 	if (!display)
@@ -8,6 +8,8 @@ Simulation::Simulation(void)
 		cout << "Error creating sim display!" << endl;
 		init_ok = false;
 	}
+	else
+		al_register_event_source(queue, al_get_display_event_source(display));
 }
 
 Simulation::~Simulation(void)

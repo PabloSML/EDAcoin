@@ -9,7 +9,7 @@ using namespace std;
 
 class Simulation : public Subject {
 public:
-	Simulation();
+	Simulation(ALLEGRO_EVENT_QUEUE* queue);
 	~Simulation();
 
 	void addNode(Node* node);

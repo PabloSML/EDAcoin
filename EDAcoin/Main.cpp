@@ -59,7 +59,7 @@ int main()
 		else
 			ev_data.event_queue = queue;
 
-		Simulation sim;	// se crea el sujeto Simulation
+		Simulation sim(ev_data.event_queue);	// se crea el sujeto Simulation
 		SimView simulationView;
 		sim.attach(&simulationView);
 
@@ -122,6 +122,7 @@ int main()
 
 		
 		}
+		destroyAllegro(ev_data.event_queue);
 
 		return 0;
 	//}
