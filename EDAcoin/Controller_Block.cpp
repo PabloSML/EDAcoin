@@ -1,9 +1,6 @@
 #include "Controller_Block.h"
 #include <list>
 #include "Subject.h"
-
-
-
 using namespace std;
 
 Controller_Block::Controller_Block(Subject* owner) : Controller(owner), myMerkleTreeCtrl(nullptr)
@@ -28,8 +25,24 @@ void Controller_Block::parseTimerEvent(EventData * ev) //refresh
 	}
 }
 
+void 
+Controller_Block::parseKeyboardEvent(EventData * ev){} //nothing
 
-void Controller_Block::parseMouseEvent(EventData * ev)
+void
+Controller_Block::parseMouseEvent(EventData* ev) {} // nothing (usa la version especializada que recibe tree)
+
+void
+Controller_Block::parseMouseEvent(EventData* ev, MerkleNode* tree)
+{
+	if (clickInMe(ev))	// se evalua despues ya que si el click fue en el display apropiado pero en otro lado no hay que pasar el ev mas adelante
+	{
+		model->createMerkleTreeModel(tree,ev->event_queue);	// tener en cuenta que ninguno de estos metodos crea si ya habia algo de antes
+		createMerkleTreeCtrl();
+	}
+}
+
+void 
+Controller_Block::forwardMouseEvent(EventData * ev)
 {
 	if (myMerkleTreeCtrl != nullptr)
 	{
@@ -46,37 +59,8 @@ void Controller_Block::parseMouseEvent(EventData * ev)
 	}
 }
 
-void Controller_Block::
-parseKeyboardEvent(EventData * ev) //nothing
-{
-
-}
-
-
 void
-Controller_Block::recieveMouseEv(EventData* ev, MerkleNode* tree)
-{
-	if (isThisMine(ev))
-	{
-		if (clickInMe(ev))	// se evalua despues ya que si el click fue en el display apropiado pero en otro lado no hay que pasar el ev mas adelante
-		{
-			model->createMerkleTreeModel(tree,ev->event_queue);	// tener en cuenta que ninguno de estos metodos crea si ya habia algo de antes
-			createMerkleTreeCtrl();
-		}
-	}
-}
-
-bool
-Controller_Block::isThisMine(EventData* ev)
-{
-	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->mouse.display;
-	ALLEGRO_DISPLAY* myDisplay = model->getEnviroment();
-
-	if (evDisplay == myDisplay)
-		return true;
-	else
-		return false;
-}
+Controller_Block::forwardKeyboardEvent(EventData* ev) {}
 
 void
 Controller_Block::createMerkleTreeCtrl(void)

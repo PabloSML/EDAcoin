@@ -1,10 +1,6 @@
 #include "Controller.h"
 
 Controller::
-Controller(void) { this->subject_attach = nullptr;  }
-
-
-Controller::
 ~Controller(){}
 
 void Controller::
@@ -24,7 +20,7 @@ dettach_subject(void)
 }
 
 Subject* Controller::
-get_subjects_attached(void)
+get_subject_attach(void)
 {
 	return this->subject_attach;
 }

@@ -29,7 +29,6 @@ public:
 	vector<TransactionS> get_transactions(void) const;
 	blockHeader getBlockHeader(void) const; // crea una estructura blockHeader y la devuelve en su nombre
 
-	ALLEGRO_DISPLAY* getEnviroment(void);
 	unsigned int get_pos_x(void);
 	unsigned int get_pos_y(void);
 	unsigned int get_size_x(void);
@@ -46,10 +45,6 @@ public:
 	void destroyMerkleTreeModel(void);
 	Model_MerkleTree* getMerkleTreeModel(void);
 
-
-
-
-
 private:
 	
 	string blockID;
@@ -65,7 +60,5 @@ private:
 	unsigned int heigth_image;
 
 	Model_MerkleTree* myMerkleTreeModel;
-
-	ALLEGRO_DISPLAY* enviroment;
 
 };

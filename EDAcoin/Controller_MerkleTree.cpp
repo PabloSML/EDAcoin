@@ -41,11 +41,15 @@ parseMouseEvent(EventData * ev)		//manage display close
 	}
 }
 
-void Controller_MerkleTree::
-parseKeyboardEvent(EventData * ev) //nothing
-{
+void 
+Controller_MerkleTree::parseKeyboardEvent(EventData * ev) {} //nothing
 
-}
+void
+Controller_MerkleTree::forwardMouseEvent(EventData* ev) {} //nothing
+
+void
+Controller_MerkleTree::forwardKeyboardEvent(EventData* ev) {} //nothing
+
 
 bool
 Controller_MerkleTree::shouldModelDie(void)		//pregunta si se debe destruir.(despues del close display)
