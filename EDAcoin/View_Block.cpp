@@ -60,7 +60,7 @@ update(void * model) {
 
 	this->bitmap = resize_bitmap(this->bitmap, size_x, size_y);
 
-	al_draw_bitmap(this->bitmap, (float)model_observed->get_pos_x(), (float)model_observed->get_pos_y(), 0);
+	graph_resources.drawImage(this->bitmap, (float)model_observed->get_pos_x(), (float)model_observed->get_pos_y());
 
 	string aux = "Block ID: ";
 	string id = string(name_block);
