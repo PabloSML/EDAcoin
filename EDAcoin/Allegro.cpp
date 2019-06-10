@@ -41,6 +41,11 @@ ALLEGRO_EVENT_QUEUE* initAllegro()		//**se puede agregar timer y audio
 	return event_queue;
 }
 
+void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue)
+{
+
+}
+
 Allegro::Allegro()
 {
 	font = al_load_ttf_font(TEXTFONT, TEXTSIZE, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA :( 
