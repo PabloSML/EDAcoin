@@ -27,7 +27,7 @@ Controller_Blockchain::parseMouseEvent(EventData* ev)
 			for (int i = 0; i < (int)blockControllers.size(); i++)
 			{
 				MerkleNode* tree = model->getMerkleTree(i);
-				blockControllers[i]->recieveMouseEv(ev, tree);
+				blockControllers[i]->parseMouseEvent(ev, tree);
 			}
 		}
 
@@ -82,6 +82,12 @@ Controller_Blockchain::parseTimerEvent(EventData* ev)
 			C->parseTimerEvent(ev);
 	}
 }
+
+void
+Controller_Blockchain::forwardMouseEvent(EventData* ev) {} // nothing
+
+void
+Controller_Blockchain::forwardKeyboardEvent(EventData* ev) {} // nothing
 
 bool
 Controller_Blockchain::isThisMine(EventData* ev)

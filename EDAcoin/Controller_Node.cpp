@@ -19,23 +19,37 @@ Controller_Node::~Controller_Node()
 
 void Controller_Node::parseMouseEvent(EventData * ev)
 {
-	if (isThisMine(ev))
+	if (clickInMe(ev))
 	{
-		if (clickInMe(ev))
+		if (model->getNodeID() == "SPV Node")
 		{
-			if (model->getNodeID() == "SPV Node")
-			{
-				((SPVNode*)model)->createBlockChainModel(ev->event_queue);
-				createBlockchainCtrl();
-			}
-			else
-			{
-				((FullNode*)model)->createBlockChainModel(ev->event_queue);
-				createBlockchainCtrl();
-			}
+			((SPVNode*)model)->createBlockChainModel(ev->event_queue);
+			createBlockchainCtrl();
+		}
+		else
+		{
+			((FullNode*)model)->createBlockChainModel(ev->event_queue);
+			createBlockchainCtrl();
 		}
 	}
-	else if (myBlockchainCtrl != nullptr)
+}
+
+void Controller_Node::parseKeyboardEvent(EventData * ev) {} // nothing
+
+void Controller_Node::parseTimerEvent(EventData * ev)
+{
+	if (this->is_subject_attached() == true)
+	{
+		model->ping();
+		if (myBlockchainCtrl != nullptr)
+			myBlockchainCtrl->parseTimerEvent(ev);
+	}
+}
+
+void
+Controller_Node::forwardMouseEvent(EventData* ev)
+{
+	if (myBlockchainCtrl != nullptr)
 	{
 		myBlockchainCtrl->parseMouseEvent(ev);
 		if (myBlockchainCtrl->shouldModelDie())	// el evento puede haber sido de Close
@@ -50,33 +64,9 @@ void Controller_Node::parseMouseEvent(EventData * ev)
 	}
 }
 
-void Controller_Node::parseKeyboardEvent(EventData * ev)
-{
-	//**Nada por ahora
-}
+void
+Controller_Node::forwardKeyboardEvent(EventData* ev) {} // nothing
 
-void Controller_Node::parseTimerEvent(EventData * ev)
-{
-	if (this->is_subject_attached() == true)
-	{
-		model->ping();
-		if (myBlockchainCtrl != nullptr)
-			myBlockchainCtrl->parseTimerEvent(ev);
-	}
-}
-
-
-bool Controller_Node::isThisMine(EventData* ev)
-{
-	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->mouse.display;
-	ALLEGRO_DISPLAY* myDisplay = model->getEnviroment();
-
-	if (evDisplay == myDisplay)
-		return true;
-	else
-		return false;
-
-}
 void Controller_Node::createBlockchainCtrl(void)
 {
 	if (myBlockchainCtrl == nullptr)
