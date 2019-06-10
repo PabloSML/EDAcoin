@@ -1,7 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="Allegro.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxPanel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="General_Controller.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="ImageDescriptor.cpp">
@@ -10,25 +19,64 @@
     <ClCompile Include="ImagesManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Supervisor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_Blockchain.h">
+      <Filter>Headers\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller_Block.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller_Blockchain.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller_MerkleTree.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller_Node.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller_Sim.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_Block.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_Blockchain.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_BoxText.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_MerkleTree.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_PushButton.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
     <ClCompile Include="Node.cpp">
       <Filter>Source\Models</Filter>
     </ClCompile>
     <ClCompile Include="Simulation.cpp">
       <Filter>Source\Models</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source\MVC</Filter>
+    </ClCompile>
     <ClCompile Include="Subject.cpp">
-      <Filter>Source\MVC Base</Filter>
-    </ClCompile>
-    <ClCompile Include="SimView.cpp">
-      <Filter>Source\Views</Filter>
-    </ClCompile>
-    <ClCompile Include="RegularNodeView.cpp">
-      <Filter>Source\Views</Filter>
+      <Filter>Source\MVC</Filter>
     </ClCompile>
     <ClCompile Include="Blockchain_Message.cpp">
       <Filter>Source\BlockChain</Filter>
     </ClCompile>
     <ClCompile Include="Blockchain_Service.cpp">
+      <Filter>Source\BlockChain</Filter>
+    </ClCompile>
+    <ClCompile Include="EDAMerkleBlock.cpp">
       <Filter>Source\BlockChain</Filter>
     </ClCompile>
     <ClCompile Include="FullNode.cpp">
@@ -43,72 +91,42 @@
     <ClCompile Include="UTXO.cpp">
       <Filter>Source\BlockChain</Filter>
     </ClCompile>
-    <ClCompile Include="Allegro.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="SimView.cpp">
+      <Filter>Source\Views</Filter>
     </ClCompile>
-    <ClCompile Include="Model_BoxText.cpp">
-      <Filter>Source\Models</Filter>
+    <ClCompile Include="RegularNodeView.cpp">
+      <Filter>Source\Views</Filter>
     </ClCompile>
-    <ClCompile Include="Model_PushButton.cpp">
-      <Filter>Source\Models</Filter>
+    <ClCompile Include="View_Block.cpp">
+      <Filter>Source\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="View_Blockchain.cpp">
+      <Filter>Source\Views</Filter>
     </ClCompile>
     <ClCompile Include="View_BoxText.cpp">
+      <Filter>Source\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="View_MerkleTree.cpp">
       <Filter>Source\Views</Filter>
     </ClCompile>
     <ClCompile Include="View_PushButton.cpp">
       <Filter>Source\Views</Filter>
     </ClCompile>
-    <ClCompile Include="Model_Blockchain.h">
-      <Filter>Headers\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Model_Blockchain.cpp">
-      <Filter>Source\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="View_Blockchain.cpp">
-      <Filter>Source\Views</Filter>
-    </ClCompile>
-    <ClCompile Include="Model_Block.cpp">
-      <Filter>Source\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="View_Block.cpp">
-      <Filter>Source\Views</Filter>
-    </ClCompile>
-    <ClCompile Include="EDAMerkleBlock.cpp">
-      <Filter>Source\BlockChain</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxPanel.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Model_MerkleTree.cpp">
-      <Filter>Source\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="View_MerkleTree.cpp">
-      <Filter>Source\Views</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller_Blockchain.cpp">
-      <Filter>Source\Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller_Block.cpp">
-      <Filter>Source\Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller_MerkleTree.cpp">
-      <Filter>Source\Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller_Node.cpp">
-      <Filter>Source\Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller_PushButton.cpp">
-      <Filter>Source\Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller_BoxText.cpp">
-      <Filter>Source\Controllers</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Labels.h">
+    <ClInclude Include="Allegro.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxPanel.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Definitions.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="General_Controller.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="ImageDescriptor.h">
@@ -117,85 +135,16 @@
     <ClInclude Include="ImagesManager.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="RegularNodeView.h">
-      <Filter>Headers\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="SimView.h">
-      <Filter>Headers\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Headers\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Simulation.h">
-      <Filter>Headers\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Observer.h">
-      <Filter>Headers\MVC Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Subject.h">
-      <Filter>Headers\MVC Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Blockchain_Message.h">
-      <Filter>Headers\BlockChain</Filter>
-    </ClInclude>
-    <ClInclude Include="Blockchain_Service.h">
-      <Filter>Headers\BlockChain</Filter>
-    </ClInclude>
-    <ClInclude Include="FullNode.h">
-      <Filter>Headers\BlockChain</Filter>
-    </ClInclude>
-    <ClInclude Include="SPVNode.h">
-      <Filter>Headers\BlockChain</Filter>
-    </ClInclude>
-    <ClInclude Include="MerkleNode.h">
-      <Filter>Headers\BlockChain</Filter>
-    </ClInclude>
-    <ClInclude Include="UTXO.h">
-      <Filter>Headers\BlockChain</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Headers\MVC Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Allegro.h">
+    <ClInclude Include="Labels.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Model_BoxText.h">
-      <Filter>Headers\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Model_PushButton.h">
-      <Filter>Headers\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="View_BoxText.h">
-      <Filter>Headers\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="View_PushButton.h">
-      <Filter>Headers\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="View_Blockchain.h">
-      <Filter>Headers\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="Model_Block.h">
-      <Filter>Headers\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="View_Block.h">
-      <Filter>Headers\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="EDAMerkleBlock.h">
-      <Filter>Headers\BlockChain</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxPanel.h">
+    <ClInclude Include="Supervisor.h">
       <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Model_MerkleTree.h">
-      <Filter>Headers\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="View_MerkleTree.h">
-      <Filter>Headers\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller_Blockchain.h">
-      <Filter>Headers\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Controller_Block.h">
+      <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller_Blockchain.h">
       <Filter>Headers\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Controller_MerkleTree.h">
@@ -204,52 +153,118 @@
     <ClInclude Include="Controller_Node.h">
       <Filter>Headers\Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="Controller_PushButton.h">
+    <ClInclude Include="Controller_Sim.h">
       <Filter>Headers\Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="Controller_BoxText.h">
-      <Filter>Headers\Controllers</Filter>
+    <ClInclude Include="Model_Block.h">
+      <Filter>Headers\Models</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Source">
-      <UniqueIdentifier>{109dd6d0-0f7b-4d14-a26d-67ff9cd54379}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{51d07e5f-bf3b-4889-96d3-5db9ea5a17e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Views">
-      <UniqueIdentifier>{3aa329d3-d4e2-41e2-9f42-74d28247ce93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Models">
-      <UniqueIdentifier>{47247c25-9992-441d-a731-010b6c94ecc0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\MVC Base">
-      <UniqueIdentifier>{094f2a8e-3f73-40a4-aa31-2b4cfde6049d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Models">
-      <UniqueIdentifier>{a63e488c-44d8-4040-89af-091bdc206109}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\MVC Base">
-      <UniqueIdentifier>{4177c3c6-5ee7-4281-a466-6674d2da41d1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Views">
-      <UniqueIdentifier>{c825fa41-5123-4162-bf35-212277981c8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\BlockChain">
-      <UniqueIdentifier>{69ce277e-e34d-4ff5-88af-4495215e665b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\BlockChain">
-      <UniqueIdentifier>{b69e3308-1365-4337-ad9b-d2c749cab48a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Controllers">
-      <UniqueIdentifier>{cba2c5e5-514c-4432-a579-eeb09a6ba094}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Controllers">
-      <UniqueIdentifier>{02aea093-b2e4-44c1-a83b-d752dd6f3431}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="Model_BoxText.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Model_MerkleTree.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Model_PushButton.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="View_Block.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="View_Blockchain.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="View_BoxText.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="View_MerkleTree.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="View_PushButton.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Headers\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Headers\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Headers\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="SimView.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="RegularNodeView.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Blockchain_Message.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="Blockchain_Service.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="EDAMerkleBlock.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="FullNode.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="MerkleNode.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="SPVNode.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="UTXO.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{2036f6ee-2311-4240-ba80-eae3002218a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{e7a5cc1d-3b9f-4130-b518-8e9f596a5059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Controllers">
+      <UniqueIdentifier>{86fe6db1-50ee-41e6-821b-698b76c0d8cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Views">
+      <UniqueIdentifier>{3cb87294-7307-40c2-910f-abb5336fbc1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Models">
+      <UniqueIdentifier>{43e4c4aa-e750-4715-9ae0-f35408420a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\MVC">
+      <UniqueIdentifier>{90e3b8db-ddb4-450e-a949-1c6667bd6419}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\BlockChain">
+      <UniqueIdentifier>{c35cac87-55a0-4e0d-8806-98241f21090a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Controllers">
+      <UniqueIdentifier>{12d75874-e8dc-496c-8711-de88de4cdc5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Models">
+      <UniqueIdentifier>{6a4c2c79-e338-4fb2-bc65-c029091c9d07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MVC">
+      <UniqueIdentifier>{a9230e20-b451-45f6-ac2c-4962b7a986ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\BlockChain">
+      <UniqueIdentifier>{8d001c75-42ee-49eb-9aa2-189807158d37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Views">
+      <UniqueIdentifier>{3fea7dd6-0ae5-421e-aa64-2fed99e7fab1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

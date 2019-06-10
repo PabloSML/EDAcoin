@@ -12,7 +12,6 @@
 #include "View_Blockchain.h"
 #include "Allegro.h"
 
-#define RADIUS 10  //**Need to define radios of node
 
 using namespace std;
 using json = nlohmann::json;
@@ -44,7 +43,7 @@ public:
 
 	void push_message(blockchain_message& message);
 
-	virtual void createBlockChainModel(void) = 0;
+	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue) = 0;
 	void destroyBlockChainModel(void);
 
 	/*

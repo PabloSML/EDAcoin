@@ -14,13 +14,14 @@ public:
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
 
+	virtual void forwardMouseEvent(EventData* ev);
+	virtual void forwardKeyboardEvent(EventData* ev);
 
 private:
 
 	Node* model;
 	Controller_Blockchain* myBlockchainCtrl;
 
-	bool isThisMine(EventData* ev);
 	void createBlockchainCtrl(void);
 	bool clickInMe(EventData* ev);
 };
