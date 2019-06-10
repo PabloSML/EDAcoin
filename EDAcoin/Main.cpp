@@ -13,7 +13,6 @@
 #include <allegro5\allegro.h>
 #include "Supervisor.h"
 #include "Board.h"
-#include "Viewer.h"
 #include "Definitions.h"
 #include "General_Controller.h"
 //**
