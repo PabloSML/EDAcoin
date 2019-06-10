@@ -29,6 +29,7 @@ using namespace std;
 #define BACKGROUND_PATH			"background2.png" //Imagen de fondo
 
 #define NODE_IMG_SIZE 150
+#define RADIUS (NODE_IMG_SIZE/2)
 
 #define SPV_IMG_PATH			"spv.png"	//Imagen para SPV
 #define FULL_IMG_PATH			"full.png"	//Imagen para Full

@@ -79,8 +79,6 @@ set_blockchain(vector<Model_Block>* new_blockchain) {
 void Model_Blockchain::
 set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manejamos esto
 {
-	
-	
 	const size_t size_blockchain = new_blockHeaders->size();
 
 	(this->blockchain)->resize(size_blockchain);
