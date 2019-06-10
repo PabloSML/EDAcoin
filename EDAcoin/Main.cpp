@@ -45,10 +45,10 @@ int main()
 	*/
 
 
-	bool init = init_resources();
+	//bool init = init_resources();
 
-	if (init)
-	{
+	//if (init)
+	//{
 		
 
 		Simulation sim;	// se crea el sujeto Simulation
@@ -116,11 +116,11 @@ int main()
 		}
 
 		return 0;
-	}
-	else
-	{
-		return 1;
-	}
+	//}
+	//else
+	//{
+	//	return 1;
+	//}
 	
 }
 
