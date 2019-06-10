@@ -14,21 +14,11 @@
 #define LAST_IMAGE_BOARD(button_actual) (MAX_BLOCKS_PER_DISPLAY * (button_actual + 1))
 
 View_Blockchain::
-View_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue, unsigned int width_display, unsigned int heigth_display):
+View_Blockchain(unsigned int width_display, unsigned int heigth_display):
 	graph_resources(),
 	margin_x(MARGIN_RATE*width_display), margin_y(MARGIN_RATE*heigth_display)
 {
-	//**
-	display = al_create_display(width_display , heigth_display ); // Intenta crear display de fallar devuelve NULL
-	if (!display) {
-		fprintf(stderr, "failed to create display!\n");
-		init_ok = false;
-		return;
-	}
-	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
-	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
-	//**
-
+	
 
 	(this->buttons)[BUTTON_LEFT] = ImageDescriptor(PATH_BUTTON_LEFT);
 	(this->buttons)[BUTTON_RIGHT] = ImageDescriptor(PATH_BUTTON_RIGHT);
@@ -46,11 +36,7 @@ View_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue, unsigned int width_display, un
 View_Blockchain::
 ~View_Blockchain(void)
 {
-	if (init_ok == true)
-	{
-		al_destroy_display(display);
-		init_ok = false;
-	}
+	
 }
 
 void View_Blockchain::

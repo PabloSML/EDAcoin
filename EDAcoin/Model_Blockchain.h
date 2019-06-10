@@ -7,7 +7,7 @@
 class Model_Blockchain: public Subject
 {
 	public:
-		Model_Blockchain();
+		Model_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue);
 		~Model_Blockchain();
 
 		//getters
@@ -28,6 +28,7 @@ class Model_Blockchain: public Subject
 		void triggerEnd(void);
 
 		unsigned int recountBlocks(void);
+		bool isInitOk(void);
 
 
 	private:
@@ -42,6 +43,8 @@ class Model_Blockchain: public Subject
 		unsigned int blockCount;
 		unsigned int cant_board;
 		unsigned int actual_board;
+
+		bool init_ok;
 
 
 };

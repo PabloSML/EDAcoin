@@ -11,7 +11,7 @@
 class View_Blockchain : public Observer {
 
 	public:
-		View_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue, unsigned int width_display, unsigned int heigth_display);
+		View_Blockchain(unsigned int width_display, unsigned int heigth_display);
 		~View_Blockchain(void);
 
 		void update(void* model);
@@ -22,7 +22,6 @@ class View_Blockchain : public Observer {
 		vector <ImageDescriptor> buttons;
 
 		//**
-		ALLEGRO_DISPLAY* display;
 		unsigned int width;
 		unsigned int height;
 		//**
@@ -30,6 +29,5 @@ class View_Blockchain : public Observer {
 		unsigned int margin_x; //margenes
 		unsigned int margin_y;
 
-		bool init_ok;
 };
 

@@ -4,12 +4,19 @@ Simulation::Simulation(void)
 {
 	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT);
 	if (!display)
+	{
 		cout << "Error creating sim display!" << endl;
+		init_ok = false;
+	}
 }
 
 Simulation::~Simulation(void)
 {
-	al_destroy_display(display);
+	if (init_ok == true)
+	{
+		al_destroy_display(display);
+		init_ok = false;
+	}
 }
 
 void

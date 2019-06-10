@@ -33,6 +33,6 @@ private:
 	list<Model_PushButton*> buttons;
 	bool end;
 	ALLEGRO_DISPLAY* display;
-
+	bool init_ok;
 
 };

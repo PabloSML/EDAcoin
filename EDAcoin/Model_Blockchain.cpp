@@ -6,7 +6,7 @@
 #define CANT_TX_SPV	0 //cualquier numero
 
 Model_Blockchain::
-Model_Blockchain() : blockCount(0)
+Model_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue) : blockCount(0)
 {
 	this->cant_board = (unsigned int)(blockchain->size() / MAX_BLOCKS_PER_DISPLAY);	
 
@@ -17,12 +17,28 @@ Model_Blockchain() : blockCount(0)
 
 	this->actual_board = 0;
 	this->enable_show_merkle_trees = false;
+
+	//**
+	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT);		// Intenta crear display de fallar devuelve NULL
+	if (!display) {
+		fprintf(stderr, "failed to create display!\n");
+		init_ok = false;
+		return;
+	}
+	init_ok = true;
+	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
+	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
+	//**
 }
 
 Model_Blockchain::
 ~Model_Blockchain(void)
 {
-
+	if (init_ok == true)
+	{
+		al_destroy_display(display);
+		init_ok = false;
+	}
 }
 
 //getters
@@ -125,3 +141,7 @@ Model_Blockchain::recountBlocks(void)
 }
 
 
+bool Model_Blockchain::isInitOk(void)
+{
+	return init_ok;
+}
