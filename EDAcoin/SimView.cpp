@@ -1,5 +1,17 @@
 #include "SimView.h"
 
+SimView::SimView(void)
+{
+	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT);
+	if (!display)
+		cout << "Error creating sim display!" << endl;
+}
+
+SimView::~SimView(void)
+{
+	al_destroy_display(display);
+}
+
 void 
 SimView::update(void* model)
 {
@@ -11,29 +23,3 @@ SimView::update(void* model)
 	
 	al_flip_display();
 }
-
-/*
-void
-SimView::attach(Observer* view)
-{
-	views.push_back(view);
-	this->update(this);
-}
-
-bool
-SimView::detach(Observer* view)
-{
-	bool success = false;
-	size_t currentSize = views.size();
-
-	views.remove(view);
-
-	if (currentSize - 1 == views.size())	// verifica haber eliminado un elemento. Se puede sacar para eliminar las operaciones extra.
-	{
-		success = true;
-		this->update(this);
-	}
-
-	return success;
-}
-*/

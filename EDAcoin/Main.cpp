@@ -45,11 +45,19 @@ int main()
 	*/
 
 
-	bool init = init_resources();
+	//bool init = init_resources();
 
-	if (init)
-	{
-		
+	//if (init)
+	//{
+		EventData ev_data;
+		ALLEGRO_EVENT_QUEUE* queue = initAllegro();
+		if (queue == nullptr)
+		{
+			cout << "Error in initialize Allegro" << endl;
+			return 0;
+		}
+		else
+			ev_data.event_queue = queue;
 
 		Simulation sim;	// se crea el sujeto Simulation
 		SimView simulationView;
@@ -116,11 +124,11 @@ int main()
 		}
 
 		return 0;
-	}
-	else
-	{
-		return 1;
-	}
+	//}
+	//else
+	//{
+	//	return 1;
+	//}
 	
 }
 

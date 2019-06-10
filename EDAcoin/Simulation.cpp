@@ -1,5 +1,17 @@
 #include "Simulation.h"
 
+Simulation::Simulation(void)
+{
+	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT);
+	if (!display)
+		cout << "Error creating sim display!" << endl;
+}
+
+Simulation::~Simulation(void)
+{
+	al_destroy_display(display);
+}
+
 void
 Simulation::addNode(Node* node)
 {
