@@ -71,9 +71,9 @@ int main()
 		sim.addNode(&f2);
 		sim.addNode(&s1);
 
-		simulationView.attach(&f1RView);
-		simulationView.attach(&f2RView);
-		simulationView.attach(&s1RView);
+		//simulationView.attach(&f1RView);
+		//simulationView.attach(&f2RView);
+		//simulationView.attach(&s1RView);
 		//**cada vez que hace el attach, llama a draw????
 
 	//Se conectan los fullnodes con los spvnodes y entre ellos

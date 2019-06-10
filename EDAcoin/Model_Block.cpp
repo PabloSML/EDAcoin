@@ -66,9 +66,6 @@ unsigned int Model_Block::
 get_size_y(void) { return this->heigth_image; }
 
 void Model_Block::
-setEnviroment(ALLEGRO_DISPLAY* newEnviroment) { this->enviroment = newEnviroment; }
-
-void Model_Block::
 set_pos_x(unsigned int new_pos_x) { this->pos_x = new_pos_x; }
 
 
