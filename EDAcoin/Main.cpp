@@ -122,6 +122,7 @@ int main()
 
 		
 		}
+		destroyAllegro(ev_data.event_queue);
 
 		return 0;
 	//}

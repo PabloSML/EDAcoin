@@ -33,8 +33,6 @@ ALLEGRO_EVENT_QUEUE* initAllegro()		//**se puede agregar timer y audio
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 	al_init_image_addon();
 
-	//Registra el display a la cola de eventos, los eventos del display se iran guardando en la cola a medida que vayan sucediendo
-	//al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
 	al_register_event_source(event_queue, al_get_keyboard_event_source()); //REGISTRAMOS EL TECLADO
 	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
 
@@ -43,7 +41,12 @@ ALLEGRO_EVENT_QUEUE* initAllegro()		//**se puede agregar timer y audio
 
 void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue)
 {
-
+	al_shutdown_font_addon();
+	al_shutdown_ttf_addon();
+	al_shutdown_image_addon();
+	al_uninstall_keyboard();
+	al_uninstall_mouse();
+	al_destroy_event_queue(queue);
 }
 
 Allegro::Allegro()
