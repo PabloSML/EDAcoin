@@ -20,12 +20,9 @@ Controller_MerkleTree::~Controller_MerkleTree()
 
 
 void Controller_MerkleTree::
-parseTimerEvent(EventData * ev) //refresh
+parseTimerEvent(EventData * ev) 
 {
-	if (this->is_subject_attached() == true)
-	{
-		model->ping();
-	}
+
 }
 
 

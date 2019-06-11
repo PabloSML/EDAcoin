@@ -77,12 +77,8 @@ Controller_Blockchain::parseTimerEvent(EventData* ev)
 			Controller_Block* tempController = new Controller_Block(model->getBlockbyIndex(i));
 			blockControllers.push_back(tempController);
 		}
-		model->ping();
 		for (Controller_Block* C : blockControllers)
 			C->parseTimerEvent(ev);
-
-		al_set_target_backbuffer(model->getDisplay());
-		al_flip_display();
 	}
 }
 

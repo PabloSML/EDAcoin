@@ -40,7 +40,6 @@ void Controller_Node::parseTimerEvent(EventData * ev)
 {
 	if (this->is_subject_attached() == true)
 	{
-		model->ping();
 		if (myBlockchainCtrl != nullptr)
 			myBlockchainCtrl->parseTimerEvent(ev);
 	}

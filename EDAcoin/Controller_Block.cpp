@@ -19,7 +19,6 @@ void Controller_Block::parseTimerEvent(EventData * ev) //refresh
 {
 	if (this->is_subject_attached() == true)
 	{
-		model->ping();
 		if(myMerkleTreeCtrl != nullptr)
 			myMerkleTreeCtrl->parseTimerEvent(ev);
 	}

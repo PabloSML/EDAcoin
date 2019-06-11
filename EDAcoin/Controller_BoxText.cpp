@@ -20,12 +20,9 @@ Controller_BoxText::~Controller_BoxText()
 
 
 void Controller_BoxText::
-parseTimerEvent(EventData * ev) //refresh
+parseTimerEvent(EventData * ev) 
 {
-	if (this->is_subject_attached() == true)
-	{
-		model->ping();
-	}
+
 }
 
 
