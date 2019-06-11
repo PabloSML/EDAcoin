@@ -125,6 +125,7 @@ int main()
 		{
 			al_get_next_event(ev_data.event_queue, ev_data.al_ev);
 			simCtrl.dispatcher(&ev_data);
+			al_set_target_backbuffer(sim.getDisplay());
 			sim.ping();
 		}
 	}
