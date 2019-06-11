@@ -23,6 +23,10 @@ public:
 
 
 private:
+
+	void refresh_positions_blocks_on_board(void);
+
+
 	Model_Blockchain* model;
 	vector<Controller_Block*> blockControllers;
 

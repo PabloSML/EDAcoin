@@ -11,7 +11,7 @@ Model_Block::Model_Block(string& blockID, unsigned long& merkleRoot, unsigned in
 	this->pos_x = 0;
 	this->pos_y = 0;
 	this->width_image = DEFAULT_WIDTH_BLOCK;
-	this->width_image = DEFAULT_HEIGTH_BLOCK;
+	this->heigth_image = DEFAULT_HEIGTH_BLOCK;
 
 }
 
