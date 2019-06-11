@@ -20,7 +20,7 @@ typedef struct {		// estructura de blockHeader por si sirve
 class Model_Block : public Subject {
 public:
 	Model_Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions);
-	Model_Block();
+	//Model_Block();
 	~Model_Block();
 
 	string getBlockID(void) const;

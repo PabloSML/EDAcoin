@@ -25,7 +25,7 @@ class Node : public Subject{
 public:
 	Node():nodeType(""),nodeID(""), myBlockChainModel(nullptr) { }
 	Node(const char* nodeID, const char* nodeType) { this->nodeID = string(nodeID); this->nodeType = string(nodeType); myBlockChainModel = nullptr; }
-	~Node(){}
+	~Node() { destroyBlockChainModel(); }
 
 	string getNodeID() const { return nodeID; }
 	void setNodeID(string& nodeID) { this->nodeID = nodeID; }
