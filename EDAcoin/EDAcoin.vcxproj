@@ -172,6 +172,7 @@
     <ClCompile Include="Controller_PushButton.cpp" />
     <ClCompile Include="Controller_Sim.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Model_Block.cpp" />
     <ClCompile Include="Model_Blockchain.cpp" />
     <ClCompile Include="Model_Blockchain.h" />
