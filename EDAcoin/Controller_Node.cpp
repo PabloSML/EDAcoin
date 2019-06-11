@@ -14,6 +14,7 @@ Controller_Node::~Controller_Node()
 	if (myBlockchainCtrl != nullptr)
 	{
 		delete myBlockchainCtrl;
+		myBlockchainCtrl = nullptr;
 	}
 }
 
