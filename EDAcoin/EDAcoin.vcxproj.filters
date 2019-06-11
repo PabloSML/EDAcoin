@@ -13,9 +13,6 @@
     <ClCompile Include="ImagesManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Model_Blockchain.h">
       <Filter>Headers\Models</Filter>
     </ClCompile>

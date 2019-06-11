@@ -6,9 +6,10 @@
 
 class View_PushButton : public Observer
 {
-	View_PushButton(char const * name_color_toggle1, char const * name_color_toggle2,
-		char const * name_color_text, ALLEGRO_FONT * first_font_title);
-
+public:
+	View_PushButton(const char  * name_color_toggle1, const char  * name_color_toggle2,
+		const char  * name_color_text, ALLEGRO_FONT * first_font_title);
+	View_PushButton() {};
 	~View_PushButton(void);
 
 

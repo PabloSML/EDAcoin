@@ -37,6 +37,7 @@ parseMouseEvent(EventData * ev)		//manage display close
 		if (model->is_select() == false)
 		{
 			model->toggleSelect();
+			model->ping();
 		}
 		
 	}
@@ -45,6 +46,7 @@ parseMouseEvent(EventData * ev)		//manage display close
 		if (model->is_select() == true)
 		{
 			model->toggleSelect();
+			model->ping();
 		}
 	}
 }
@@ -204,9 +206,10 @@ Controller_BoxText::clickInMe(EventData* ev)
 	int clickPosX = ev->al_ev->mouse.x;
 	int clickPosY = ev->al_ev->mouse.y;
 
-	if (clickPosX >= myPosX && clickPosX <= limitX && clickPosY >= myPosY && clickPosY <= limitY)	// checkea si el click fue en el rango de la imagen
+	if ((clickPosX >= myPosX) && (clickPosX <= limitX) && (clickPosY >= myPosY) && (clickPosY <= limitY))	// checkea si el click fue en el rango de la imagen
 		return true;
 	else
 		return false;
 }
+
 

@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <iostream>
 
+#include "allegro5/allegro_primitives.h"
+
 #include "Allegro.h"
 
 ALLEGRO_EVENT_QUEUE* initAllegro()		//**se puede agregar timer y audio
@@ -32,6 +34,7 @@ ALLEGRO_EVENT_QUEUE* initAllegro()		//**se puede agregar timer y audio
 	al_init_font_addon(); // initialize the font addon
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 	al_init_image_addon();
+	al_init_primitives_addon();
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source()); //REGISTRAMOS EL TECLADO
 	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE

@@ -59,7 +59,7 @@ Controller_PushButton::clickInMe(EventData* ev)
 	int clickPosX = ev->al_ev->mouse.x;
 	int clickPosY = ev->al_ev->mouse.y;
 
-	if (clickPosX >= myPosX && clickPosX <= limitX && clickPosY >= myPosY && clickPosY <= limitY)	// checkea si el click fue en el rango de la imagen
+	if ((clickPosX >= myPosX) && (clickPosX <= limitX ) && (clickPosY >= myPosY ) && (clickPosY <= limitY))	// checkea si el click fue en el rango de la imagen
 		return true;
 	else
 		return false;
