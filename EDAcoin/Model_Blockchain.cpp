@@ -136,3 +136,10 @@ bool Model_Blockchain::isInitOk(void)
 {
 	return init_ok;
 }
+
+void
+Model_Blockchain::updateBlocksbyIndex(unsigned int index)
+{
+	if(index < blockCount)
+		(*blockchain)[index].ping();
+}

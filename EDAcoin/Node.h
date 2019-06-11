@@ -46,14 +46,9 @@ public:
 	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue) = 0;
 	void destroyBlockChainModel(void);
 
-	/*
-	Controller_BlockChain* createBlockChainController(void);
-	void destroyBlockChainController(Controller_BlockChain* target);
-	*/
-
-	ALLEGRO_DISPLAY* getEnviroment(void);
-
 	Model_Blockchain* getBlockChainModel(void);
+
+	virtual void ping(void);
 
 protected:
 	string nodeID;
@@ -64,6 +59,4 @@ protected:
 	Model_Blockchain* myBlockChainModel; // veremos si no es necesario.
 
 	vector<blockchain_message> buffer_messages;
-
-	ALLEGRO_DISPLAY * environment;
 };
