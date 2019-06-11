@@ -44,53 +44,20 @@ update(void* model) {
 
 	Model_Blockchain * model_observed = (Model_Blockchain *) model;
 
-	vector<Model_Block> * aux_blockchain = model_observed->get_blockchain();
+	al_set_target_backbuffer(model_observed->getDisplay());
 
-	View_Block aux_viewer_block = View_Block();
+	//vector<Model_Block> * aux_blockchain = model_observed->get_blockchain();
 	
-
-	
-	/*
-
-	va en controller lo siguiente
-	
-	for (unsigned int i = FIRST_IMAGE_BOARD(actual_board); (i < LAST_IMAGE_BOARD(actual_board)) && (i < cant_blocks); i++)			//Para todas las imagenes del board actual...
-	{
-	
-	unsigned int aux_pos_x = this->margin_x;
-	unsigned int aux_pos_y = this->margin_y;
-
-	unsigned int actual_board = model_observed->get_actual_board();
-	unsigned int cant_blocks = (unsigned int) (model_observed->get_blockchain()).size();
-
-
-	int image_size_x = ((aux_blockchain)[i]).size_x;
-	int margin = this->margin_x;
-
-	((aux_blockchain)[i]).set_pos(aux_pos_x, aux_pos_y);
-
-	aux_pos_x += image_size_x + margin;
-
-	if (aux_pos_x > ((this->graph_resources).GetDisplayW() - margin - image_size_x)) //reseteo pos_x cuando llega al tope de ancho del board
-	{
-		aux_pos_x = margin;
-		aux_pos_y += ((aux_blockchain)[i]).size_y + this->margin_y; //avanzo en 'y' !! SUPONGO QUE TODOS LOS BLOQUES SON IGUALES EN SIZE_Y
-	}
-}
-
-	*/
-
 	unsigned int actual_board = model_observed->get_actual_board();
 	unsigned int cant_boards = model_observed->get_cant_boards();
 
-	unsigned int cant_blocks = (unsigned int)(model_observed->get_blockchain())->size();
+	//unsigned int cant_blocks = (unsigned int)(model_observed->get_blockchain())->size();
 
-	if (cant_blocks != 0) //si tengo por lo menos una imagen en el tablero
+	if (model_observed->getBlockCount() != 0) //si tengo por lo menos una imagen en el tablero
 	{
 		bool button_touched = false;
 		int first_button = 0;  //en principio, deseo tener en cuenta todo el vector de botones.
 		int last_button = (int) (this->buttons).size();
-
 
 
 		if (actual_board == 0) //primer damero
@@ -120,14 +87,10 @@ update(void* model) {
 	}
 	
 
-	for (unsigned int index = 0; (index + actual_board*MAX_BLOCKS_PER_DISPLAY  < (*aux_blockchain).size())&&(index < MAX_BLOCKS_PER_DISPLAY); index++)
+	for (unsigned int index = 0; (index + actual_board*MAX_BLOCKS_PER_DISPLAY  < model_observed->getBlockCount())&&(index < MAX_BLOCKS_PER_DISPLAY); index++)
 	{
-
-		//**Model_Block *p_block = &(*aux_blockchain)[index + actual_board * MAX_BLOCKS_PER_DISPLAY];
-		Model_Block block = (*aux_blockchain)[index + actual_board * MAX_BLOCKS_PER_DISPLAY];
-		Model_Block * p_block = &block;
-		aux_viewer_block.update((void*)p_block);
-
+		model_observed->updateBlocksbyIndex(index + actual_board * MAX_BLOCKS_PER_DISPLAY);
 	}
 
+	al_flip_display();
 }

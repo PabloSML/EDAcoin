@@ -36,7 +36,7 @@ public:
 	* ping
 	* llamada externa a notifyAllObservers
 	*/
-	void ping(void);
+	virtual void ping(void);
 
 protected:
 
