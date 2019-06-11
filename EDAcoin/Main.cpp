@@ -8,6 +8,7 @@
 #include "Simulation.h"
 #include "RegularNodeView.h"
 #include "SimView.h"
+#include "Controller_Sim.h"
 
 #include <vector>
 #include <allegro5\allegro.h>
@@ -31,7 +32,7 @@ bool getBlockChainJson(json* dest, const char* file);
 
 int main()
 {
-	EventData ev_data;
+	EventData ev_data{ nullptr, nullptr };
 	ALLEGRO_EVENT_QUEUE* queue = initAllegro();
 	if (queue == nullptr)
 	{
@@ -44,10 +45,15 @@ int main()
 	Simulation sim(ev_data.event_queue);	// se crea el sujeto Simulation
 	SimView* simulationView = new SimView;
 	sim.attach(simulationView);
+	Controller_Sim simCtrl(&sim);
 
 	//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
 	FullNode f1("FullNode One"), f2("FullNode Two");
 	SPVNode s1("SPV Node");
+
+	f1.setPos(FIRST_POS_W, FIRST_POS_H);
+	f2.setPos(SECOND_POS_W, SECOND_POS_H);
+	s1.setPos(THIRD_POS_W, THIRD_POS_H);
 
 	RegularNodeView* f1RView = new RegularNodeView(FULL_IMG_PATH); // se crean las views base de cada nodo		LA POSICION ESTA HARDCODEADA PORQUE NO EXISTE AUN UNA FUNCION FACTORY QUE CREE TODO EN LUGARES APROPIADOS!!!!!
 	RegularNodeView* f2RView = new RegularNodeView(FULL_IMG_PATH);
@@ -104,6 +110,24 @@ int main()
 
 		
 	}
+
+	while (!sim.shouldEnd())
+	{
+		if (!(al_is_event_queue_empty(ev_data.event_queue)))
+		{
+			al_get_next_event(ev_data.event_queue, ev_data.al_ev);	// me tira una exception esto, parece que hay algo mal con al_ev!!
+			if ((ev_data.al_ev->type == ALLEGRO_EVENT_DISPLAY_CLOSE) || (ev_data.al_ev->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN))
+			{
+				simCtrl.parseMouseEvent(&ev_data);
+			}
+			else
+			{
+				ev_data.al_ev = nullptr;
+			}
+		}
+	}
+
+
 	destroyAllegro(ev_data.event_queue);
 
 	return 0;

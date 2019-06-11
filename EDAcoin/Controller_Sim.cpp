@@ -17,7 +17,7 @@ Controller_Sim::~Controller_Sim(void)
 void
 Controller_Sim::parseMouseEvent(EventData* ev)
 {
-	if (isThisMine(ev)) // si el evento fue en la pantalla de bchain, se ve si fue un evento de close o se clickeo en algun block
+	if (isThisMine(ev))
 	{
 		if (ev->al_ev->type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 		{
@@ -25,12 +25,13 @@ Controller_Sim::parseMouseEvent(EventData* ev)
 		}
 		else
 		{
+			cout << "Haha tickes" << endl;
 			for (Controller_Node* C : nodeControllers)
 				C->parseMouseEvent(ev);
 			//**llamar a parseMouseEvent de los edit box.
 		}
 	}
-	else // si el evento no fue en la pantalla de bchain, se sabe que es de merkleTree y pasa directo
+	else 
 	{
 		for (Controller_Node* C : nodeControllers)
 			C->forwardMouseEvent(ev);
