@@ -9,8 +9,6 @@
 
 using namespace std;
 
-#define FPS	50
-
 #define WIDTH_DEFAULT			1000
 #define HEIGHT_DEFAULT			600
 #define FONT_SIZE_DEFAULT		20

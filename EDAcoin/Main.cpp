@@ -33,7 +33,8 @@ bool getBlockChainJson(json* dest, const char* file);
 int main()
 {
 	EventData ev_data{ nullptr, nullptr };
-	ALLEGRO_EVENT_QUEUE* queue = initAllegro();
+	ALLEGRO_TIMER* timer = NULL;
+	ALLEGRO_EVENT_QUEUE* queue = initAllegro(timer);
 	if (queue == nullptr)
 	{
 		cout << "Error in initialize Allegro" << endl;
@@ -110,27 +111,23 @@ int main()
 
 		
 	}
+
 	ALLEGRO_EVENT ev;
 	ev_data.al_ev = &ev;
+	al_start_timer(timer);
 
 	while (!sim.shouldEnd())
 	{
 		if (!(al_is_event_queue_empty(ev_data.event_queue)))
 		{
-			al_get_next_event(ev_data.event_queue, ev_data.al_ev);	// me tira una exception esto, parece que hay algo mal con al_ev!!
-			if ((ev_data.al_ev->type == ALLEGRO_EVENT_DISPLAY_CLOSE) || (ev_data.al_ev->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN))
-			{
-				simCtrl.parseMouseEvent(&ev_data);
-			}
-			else
-			{
-				//ev_data.al_ev = nullptr;
-			}
+			al_get_next_event(ev_data.event_queue, ev_data.al_ev);
+			simCtrl.dispatcher(&ev_data);
 		}
 	}
 
 
-	destroyAllegro(ev_data.event_queue);
+	destroyAllegro(ev_data.event_queue, timer
+);
 
 	return 0;
 

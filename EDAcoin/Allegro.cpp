@@ -7,11 +7,19 @@
 
 #include "Allegro.h"
 
-ALLEGRO_EVENT_QUEUE* initAllegro()		//**se puede agregar timer y audio
+ALLEGRO_EVENT_QUEUE* initAllegro(ALLEGRO_TIMER*& timer)		//**se puede agregar timer y audio
 {
 	ALLEGRO_EVENT_QUEUE* event_queue;
 	if (!al_init()) { //Primera funcion a llamar antes de empezar a usar allegro.
 		fprintf(stderr, "failed to initialize allegro!\n");
+		return nullptr;
+	}
+
+	timer = al_create_timer(1.0/FPS);
+
+	if (!timer)
+	{
+		fprintf(stderr, "failed to initialize the timer!\n");
 		return nullptr;
 	}
 
@@ -38,18 +46,21 @@ ALLEGRO_EVENT_QUEUE* initAllegro()		//**se puede agregar timer y audio
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source()); //REGISTRAMOS EL TECLADO
 	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
+	al_register_event_source(event_queue, al_get_timer_event_source(timer)); //REGISTRAMOS EL TIMER
 
 	return event_queue;
 }
 
-void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue)
+void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_TIMER*& timer)
 {
+	al_stop_timer(timer);
 	al_shutdown_font_addon();
 	al_shutdown_ttf_addon();
 	al_shutdown_image_addon();
 	al_uninstall_keyboard();
 	al_uninstall_mouse();
 	al_destroy_event_queue(queue);
+	al_destroy_timer(timer);
 }
 
 Allegro::Allegro()

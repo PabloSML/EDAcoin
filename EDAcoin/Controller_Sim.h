@@ -12,6 +12,8 @@ public:
 	Controller_Sim(Simulation* owner);
 	~Controller_Sim();
 
+	void dispatcher(EventData* ev);
+
 	virtual void parseMouseEvent(EventData * ev);
 	//virtual void parseNetworkEvent(EventData * ev);
 	virtual void parseKeyboardEvent(EventData * ev);
