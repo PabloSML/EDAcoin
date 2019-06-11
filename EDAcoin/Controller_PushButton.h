@@ -14,6 +14,8 @@ public:
 	//void parseNetworkEvent(EventData * ev);
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
+	void forwardKeyboardEvent(EventData * ev) {};
+	void forwardMouseEvent(EventData * ev) {};
 
 private:
 	Model_PushButton* model;

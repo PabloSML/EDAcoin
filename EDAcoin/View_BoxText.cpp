@@ -38,18 +38,18 @@ update(void * model)
 	float panel_x1 = (float) model_observed->get_pos_x();
 	float panel_x2 = panel_x1 + (float)model_observed->get_width();
 
-	float panel_y1 = (float)model_observed->get_pos_x();
+	float panel_y1 = (float)model_observed->get_pos_y();
 	float panel_y2 = panel_y1 + (float)model_observed->get_heigth();
 
 
 	al_draw_filled_rectangle(panel_x1, panel_y1, panel_x2, panel_y2, this->color_panel);
-	al_draw_text(this->font_title, this->color_text, (panel_x2 - panel_x1) / 2, panel_y1 + MARGIN_Y_TITLE,
+	al_draw_text(this->font_title, this->color_text, panel_x1 + (panel_x2 - panel_x1) / 2, panel_y1 + MARGIN_Y_TITLE,
 			     ALLEGRO_ALIGN_CENTRE, (model_observed->get_title()).c_str());
 
 
 
 
-	float edit_aux_x = (panel_x2 - panel_x1) / 2;
+	float edit_aux_x = panel_x1 + (panel_x2 - panel_x1) / 2;
 	float edit_aux_y = panel_y1 + PERCENT_POSITION_Y_EDIT_TEXT * model_observed->get_heigth();
 
 	float edit_x1 = edit_aux_x - (float)((this->width_edit_box) / 2);

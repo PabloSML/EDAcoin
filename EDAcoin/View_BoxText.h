@@ -7,6 +7,7 @@
 
 class View_BoxText : public Observer
 {
+public:
 	View_BoxText(char const * name_color_panel, char const * name_color_edit_unselect,
 		char const * name_color_edit_select, char const * name_color_text,
 		ALLEGRO_FONT * first_font_title, ALLEGRO_FONT * first_font_edit_text,

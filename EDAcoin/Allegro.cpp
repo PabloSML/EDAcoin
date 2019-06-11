@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <iostream>
 
+#include "allegro5/allegro_primitives.h"
+
 #include "Allegro.h"
 
 ALLEGRO_EVENT_QUEUE* initAllegro()		//**se puede agregar timer y audio
@@ -32,6 +34,7 @@ ALLEGRO_EVENT_QUEUE* initAllegro()		//**se puede agregar timer y audio
 	al_init_font_addon(); // initialize the font addon
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 	al_init_image_addon();
+	al_init_primitives_addon();
 
 	//Registra el display a la cola de eventos, los eventos del display se iran guardando en la cola a medida que vayan sucediendo
 	//al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
