@@ -1,100 +1,189 @@
-#include "Model_PushButton.h"
-#include "View_PushButton.h"
-#include "Controller_PushButton.h"
-
-#include "Model_BoxText.h"
-#include "View_BoxText.h"
-#include "Controller_BoxText.h"
-
-#include "Allegro.h"
 #include <iostream>
+#include <fstream>
+#include <nlohmann/json.hpp>
+#include "FullNode.h"
+#include "SPVNode.h"
+#include <windows.h>
 
+#include "Simulation.h"
+#include "RegularNodeView.h"
+#include "SimView.h"
+#include "Controller_Sim.h"
+
+#include <vector>
+#include <allegro5\allegro.h>
+#include "Definitions.h"
+
+//**
+#include "Allegro.h"
 #include "Controller.h"
+//**
 
-#define COLOR_RED	"red"
-#define COLOR_BLUE	"blue"
-#define COLOR_WHITE "white"
 
-#include "allegro5/color.h"
-#include "allegro5/allegro_color.h"
+using namespace std;
+using json = nlohmann::json;
+
+#define TEN_SEC 10000
+
+// Aux Function
+
+bool init_resources(void);
+bool getBlockChainJson(json* dest, const char* file);
 
 int main()
-
 {
-	ALLEGRO_EVENT_QUEUE* queue = initAllegro();
-	ALLEGRO_DISPLAY * display = al_create_display(900, 600);
-	al_clear_to_color(al_color_name("white"));
-	al_register_event_source(queue, al_get_display_event_source(display));
-
-	ALLEGRO_FONT * font = al_load_font("American Captain.ttf", 20, 0);
-
-	string title("BOTON PRUEBA");
-
-	Model_PushButton button = Model_PushButton(title, 100, 100);
-	button.set_pos_x(300);
-	button.set_pos_y(400);
-
-
-
-	string title2("TEXTO AQUI");
-
-	Model_BoxText text_box = Model_BoxText(title2, 200, 200);
-	text_box.set_pos_x(100);
-	text_box.set_pos_y(100);
-
-
-
-	View_PushButton v_button("red", "blue", "white", font);
-
-	button.attach(&v_button);
-
-
-	View_BoxText v_text_box("red", "blue", "green", "black", font, font, 100, 80);
-
-	text_box.attach(&v_text_box);
-
-
-	Controller_PushButton c_button = Controller_PushButton((Subject *)&button);
-
-
-	Controller_BoxText c_box_text = Controller_BoxText((Subject*)&text_box);
-
-
-	ALLEGRO_EVENT event;
-
-	al_get_next_event(queue, &event);
-
-
-	EventData evento;
-
-	bool close = false;
-
-	while (close == false)
+	EventData ev_data{ nullptr, nullptr };
+	ALLEGRO_TIMER* timer = NULL;
+	ALLEGRO_EVENT_QUEUE* queue = initAllegro(timer);
+	if (queue == nullptr)
 	{
-		al_wait_for_event(queue, &event);
-		evento.al_ev = &event;
+		cout << "Error in initialize Allegro" << endl;
+		return 0;
+	}
+	else
+		ev_data.event_queue = queue;
 
-		switch (event.type)
+	Simulation sim(ev_data.event_queue);	// se crea el sujeto Simulation
+	SimView* simulationView = new SimView;
+	sim.attach(simulationView);
+	Controller_Sim simCtrl(&sim);
+
+	//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
+	FullNode f1("FullNode One"), f2("FullNode Two");
+	SPVNode s1("SPV Node");
+
+	f1.setPos(FIRST_POS_W, FIRST_POS_H);
+	f2.setPos(SECOND_POS_W, SECOND_POS_H);
+	s1.setPos(THIRD_POS_W, THIRD_POS_H);
+
+	RegularNodeView* f1RView = new RegularNodeView(FULL_IMG_PATH); // se crean las views base de cada nodo		LA POSICION ESTA HARDCODEADA PORQUE NO EXISTE AUN UNA FUNCION FACTORY QUE CREE TODO EN LUGARES APROPIADOS!!!!!
+	RegularNodeView* f2RView = new RegularNodeView(FULL_IMG_PATH);
+	RegularNodeView* s1RView = new RegularNodeView(SPV_IMG_PATH);
+
+	Controller_Node* f1Control = new Controller_Node(&f1);
+	Controller_Node* f2Control = new Controller_Node(&f2);
+	Controller_Node* s1Control = new Controller_Node(&s1);
+
+	f1.attach(f1RView); // se conectan los observers a los subjects
+	f2.attach(f2RView);
+	s1.attach(s1RView);
+
+	sim.addNode(&f1); // se agregan los nodos a la lista de la simulacion
+	sim.addNode(&f2);
+	sim.addNode(&s1);
+
+	simCtrl.addNodeController(f1Control);
+	simCtrl.addNodeController(f2Control);
+	simCtrl.addNodeController(s1Control);
+
+//Se conectan los fullnodes con los spvnodes y entre ellos
+//	f1 <-> f2
+//	  \  /
+//	   \/	
+//	   s1
+	f1.attachConnection(&f2);
+	f1.attachConnection(&s1);
+	f2.attachConnection(&f1);
+	f2.attachConnection(&s1);
+	s1.attachConnection(&f1);
+	s1.attachConnection(&f2);
+
+	vector<MerkleNode *> merkleTrees;
+	json blockChainJson;
+
+	if (getBlockChainJson(&blockChainJson, "test.json"))	//Se obtienen los bloques de "test.json"
+	{
+
+		int size = (unsigned int)blockChainJson.size();
+		for (int i = 0; (i < size); i++)
 		{
-		case ALLEGRO_EVENT_DISPLAY_CLOSE:
-			close = true;
-			break;
-		case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-			c_button.parseMouseEvent(&evento);
-			c_box_text.parseMouseEvent(&evento);
-			al_flip_display();
-			break;
-		case ALLEGRO_EVENT_KEY_DOWN:
-			c_button.parseKeyboardEvent(&evento);
-			c_box_text.parseKeyboardEvent(&evento);
-			al_flip_display();
-			break;
-		};
+			json tempBlock = blockChainJson[i];			//Por cada bloque del json, se lo manda a los full nodes. 
+			f1.recieveBlock(tempBlock);
+			f2.recieveBlock(tempBlock);
+			f1.sendInfo2Spv();
+			f2.sendInfo2Spv();
+			s1.pullHeaderfromFullNode();
+
+			merkleTrees = f1.get_merkle_trees();
+
+
+			//No es necesario para el MVC porque no deberia mostrar la blockchain.
+			unsigned long index = 20000000;
+
+		}
+
+		
 	}
 
-	al_destroy_display(display);
+	ALLEGRO_EVENT ev;
+	ev_data.al_ev = &ev;
+	al_start_timer(timer);
 
+	while (!sim.shouldEnd())
+	{
+		if (!(al_is_event_queue_empty(ev_data.event_queue)))
+		{
+			al_get_next_event(ev_data.event_queue, ev_data.al_ev);
+			simCtrl.dispatcher(&ev_data);
+			sim.ping();
+		}
+	}
+
+
+	destroyAllegro(ev_data.event_queue, timer);
+
+	return 0;
+
+	
 }
 
 
 
+
+bool getBlockChainJson(json* dest, const char* file)
+{
+	bool success = false;
+	ifstream blockChainFile(file, ifstream::binary);
+	if (blockChainFile) {
+
+		blockChainFile.seekg(0, blockChainFile.end);
+		int length = blockChainFile.tellg();
+		blockChainFile.seekg(0, blockChainFile.beg);
+		char * buffer = new char[length];
+		blockChainFile.read(buffer, length);
+		string strBuffer(buffer, length);
+		delete[] buffer;
+
+		*dest = json::parse(strBuffer);
+		success = true;
+	}
+	return success;
+}
+
+bool init_resources(void)
+{
+	bool init = true;
+	
+	if (!al_init())
+	{
+		init = false;
+	}
+	else
+	{
+		if (!al_install_keyboard())
+		{
+			init = false;
+		}
+		else
+		{
+			if ((!al_install_mouse()))
+			{
+				init = false;
+			}
+		}
+
+	}
+
+	
+	return init;
+}

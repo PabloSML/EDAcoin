@@ -8,13 +8,10 @@
 Model_Block::Model_Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions) :
   blockID(blockID), merkleRoot(merkleRoot), txsCount(txsCount), transactions(transactions), myMerkleTreeModel(nullptr)
 {
-
-
 	this->pos_x = 0;
 	this->pos_y = 0;
 	this->width_image = DEFAULT_WIDTH_BLOCK;
 	this->width_image = DEFAULT_HEIGTH_BLOCK;
-
 
 }
 
@@ -23,9 +20,10 @@ Model_Block::Model_Block(void) : myMerkleTreeModel(nullptr)
 
 }
 
+
 Model_Block::~Model_Block(void)
 {
-	
+	destroyMerkleTreeModel();
 }
 
 blockHeader

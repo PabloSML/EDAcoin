@@ -160,8 +160,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Allegro.cpp" />
-    <ClCompile Include="Blockchain_Service.cpp" />
     <ClCompile Include="Blockchain_Message.cpp" />
+    <ClCompile Include="Blockchain_Service.cpp" />
     <ClCompile Include="BoxPanel.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Controller_Block.cpp" />
@@ -172,6 +172,7 @@
     <ClCompile Include="Controller_PushButton.cpp" />
     <ClCompile Include="Controller_Sim.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Model_Block.cpp" />
     <ClCompile Include="Model_Blockchain.cpp" />
     <ClCompile Include="Model_Blockchain.h" />

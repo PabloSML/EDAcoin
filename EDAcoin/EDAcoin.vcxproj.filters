@@ -58,9 +58,6 @@
     <ClCompile Include="Subject.cpp">
       <Filter>Source\MVC</Filter>
     </ClCompile>
-    <ClCompile Include="Blockchain_Message.cpp">
-      <Filter>Source\BlockChain</Filter>
-    </ClCompile>
     <ClCompile Include="Blockchain_Service.cpp">
       <Filter>Source\BlockChain</Filter>
     </ClCompile>
@@ -105,6 +102,12 @@
     </ClCompile>
     <ClCompile Include="Controller_PushButton.cpp">
       <Filter>Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Blockchain_Message.cpp">
+      <Filter>Source\BlockChain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -189,9 +192,6 @@
     <ClInclude Include="RegularNodeView.h">
       <Filter>Headers\Views</Filter>
     </ClInclude>
-    <ClInclude Include="Blockchain_Message.h">
-      <Filter>Headers\BlockChain</Filter>
-    </ClInclude>
     <ClInclude Include="Blockchain_Service.h">
       <Filter>Headers\BlockChain</Filter>
     </ClInclude>
@@ -215,6 +215,9 @@
     </ClInclude>
     <ClInclude Include="Controller_PushButton.h">
       <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blockchain_Message.h">
+      <Filter>Headers\BlockChain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

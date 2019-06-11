@@ -30,26 +30,15 @@ Node::destroyBlockChainModel(void)
 	}
 }
 
-/*
-Controller_BlockChain*
-Node::createBlockChainController(void)
-{
-	return new Controller_BlockChain(myBlockChainModel);
-}
-
-void
-Node::destroyBlockChainController(Controller_BlockChain* target)
-{
-	delete target;
-}
-*/
-
-ALLEGRO_DISPLAY* Node::getEnviroment(void)
-{
-	return environment;
-}
-
 Model_Blockchain* Node::getBlockChainModel(void)
 {
 	return myBlockChainModel;
+}
+
+void
+Node::ping(void)
+{
+	notifyObservers();
+	if (myBlockChainModel != nullptr)
+		myBlockChainModel->ping();
 }

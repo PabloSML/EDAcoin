@@ -9,6 +9,7 @@
 #define DISPLAY_W	1300
 #define TEXTFONT "allegrofiles\\textfont.ttf"
 #define TEXTSIZE 30
+#define FPS	50
 
 
 
@@ -16,8 +17,8 @@ enum align {center, right, left};
 
 
 
-ALLEGRO_EVENT_QUEUE* initAllegro(void);
-void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue);
+ALLEGRO_EVENT_QUEUE* initAllegro(ALLEGRO_TIMER*& timer);
+void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_TIMER*& timer);
 
 class Allegro
 {

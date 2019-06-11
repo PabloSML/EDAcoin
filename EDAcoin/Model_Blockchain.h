@@ -30,6 +30,7 @@ class Model_Blockchain: public Subject
 		unsigned int recountBlocks(void);
 		bool isInitOk(void);
 
+		void updateBlocksbyIndex(unsigned int index);
 
 	private:
 		ALLEGRO_DISPLAY* display;

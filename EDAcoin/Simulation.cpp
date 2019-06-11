@@ -97,7 +97,10 @@ void
 Simulation::updateInsiderModels(void)
 {
 	for (Node* N : nodes)
+	{
 		N->ping();
+		al_set_target_backbuffer(display);
+	}
 	for (Model_BoxText* TB : textBoxes)
 		TB->ping();
 	for (Model_PushButton* BU : buttons)
