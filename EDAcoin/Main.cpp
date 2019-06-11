@@ -126,8 +126,7 @@ int main()
 	}
 
 
-	destroyAllegro(ev_data.event_queue, timer
-);
+	destroyAllegro(ev_data.event_queue, timer);
 
 	return 0;
 

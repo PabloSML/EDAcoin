@@ -39,6 +39,8 @@ Model_Blockchain::
 		al_destroy_display(display);
 		init_ok = false;
 	}
+	for (Model_Block C : (*blockchain))
+		C.destroyMerkleTreeModel();
 }
 
 //getters

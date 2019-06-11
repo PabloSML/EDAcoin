@@ -15,7 +15,7 @@ Controller_MerkleTree::Controller_MerkleTree(Subject* creator) : Controller(crea
 
 Controller_MerkleTree::~Controller_MerkleTree()
 {
-	//**dettach?
+
 }
 
 
