@@ -25,7 +25,7 @@ using json = nlohmann::json;
 
 #define TEN_SEC 10000
 
-// Aux Function
+// Aux Function n
 
 bool init_resources(void);
 bool getBlockChainJson(json* dest, const char* file);
