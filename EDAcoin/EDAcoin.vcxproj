@@ -160,8 +160,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Allegro.cpp" />
-    <ClCompile Include="Blockchain_Service.cpp" />
     <ClCompile Include="Blockchain_Message.cpp" />
+    <ClCompile Include="Blockchain_Service.cpp" />
     <ClCompile Include="BoxPanel.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Controller_Block.cpp" />

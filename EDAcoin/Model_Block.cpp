@@ -15,12 +15,11 @@ Model_Block::Model_Block(string& blockID, unsigned long& merkleRoot, unsigned in
 
 }
 
-/*
 Model_Block::Model_Block(void) : myMerkleTreeModel(nullptr)
 {
 
 }
-*/
+
 
 Model_Block::~Model_Block(void)
 {
