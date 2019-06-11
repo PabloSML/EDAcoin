@@ -1,5 +1,14 @@
 #include "Controller_Blockchain.h"
 
+
+#include "Definitions.h"
+
+
+#define MAX_IMAGES_IN_THE_BOARD	9
+#define FIRST_IMAGE_BOARD(button_actual) (MAX_IMAGES_IN_THE_BOARD * button_actual)
+#define LAST_IMAGE_BOARD(button_actual) (MAX_IMAGES_IN_THE_BOARD * (button_actual + 1))
+
+
 Controller_Blockchain::Controller_Blockchain(Model_Blockchain* owner) : Controller(owner)
 {
 	Subject* subj = this->get_subject_attach();
@@ -10,6 +19,7 @@ Controller_Blockchain::~Controller_Blockchain(void)
 {
 	for (Controller_Block* C : blockControllers)
 		delete C;
+	blockControllers.clear();
 }
 
 void
@@ -77,6 +87,9 @@ Controller_Blockchain::parseTimerEvent(EventData* ev)
 			Controller_Block* tempController = new Controller_Block(model->getBlockbyIndex(i));
 			blockControllers.push_back(tempController);
 		}
+
+		this->refresh_positions_blocks_on_board();
+
 		for (Controller_Block* C : blockControllers)
 			C->parseTimerEvent(ev);
 	}
@@ -103,4 +116,43 @@ Controller_Blockchain::isThisMine(EventData* ev)
 bool Controller_Blockchain::shouldModelDie(void)
 {
 	return model->shouldEnd();
+}
+
+
+
+void Controller_Blockchain::refresh_positions_blocks_on_board(void)
+{
+
+
+
+
+	unsigned int board_actual = this->model->get_actual_board();
+	unsigned int block_count = this->model->getBlockCount();
+
+	unsigned int aux_pos_x = MARGIN_X_DISPLAY;
+	unsigned int aux_pos_y = MARGIN_Y_DISPLAY;
+
+	for (unsigned int i = FIRST_IMAGE_BOARD(board_actual); (i < LAST_IMAGE_BOARD(board_actual)) && (i < block_count); i++)
+	{
+
+		int image_size_x = this->model->getBlockbyIndex(i)->get_size_x();
+		int image_size_y = this->model->getBlockbyIndex(i)->get_size_y();
+
+		unsigned int width = al_get_display_width(this->model->getDisplay());
+
+		int margin_x = MARGIN_X_DISPLAY;
+
+		this->model->getBlockbyIndex(i)->set_pos_x(aux_pos_x);
+		this->model->getBlockbyIndex(i)->set_pos_y(aux_pos_y);
+
+		aux_pos_x += image_size_x + margin_x;
+
+
+
+		if (aux_pos_x > (width - margin_x - image_size_x)) //reseteo pos_x cuando llega al tope de ancho del board
+		{
+			aux_pos_x = margin_x;
+			aux_pos_y += image_size_y + MARGIN_Y_DISPLAY; //avanzo en 'y'
+		}
+	}
 }

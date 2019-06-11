@@ -58,9 +58,9 @@ update(void * model) {
 	const char * name_block = ((model_observed)->getBlockID()).c_str();
 
 
-	this->bitmap = resize_bitmap(this->bitmap, size_x, size_y);
+	//this->bitmap = resize_bitmap(this->bitmap, size_x, size_y);
 
-	graph_resources.drawImage(this->bitmap, (float)model_observed->get_pos_x(), (float)model_observed->get_pos_y());
+	graph_resources.drawImage(this->bitmap, (float)model_observed->get_pos_x(), (float)model_observed->get_pos_y(), size_x, size_y);
 
 	string aux = "Block ID: ";
 	string id = string(name_block);

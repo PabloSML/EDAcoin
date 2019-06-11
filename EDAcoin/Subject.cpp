@@ -43,5 +43,5 @@ Subject::~Subject(void)
 {
 	for (Observer* o : observers)
 		delete o;
-	std::cout << "~Suject()" << std::endl;
+	observers.clear();
 }

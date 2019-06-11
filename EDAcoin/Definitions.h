@@ -49,7 +49,7 @@ using namespace std;
 #define IMAGE_BLOCK_PATH					"block-image.png"
 #define FONT_PATH_BLOCK_NAME				"American Captain.ttf"
 #define FONT_SIZE_BLOCK_NAME				9
-#define FONT_COLOR_BLOCK_NAME				"white"
+#define FONT_COLOR_BLOCK_NAME				"black"
 
 #define PATH_BUTTON_LEFT		"button_left2.png"
 #define PATH_BUTTON_RIGHT		"button_right2.png"
