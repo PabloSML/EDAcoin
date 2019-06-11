@@ -110,6 +110,8 @@ int main()
 
 		
 	}
+	ALLEGRO_EVENT ev;
+	ev_data.al_ev = &ev;
 
 	while (!sim.shouldEnd())
 	{
@@ -122,7 +124,7 @@ int main()
 			}
 			else
 			{
-				ev_data.al_ev = nullptr;
+				//ev_data.al_ev = NULL;
 			}
 		}
 	}
