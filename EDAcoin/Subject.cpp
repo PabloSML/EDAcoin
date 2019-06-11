@@ -41,4 +41,5 @@ Subject::~Subject(void)
 {
 	for (Observer* o : observers)
 		delete o;
+	observers.clear();
 }

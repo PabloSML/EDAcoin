@@ -12,6 +12,7 @@ Controller_Sim::~Controller_Sim(void)
 {
 	for (Controller_Node* C : nodeControllers)
 		delete C;
+	nodeControllers.clear();
 }
 
 void

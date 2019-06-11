@@ -19,6 +19,7 @@ Controller_Blockchain::~Controller_Blockchain(void)
 {
 	for (Controller_Block* C : blockControllers)
 		delete C;
+	blockControllers.clear();
 }
 
 void
