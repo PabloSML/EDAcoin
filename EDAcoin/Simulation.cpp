@@ -98,6 +98,7 @@ Simulation::updateInsiderModels(void)
 {
 	for (Node* N : nodes)
 	{
+		al_set_target_backbuffer(display);
 		N->ping();
 		al_set_target_backbuffer(display);
 	}

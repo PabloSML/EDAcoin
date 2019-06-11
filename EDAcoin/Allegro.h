@@ -9,7 +9,7 @@
 #define DISPLAY_W	1300
 #define TEXTFONT "allegrofiles\\textfont.ttf"
 #define TEXTSIZE 30
-#define FPS	50
+#define FPS	1
 
 
 

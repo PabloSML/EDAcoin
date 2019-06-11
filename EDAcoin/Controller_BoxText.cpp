@@ -20,12 +20,9 @@ Controller_BoxText::~Controller_BoxText()
 
 
 void Controller_BoxText::
-parseTimerEvent(EventData * ev) //refresh
+parseTimerEvent(EventData * ev) 
 {
-	if (this->is_subject_attached() == true)
-	{
-		model->ping();
-	}
+
 }
 
 
@@ -73,7 +70,7 @@ parseKeyboardEvent(EventData * ev) //nothing
 
 				if (model->get_actual_text().size() < (size_t) MAX_SIZE_TEXT_BOXTEXT)
 				{
-					int key_num_pressed = ev->al_ev->keyboard.keycode - ALLEGRO_KEY_1;
+					int key_num_pressed = ev->al_ev->keyboard.keycode - ALLEGRO_KEY_0;
 
 					string str_char = to_string(key_num_pressed);
 
@@ -115,8 +112,10 @@ parseKeyboardEvent(EventData * ev) //nothing
 			case ALLEGRO_KEY_Z:
 
 
-				if (model->get_actual_text().size() < (size_t)MAX_SIZE_TEXT_BOXTEXT)
+				if (model->get_actual_text().length() < (size_t)MAX_SIZE_TEXT_BOXTEXT)
 				{
+					
+
 					int delta_key_char_pressed = ev->al_ev->keyboard.keycode - ALLEGRO_KEY_A;
 
 					char key_char_pressed;
@@ -130,14 +129,16 @@ parseKeyboardEvent(EventData * ev) //nothing
 						key_char_pressed = 'a' + delta_key_char_pressed;
 					}
 
-						
-					string str_char = to_string(key_char_pressed);
 
-					string actual_text = model->get_actual_text() + str_char;
+
+					string actual_text = model->get_actual_text() + key_char_pressed;
+
 
 					model->set_text(actual_text);
 
 					model->ping();
+
+				
 				}
 
 
@@ -151,16 +152,15 @@ parseKeyboardEvent(EventData * ev) //nothing
 					
 					char key_char_pressed = ',';
 
-					string str_char = to_string(key_char_pressed);
 
-					string actual_text = model->get_actual_text() + str_char;
+					string actual_text = model->get_actual_text() + key_char_pressed;
 
 					model->set_text(actual_text);
 
 					model->ping();
 				}
 
-
+				break;
 
 			case ALLEGRO_KEY_FULLSTOP:
 
@@ -170,18 +170,24 @@ parseKeyboardEvent(EventData * ev) //nothing
 
 					char key_char_pressed = '.';
 
-					string str_char = to_string(key_char_pressed);
-
-					string actual_text = model->get_actual_text() + str_char;
+					string actual_text = model->get_actual_text() + key_char_pressed;
 
 					model->set_text(actual_text);
 
 					model->ping();
 				}
 
-				
+			
 
 
+			break;
+
+			case ALLEGRO_KEY_DELETE:
+				string str_empty= string("");
+
+				model->set_text(str_empty);
+
+				model->ping();
 
 			break;
 		}
