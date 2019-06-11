@@ -31,6 +31,36 @@ Controller_Sim::dispatcher(EventData* ev)
 	}
 }
 
+void
+Controller_Sim::addNodeController(Controller_Node* nodeCtrl)
+{
+	nodeControllers.push_back(nodeCtrl);
+}
+
+bool
+Controller_Sim::removeNodeController(Controller_Node* nodeCtrl)
+{
+	bool success = false;
+	size_t currentSize = nodeControllers.size();
+
+	delete nodeCtrl;
+	nodeControllers.remove(nodeCtrl);
+
+	if (currentSize - 1 == nodeControllers.size())
+	{
+		success = true;
+	}
+
+	return success;
+}
+
+void
+Controller_Sim::removeAllNodeCtrl(void)
+{
+	for (Controller_Node* C : nodeControllers)
+		delete C;
+	nodeControllers.clear();
+}
 
 void
 Controller_Sim::parseMouseEvent(EventData* ev)

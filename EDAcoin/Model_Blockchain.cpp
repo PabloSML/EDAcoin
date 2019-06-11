@@ -6,18 +6,9 @@
 #define CANT_TX_SPV	0 //cualquier numero
 
 Model_Blockchain::
-Model_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue) : blockCount(0)
+Model_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue) : blockCount(0), cant_board(0), actual_board(0),
+enable_show_merkle_trees(false)
 {
-	this->cant_board = (unsigned int)(blockchain->size() / MAX_BLOCKS_PER_DISPLAY);	
-
-	if (!(blockchain->size() % MAX_BLOCKS_PER_DISPLAY)) //si la division es exacta
-	{
-		(this->cant_board)--;
-	}
-
-	this->actual_board = 0;
-	this->enable_show_merkle_trees = false;
-
 	//**
 	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT);		// Intenta crear display de fallar devuelve NULL
 	if (!display) {
@@ -78,8 +69,6 @@ void Model_Blockchain::
 set_blockchain(vector<Model_Block>* new_blockchain) {
 	
 	this->blockchain = new_blockchain; 
-	
-	recountBlocks();
 
 	this->cant_board = (unsigned int)(blockchain->size() / MAX_BLOCKS_PER_DISPLAY);
 

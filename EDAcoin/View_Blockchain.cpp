@@ -20,8 +20,8 @@ View_Blockchain(unsigned int width_display, unsigned int heigth_display):
 {
 	
 
-	(this->buttons)[BUTTON_LEFT] = ImageDescriptor(PATH_BUTTON_LEFT);
-	(this->buttons)[BUTTON_RIGHT] = ImageDescriptor(PATH_BUTTON_RIGHT);
+	(this->buttons).push_back(ImageDescriptor(PATH_BUTTON_LEFT));
+	(this->buttons).push_back(ImageDescriptor(PATH_BUTTON_RIGHT));
 
 	(buttons[BUTTON_LEFT]).set_pos(BUTTON_SIZE_X * MARGIN_RATE, heigth_display - BUTTON_SIZE_Y);
 	(buttons[BUTTON_RIGHT]).set_pos(width_display - BUTTON_SIZE_X, heigth_display - BUTTON_SIZE_Y - (BUTTON_SIZE_Y * MARGIN_RATE));

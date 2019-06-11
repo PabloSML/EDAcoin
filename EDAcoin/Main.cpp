@@ -25,7 +25,7 @@ using json = nlohmann::json;
 
 #define TEN_SEC 10000
 
-// Aux Function n
+// Aux Function
 
 bool init_resources(void);
 bool getBlockChainJson(json* dest, const char* file);
@@ -60,6 +60,10 @@ int main()
 	RegularNodeView* f2RView = new RegularNodeView(FULL_IMG_PATH);
 	RegularNodeView* s1RView = new RegularNodeView(SPV_IMG_PATH);
 
+	Controller_Node* f1Control = new Controller_Node(&f1);
+	Controller_Node* f2Control = new Controller_Node(&f2);
+	Controller_Node* s1Control = new Controller_Node(&s1);
+
 	f1.attach(f1RView); // se conectan los observers a los subjects
 	f2.attach(f2RView);
 	s1.attach(s1RView);
@@ -68,10 +72,9 @@ int main()
 	sim.addNode(&f2);
 	sim.addNode(&s1);
 
-	//simulationView.attach(&f1RView);
-	//simulationView.attach(&f2RView);
-	//simulationView.attach(&s1RView);
-	//**cada vez que hace el attach, llama a draw????
+	simCtrl.addNodeController(f1Control);
+	simCtrl.addNodeController(f2Control);
+	simCtrl.addNodeController(s1Control);
 
 //Se conectan los fullnodes con los spvnodes y entre ellos
 //	f1 <-> f2
@@ -126,8 +129,7 @@ int main()
 	}
 
 
-	destroyAllegro(ev_data.event_queue, timer
-);
+	destroyAllegro(ev_data.event_queue, timer);
 
 	return 0;
 

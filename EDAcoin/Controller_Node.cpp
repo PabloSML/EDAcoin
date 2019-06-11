@@ -79,7 +79,7 @@ bool Controller_Node::clickInMe(EventData* ev)
 	pos_t pos = model->getPos();
 	int clickPosX = ev->al_ev->mouse.x;
 	int clickPosY = ev->al_ev->mouse.y;
-	float distance = sqrt(pow((pos.posX - clickPosX), 2) + pow((pos.posY - clickPosY), 2));
+	float distance = sqrt(pow((pos.posX+RADIUS - clickPosX), 2) + pow((pos.posY+RADIUS - clickPosY), 2));
 	if (distance <= RADIUS)
 		return true;
 	else
