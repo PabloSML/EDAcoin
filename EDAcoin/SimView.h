@@ -2,6 +2,8 @@
 #include "Observer.h"
 #include "Simulation.h"
 #include <list>
+#include <iostream>
+#include <allegro5/allegro.h>
 #include <allegro5\allegro_color.h>
 using namespace std;
 
@@ -10,12 +12,10 @@ public:
 	SimView(){}
 	~SimView(){}
 
-	/*void attach(Observer* view);	probablemente lo volemos
-	bool detach(Observer* view);*/
-
 	virtual void update(void* model);
 
+	ALLEGRO_DISPLAY* getDisplay(void) { return display; }
 
 private:
-	//list<Observer*> views;
+	ALLEGRO_DISPLAY* display;
 };

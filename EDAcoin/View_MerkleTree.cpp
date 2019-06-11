@@ -13,24 +13,13 @@ static unsigned int get_depth_tree(MerkleNode * merkle_root);
 
 
 View_MerkleTree::
-View_MerkleTree(ALLEGRO_EVENT_QUEUE* event_queue, unsigned int width_display, unsigned int heigth_display, unsigned int margin_x, unsigned int margin_y) :
+View_MerkleTree( unsigned int width_display, unsigned int heigth_display, unsigned int margin_x, unsigned int margin_y) :
 	graph_resources()
 {
-	//**
-	display = al_create_display(width_display + 2 * margin_x, heigth_display + 2 * margin_y); // Intenta crear display de fallar devuelve NULL
-	if (!display) {
-		fprintf(stderr, "failed to create display!\n");
-		init_ok = false;
-		return;
-	}
-	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
-	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
-	//**
-
-
+	
 	this->node_image = al_load_bitmap(MERKLE_NODE_IMAGE_PATH);
 
-	if (this->node_image == nullptr)		//**en la documentacion de allegro dice que al_load_bitmap returns NULL on error.
+	if (this->node_image == NULL)		//**en la documentacion de allegro dice que al_load_bitmap returns NULL on error.
 	{
 		this->init_ok = false;
 	}
@@ -47,7 +36,6 @@ View_MerkleTree(ALLEGRO_EVENT_QUEUE* event_queue, unsigned int width_display, un
 View_MerkleTree::
 ~View_MerkleTree(void)
 {
-	al_destroy_display(display);
 	if (this->init_ok == true)
 	{
 		al_destroy_bitmap(this->node_image);

@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <list>
 #include "Subject.h"
 #include "Node.h"
@@ -8,8 +9,8 @@ using namespace std;
 
 class Simulation : public Subject {
 public:
-	Simulation(){}
-	~Simulation(){}
+	Simulation(ALLEGRO_EVENT_QUEUE* queue);
+	~Simulation();
 
 	void addNode(Node* node);
 	bool removeNode(Node* node);
@@ -26,14 +27,12 @@ public:
 	ALLEGRO_DISPLAY* getDisplay(void);
 	bool shouldEnd(void);
 
-
-
 private:
 	list<Node*> nodes; //aca no iria vector??? por?
 	list<Model_BoxText*> textBoxes;
 	list<Model_PushButton*> buttons;
 	bool end;
 	ALLEGRO_DISPLAY* display;
-
+	bool init_ok;
 
 };

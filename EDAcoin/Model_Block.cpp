@@ -85,8 +85,8 @@ Model_Block::createMerkleTreeModel(MerkleNode* root, ALLEGRO_EVENT_QUEUE* event_
 {
 	if (myMerkleTreeModel == nullptr)
 	{
-		myMerkleTreeModel = new Model_MerkleTree(root);
-		View_MerkleTree* tempView = new View_MerkleTree(event_queue,WIDTH_DEFAULT, HEIGHT_DEFAULT);
+		myMerkleTreeModel = new Model_MerkleTree(root,event_queue);
+		View_MerkleTree* tempView = new View_MerkleTree(WIDTH_DEFAULT, HEIGHT_DEFAULT);
 		myMerkleTreeModel->attach(tempView);
 	}
 }
