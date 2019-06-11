@@ -124,7 +124,7 @@ int main()
 			}
 			else
 			{
-				//ev_data.al_ev = NULL;
+				//ev_data.al_ev = nullptr;
 			}
 		}
 	}
