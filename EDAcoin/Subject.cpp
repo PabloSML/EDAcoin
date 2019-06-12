@@ -1,4 +1,6 @@
 #include "Subject.h"
+#include <iostream>
+
 
 void
 Subject::attach(Observer* ptr)
@@ -45,6 +47,7 @@ get_observers_attached(void) {
 
 Subject::~Subject(void)
 {
+	cout << "~Subject" << endl;
 	for (Observer* o : observers)
 		delete o;
 	observers.clear();
