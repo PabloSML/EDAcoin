@@ -1,4 +1,6 @@
 #include "Subject.h"
+#include <iostream>
+
 
 void
 Subject::attach(Observer* ptr)
