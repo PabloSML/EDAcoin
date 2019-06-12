@@ -13,6 +13,14 @@ Controller_Blockchain::Controller_Blockchain(Model_Blockchain* owner) : Controll
 {
 	Subject* subj = this->get_subject_attach();
 	model = (Model_Blockchain *)subj;
+
+	vector<Model_Button_Blockchain*> buttons_model = model->get_buttons();
+
+	Controller_Button_Blockchain * button_left_contr = new Controller_Button_Blockchain(buttons_model[BUTTON_LEFT]);
+	Controller_Button_Blockchain * button_right_contr = new Controller_Button_Blockchain(buttons_model[BUTTON_RIGHT]);
+
+	this->buttonsControllers.push_back(button_left_contr);
+	this->buttonsControllers.push_back(button_right_contr);
 }
 
 Controller_Blockchain::~Controller_Blockchain(void)
@@ -20,6 +28,10 @@ Controller_Blockchain::~Controller_Blockchain(void)
 	for (Controller_Block* C : blockControllers)
 		delete C;
 	blockControllers.clear();
+
+	for (Controller_Button_Blockchain * Buttons_contr : buttonsControllers)
+		delete Buttons_contr;
+
 }
 
 void
@@ -31,8 +43,8 @@ Controller_Blockchain::parseMouseEvent(EventData* ev)
 		{
 			model->triggerEnd();
 		}
-
 		else if (model->can_show_merkle_trees())  // si este modelo no puede mostrar trees, se ignora lo siguiente
+		
 		{
 			for (int i = 0; i < (int)blockControllers.size(); i++)
 			{
@@ -41,12 +53,25 @@ Controller_Blockchain::parseMouseEvent(EventData* ev)
 			}
 		}
 
-		//**Para ver si se presionaron los botones left o right necesito que sus posiciones esten en el model (ahora estan en view)
+		unsigned int board_cant = this->model->get_cant_boards();
+
+
+		if (this->buttonsControllers[BUTTON_LEFT]->clickInMe(ev) && ( model->get_actual_board() > 0 ) ) //se que no es necesario el > 0
+		{
+			model->set_actual_board(model->get_actual_board() - 1);
+		}
+
+		if (this->buttonsControllers[BUTTON_RIGHT]->clickInMe(ev) && (model->get_cant_boards() > model->get_actual_board())) //se que no es necesario el > 0
+		{
+			model->set_actual_board(model->get_actual_board() + 1);
+		}
+
+
 	}
 	else // si el evento no fue en la pantalla de bchain, se sabe que es de merkleTree y pasa directo
 	{
 		for (Controller_Block* C : blockControllers)
-			C->parseMouseEvent(ev);
+			C->forwardMouseEvent(ev);
 	}
 }
 
@@ -96,7 +121,8 @@ Controller_Blockchain::parseTimerEvent(EventData* ev)
 }
 
 void
-Controller_Blockchain::forwardMouseEvent(EventData* ev) {} // nothing
+Controller_Blockchain::forwardMouseEvent(EventData* ev) {
+} // nothing
 
 void
 Controller_Blockchain::forwardKeyboardEvent(EventData* ev) {} // nothing
@@ -104,7 +130,8 @@ Controller_Blockchain::forwardKeyboardEvent(EventData* ev) {} // nothing
 bool
 Controller_Blockchain::isThisMine(EventData* ev)
 {
-	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->display.source;
+	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->touch.display;
+
 	ALLEGRO_DISPLAY* myDisplay = model->getDisplay();
 
 	if (evDisplay == myDisplay)
@@ -122,9 +149,6 @@ bool Controller_Blockchain::shouldModelDie(void)
 
 void Controller_Blockchain::refresh_positions_blocks_on_board(void)
 {
-
-
-
 
 	unsigned int board_actual = this->model->get_actual_board();
 	unsigned int block_count = this->model->getBlockCount();

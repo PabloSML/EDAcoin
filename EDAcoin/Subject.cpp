@@ -37,6 +37,12 @@ Subject::notifyObservers(void)
 		o->update(this);
 }
 
+
+list<Observer*> Subject::
+get_observers_attached(void) {
+	return this->observers;
+}
+
 Subject::~Subject(void)
 {
 	for (Observer* o : observers)

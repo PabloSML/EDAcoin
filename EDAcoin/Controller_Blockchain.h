@@ -3,6 +3,8 @@
 #include "Controller.h"
 #include "Model_Blockchain.h"
 #include "Controller_Block.h"
+#include "Controller_Button_Blockchain.h"
+
 using namespace std;
 
 class Controller_Blockchain : public Controller {
@@ -29,6 +31,8 @@ private:
 
 	Model_Blockchain* model;
 	vector<Controller_Block*> blockControllers;
+
+	vector<Controller_Button_Blockchain*> buttonsControllers;
 
 	bool isThisMine(EventData* ev);
 };

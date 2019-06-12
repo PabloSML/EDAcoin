@@ -3,6 +3,9 @@
 #include <iostream>
 #include "View_Block.h"
 
+
+#include "View_Button_Blockchain.h"
+
 #define CANT_TX_SPV	0 //cualquier numero
 
 Model_Blockchain::
@@ -20,6 +23,28 @@ enable_show_merkle_trees(false)
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
 	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
 	//**
+
+	Model_Button_Blockchain * button_left = new Model_Button_Blockchain(BUTTON_SIZE_X, BUTTON_SIZE_Y);
+	Model_Button_Blockchain * button_right = new Model_Button_Blockchain(BUTTON_SIZE_X, BUTTON_SIZE_Y);
+
+	View_Button_Blockchain * view_buton_left = new View_Button_Blockchain(PATH_BUTTON_LEFT);
+	View_Button_Blockchain * view_buton_rigth = new View_Button_Blockchain(PATH_BUTTON_RIGHT);
+
+
+	button_left->attach(view_buton_left);
+	button_left->attach(view_buton_rigth);
+
+	unsigned int width_display = al_get_display_width(this->getDisplay());
+	unsigned int heigth_display = al_get_display_height(this->getDisplay());
+
+	button_left->set_pos(BUTTON_SIZE_X * MARGIN_RATE, heigth_display - BUTTON_SIZE_Y);
+	button_right->set_pos(width_display - BUTTON_SIZE_X, heigth_display - BUTTON_SIZE_Y - (BUTTON_SIZE_Y * MARGIN_RATE));
+
+	(this->model_buttons).push_back(button_left);
+	(this->model_buttons).push_back(button_right);
+
+
+
 }
 
 Model_Blockchain::
@@ -30,8 +55,23 @@ Model_Blockchain::
 		al_destroy_display(display);
 		init_ok = false;
 	}
+
 	for (Model_Block C : (*blockchain))
 		C.destroyMerkleTreeModel();
+
+	for (Observer * O1 : this->model_buttons[BUTTON_LEFT]->get_observers_attached())
+	{
+		delete O1;
+	}
+
+	for (Observer * O1 : this->model_buttons[BUTTON_RIGHT]->get_observers_attached())
+	{
+		delete O1;
+	}
+
+
+	for (Model_Button_Blockchain * B : model_buttons)
+		delete B;
 }
 
 //getters
@@ -65,6 +105,10 @@ Model_Block* Model_Blockchain::getBlockbyIndex(unsigned int index)
 }
 
 unsigned int Model_Blockchain::getBlockCount(void) { return blockCount; }
+
+
+vector<Model_Button_Blockchain*> Model_Blockchain::
+get_buttons(void) { return this->model_buttons; }
 
 //setters
 void Model_Blockchain::

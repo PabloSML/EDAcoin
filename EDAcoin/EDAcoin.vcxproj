@@ -126,6 +126,7 @@
     <ClInclude Include="Blockchain_Service.h" />
     <ClInclude Include="BoxPanel.h" />
     <ClInclude Include="Controller_BoxText.h" />
+    <ClInclude Include="Controller_Button_Blockchain.h" />
     <ClInclude Include="Controller_PushButton.h" />
     <ClInclude Include="Controller_Sim.h" />
     <ClInclude Include="Controller_Block.h" />
@@ -140,10 +141,11 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="FullNode.h" />
-    <ClInclude Include="ImageDescriptor.h" />
     <ClInclude Include="ImagesManager.h" />
     <ClInclude Include="Labels.h" />
     <ClInclude Include="MerkleNode.h" />
+    <ClInclude Include="View_Button_Blockchain.h" />
+    <ClInclude Include="Widget.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="RegularNodeView.h" />
@@ -167,6 +169,7 @@
     <ClCompile Include="Controller_Block.cpp" />
     <ClCompile Include="Controller_Blockchain.cpp" />
     <ClCompile Include="Controller_BoxText.cpp" />
+    <ClCompile Include="Controller_Button_Blockchain.cpp" />
     <ClCompile Include="Controller_MerkleTree.cpp" />
     <ClCompile Include="Controller_Node.cpp" />
     <ClCompile Include="Controller_PushButton.cpp" />
@@ -178,9 +181,10 @@
     <ClCompile Include="Model_Blockchain.h" />
     <ClCompile Include="Model_BoxText.cpp" />
     <ClCompile Include="FullNode.cpp" />
-    <ClCompile Include="ImageDescriptor.cpp" />
     <ClCompile Include="ImagesManager.cpp" />
     <ClCompile Include="MerkleNode.cpp" />
+    <ClCompile Include="Model_Button_Blockchain.cpp" />
+    <ClCompile Include="Model_Button_Blockchain.h" />
     <ClCompile Include="Model_MerkleTree.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Model_PushButton.cpp" />
@@ -193,8 +197,10 @@
     <ClCompile Include="View_Block.cpp" />
     <ClCompile Include="View_Blockchain.cpp" />
     <ClCompile Include="View_BoxText.cpp" />
+    <ClCompile Include="View_Button_Blockchain.cpp" />
     <ClCompile Include="View_MerkleTree.cpp" />
     <ClCompile Include="View_PushButton.cpp" />
+    <ClCompile Include="Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

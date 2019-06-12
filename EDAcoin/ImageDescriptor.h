@@ -14,20 +14,20 @@ using namespace std;
 class ImageDescriptor
 {
 public:
-	ImageDescriptor();
-	ImageDescriptor(const char * path_image);
-	~ImageDescriptor();
+	//ImageDescriptor();
+	//ImageDescriptor(const char * path_image);
+//	~ImageDescriptor();
 
-	bool is_select(void);
-	void toggle_selection(void);
+//	bool is_select(void);
+//	void toggle_selection(void);
 
-	void set_pos(int pos_x, int pos_y);
+//	void set_pos(int pos_x, int pos_y);
 
-	int get_pos_x(void);
-	int get_pos_y(void);
+//	int get_pos_x(void);
+//	int get_pos_y(void);
 
-	unsigned int get_width();
-	unsigned int get_heigth();
+//	unsigned int get_width();
+//	unsigned int get_heigth();
 
 	const char * get_path(void);
 	const char * get_image_name(void);

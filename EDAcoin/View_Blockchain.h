@@ -19,7 +19,6 @@ class View_Blockchain : public Observer {
 	private:
 
 		Allegro graph_resources;
-		vector <ImageDescriptor> buttons;
 
 		//**
 		unsigned int width;

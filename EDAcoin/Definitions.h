@@ -79,6 +79,8 @@ using namespace std;
 
 #define MAX_SIZE_TEXT_BOXTEXT						25
 
+#define COLOR_BACKGROUND_BLOCKCHAIN		"white"
+
 
 typedef struct {
 	string blockID;

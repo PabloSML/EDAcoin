@@ -28,7 +28,10 @@ void
 Controller_Block::parseKeyboardEvent(EventData * ev){} //nothing
 
 void
-Controller_Block::parseMouseEvent(EventData* ev) {} // nothing (usa la version especializada que recibe tree)
+Controller_Block::parseMouseEvent(EventData* ev) {
+
+
+} // nothing (usa la version especializada que recibe tree)
 
 void
 Controller_Block::parseMouseEvent(EventData* ev, MerkleNode* tree)

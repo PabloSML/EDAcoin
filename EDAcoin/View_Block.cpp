@@ -55,15 +55,11 @@ update(void * model) {
 	float pos_x = (float) model_observed->get_pos_x() + size_x/2;
 	float pos_y = (float) model_observed->get_pos_y() + size_y + MARGIN_BLOCK_BTW_NAME_AND_IMAGE;
 
-	const char * name_block = ((model_observed)->getBlockID()).c_str();
-
-
-	//this->bitmap = resize_bitmap(this->bitmap, size_x, size_y);
 
 	graph_resources.drawImage(this->bitmap, (float)model_observed->get_pos_x(), (float)model_observed->get_pos_y(), size_x, size_y);
 
 	string aux = "Block ID: ";
-	string id = string(name_block);
+	string id = (model_observed)->getBlockID();
 
 	id = aux + id;
 

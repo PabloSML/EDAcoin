@@ -7,9 +7,6 @@
     <ClCompile Include="BoxPanel.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="ImageDescriptor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="ImagesManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -109,6 +106,21 @@
     <ClCompile Include="Blockchain_Message.cpp">
       <Filter>Source\BlockChain</Filter>
     </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_Button_Blockchain.h">
+      <Filter>Headers\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_Button_Blockchain.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="View_Button_Blockchain.cpp">
+      <Filter>Source\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller_Button_Blockchain.cpp">
+      <Filter>Source\Controllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -118,9 +130,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Definitions.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageDescriptor.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="ImagesManager.h">
@@ -218,6 +227,15 @@
     </ClInclude>
     <ClInclude Include="Blockchain_Message.h">
       <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="View_Button_Blockchain.h">
+      <Filter>Headers\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller_Button_Blockchain.h">
+      <Filter>Headers\Controllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

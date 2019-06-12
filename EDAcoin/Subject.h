@@ -32,6 +32,9 @@ public:
 	*/
 	bool dettach(Observer* ptr);
 
+
+	list<Observer*> get_observers_attached(void);
+
 	/*
 	* ping
 	* llamada externa a notifyAllObservers
