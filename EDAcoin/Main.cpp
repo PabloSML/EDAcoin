@@ -93,7 +93,6 @@ int main()
 
 	if (getBlockChainJson(&blockChainJson, "test.json"))	//Se obtienen los bloques de "test.json"
 	{
-
 		int size = (unsigned int)blockChainJson.size();
 		for (int i = 0; (i < size); i++)
 		{
@@ -111,8 +110,6 @@ int main()
 			unsigned long index = 20000000;
 
 		}
-
-		
 	}
 
 	ALLEGRO_EVENT ev;

@@ -39,6 +39,7 @@ Subject::notifyObservers(void)
 
 Subject::~Subject(void)
 {
+	cout << "~Subject" << endl;
 	for (Observer* o : observers)
 		delete o;
 	observers.clear();
