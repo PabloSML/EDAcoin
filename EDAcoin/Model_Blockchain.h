@@ -32,6 +32,8 @@ class Model_Blockchain: public Subject
 		void set_blockchain(vector<Model_Block>* new_blockchain);
 		void set_blockchain(vector<blockHeader>* new_blockHeaders);
 		void set_actual_board(unsigned int new_actual_board);
+		void set_merkle_trees(vector<MerkleNode*>* new_merkle_trees);
+
 		void triggerEnd(void);
 
 		unsigned int recountBlocks(void);

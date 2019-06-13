@@ -159,9 +159,13 @@ FullNode::createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue)
 	{
 		myBlockChainModel = new Model_Blockchain(event_queue);
 		myBlockChainModel->set_blockchain(&blockChain);
+		myBlockChainModel->set_merkle_trees(&merkleTrees);
+		
 		View_Blockchain* tempView = new View_Blockchain(WIDTH_DEFAULT, HEIGHT_DEFAULT);
 		myBlockChainModel->attach(tempView);
 	}
+
+	
 }
 
 /*Esta funcion guarda en el vector de TransactionS todas las transacciones que estan en el json ingresado*/

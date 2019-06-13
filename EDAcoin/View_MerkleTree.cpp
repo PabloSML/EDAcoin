@@ -107,6 +107,7 @@ static void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigne
 			ALLEGRO_ALIGN_CENTER, (merkleRoot->getNodeID()).c_str());
 
 	}
+
 }
 
 static unsigned int get_depth_tree(MerkleNode * merkle_root)

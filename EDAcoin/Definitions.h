@@ -1,5 +1,4 @@
-#ifndef DEFINITIONS_H
-#define DEFINITIONS_H
+#pragma once
 
 #include "allegro5/allegro.h"
 #include "allegro5/color.h"
@@ -111,5 +110,3 @@ typedef struct {
 	string blockID;
 }EdaMerkleBlockS;
 
-
-#endif // !DEFINITIONS_H

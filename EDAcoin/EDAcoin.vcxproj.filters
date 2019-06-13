@@ -10,9 +10,6 @@
     <ClCompile Include="ImagesManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Model_Blockchain.h">
-      <Filter>Headers\Models</Filter>
-    </ClCompile>
     <ClCompile Include="Controller_Block.cpp">
       <Filter>Source\Controllers</Filter>
     </ClCompile>
@@ -108,9 +105,6 @@
     </ClCompile>
     <ClCompile Include="Widget.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Model_Button_Blockchain.h">
-      <Filter>Headers\Models</Filter>
     </ClCompile>
     <ClCompile Include="Model_Button_Blockchain.cpp">
       <Filter>Source\Models</Filter>
@@ -236,6 +230,12 @@
     </ClInclude>
     <ClInclude Include="Controller_Button_Blockchain.h">
       <Filter>Headers\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Model_Blockchain.h">
+      <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Model_Button_Blockchain.h">
+      <Filter>Headers\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

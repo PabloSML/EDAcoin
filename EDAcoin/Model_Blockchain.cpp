@@ -187,3 +187,10 @@ Model_Blockchain::updateBlocksbyIndex(unsigned int index)
 	if(index < blockCount)
 		(*blockchain)[index].ping();
 }
+
+
+void Model_Blockchain::
+set_merkle_trees(vector<MerkleNode*> * new_merkle_trees)
+{
+	this->merkle_tree = new_merkle_trees;
+}

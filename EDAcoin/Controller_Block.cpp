@@ -40,6 +40,7 @@ Controller_Block::parseMouseEvent(EventData* ev, MerkleNode* tree)
 	{
 		model->createMerkleTreeModel(tree,ev->event_queue);	// tener en cuenta que ninguno de estos metodos crea si ya habia algo de antes
 		createMerkleTreeCtrl();
+		al_flip_display();
 	}
 }
 

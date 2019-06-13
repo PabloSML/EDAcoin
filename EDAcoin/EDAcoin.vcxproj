@@ -135,7 +135,9 @@
     <ClInclude Include="Controller_Node.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
     <ClInclude Include="Model_Block.h" />
+    <ClInclude Include="Model_Blockchain.h" />
     <ClInclude Include="Model_BoxText.h" />
+    <ClInclude Include="Model_Button_Blockchain.h" />
     <ClInclude Include="Model_MerkleTree.h" />
     <ClInclude Include="Model_PushButton.h" />
     <ClInclude Include="Controller.h" />
@@ -178,13 +180,11 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Model_Block.cpp" />
     <ClCompile Include="Model_Blockchain.cpp" />
-    <ClCompile Include="Model_Blockchain.h" />
     <ClCompile Include="Model_BoxText.cpp" />
     <ClCompile Include="FullNode.cpp" />
     <ClCompile Include="ImagesManager.cpp" />
     <ClCompile Include="MerkleNode.cpp" />
     <ClCompile Include="Model_Button_Blockchain.cpp" />
-    <ClCompile Include="Model_Button_Blockchain.h" />
     <ClCompile Include="Model_MerkleTree.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Model_PushButton.cpp" />
