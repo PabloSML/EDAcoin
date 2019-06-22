@@ -9,7 +9,10 @@ Simulation::Simulation(ALLEGRO_EVENT_QUEUE* queue)
 		init_ok = false;
 	}
 	else
+	{
 		al_register_event_source(queue, al_get_display_event_source(display));
+		init_ok = true;
+	}
 }
 
 Simulation::~Simulation(void)

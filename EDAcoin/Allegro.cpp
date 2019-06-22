@@ -53,12 +53,14 @@ ALLEGRO_EVENT_QUEUE* initAllegro(ALLEGRO_TIMER*& timer)		//**se puede agregar ti
 
 void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_TIMER*& timer)
 {
+	/*
 	al_stop_timer(timer);
 	al_shutdown_font_addon();
 	al_shutdown_ttf_addon();
 	al_shutdown_image_addon();
 	al_uninstall_keyboard();
 	al_uninstall_mouse();
+	*/
 	al_destroy_event_queue(queue);
 	al_destroy_timer(timer);
 }
