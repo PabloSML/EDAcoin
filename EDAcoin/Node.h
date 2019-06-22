@@ -6,7 +6,7 @@
 #include "Definitions.h"
 #include "Subject.h"
 
-#include "Blockchain_Message.h"
+//#include "Blockchain_Message.h"
 
 #include "Model_Blockchain.h"
 #include "View_Blockchain.h"
@@ -41,7 +41,7 @@ public:
 	virtual void attachConnection(Node* connection) { connections.push_back(connection); }
 	virtual bool dettachConnection(Node* connection);
 
-	void push_message(blockchain_message& message);
+	//void push_message(blockchain_message& message);
 
 	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue) = 0;
 	void destroyBlockChainModel(void);
@@ -58,5 +58,5 @@ protected:
 
 	Model_Blockchain* myBlockChainModel; // veremos si no es necesario.
 
-	vector<blockchain_message> buffer_messages;
+	//vector<blockchain_message> buffer_messages;
 };

@@ -37,7 +37,7 @@ SPVNode::pullHeaderfromFullNode()	// analogamente, luego recibira json
 				string tempBlockID = itr->blockID;
 				tempFull->requestLatestHeaders(&headerReceptor, tempBlockID);	// luego de esta funcion, la conexion con el full deja de ser necesaria y se pasa a procesar lo recibido
 			}
-			for (blockHeader b : headerReceptor)
+			for (blockHeader& b : headerReceptor)
 			{
 				searchAndValidate(b);
 				blockHeaders.push_back(b);
@@ -129,13 +129,13 @@ SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToVali
 		unsigned long wantedRoot = headerToValidate.merkleRoot;
 
 		vector<MerkleValidationData>::iterator dataItr = blockToValidate.merklePathDataForTxs.begin();
-		for (TransactionS tx : blockToValidate.transactions)
+		for (TransactionS& tx : blockToValidate.transactions)
 		{
 			unsigned long obtainedRoot;
 			string ID = tx.txID;	// el ID inicial sera el ID de la transaccion
 			string concat;
 
-			for (Step stp : dataItr->merklePath)
+			for (Step& stp : dataItr->merklePath)
 			{
 				direction stepDir = stp.getDir();
 

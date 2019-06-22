@@ -50,7 +50,7 @@ FullNode::recieveBlock(json& jsonBlock)
 	
 	unsigned long numID = stoi(rootID);
 
-	Model_Block newBlock(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
+	Model_Block* newBlock = new Model_Block(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
 	blockChain.push_back(newBlock);
 }
 
@@ -58,10 +58,10 @@ void
 FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 {
 	bool found = false;
-	vector<Model_Block>::reverse_iterator ritr = blockChain.rbegin();
+	vector<Model_Block*>::reverse_iterator ritr = blockChain.rbegin();
 	for (ritr; ritr < blockChain.rend() && !found; ritr++)		// primero se busca el match empezando desde los ultimos headers (si el spv ya esta conectado esto supone el metodo mas eficiente de recorrer el vector).
 	{
-		if (ritr->getBlockID() == latestID)
+		if ((*ritr)->getBlockID() == latestID)
 		{
 			found = true;
 		}
@@ -70,10 +70,10 @@ FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 	{
 		ritr--;	// se corrige el offset que generara el incremento al terminar el ciclo
 		ritr--;	// se vuelve al primer block no conocido (siguiente al conocido)
-		vector<Model_Block>::iterator itr = ritr.base();
+		vector<Model_Block*>::iterator itr = ritr.base();
 		for (itr; itr < blockChain.end(); itr++)
 		{
-			blockHeader tempHeader = itr->getBlockHeader();
+			blockHeader tempHeader = (*itr)->getBlockHeader();
 			dest->push_back(tempHeader);
 		}
 	}
@@ -82,9 +82,9 @@ FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 void
 FullNode::requestAllHeaders(vector<blockHeader>* dest)
 {
-	for (Model_Block B : blockChain)
+	for (Model_Block* B : blockChain)
 	{
-		blockHeader tempHeader = B.getBlockHeader();
+		blockHeader tempHeader = B->getBlockHeader();
 		dest->push_back(tempHeader);
 	}
 }
@@ -99,18 +99,18 @@ FullNode::requestHeaderCount()
 void
 FullNode::sendInfo2Spv()
 {
-	vector<Model_Block>::reverse_iterator bChainItr = blockChain.rbegin();
-	string blockID = bChainItr->getBlockID();
+	vector<Model_Block*>::reverse_iterator bChainItr = blockChain.rbegin();
+	string blockID = (*bChainItr)->getBlockID();
 	vector<MerkleNode*>::reverse_iterator mkTreeItr = merkleTrees.rbegin();
 	MerkleNode* root = *mkTreeItr;
-	vector<TransactionS> allTrans = bChainItr->get_transactions();	// obtiene las transacciones del ultimo bloque agregado
+	vector<TransactionS> allTrans = (*bChainItr)->get_transactions();	// obtiene las transacciones del ultimo bloque agregado
 	for (SPVNode* s : filters)	//ejecuta el siguiente codigo por cada nodo spv conectado al full
 	{
 		EdaMerkleBlockS merkleBlock;
 		vector<TransactionS> spvTrans;
 		vector<MerkleValidationData> spvMerkleData;
 		string spvID = s->getNodeID();
-		for (TransactionS t : allTrans)
+		for (TransactionS& t : allTrans)
 		{
 			string txActor = t.txActor;
 			if (txActor == spvID)
@@ -211,13 +211,13 @@ vector<MerkleNode*> FullNode::get_merkle_trees(void) {
 	return this->merkleTrees;
 }
 
-vector<Model_Block> * FullNode::
+vector<Model_Block*> * FullNode::
 get_blockChain(void) {
 	return &(this->blockChain);
 }
 
 
-bool FullNode::
+/*bool FullNode::
 transfer(Node& from, Node& to, double amount)
 {
 
@@ -239,4 +239,4 @@ transfer(Node& from, Node& to, double amount)
 	}
 
 	return all_ok;
-}
+}*/

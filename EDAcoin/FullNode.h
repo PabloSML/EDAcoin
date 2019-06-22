@@ -8,7 +8,7 @@
 #include <vector>
 #include "Definitions.h"
 
-#include "Blockchain_Service.h"
+//#include "Blockchain_Service.h"
 #include "Allegro.h"
 
 using namespace std;
@@ -22,8 +22,10 @@ public:
 	FullNode(const char* nodeID) : Node(nodeID, "Full Node") {}
 	~FullNode()
 	{
-		for (MerkleNode* m : merkleTrees)
-			destroyMerkleTree(m);
+		for (MerkleNode* M : merkleTrees)
+			destroyMerkleTree(M);
+		for (Model_Block* B : blockChain)
+			delete B;
 	}
 
 	void recieveBlock(json& jsonBlock);
@@ -38,19 +40,19 @@ public:
 	virtual Node* getFilter(void) { return nullptr; }
 
 	vector<MerkleNode*> get_merkle_trees(void);
-	vector<Model_Block> * get_blockChain(void);
+	vector<Model_Block*> * get_blockChain(void);
 
-	bool transfer(Node& from, Node& to,	double amount);
+	//bool transfer(Node& from, Node& to,	double amount);
 
 	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue);
 
 	void sendInfo2Spv();
 private:
-	vector<Model_Block> blockChain;
+	vector<Model_Block*> blockChain;
 	list<SPVNode*> filters;
 	vector<MerkleNode*> merkleTrees;
 	
-	blockchain_service bc_service;
+	//blockchain_service bc_service;
 
 	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount);
 	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID);

@@ -16,7 +16,7 @@ class Model_Blockchain: public Subject
 		~Model_Blockchain();
 
 		//getters
-		vector<Model_Block>* get_blockchain(void);
+		vector<Model_Block*>* get_blockchain(void);
 		unsigned int getBlockCount(void);
 		unsigned int get_cant_boards(void);
 		unsigned int get_actual_board(void);
@@ -29,7 +29,7 @@ class Model_Blockchain: public Subject
 		
 
 		//setters
-		void set_blockchain(vector<Model_Block>* new_blockchain);
+		void set_blockchain(vector<Model_Block*>* new_blockchain);
 		void set_blockchain(vector<blockHeader>* new_blockHeaders);
 		void set_actual_board(unsigned int new_actual_board);
 		void set_merkle_trees(vector<MerkleNode*>* new_merkle_trees);
@@ -49,7 +49,7 @@ class Model_Blockchain: public Subject
 
 		vector<Model_Button_Blockchain*>  model_buttons;
 
-		vector<Model_Block>* blockchain;
+		vector<Model_Block*>* blockchain;
 		vector<MerkleNode *> * merkle_tree;
 
 		unsigned int blockCount;

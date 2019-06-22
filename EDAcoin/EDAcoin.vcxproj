@@ -122,8 +122,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h" />
-    <ClInclude Include="Blockchain_Message.h" />
-    <ClInclude Include="Blockchain_Service.h" />
     <ClInclude Include="BoxPanel.h" />
     <ClInclude Include="Controller_BoxText.h" />
     <ClInclude Include="Controller_Button_Blockchain.h" />
@@ -164,8 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Allegro.cpp" />
-    <ClCompile Include="Blockchain_Message.cpp" />
-    <ClCompile Include="Blockchain_Service.cpp" />
     <ClCompile Include="BoxPanel.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Controller_Block.cpp" />

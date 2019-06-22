@@ -56,19 +56,8 @@ Model_Blockchain::
 		init_ok = false;
 	}
 
-	for (Model_Block C : (*blockchain))
-		C.destroyMerkleTreeModel();
-
-	for (Observer * O1 : this->model_buttons[BUTTON_LEFT]->get_observers_attached())
-	{
-		delete O1;
-	}
-
-	for (Observer * O1 : this->model_buttons[BUTTON_RIGHT]->get_observers_attached())
-	{
-		delete O1;
-	}
-
+	for (Model_Block* C : (*blockchain))
+		C->destroyMerkleTreeModel();
 
 	for (Model_Button_Blockchain * B : model_buttons)
 		delete B;
@@ -76,7 +65,7 @@ Model_Blockchain::
 
 //getters
 
-vector<Model_Block>* Model_Blockchain::
+vector<Model_Block*>* Model_Blockchain::
 get_blockchain(void) { return this->blockchain; }
 
 unsigned int Model_Blockchain::
@@ -101,7 +90,7 @@ MerkleNode* Model_Blockchain::getMerkleTree(int index)
 
 Model_Block* Model_Blockchain::getBlockbyIndex(unsigned int index)
 {
-	return &((*blockchain)[index]);
+	return (*blockchain)[index];
 }
 
 unsigned int Model_Blockchain::getBlockCount(void) { return blockCount; }
@@ -112,7 +101,7 @@ get_buttons(void) { return this->model_buttons; }
 
 //setters
 void Model_Blockchain::
-set_blockchain(vector<Model_Block>* new_blockchain) {
+set_blockchain(vector<Model_Block*>* new_blockchain) {
 	
 	this->blockchain = new_blockchain; 
 
@@ -144,7 +133,7 @@ set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manej
 		vector<TransactionS> txs;
 
 		//**No se deberia hacerse con new?
-		(*this->blockchain)[i] = Model_Block(str, merkle_root, tx_count, txs);
+		(*this->blockchain)[i] = new Model_Block(str, merkle_root, tx_count, txs);
 	}
 
 
@@ -168,7 +157,7 @@ Model_Blockchain::recountBlocks(void)
 		for (unsigned int i = oldCount; i < blockCount; i++)	// se le dan views a los bloques nuevos
 		{
 			View_Block* tempView = new View_Block;
-			(*blockchain)[i].attach(tempView);
+			(*blockchain)[i]->attach(tempView);
 		}
 	}
 
@@ -185,7 +174,7 @@ void
 Model_Blockchain::updateBlocksbyIndex(unsigned int index)
 {
 	if(index < blockCount)
-		(*blockchain)[index].ping();
+		(*blockchain)[index]->ping();
 }
 
 

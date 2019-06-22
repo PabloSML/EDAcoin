@@ -45,7 +45,7 @@ public:
 	Model_MerkleTree* getMerkleTreeModel(void);
 
 private:
-	
+
 	string blockID;
 	unsigned long merkleRoot;
 	unsigned int txsCount;
