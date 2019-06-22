@@ -10,7 +10,7 @@
 
 Model_Blockchain::
 Model_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue) : blockCount(0), cant_board(0), actual_board(0),
-enable_show_merkle_trees(false)
+enable_show_merkle_trees(false), init_vector_spv(false)
 {
 	//**
 	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT);		// Intenta crear display de fallar devuelve NULL
@@ -44,6 +44,8 @@ enable_show_merkle_trees(false)
 	(this->model_buttons).push_back(button_right);
 
 
+	
+
 
 }
 
@@ -54,6 +56,11 @@ Model_Blockchain::
 	{
 		al_destroy_display(display);
 		init_ok = false;
+
+		if (init_vector_spv == true)
+		{
+			delete this->blockchain;
+		}
 	}
 
 	for (Model_Block C : (*blockchain))
@@ -130,7 +137,13 @@ set_blockchain(vector<Model_Block>* new_blockchain) {
 void Model_Blockchain::
 set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manejamos esto
 {
-	const size_t size_blockchain = new_blockHeaders->size();
+	size_t size_blockchain = new_blockHeaders->size();
+
+	if (init_vector_spv == false)
+	{
+		this->blockchain = new vector<Model_Block>;
+		init_vector_spv = true;
+	}
 
 	(this->blockchain)->resize(size_blockchain);
 
