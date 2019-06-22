@@ -130,7 +130,7 @@ set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manej
 
 	if (init_vector_spv == false)
 	{
-		this->blockchain = new vector<Model_Block>;
+		this->blockchain = new vector<Model_Block*>;
 		init_vector_spv = true;
 	}
 
