@@ -21,14 +21,20 @@ Controller_Sim::dispatcher(EventData* ev)
 	if ((ev->al_ev->type == ALLEGRO_EVENT_DISPLAY_CLOSE) || (ev->al_ev->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN))
 	{
 		parseMouseEvent(ev);
+		al_set_target_backbuffer(model->getDisplay());
+		model->ping();
 	}
 	else if (ev->al_ev->type == ALLEGRO_EVENT_KEY_DOWN)
 	{
 		parseKeyboardEvent(ev);
+		al_set_target_backbuffer(model->getDisplay());
+		model->ping();
 	}
 	else if (ev->al_ev->type == ALLEGRO_EVENT_TIMER)
 	{
 		parseTimerEvent(ev);
+		al_set_target_backbuffer(model->getDisplay());
+		model->ping();
 	}
 }
 

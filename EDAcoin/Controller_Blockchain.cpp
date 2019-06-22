@@ -41,6 +41,7 @@ Controller_Blockchain::parseMouseEvent(EventData* ev)
 	{
 		if (ev->al_ev->type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 		{
+			cout << "Someone pressed close on bchain window" << endl;
 			model->triggerEnd();
 		}
 		else if (model->can_show_merkle_trees())  // si este modelo no puede mostrar trees, se ignora lo siguiente
@@ -130,11 +131,11 @@ Controller_Blockchain::forwardKeyboardEvent(EventData* ev) {} // nothing
 bool
 Controller_Blockchain::isThisMine(EventData* ev)
 {
-	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->touch.display;
-
+	ALLEGRO_DISPLAY* evDisplay = ev->al_ev->display.source;
+	ALLEGRO_DISPLAY* mouseDisp = ev->al_ev->mouse.display;
 	ALLEGRO_DISPLAY* myDisplay = model->getDisplay();
 
-	if (evDisplay == myDisplay)
+	if ((myDisplay == evDisplay) || (myDisplay == mouseDisp))
 		return true;
 	else
 		return false;
