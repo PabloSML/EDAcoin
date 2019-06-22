@@ -69,9 +69,6 @@ Model_Blockchain::
 		C->dettachAll();
 	}
 
-	for (Model_Block* C : (*blockchain))
-		C->dettachAll();
-
 
 	for (Model_Button_Blockchain * B : model_buttons)
 		delete B;

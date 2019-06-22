@@ -33,8 +33,11 @@ bool getBlockChainJson(json* dest, const char* file);
 int main()
 {
 	EventData ev_data{ nullptr, nullptr };
+
+
 	ALLEGRO_TIMER* timer = NULL;
 	ALLEGRO_EVENT_QUEUE* queue = initAllegro(timer);
+	
 	if (queue == nullptr)
 	{
 		cout << "Error in initialize Allegro" << endl;
@@ -125,7 +128,7 @@ int main()
 		}
 	}
 
-	//destroyAllegro(ev_data.event_queue, timer);
+	destroyAllegro(ev_data.event_queue, timer);
 
 	return 0;
 

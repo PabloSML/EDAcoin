@@ -32,7 +32,6 @@ public:
 	*/
 	bool dettach(Observer* ptr);
 
-	bool dettachAll();
 
 	/*
 	*dettachAll

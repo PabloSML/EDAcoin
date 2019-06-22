@@ -39,3 +39,4 @@ public:
 private:
 	ALLEGRO_FONT* font;
 };
+

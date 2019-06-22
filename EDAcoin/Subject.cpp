@@ -26,13 +26,7 @@ Subject::dettach(Observer* ptr)
 
 	return success;
 }
-bool Subject::dettachAll()
-{
-	for (Observer* o : observers)
-		delete o;
-	observers.clear();
-	return true;
-}
+
 
 
 void
