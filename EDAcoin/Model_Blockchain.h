@@ -37,6 +37,7 @@ class Model_Blockchain: public Subject
 		void triggerEnd(void);
 
 		unsigned int recountBlocks(void);
+		void recountHeaders(void);
 		bool isInitOk(void);
 
 		void updateBlocksbyIndex(unsigned int index);
@@ -50,6 +51,8 @@ class Model_Blockchain: public Subject
 		vector<Model_Button_Blockchain*>  model_buttons;
 
 		vector<Model_Block*>* blockchain;
+		vector<blockHeader>* blockHeaders;	// solo para modelo creado por spv
+
 		vector<MerkleNode *> * merkle_tree;
 
 		unsigned int blockCount;

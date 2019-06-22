@@ -59,6 +59,9 @@ Model_Blockchain::
 
 		if (init_vector_spv == true)
 		{
+			for (Model_Block* B : *blockchain)	// delete a los bloques "dummy" hechos para representar
+				delete B;
+
 			delete this->blockchain;
 		}
 	}
@@ -130,6 +133,8 @@ set_blockchain(vector<Model_Block*>* new_blockchain) {
 void Model_Blockchain::
 set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manejamos esto
 {
+	blockHeaders = new_blockHeaders;
+
 	size_t size_blockchain = new_blockHeaders->size();
 
 	if (init_vector_spv == false)
@@ -137,22 +142,6 @@ set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manej
 		this->blockchain = new vector<Model_Block*>;
 		init_vector_spv = true;
 	}
-
-	(this->blockchain)->resize(size_blockchain);
-
-	unsigned int cant_blocks = (unsigned int) size_blockchain;
-
-	for (unsigned int i = 0; i < cant_blocks; i++)
-	{
-		string str = (*new_blockHeaders)[i].blockID;
-		unsigned long merkle_root = (*new_blockHeaders)[i].merkleRoot;
-		unsigned int tx_count = 0;
-		vector<TransactionS> txs;
-
-		//**No se deberia hacerse con new?
-		(*this->blockchain)[i] = new Model_Block(str, merkle_root, tx_count, txs);
-	}
-
 
 	this->enable_show_merkle_trees = false; //si entro en este metodo significa que un spv node es el nodo que lo uso
 
@@ -181,6 +170,29 @@ Model_Blockchain::recountBlocks(void)
 	return blockCount - oldCount;
 }
 
+void
+Model_Blockchain::recountHeaders(void)
+{
+	unsigned int oldCount = blockCount;
+	blockCount = (unsigned int)blockHeaders->size();
+
+	if (blockCount > oldCount)
+	{
+		for (unsigned int i = oldCount; i < blockCount; i++)
+		{
+			string str = (*blockHeaders)[i].blockID;
+			unsigned long merkle_root = (*blockHeaders)[i].merkleRoot;
+			unsigned int tx_count = 0;
+			vector<TransactionS> txs;
+
+			Model_Block* tempBlock = new Model_Block(str, merkle_root, tx_count, txs);
+			(*blockchain).push_back(tempBlock);
+
+			View_Block* tempView = new View_Block;
+			(*blockchain)[i]->attach(tempView);
+		}
+	}
+}
 
 bool Model_Blockchain::isInitOk(void)
 {
