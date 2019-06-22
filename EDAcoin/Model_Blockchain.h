@@ -57,6 +57,8 @@ class Model_Blockchain: public Subject
 		unsigned int actual_board;
 
 		bool init_ok;
+		bool init_vector_spv;
+
 
 
 };
