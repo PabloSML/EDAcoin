@@ -64,7 +64,10 @@ Model_Blockchain::
 	}
 
 	for (Model_Block* C : (*blockchain))
+	{
 		C->destroyMerkleTreeModel();
+		C->dettachAll();
+	}
 
 	for (Model_Button_Blockchain * B : model_buttons)
 		delete B;
@@ -130,7 +133,7 @@ set_blockchain(vector<blockHeader>* new_blockHeaders)		// hay que ver como manej
 
 	if (init_vector_spv == false)
 	{
-		this->blockchain = new vector<Model_Block>;
+		this->blockchain = new vector<Model_Block*>;
 		init_vector_spv = true;
 	}
 
