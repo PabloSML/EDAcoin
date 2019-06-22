@@ -64,7 +64,10 @@ Model_Blockchain::
 	}
 
 	for (Model_Block* C : (*blockchain))
+	{
 		C->destroyMerkleTreeModel();
+		C->dettachAll();
+	}
 
 	for (Model_Block* C : (*blockchain))
 		C->dettachAll();

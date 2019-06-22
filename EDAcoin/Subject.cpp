@@ -19,6 +19,7 @@ Subject::dettach(Observer* ptr)
 
 	if (currentSize - 1 == observers.size())	// verifica haber eliminado un elemento. Se puede sacar para eliminar las operaciones extra.
 	{
+		delete ptr;
 		success = true;
 		notifyObservers();
 	}
@@ -33,6 +34,14 @@ bool Subject::dettachAll()
 	return true;
 }
 
+
+void
+Subject::dettachAll(void)
+{
+	for (Observer* o : observers)
+		delete o;
+	observers.clear();
+}
 
 void
 Subject::ping(void)
@@ -50,7 +59,5 @@ Subject::notifyObservers(void)
 Subject::~Subject(void)
 {
 	cout << "~Subject" << endl;
-	for (Observer* o : observers)
-		delete o;
-	observers.clear();
+	dettachAll();
 }

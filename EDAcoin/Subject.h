@@ -27,12 +27,18 @@ public:
 	void attach(Observer* ptr);
 
 	/*
-	* detach
+	* dettach
 	* Remueve un observer del sujeto
 	*/
 	bool dettach(Observer* ptr);
 
 	bool dettachAll();
+
+	/*
+	*dettachAll
+	*Remueve todos los observers del sujeto
+	*/
+	void dettachAll(void);
 
 	/*
 	* ping
