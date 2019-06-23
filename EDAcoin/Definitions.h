@@ -9,7 +9,7 @@
 using namespace std;
 
 #define WIDTH_DEFAULT			1000
-#define HEIGHT_DEFAULT			750
+#define HEIGHT_DEFAULT			700
 #define FONT_SIZE_DEFAULT		20
 #define MARGIN_X_DISPLAY		50
 #define MARGIN_Y_DISPLAY		50
@@ -90,11 +90,11 @@ using namespace std;
 #define TRANS_INTERF_EDITB_TITLE2	"TO:"
 #define TRANS_INTERF_EDITB_TITLE3	"AMOUNT:"
 #define TRANS_INTERF_PUSHB_WIDTH	100
-#define TRANS_INTERF_PUSHB_HEIGTH	50
+#define TRANS_INTERF_PUSHB_HEIGTH	35
 #define TRANS_INTERF_EDITB_WIDTH	250
 #define TRANS_INTERF_EDITB_HEIGTH	50
 #define TRANS_INTERF_POS_Y			590
-#define TRANS_INTERF_MARGIN_BTW_B	25
+#define TRANS_INTERF_MARGIN_BTW_B	15
 
 //definitions edit boxes transaction interface
 #define COLOR_TITLE_PANEL			"black"
@@ -106,7 +106,7 @@ using namespace std;
 #define PERC_WIDTH_EDIT_TEXT		0.8
 #define PERC_HEIGTH_EDIT_TEXT		0.6
 #define SIZE_FONT_EDIT_TEXT			10
-#define SIZE_FONT_TITLE_EDIT		10
+#define SIZE_FONT_TITLE_EDIT		8
 
 //definitions pushbuttons transaction interface
 #define COLOR_PUSHB_STATE1			"red"
