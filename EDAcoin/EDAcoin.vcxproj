@@ -132,6 +132,7 @@
     <ClInclude Include="Controller_MerkleTree.h" />
     <ClInclude Include="Controller_Node.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
+    <ClInclude Include="MinerNode.h" />
     <ClInclude Include="Model_Block.h" />
     <ClInclude Include="Model_Blockchain.h" />
     <ClInclude Include="Model_BoxText.h" />

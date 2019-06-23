@@ -225,6 +225,9 @@
     <ClInclude Include="Model_Button_Blockchain.h">
       <Filter>Headers\Models</Filter>
     </ClInclude>
+    <ClInclude Include="MinerNode.h">
+      <Filter>Headers\BlockChain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

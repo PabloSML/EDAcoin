@@ -1,8 +1,11 @@
 #include <iostream>
 #include <fstream>
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include <nlohmann/json.hpp>
 #include "FullNode.h"
 #include "SPVNode.h"
+#include "MinerNode.h"
 #include <windows.h>
 
 #include "Simulation.h"
@@ -24,10 +27,13 @@ using namespace std;
 using json = nlohmann::json;
 
 #define TEN_SEC 10000
+#define MINERNUM 3
+#define FULLNUM	5
+#define SPVNUM	5
 
 // Aux Function
-
-bool init_resources(void);
+static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls, int spvNum, vector<SPVNode*>& spvs, Simulation& sim, Controller_Sim& simCtrl);
+static void teloParaNodos(vector<FullNode*>& fulls, vector<SPVNode*>& spvs); // el telo para nodos es donde van a hacer conexiones entre si ;)
 bool getBlockChainJson(json* dest, const char* file);
 
 int main()
@@ -51,45 +57,13 @@ int main()
 	sim.attach(simulationView);
 	Controller_Sim simCtrl(&sim);
 
-	//Se crean los nodos (en la faseI se nesesitan dos fullnodes y un spvnode).
-	FullNode f1("FullNode One"), f2("FullNode Two");
-	SPVNode s1("SPV Node");
+	// aca va la factory***********************************
+	vector<FullNode*> fulls;
+	vector<SPVNode*> spvs;
 
-	f1.setPos(FIRST_POS_W, FIRST_POS_H);
-	f2.setPos(SECOND_POS_W, SECOND_POS_H);
-	s1.setPos(THIRD_POS_W, THIRD_POS_H);
+	nodeFactory(MINERNUM, FULLNUM, fulls, SPVNUM, spvs, sim, simCtrl);
 
-	RegularNodeView* f1RView = new RegularNodeView(FULL_IMG_PATH); // se crean las views base de cada nodo		LA POSICION ESTA HARDCODEADA PORQUE NO EXISTE AUN UNA FUNCION FACTORY QUE CREE TODO EN LUGARES APROPIADOS!!!!!
-	RegularNodeView* f2RView = new RegularNodeView(FULL_IMG_PATH);
-	RegularNodeView* s1RView = new RegularNodeView(SPV_IMG_PATH);
-
-	Controller_Node* f1Control = new Controller_Node(&f1);
-	Controller_Node* f2Control = new Controller_Node(&f2);
-	Controller_Node* s1Control = new Controller_Node(&s1);
-
-	f1.attach(f1RView); // se conectan los observers a los subjects
-	f2.attach(f2RView);
-	s1.attach(s1RView);
-
-	sim.addNode(&f1); // se agregan los nodos a la lista de la simulacion
-	sim.addNode(&f2);
-	sim.addNode(&s1);
-
-	simCtrl.addNodeController(f1Control);
-	simCtrl.addNodeController(f2Control);
-	simCtrl.addNodeController(s1Control);
-
-//Se conectan los fullnodes con los spvnodes y entre ellos
-//	f1 <-> f2
-//	  \  /
-//	   \/	
-//	   s1
-	f1.attachConnection(&f2);
-	f1.attachConnection(&s1);
-	f2.attachConnection(&f1);
-	f2.attachConnection(&s1);
-	s1.attachConnection(&f1);
-	s1.attachConnection(&f2);
+	teloParaNodos(fulls, spvs);
 
 	vector<MerkleNode *> merkleTrees;
 	json blockChainJson;
@@ -100,18 +74,11 @@ int main()
 		for (int i = 0; (i < size); i++)
 		{
 			json tempBlock = blockChainJson[i];			//Por cada bloque del json, se lo manda a los full nodes. 
-			f1.recieveBlock(tempBlock);
-			f2.recieveBlock(tempBlock);
-			f1.sendInfo2Spv();
-			f2.sendInfo2Spv();
-			s1.pullHeaderfromFullNode();
-
-			merkleTrees = f1.get_merkle_trees();
-
-
-			//No es necesario para el MVC porque no deberia mostrar la blockchain.
-			unsigned long index = 20000000;
-
+			fulls[0]->recieveBlock(tempBlock);
+			fulls[2]->recieveBlock(tempBlock);
+			fulls[0]->sendInfo2Spv();
+			fulls[2]->sendInfo2Spv();
+			spvs[0]->pullHeaderfromFullNode();
 		}
 	}
 
@@ -136,8 +103,6 @@ int main()
 }
 
 
-
-
 bool getBlockChainJson(json* dest, const char* file)
 {
 	bool success = false;
@@ -158,30 +123,70 @@ bool getBlockChainJson(json* dest, const char* file)
 	return success;
 }
 
-bool init_resources(void)
+
+static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls, 
+	int spvNum, vector<SPVNode*>& spvs, Simulation& sim, Controller_Sim& simCtrl)
 {
-	bool init = true;
-	
-	if (!al_init())
+	int totalNodeCount = fullNum + spvNum; // en este momento los mineros estan dentro de los full
+	int fullPlusMiners = fullNum; // guardo un backup del numero de fulls (con mineros) para hacer cuentas
+	fullNum -= minerNum; // separo los full de los mineros
+
+	for (int i = 0; i < totalNodeCount; i++)
 	{
-		init = false;
-	}
-	else
-	{
-		if (!al_install_keyboard())
+		float posX = (GRAPH_RADIUS * cos(2 * M_PI*(i / (float)totalNodeCount)) + WIDTH_DEFAULT / 2.0) - RADIUS;
+		float posY = (GRAPH_RADIUS * sin(2 * M_PI*(i / (float)totalNodeCount)) + HEIGHT_DEFAULT / 2.0) - RADIUS;
+
+		if ((fullNum || minerNum) && (i % (totalNodeCount / fullPlusMiners) == 0))
 		{
-			init = false;
-		}
-		else
-		{
-			if ((!al_install_mouse()))
+			if (fullNum)
 			{
-				init = false;
+				string tempID = string("Full Node ") + to_string(fullNum);
+				FullNode* tempFull = new FullNode(tempID);
+				tempFull->setPos(posX, posY);
+				RegularNodeView* tempView = new RegularNodeView(FULL_IMG_PATH);
+				Controller_Node* tempControl = new Controller_Node(tempFull);
+				tempFull->attach(tempView);
+				sim.addNode(tempFull);
+				simCtrl.addNodeController(tempControl);
+				fulls.push_back(tempFull);
+				fullNum--;
+			}
+			else if (minerNum)
+			{
+				string tempID = string("Miner Node ") + to_string(minerNum);
+				MinerNode* tempMiner = new MinerNode(tempID);
+				tempMiner->setPos(posX, posY);
+				RegularNodeView* tempView = new RegularNodeView(MINER_IMG_PATH);
+				Controller_Node* tempControl = new Controller_Node(tempMiner);
+				tempMiner->attach(tempView);
+				sim.addNode(tempMiner);
+				simCtrl.addNodeController(tempControl);
+				fulls.push_back(tempMiner);
+				minerNum--;
 			}
 		}
-
+		else if(spvNum)
+		{
+			string tempID = string("SPV Node ") + to_string(spvNum);
+			SPVNode* tempSpv = new SPVNode(tempID);
+			tempSpv->setPos(posX, posY);
+			RegularNodeView* tempView = new RegularNodeView(SPV_IMG_PATH);
+			Controller_Node* tempControl = new Controller_Node(tempSpv);
+			tempSpv->attach(tempView);
+			sim.addNode(tempSpv);
+			simCtrl.addNodeController(tempControl);
+			spvs.push_back(tempSpv);
+			spvNum--;
+		}
 	}
+}
 
-	
-	return init;
+static void teloParaNodos(vector<FullNode*>& fulls, vector<SPVNode*>& spvs)	// por ahora conecta hardcoded, hay que hacer el algoritmo
+{
+	fulls[0]->attachConnection(fulls[2]);
+	fulls[2]->attachConnection(fulls[0]);
+	fulls[0]->attachConnection(spvs[0]);
+	fulls[2]->attachConnection(spvs[0]);
+	spvs[0]->attachConnection(fulls[0]);
+	spvs[0]->attachConnection(fulls[2]);
 }
