@@ -140,7 +140,7 @@ static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls,
 		{
 			if (fullNum)
 			{
-				string tempID = string("Full Node ") + to_string(fullNum);
+				string tempID = string("FullNode") + to_string(fullNum);
 				FullNode* tempFull = new FullNode(tempID);
 				tempFull->setPos(posX, posY);
 				RegularNodeView* tempView = new RegularNodeView(FULL_IMG_PATH);
@@ -153,7 +153,7 @@ static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls,
 			}
 			else if (minerNum)
 			{
-				string tempID = string("Miner Node ") + to_string(minerNum);
+				string tempID = string("MinerNode") + to_string(minerNum);
 				MinerNode* tempMiner = new MinerNode(tempID);
 				tempMiner->setPos(posX, posY);
 				RegularNodeView* tempView = new RegularNodeView(MINER_IMG_PATH);
@@ -167,7 +167,7 @@ static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls,
 		}
 		else if(spvNum)
 		{
-			string tempID = string("SPV Node ") + to_string(spvNum);
+			string tempID = string("SPVNode") + to_string(spvNum);
 			SPVNode* tempSpv = new SPVNode(tempID);
 			tempSpv->setPos(posX, posY);
 			RegularNodeView* tempView = new RegularNodeView(SPV_IMG_PATH);
