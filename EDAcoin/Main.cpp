@@ -27,9 +27,9 @@ using namespace std;
 using json = nlohmann::json;
 
 #define TEN_SEC 10000
-#define MINERNUM 3
-#define FULLNUM	5
-#define SPVNUM	5
+#define MINERNUM 4
+#define FULLNUM	9
+#define SPVNUM	9
 
 // Aux Function
 static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls, int spvNum, vector<SPVNode*>& spvs, Simulation& sim, Controller_Sim& simCtrl);
@@ -136,7 +136,7 @@ static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls,
 		float posX = (GRAPH_RADIUS * cos(2 * M_PI*(i / (float)totalNodeCount)) + WIDTH_DEFAULT / 2.0) - RADIUS;
 		float posY = (GRAPH_RADIUS * sin(2 * M_PI*(i / (float)totalNodeCount)) + HEIGHT_DEFAULT / 2.0) - RADIUS;
 
-		if ((fullNum || minerNum) && (i % (totalNodeCount / fullPlusMiners) == 0))
+		if (((fullNum || minerNum) && ((((totalNodeCount / fullPlusMiners) == 1) && (i % 2 == 0)) || (((totalNodeCount / fullPlusMiners) != 1) && (i % (totalNodeCount / fullPlusMiners) == 0)))) || !spvNum) // medio complicada esta condicion, se podria acortar probablemente
 		{
 			if (fullNum)
 			{
