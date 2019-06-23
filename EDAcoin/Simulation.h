@@ -5,6 +5,9 @@
 #include "Node.h"
 #include "Model_BoxText.h"
 #include "Model_PushButton.h"
+
+#include "Model_Transaction_GUI.h"
+
 using namespace std;
 
 class Simulation : public Subject {
@@ -27,12 +30,17 @@ public:
 	ALLEGRO_DISPLAY* getDisplay(void);
 	bool shouldEnd(void);
 
+	Model_Transaction_GUI * get_transaction_interface_gui();
+
 private:
 	list<Node*> nodes; //aca no iria vector??? por?
 	list<Model_BoxText*> textBoxes;
 	list<Model_PushButton*> buttons;
 	bool end;
 	ALLEGRO_DISPLAY* display;
+
+	Model_Transaction_GUI * transaction_interface;
+
 	bool init_ok;
 
 };

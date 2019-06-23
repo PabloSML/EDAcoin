@@ -1,4 +1,5 @@
 #include "Simulation.h"
+#include "Definitions.h"
 
 Simulation::Simulation(ALLEGRO_EVENT_QUEUE* queue)
 {
@@ -13,6 +14,52 @@ Simulation::Simulation(ALLEGRO_EVENT_QUEUE* queue)
 		al_register_event_source(queue, al_get_display_event_source(display));
 		init_ok = true;
 	}
+
+
+
+
+	const char * titles_pushb [] = { TRANS_INTERF_PUSHB_TITLE1 };
+	const char * titles_editb [] = { TRANS_INTERF_EDITB_TITLE1 , TRANS_INTERF_EDITB_TITLE2 , TRANS_INTERF_EDITB_TITLE3 };
+
+	unsigned int cant_pushbuttons = TRANS_INTERF_CANT_PUSHB;
+	unsigned int cant_edittexts   = TRANS_INTERF_CANT_EDITB;
+
+	unsigned int size_x_pushbutton = TRANS_INTERF_PUSHB_WIDTH;
+	unsigned int size_x_edittext   = TRANS_INTERF_EDITB_WIDTH;
+
+	unsigned int size_y_pushbutton = TRANS_INTERF_PUSHB_HEIGTH;
+	unsigned int size_y_edittext   = TRANS_INTERF_EDITB_HEIGTH;
+
+	unsigned int max_cant_buttons = 0;
+	unsigned int max_size_x		  = 0;
+
+	unsigned int margin = TRANS_INTERF_MARGIN_BTW_B;
+
+	if (cant_pushbuttons*size_x_pushbutton < cant_edittexts*size_x_edittext)
+	{
+		max_cant_buttons = cant_edittexts;
+		max_size_x		 = size_x_edittext;
+	}
+	else
+	{
+		max_cant_buttons = cant_pushbuttons;
+		max_size_x		 = size_x_pushbutton;
+	}
+
+	
+	unsigned int size_x_display = (unsigned int) al_get_display_width((this->getDisplay()));
+
+	unsigned int size_x_interface = max_cant_buttons * max_size_x + (max_cant_buttons - 1)*margin;
+	unsigned int pos_x			  = (size_x_display - size_x_interface) / 2;
+	unsigned int pos_y			  = TRANS_INTERF_POS_Y;
+
+	this->transaction_interface = new Model_Transaction_GUI(cant_edittexts, cant_pushbuttons,
+															titles_editb, titles_pushb,
+															size_x_edittext, size_y_edittext,
+															size_x_pushbutton, size_y_pushbutton,
+															pos_x, pos_y,
+															margin);
+
 }
 
 Simulation::~Simulation(void)
@@ -21,6 +68,7 @@ Simulation::~Simulation(void)
 	{
 		al_destroy_display(display);
 		init_ok = false;
+		delete transaction_interface;
 	}
 }
 
@@ -105,10 +153,13 @@ Simulation::updateInsiderModels(void)
 		N->ping();
 		al_set_target_backbuffer(display);
 	}
-	for (Model_BoxText* TB : textBoxes)
-		TB->ping();
-	for (Model_PushButton* BU : buttons)
-		BU->ping();
+
+	for (unsigned int i = 0; i < transaction_interface->get_cant_boxttexts(); i++)
+		(transaction_interface->get_boxtext(i))->ping();
+
+
+	for (unsigned int i = 0; i < transaction_interface->get_cant_pushbuttons(); i++)
+		(transaction_interface->get_pushbutton(i))->ping();
 }
 
 void Simulation::triggerEnd(void) { end = true; }
@@ -117,3 +168,10 @@ ALLEGRO_DISPLAY* Simulation::getDisplay(void) { return display; }
 
 bool Simulation::shouldEnd(void) { return end; }
 
+
+
+Model_Transaction_GUI * 
+Simulation::get_transaction_interface_gui()
+{
+	return this->transaction_interface;
+}

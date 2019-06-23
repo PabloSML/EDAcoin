@@ -8,7 +8,7 @@ class View_PushButton : public Observer
 {
 public:
 	View_PushButton(const char  * name_color_toggle1, const char  * name_color_toggle2,
-		const char  * name_color_text, ALLEGRO_FONT * first_font_title);
+		const char  * name_color_text, const char  * first_font_title);
 	View_PushButton() {};
 	~View_PushButton(void);
 
@@ -23,4 +23,6 @@ private:
 	ALLEGRO_COLOR color_toggle1;
 	ALLEGRO_COLOR color_toggle2;
 
+
+	bool init_ok;
 };

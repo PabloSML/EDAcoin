@@ -22,7 +22,7 @@ Controller_BoxText::~Controller_BoxText()
 void Controller_BoxText::
 parseTimerEvent(EventData * ev) 
 {
-
+	model->ping();
 }
 
 

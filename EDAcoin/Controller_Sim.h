@@ -5,6 +5,10 @@
 
 #include "Controller_Node.h"
 #include "Simulation.h"
+
+#include "Controller_Transaction_GUI.h"
+
+
 using namespace std;
 
 class Controller_Sim : public Controller {
@@ -33,6 +37,8 @@ public:
 private:
 	Simulation* model;
 	list<Controller_Node*> nodeControllers;
+	
+	Controller_Transaction_GUI * controller_transaction_gui;
 
 	bool isThisMine(EventData* ev);
 };

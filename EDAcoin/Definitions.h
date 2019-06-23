@@ -9,7 +9,7 @@
 using namespace std;
 
 #define WIDTH_DEFAULT			1000
-#define HEIGHT_DEFAULT			600
+#define HEIGHT_DEFAULT			750
 #define FONT_SIZE_DEFAULT		20
 #define MARGIN_X_DISPLAY		50
 #define MARGIN_Y_DISPLAY		50
@@ -79,6 +79,41 @@ using namespace std;
 #define MAX_SIZE_TEXT_BOXTEXT						25
 
 #define COLOR_BACKGROUND_BLOCKCHAIN		"white"
+
+
+
+//definitions transaction interface
+#define TRANS_INTERF_CANT_PUSHB		1
+#define TRANS_INTERF_CANT_EDITB		3
+#define TRANS_INTERF_PUSHB_TITLE1	"SEND"
+#define TRANS_INTERF_EDITB_TITLE1	"FROM:"
+#define TRANS_INTERF_EDITB_TITLE2	"TO:"
+#define TRANS_INTERF_EDITB_TITLE3	"AMOUNT:"
+#define TRANS_INTERF_PUSHB_WIDTH	100
+#define TRANS_INTERF_PUSHB_HEIGTH	50
+#define TRANS_INTERF_EDITB_WIDTH	250
+#define TRANS_INTERF_EDITB_HEIGTH	50
+#define TRANS_INTERF_POS_Y			590
+#define TRANS_INTERF_MARGIN_BTW_B	25
+
+//definitions edit boxes transaction interface
+#define COLOR_TITLE_PANEL			"black"
+#define COLOR_EDIT_UNSELECT_PANEL	"white"
+#define COLOR_EDIT_SELECT_PANEL		"yellow"
+#define COLOR_EDIT_TEXT				"blue"
+#define FONT_NAME_EDIT_TEXT			"Font.ttf"
+#define FONT_NAME_TITLE_EDIT		"Font.ttf"
+#define PERC_WIDTH_EDIT_TEXT		0.8
+#define PERC_HEIGTH_EDIT_TEXT		0.6
+#define SIZE_FONT_EDIT_TEXT			10
+#define SIZE_FONT_TITLE_EDIT		10
+
+//definitions pushbuttons transaction interface
+#define COLOR_PUSHB_STATE1			"red"
+#define COLOR_PUSHB_STATE2			"brown"
+#define COLOR_PUSHB_TITLE			"white"
+#define FONT_NAME_PUSHB_TEXT	    "Font.ttf"
+#define SIZE_FONT_TITLE_PUSHBU		15
 
 
 typedef struct {

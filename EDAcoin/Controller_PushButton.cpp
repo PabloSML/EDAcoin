@@ -21,7 +21,7 @@ Controller_PushButton::~Controller_PushButton()
 void Controller_PushButton::
 parseTimerEvent(EventData * ev)
 {
-
+	model->ping();
 }
 
 

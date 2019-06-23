@@ -6,6 +6,9 @@ Controller_Sim::Controller_Sim(Simulation* owner) : Controller(owner)
 {
 	Subject* subj = this->get_subject_attach();
 	model = (Simulation *)subj;
+
+	controller_transaction_gui = new Controller_Transaction_GUI(model->get_transaction_interface_gui());
+
 }
 
 Controller_Sim::~Controller_Sim(void)
@@ -13,6 +16,8 @@ Controller_Sim::~Controller_Sim(void)
 	for (Controller_Node* C : nodeControllers)
 		delete C;
 	nodeControllers.clear();
+
+	delete this->controller_transaction_gui;
 }
 
 void
@@ -83,7 +88,8 @@ Controller_Sim::parseMouseEvent(EventData* ev)
 			cout << "Haha tickles" << endl;
 			for (Controller_Node* C : nodeControllers)
 				C->parseMouseEvent(ev);
-			//**llamar a parseMouseEvent de los edit box.
+			
+			controller_transaction_gui->parseMouseEvent(ev);
 		}
 	}
 	else 
@@ -99,7 +105,9 @@ Controller_Sim::parseKeyboardEvent(EventData* ev) // nothing
 	if (isThisMine(ev))
 	{
 		cout << "Ouch" << endl;
-		//**llamar al parseKeyboard de los edit box.
+		
+		controller_transaction_gui->parseKeyboardEvent(ev);
+
 		/*
 		for (Controller_Node* C : nodeControllers)
 			C->parseKeyboardEvent(ev);
@@ -121,6 +129,9 @@ Controller_Sim::parseTimerEvent(EventData* ev)
 	{
 		for (Controller_Node* C : nodeControllers)
 			C->parseTimerEvent(ev);
+
+		controller_transaction_gui->parseTimerEvent(ev);
+
 	}
 }
 

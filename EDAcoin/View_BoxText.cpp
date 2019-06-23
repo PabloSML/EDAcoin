@@ -4,22 +4,45 @@
 
 #include "Model_BoxText.h"
 
+#include "Definitions.h"
+
 #define MARGIN_Y_TITLE 5
 #define PERCENT_POSITION_Y_EDIT_TEXT 0.6
 
 View_BoxText::
 View_BoxText(	char const * name_color_panel, char const * name_color_edit_unselect,
 				char const * name_color_edit_select, char const * name_color_text,
-				ALLEGRO_FONT * first_font_title, ALLEGRO_FONT * first_font_edit_text,
+				char const * first_font_title, char const * first_font_edit_text,
 				unsigned int first_width_edit_box, 	unsigned int first_heigth_edit_box) :
 
-	font_edit_text(first_font_edit_text), font_title(first_font_title),
-	width_edit_box(first_width_edit_box), heigth_edit_box(first_heigth_edit_box)
+	width_edit_box(first_width_edit_box), heigth_edit_box(first_heigth_edit_box),
+	init_ok(false)
 {
-	this->color_text				= al_color_name(name_color_text);
-	this->color_panel				= al_color_name(name_color_panel);
-	this->color_edit_select			= al_color_name(name_color_edit_select);
-	this->color_edit_unselect		= al_color_name(name_color_edit_unselect);
+
+	this->font_edit_text = al_load_font(first_font_edit_text, SIZE_FONT_EDIT_TEXT, 0);
+
+	if (this->font_edit_text != nullptr)
+	{
+		this->font_title = al_load_font(first_font_title, SIZE_FONT_TITLE_EDIT, 0);
+
+		if (this->font_title != nullptr)
+		{
+			this->color_text = al_color_name(name_color_text);
+			this->color_panel = al_color_name(name_color_panel);
+			this->color_edit_select = al_color_name(name_color_edit_select);
+			this->color_edit_unselect = al_color_name(name_color_edit_unselect);
+
+			this->init_ok = true;
+		}
+		else
+		{
+			al_destroy_font(this->font_edit_text);
+		}
+	}
+
+	
+
+	
 
 }
 
@@ -27,6 +50,12 @@ View_BoxText(	char const * name_color_panel, char const * name_color_edit_unsele
 View_BoxText::
 ~View_BoxText(void)
 {
+	if (this->init_ok == true)
+	{
+		al_destroy_font(this->font_edit_text);
+		al_destroy_font(this->font_title);
+		this->init_ok = false;
+	}
 
 }
 
