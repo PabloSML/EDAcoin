@@ -41,8 +41,6 @@ public:
 	virtual void attachConnection(Node* connection) { connections.push_back(connection); }
 	virtual bool dettachConnection(Node* connection);
 
-	//void push_message(blockchain_message& message);
-
 	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue) = 0;
 	void destroyBlockChainModel(void);
 
@@ -56,7 +54,5 @@ protected:
 	pos_t pos;
 	list<Node*> connections;
 
-	Model_Blockchain* myBlockChainModel; // veremos si no es necesario.
-
-	//vector<blockchain_message> buffer_messages;
+	Model_Blockchain* myBlockChainModel;
 };

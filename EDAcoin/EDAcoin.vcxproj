@@ -133,6 +133,7 @@
     <ClInclude Include="Controller_Node.h" />
     <ClInclude Include="Controller_Transaction_GUI.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="MinerNode.h" />
     <ClInclude Include="Model_Block.h" />
     <ClInclude Include="Model_Blockchain.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Labels.h" />
     <ClInclude Include="MerkleNode.h" />
     <ClInclude Include="Model_Transaction_GUI.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="View_Button_Blockchain.h" />
     <ClInclude Include="View_Transaction_GUI.h" />
     <ClInclude Include="Widget.h" />
@@ -178,6 +180,7 @@
     <ClCompile Include="Controller_Sim.cpp" />
     <ClCompile Include="Controller_Transaction_GUI.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Model_Block.cpp" />
     <ClCompile Include="Model_Blockchain.cpp" />
@@ -190,6 +193,7 @@
     <ClCompile Include="Model_Transaction_GUI.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Model_PushButton.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="RegularNodeView.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="SimView.cpp" />
