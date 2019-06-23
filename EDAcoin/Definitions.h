@@ -9,7 +9,7 @@
 using namespace std;
 
 #define WIDTH_DEFAULT			1000
-#define HEIGHT_DEFAULT			700
+#define HEIGHT_DEFAULT			550
 #define HEIGHT_EXTRA			150
 #define FONT_SIZE_DEFAULT		20
 #define MARGIN_X_DISPLAY		50
@@ -97,7 +97,7 @@ using namespace std;
 #define TRANS_INTERF_PUSHB_HEIGTH	35
 #define TRANS_INTERF_EDITB_WIDTH	250
 #define TRANS_INTERF_EDITB_HEIGTH	50
-#define TRANS_INTERF_POS_Y			590 + HEIGHT_EXTRA
+#define TRANS_INTERF_POS_Y			(HEIGHT_DEFAULT + 10)
 #define TRANS_INTERF_MARGIN_BTW_B	15
 
 //definitions edit boxes transaction interface
