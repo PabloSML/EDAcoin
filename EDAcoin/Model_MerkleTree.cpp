@@ -3,7 +3,7 @@
 
 
 Model_MerkleTree::
-Model_MerkleTree(MerkleNode* new_merkle_root, ALLEGRO_EVENT_QUEUE* event_queue) : merkle_root(new_merkle_root), end(false)
+Model_MerkleTree(MerkleNode* new_merkle_root, ALLEGRO_EVENT_QUEUE* event_queue, const string& blockID) : merkle_root(new_merkle_root), end(false)
 {
 	//**
 	display = al_create_display(WIDTH_DEFAULT + 2 * MARGIN_X_DISPLAY, HEIGHT_DEFAULT + 2 * MARGIN_Y_DISPLAY); // Intenta crear display de fallar devuelve NULL
@@ -15,6 +15,7 @@ Model_MerkleTree(MerkleNode* new_merkle_root, ALLEGRO_EVENT_QUEUE* event_queue) 
 	init_ok = true;
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
 	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
+	al_set_window_title(display, (blockID + "'s Merkle Tree View").c_str());
 	//**
 }
 

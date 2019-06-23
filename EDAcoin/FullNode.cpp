@@ -159,7 +159,7 @@ FullNode::createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue)
 {
 	if (myBlockChainModel == nullptr)
 	{
-		myBlockChainModel = new Model_Blockchain(event_queue);
+		myBlockChainModel = new Model_Blockchain(event_queue, nodeID);
 		myBlockChainModel->set_blockchain(&blockChain);
 		myBlockChainModel->set_merkle_trees(&merkleTrees);
 		

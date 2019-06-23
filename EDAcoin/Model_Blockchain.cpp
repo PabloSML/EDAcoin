@@ -9,7 +9,7 @@
 #define CANT_TX_SPV	0 //cualquier numero
 
 Model_Blockchain::
-Model_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue) : blockCount(0), cant_board(0), actual_board(0),
+Model_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue, const string& creatorID) : blockCount(0), cant_board(0), actual_board(0),
 enable_show_merkle_trees(false), init_vector_spv(false)
 {
 	//**
@@ -20,8 +20,9 @@ enable_show_merkle_trees(false), init_vector_spv(false)
 		return;
 	}
 	init_ok = true;
-	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
+	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay
 	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
+	al_set_window_title(display, (creatorID + "'s BlockChain View").c_str());
 	//**
 
 	Model_Button_Blockchain * button_left = new Model_Button_Blockchain(BUTTON_SIZE_X, BUTTON_SIZE_Y);

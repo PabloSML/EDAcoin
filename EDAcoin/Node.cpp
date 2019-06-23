@@ -14,12 +14,6 @@ Node::dettachConnection(Node* connection)
 	return success;
 }
 
-/*void 
-Node::push_message(blockchain_message& message)
-{
-	(this->buffer_messages).push_back(message);
-}*/
-
 void
 Node::destroyBlockChainModel(void)
 {

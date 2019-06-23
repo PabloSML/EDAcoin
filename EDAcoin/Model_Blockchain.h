@@ -12,7 +12,7 @@
 class Model_Blockchain: public Subject
 {
 	public:
-		Model_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue);
+		Model_Blockchain(ALLEGRO_EVENT_QUEUE* event_queue, const string& creatorID);
 		~Model_Blockchain();
 
 		//getters

@@ -9,7 +9,7 @@
 class Model_MerkleTree : public Subject
 {
 	public:
-		Model_MerkleTree(MerkleNode* new_merkle_root, ALLEGRO_EVENT_QUEUE* event_queue);
+		Model_MerkleTree(MerkleNode* new_merkle_root, ALLEGRO_EVENT_QUEUE* event_queue, const string& blockID);
 		~Model_MerkleTree();
 
 		//getters

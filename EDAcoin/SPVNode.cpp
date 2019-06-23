@@ -52,7 +52,7 @@ SPVNode::createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue)
 {
 	if (myBlockChainModel == nullptr)
 	{
-		myBlockChainModel = new Model_Blockchain(event_queue);
+		myBlockChainModel = new Model_Blockchain(event_queue, nodeID);
 		myBlockChainModel->set_blockchain(&blockHeaders);
 		View_Blockchain* tempView = new View_Blockchain(WIDTH_DEFAULT, HEIGHT_DEFAULT);
 		myBlockChainModel->attach(tempView);
