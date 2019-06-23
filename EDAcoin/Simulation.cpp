@@ -3,7 +3,7 @@
 
 Simulation::Simulation(ALLEGRO_EVENT_QUEUE* queue)
 {
-	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT);
+	display = al_create_display(WIDTH_DEFAULT, HEIGHT_DEFAULT + HEIGHT_EXTRA);
 	if (!display)
 	{
 		cout << "Error creating sim display!" << endl;
@@ -14,9 +14,6 @@ Simulation::Simulation(ALLEGRO_EVENT_QUEUE* queue)
 		al_register_event_source(queue, al_get_display_event_source(display));
 		init_ok = true;
 	}
-
-
-
 
 	const char * titles_pushb [] = { TRANS_INTERF_PUSHB_TITLE1 };
 	const char * titles_editb [] = { TRANS_INTERF_EDITB_TITLE1 , TRANS_INTERF_EDITB_TITLE2 , TRANS_INTERF_EDITB_TITLE3 };

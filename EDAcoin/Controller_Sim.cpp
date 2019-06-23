@@ -85,7 +85,6 @@ Controller_Sim::parseMouseEvent(EventData* ev)
 		}
 		else
 		{
-			cout << "Haha tickles" << endl;
 			for (Controller_Node* C : nodeControllers)
 				C->parseMouseEvent(ev);
 			
@@ -104,14 +103,7 @@ Controller_Sim::parseKeyboardEvent(EventData* ev) // nothing
 {
 	if (isThisMine(ev))
 	{
-		cout << "Ouch" << endl;
-		
 		controller_transaction_gui->parseKeyboardEvent(ev);
-
-		/*
-		for (Controller_Node* C : nodeControllers)
-			C->parseKeyboardEvent(ev);
-		*/
 	}
 	else
 	{

@@ -135,12 +135,6 @@
     <ClInclude Include="Labels.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Observer.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Subject.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Widget.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -245,6 +239,12 @@
     </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>Headers\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Headers\MVC Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Headers\MVC Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

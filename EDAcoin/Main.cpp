@@ -27,9 +27,9 @@ using namespace std;
 using json = nlohmann::json;
 
 #define TEN_SEC 10000
-#define MINERNUM 4
-#define FULLNUM	9
-#define SPVNUM	9
+#define MINERNUM 3
+#define FULLNUM	5
+#define SPVNUM	5
 
 // Aux Function
 static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls, int spvNum, vector<SPVNode*>& spvs, Simulation& sim, Controller_Sim& simCtrl);
