@@ -70,11 +70,13 @@ FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 	{
 		ritr--;	// se corrige el offset que generara el incremento al terminar el ciclo
 		ritr--;	// se vuelve al primer block no conocido (siguiente al conocido)
-		vector<Model_Block*>::iterator itr = ritr.base();
-		for (itr; itr < blockChain.end(); itr++)
+		//vector<Model_Block*>::iterator itr = ritr.base();
+		for (ritr; ritr >= blockChain.rbegin(); ritr--)
 		{
-			blockHeader tempHeader = (*itr)->getBlockHeader();
+			blockHeader tempHeader = (*ritr)->getBlockHeader();
 			dest->push_back(tempHeader);
+			if (ritr == blockChain.rbegin())
+				break;
 		}
 	}
 }

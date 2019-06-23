@@ -19,7 +19,8 @@ class SPVNode; // para que compile
 class FullNode : public Node {
 
 public:
-	FullNode(const char* nodeID) : Node(nodeID, "Full Node") {}
+	FullNode(string& nodeID) : Node(nodeID, "Full Node") {}
+	FullNode(string& nodeID, const char* nodeType) : Node(nodeID, nodeType) {} // para el Minero
 	~FullNode()
 	{
 		for (MerkleNode* M : merkleTrees)

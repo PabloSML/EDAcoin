@@ -41,7 +41,6 @@ Controller_Blockchain::parseMouseEvent(EventData* ev)
 	{
 		if (ev->al_ev->type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 		{
-			cout << "Someone pressed close on bchain window" << endl;
 			model->triggerEnd();
 		}
 		else if (model->can_show_merkle_trees())  // si este modelo no puede mostrar trees, se ignora lo siguiente
@@ -104,20 +103,29 @@ Controller_Blockchain::parseKeyboardEvent(EventData* ev) // nothing
 void
 Controller_Blockchain::parseTimerEvent(EventData* ev)
 {
-	if (this->is_subject_attached() == true)
+	if (is_subject_attached() == true)
 	{
 		unsigned int blockCount = model->getBlockCount();	// cuantos blocks hay?
-		unsigned int pending = model->recountBlocks();	// cuantos nuevos hay ahora? (se refresca la blockChain del modelo)
-		for (unsigned int i = blockCount; i < blockCount + pending; i++)	// por cada nuevo se le asigna un controller y se pushea a la lista
+
+		if (model->can_show_merkle_trees())
 		{
-			Controller_Block* tempController = new Controller_Block(model->getBlockbyIndex(i));
-			blockControllers.push_back(tempController);
+			unsigned int pending = model->recountBlocks();	// cuantos nuevos hay ahora? (se refresca la blockChain del modelo)
+			for (unsigned int i = blockCount; i < blockCount + pending; i++)	// por cada nuevo se le asigna un controller y se pushea a la lista
+			{
+				Controller_Block* tempController = new Controller_Block(model->getBlockbyIndex(i));
+				blockControllers.push_back(tempController);
+			}
+
+			refresh_positions_blocks_on_board();
+
+			for (Controller_Block* C : blockControllers)
+				C->parseTimerEvent(ev);
 		}
-
-		this->refresh_positions_blocks_on_board();
-
-		for (Controller_Block* C : blockControllers)
-			C->parseTimerEvent(ev);
+		else
+		{
+			model->recountHeaders();
+			refresh_positions_blocks_on_board();
+		}
 	}
 }
 

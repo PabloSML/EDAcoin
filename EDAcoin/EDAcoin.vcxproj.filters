@@ -109,15 +109,6 @@
     <ClCompile Include="Controller_Button_Blockchain.cpp">
       <Filter>Source\Controllers</Filter>
     </ClCompile>
-    <ClCompile Include="Model_Transaction_GUI.cpp">
-      <Filter>Source\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="View_Transaction_GUI.cpp">
-      <Filter>Source\Views</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller_Transaction_GUI.cpp">
-      <Filter>Source\Controllers</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -234,14 +225,8 @@
     <ClInclude Include="Model_Button_Blockchain.h">
       <Filter>Headers\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Model_Transaction_GUI.h">
-      <Filter>Headers\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="View_Transaction_GUI.h">
-      <Filter>Headers\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller_Transaction_GUI.h">
-      <Filter>Headers\Controllers</Filter>
+    <ClInclude Include="MinerNode.h">
+      <Filter>Headers\BlockChain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
