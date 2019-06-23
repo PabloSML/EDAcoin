@@ -36,36 +36,28 @@ Controller_Transaction_GUI::~Controller_Transaction_GUI(void)
 void
 Controller_Transaction_GUI::parseMouseEvent(EventData* ev)
 {
-	if (isThisMine(ev)) // si el evento fue en la pantalla de bchain, se ve si fue un evento de close o se clickeo en algun block
+	for (int i = 0; i < (int)pushButtons_controllers.size(); i++)
 	{
-		
-		for (int i = 0; i < (int)pushButtons_controllers.size(); i++)
-		{
-			pushButtons_controllers[i]->parseMouseEvent(ev);
-		}
-
-		for (int i = 0; i < (int)edittexts_controllers.size(); i++)
-		{
-			edittexts_controllers[i]->parseMouseEvent(ev);
-		}
-
-
+		pushButtons_controllers[i]->parseMouseEvent(ev);
 	}
+
+	for (int i = 0; i < (int)edittexts_controllers.size(); i++)
+	{
+		edittexts_controllers[i]->parseMouseEvent(ev);
+	}
+
+
 	
 }
 
 void
 Controller_Transaction_GUI::parseKeyboardEvent(EventData* ev) // nothing
 {
-	if (isThisMine(ev))
+	for (int i = 0; i < (int)edittexts_controllers.size(); i++)
 	{
-		
-		for (int i = 0; i < (int)edittexts_controllers.size(); i++)
-		{
-			edittexts_controllers[i]->parseKeyboardEvent(ev);
-		}
-
+		edittexts_controllers[i]->parseKeyboardEvent(ev);
 	}
+
 
 }
 
