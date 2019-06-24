@@ -70,7 +70,7 @@ FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 	{
 		ritr--;	// se corrige el offset que generara el incremento al terminar el ciclo
 		ritr--;	// se vuelve al primer block no conocido (siguiente al conocido)
-		//vector<Model_Block*>::iterator itr = ritr.base();
+
 		for (ritr; ritr >= blockChain.rbegin(); ritr--)
 		{
 			blockHeader tempHeader = (*ritr)->getBlockHeader();
@@ -222,12 +222,36 @@ get_blockChain(void) {
 void
 FullNode::flood(json package, Node* sender)		
 {	
-	// aca deberia llamar a una funcion que analize la info, se fije si ya la tiene y si no la guarde y pase a los demas
-	for (Node* N : connections)
+	if (analizePackage(package))
 	{
-		if ((N->getNodeType() != string("SPV Node")) && (N != sender))
+		for (Node* N : connections)
 		{
-			N->flood(package, this);
+			if ((N->getNodeType() != string("SPV Node")) && (N != sender))
+			{
+				N->flood(package, this);
+			}
 		}
+	}
+}
+
+bool
+FullNode::analizePackage(json& package)
+{
+	if (package.contains(LABEL_BLOCK_BLOCK_ID))	// es un Bloque
+	{
+		bool found = false;
+		string newBlockID = package[LABEL_BLOCK_BLOCK_ID].get<string>();
+		for (vector<Model_Block*>::reverse_iterator ritr = blockChain.rbegin(); ritr < blockChain.rend() && !found; ritr++)
+		{
+			if (newBlockID == (*ritr)->getBlockID())
+			{
+
+			}
+		}
+	}
+
+	else if(package.contains("TxID"))  // es una Tx
+	{
+
 	}
 }

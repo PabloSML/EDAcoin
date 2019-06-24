@@ -48,12 +48,17 @@ public:
 	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue);
 
 	void sendInfo2Spv();
+
+protected:
+	virtual bool analizePackage(json& package);
+
+
 private:
 	vector<Model_Block*> blockChain;
 	list<SPVNode*> filters;
 	vector<MerkleNode*> merkleTrees;
 	
-	//blockchain_service bc_service;
+	list<json> jsonTxs;
 
 	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount);
 	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID);
