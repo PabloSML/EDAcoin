@@ -127,7 +127,7 @@ typedef struct {
 
 typedef struct {
 	string publicID;
-	unsigned int amount;
+	double amount;
 }OutputS;
 
 typedef struct {

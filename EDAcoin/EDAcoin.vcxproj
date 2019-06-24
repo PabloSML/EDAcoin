@@ -193,6 +193,7 @@
     <ClCompile Include="Model_Transaction_GUI.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Model_PushButton.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="RegularNodeView.cpp" />
     <ClCompile Include="Simulation.cpp" />
