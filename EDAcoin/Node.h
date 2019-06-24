@@ -25,7 +25,7 @@ class Node : public Subject{
 public:
 	Node():nodeType(""),nodeID(""), myBlockChainModel(nullptr) { }
 	Node(string& nodeID, const char* nodeType) { this->nodeID = nodeID; this->nodeType = string(nodeType); myBlockChainModel = nullptr; }
-	~Node() { destroyBlockChainModel(); }
+	virtual ~Node() { destroyBlockChainModel(); }
 
 	string getNodeID() const { return nodeID; }
 	void setNodeID(string& nodeID) { this->nodeID = nodeID; }
@@ -47,6 +47,9 @@ public:
 	Model_Blockchain* getBlockChainModel(void);
 
 	virtual void ping(void);
+
+	void flood(json package);
+	virtual void flood(json package, Node* sender) = 0;
 
 protected:
 	string nodeID;

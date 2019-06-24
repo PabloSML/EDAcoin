@@ -17,6 +17,8 @@ public:
 
 	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue);
 
+	virtual void flood(json package, Node* sender){}
+
 private:
 	unsigned int blockChainCount;
 	unsigned int blockHeaderCount;
