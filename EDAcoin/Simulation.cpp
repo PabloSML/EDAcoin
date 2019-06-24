@@ -1,5 +1,6 @@
 #include "Simulation.h"
 #include "Definitions.h"
+#include "MerkleNode.h"
 
 Simulation::Simulation(ALLEGRO_EVENT_QUEUE* queue)
 {
@@ -249,7 +250,7 @@ Simulation::attend_transaction(void)
 				string to_node = this->transaction_interface->get_boxtext(TRANS_INTERF_EDITB2_NMBER)->get_actual_text();
 				string amount = this->transaction_interface->get_boxtext(TRANS_INTERF_EDITB3_NMBER)->get_actual_text();
 
-		#error "ACA ME QUEDE, NO SE SI TENGO QUE HACERR "node_attached->do_transaction()" bla bla o no, porque la misma, le quita la UTXO"
+		//#error "ACA ME QUEDE, NO SE SI TENGO QUE HACERR "node_attached->do_transaction()" bla bla o no, porque la misma, le quita la UTXO"
 
 
 			}
@@ -261,6 +262,6 @@ Simulation::attend_transaction(void)
 	}
 
 
-
+	return true;
 
 }

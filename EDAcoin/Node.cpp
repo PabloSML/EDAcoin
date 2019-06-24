@@ -218,7 +218,7 @@ Node::receive_transaction(json& transaction_UTXO, string& actual_blockID)
 			new_utxo->set_reference(actual_blockID, transaction_UTXO[LABEL_TXS_TXID]);
 
 			OutputS new_output;
-			new_output.amount = stod(string(transaction_UTXO[LABEL_TXS_OUTPUT][index][LABEL_OUTPUT_AMOUNT]));
+			new_output.amount = stod((transaction_UTXO[LABEL_TXS_OUTPUT][index][LABEL_OUTPUT_AMOUNT]).get<string>());
 			new_output.publicID = this->getNodeID();
 
 			new_utxo->set_output(new_output);
