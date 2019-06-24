@@ -219,26 +219,15 @@ get_blockChain(void) {
 }
 
 
-/*bool FullNode::
-transfer(Node& from, Node& to, double amount)
-{
-
-	bool all_ok = true;
-
-	TransactionS transaction;
-
-	if (bc_service.create_transaction(from.getNodeID(), to.getNodeID(), amount, transaction)) {
-
-		blockchain_message message;
-		message = bc_service.create_blockchain_message(transaction);
-
-		this->push_message(message);
-
-		return true;
+void
+FullNode::flood(json package, Node* sender)		
+{	
+	// aca deberia llamar a una funcion que analize la info, se fije si ya la tiene y si no la guarde y pase a los demas
+	for (Node* N : connections)
+	{
+		if ((N->getNodeType() != string("SPV Node")) && (N != sender))
+		{
+			N->flood(package, this);
+		}
 	}
-	else {
-		all_ok = false;
-	}
-
-	return all_ok;
-}*/
+}

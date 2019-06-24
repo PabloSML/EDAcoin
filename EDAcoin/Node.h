@@ -25,7 +25,7 @@ class Node : public Subject{
 public:
 	Node():nodeType(""),nodeID(""), myBlockChainModel(nullptr) { }
 	Node(string& nodeID, const char* nodeType) { this->nodeID = nodeID; this->nodeType = string(nodeType); myBlockChainModel = nullptr; }
-	~Node() { destroyBlockChainModel(); }
+	virtual ~Node() { destroyBlockChainModel(); }
 
 	string getNodeID() const { return nodeID; }
 	void setNodeID(string& nodeID) { this->nodeID = nodeID; }
@@ -41,8 +41,6 @@ public:
 	virtual void attachConnection(Node* connection) { connections.push_back(connection); }
 	virtual bool dettachConnection(Node* connection);
 
-	//void push_message(blockchain_message& message);
-
 	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue) = 0;
 	void destroyBlockChainModel(void);
 
@@ -50,13 +48,14 @@ public:
 
 	virtual void ping(void);
 
+	void flood(json package);
+	virtual void flood(json package, Node* sender) = 0;
+
 protected:
 	string nodeID;
 	string nodeType;
 	pos_t pos;
 	list<Node*> connections;
 
-	Model_Blockchain* myBlockChainModel; // veremos si no es necesario.
-
-	//vector<blockchain_message> buffer_messages;
+	Model_Blockchain* myBlockChainModel;
 };

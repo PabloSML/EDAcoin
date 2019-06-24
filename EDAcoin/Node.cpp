@@ -36,3 +36,15 @@ Node::ping(void)
 	if (myBlockChainModel != nullptr)
 		myBlockChainModel->ping();
 }
+
+void
+Node::flood(json package)
+{
+	for (Node* N : connections)
+	{
+		if (N->getNodeType() != string("SPV Node"))
+		{
+			N->flood(package, this);
+		}
+	}
+}

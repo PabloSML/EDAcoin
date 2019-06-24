@@ -18,11 +18,11 @@ public:
 	void addNode(Node* node);
 	bool removeNode(Node* node);
 
-	void addTextBox(Model_BoxText* box);
+	/*void addTextBox(Model_BoxText* box);
 	bool removeTextBox(Model_BoxText* box);
 
 	void addButton(Model_PushButton* button);
-	bool removeButton(Model_PushButton* button);
+	bool removeButton(Model_PushButton* button);*/
 
 	void updateInsiderModels(void);
 
@@ -33,9 +33,9 @@ public:
 	Model_Transaction_GUI * get_transaction_interface_gui();
 
 private:
-	list<Node*> nodes; //aca no iria vector??? por?
-	list<Model_BoxText*> textBoxes;
-	list<Model_PushButton*> buttons;
+	list<Node*> nodes;
+	//list<Model_BoxText*> textBoxes;
+	//list<Model_PushButton*> buttons;
 	bool end;
 	ALLEGRO_DISPLAY* display;
 

@@ -43,7 +43,7 @@ public:
 	vector<MerkleNode*> get_merkle_trees(void);
 	vector<Model_Block*> * get_blockChain(void);
 
-	//bool transfer(Node& from, Node& to,	double amount);
+	virtual void flood(json package, Node* sender);
 
 	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue);
 

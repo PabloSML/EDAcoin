@@ -66,6 +66,8 @@ Simulation::~Simulation(void)
 		al_destroy_display(display);
 		init_ok = false;
 		delete transaction_interface;
+		for (Node* N : nodes)
+			delete N;
 	}
 }
 
@@ -93,6 +95,7 @@ Simulation::removeNode(Node* node)
 	return success;
 }
 
+/*
 void
 Simulation::addTextBox(Model_BoxText* box)
 {
@@ -140,6 +143,7 @@ Simulation::removeButton(Model_PushButton* button)
 
 	return success;
 }
+*/
 
 void
 Simulation::updateInsiderModels(void)

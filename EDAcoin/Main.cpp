@@ -13,6 +13,9 @@
 #include "SimView.h"
 #include "Controller_Sim.h"
 
+#include "Graph.h"
+#include "Random.h"
+
 #include <vector>
 #include <allegro5\allegro.h>
 #include "Definitions.h"
@@ -33,11 +36,12 @@ using json = nlohmann::json;
 
 // Aux Function
 static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls, int spvNum, vector<SPVNode*>& spvs, Simulation& sim, Controller_Sim& simCtrl);
-static void teloParaNodos(vector<FullNode*>& fulls, vector<SPVNode*>& spvs); // el telo para nodos es donde van a hacer conexiones entre si ;)
+static void P2PNetworkGen(vector<FullNode*>& fulls, vector<SPVNode*>& spvs);
 bool getBlockChainJson(json* dest, const char* file);
 
 int main()
 {
+	randomize();
 	EventData ev_data{ nullptr, nullptr };
 
 
@@ -57,15 +61,13 @@ int main()
 	sim.attach(simulationView);
 	Controller_Sim simCtrl(&sim);
 
-	// aca va la factory***********************************
 	vector<FullNode*> fulls;
 	vector<SPVNode*> spvs;
 
 	nodeFactory(MINERNUM, FULLNUM, fulls, SPVNUM, spvs, sim, simCtrl);
 
-	teloParaNodos(fulls, spvs);
+	P2PNetworkGen(fulls, spvs);
 
-	vector<MerkleNode *> merkleTrees;
 	json blockChainJson;
 
 	if (getBlockChainJson(&blockChainJson, "test.json"))	//Se obtienen los bloques de "test.json"
@@ -74,11 +76,15 @@ int main()
 		for (int i = 0; (i < size); i++)
 		{
 			json tempBlock = blockChainJson[i];			//Por cada bloque del json, se lo manda a los full nodes. 
-			fulls[0]->recieveBlock(tempBlock);
-			fulls[2]->recieveBlock(tempBlock);
-			fulls[0]->sendInfo2Spv();
-			fulls[2]->sendInfo2Spv();
-			spvs[0]->pullHeaderfromFullNode();
+			for (int i = 0; i < FULLNUM; i++)
+			{
+				fulls[i]->recieveBlock(tempBlock);
+				fulls[i]->sendInfo2Spv();
+			}
+			for (int i = 0; i < SPVNUM; i++)
+			{
+				spvs[i]->pullHeaderfromFullNode();
+			}
 		}
 	}
 
@@ -181,12 +187,76 @@ static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls,
 	}
 }
 
-static void teloParaNodos(vector<FullNode*>& fulls, vector<SPVNode*>& spvs)	// por ahora conecta hardcoded, hay que hacer el algoritmo
+static void P2PNetworkGen(vector<FullNode*>& fulls, vector<SPVNode*>& spvs)	// por ahora conecta hardcoded, hay que hacer el algoritmo
 {
-	fulls[0]->attachConnection(fulls[2]);
-	fulls[2]->attachConnection(fulls[0]);
-	fulls[0]->attachConnection(spvs[0]);
-	fulls[2]->attachConnection(spvs[0]);
-	spvs[0]->attachConnection(fulls[0]);
-	spvs[0]->attachConnection(fulls[2]);
+	int fullCount = (int)(fulls.size());
+
+	Graph adjMatrix(fullCount);
+
+	for (int i = 0; i < fullCount; i++)		// recorre todos los fulls, eligiendo 2 otros fulls random y conectandolo si no esta conectado (llegando a un maximo de 2 conexiones)
+	{
+		FullNode* temp = fulls[i];
+		int rndIndex1, rndIndex2;
+		do {
+			rndIndex1 = randIntBetween(0, fullCount - 1);
+			rndIndex2 = randIntBetween(0, fullCount - 1);
+		} while ( (rndIndex1 == i) || (rndIndex2 == i) || (rndIndex1 == rndIndex2) );
+
+		FullNode* tempNeigh1 = fulls[rndIndex1];
+		FullNode* tempNeigh2 = fulls[rndIndex2];
+
+		if (adjMatrix.countEdges(i) < 2 && !(adjMatrix.isEdge(i, rndIndex1)))
+		{
+			temp->attachConnection(tempNeigh1);
+			tempNeigh1->attachConnection(temp);
+			adjMatrix.setEdge(i, rndIndex1);
+		}
+
+		if (adjMatrix.countEdges(i) < 2 && !(adjMatrix.isEdge(i, rndIndex2)))
+		{
+			temp->attachConnection(tempNeigh2);
+			tempNeigh2->attachConnection(temp);
+			adjMatrix.setEdge(i, rndIndex2);
+		}
+	}
+
+	int randomChecker = randIntBetween(0, fullCount - 1);
+
+	while (adjMatrix.BFSCount(randomChecker) < fullCount)	// si se cumple esta condicion significa que el grafo no es conexo, se elige un full al que no este conectado el checker y se lo conecta. Luego se repite el analisis
+	{
+		bool found = false;
+		for (int i = 0; i < fullCount && !found; i++)
+		{
+			if ( (randomChecker != i) && !(adjMatrix.isEdge(randomChecker, i)) )
+			{
+				FullNode* checker = fulls[randomChecker];
+				FullNode* temp = fulls[i];
+
+				checker->attachConnection(temp);
+				temp->attachConnection(checker);
+				adjMatrix.setEdge(randomChecker, i);
+				found = true;
+			}
+		}
+	}
+
+	int spvCount = (int)(spvs.size());
+
+	for (int i = 0; i < spvCount; i++)		// se realiza la conexion entre cada spv y dos nodos full aleatorios
+	{
+		SPVNode* temp = spvs[i];
+		int rndIndex1, rndIndex2;
+		do {
+			rndIndex1 = randIntBetween(0, fullCount - 1);
+			rndIndex2 = randIntBetween(0, fullCount - 1);
+		} while (rndIndex1 == rndIndex2);
+
+		FullNode* tempNeigh1 = fulls[rndIndex1];
+		FullNode* tempNeigh2 = fulls[rndIndex2];
+
+		temp->attachConnection(tempNeigh1);
+		tempNeigh1->attachConnection(temp);
+		temp->attachConnection(tempNeigh2);
+		tempNeigh2->attachConnection(temp);
+	}
 }

@@ -118,6 +118,12 @@
     <ClCompile Include="UTXO.cpp">
       <Filter>Source Files\Blockchain</Filter>
     </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -245,6 +251,12 @@
     </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Headers\MVC Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
