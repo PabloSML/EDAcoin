@@ -76,11 +76,9 @@ int main()
 		for (int i = 0; (i < size); i++)
 		{
 			json tempBlock = blockChainJson[i];			//Por cada bloque del json, se lo manda a los full nodes. 
-			for (int i = 0; i < FULLNUM; i++)
-			{
-				fulls[i]->recieveBlock(tempBlock);
-				fulls[i]->sendInfo2Spv();
-			}
+			
+			fulls[0]->flood(tempBlock, fulls[0]);
+
 			for (int i = 0; i < SPVNUM; i++)
 			{
 				spvs[i]->pullHeaderfromFullNode();

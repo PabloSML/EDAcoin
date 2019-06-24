@@ -237,21 +237,48 @@ FullNode::flood(json package, Node* sender)
 bool
 FullNode::analizePackage(json& package)
 {
+	bool isPackageNew = false;
+
 	if (package.contains(LABEL_BLOCK_BLOCK_ID))	// es un Bloque
 	{
 		bool found = false;
 		string newBlockID = package[LABEL_BLOCK_BLOCK_ID].get<string>();
-		for (vector<Model_Block*>::reverse_iterator ritr = blockChain.rbegin(); ritr < blockChain.rend() && !found; ritr++)
+		vector<Model_Block*>::reverse_iterator ritr = blockChain.rbegin();
+		for (ritr; ritr < blockChain.rend() && !found; ritr++)
 		{
 			if (newBlockID == (*ritr)->getBlockID())
 			{
-
+				found = true;
 			}
+		}
+
+		if (!found)
+		{
+			isPackageNew = true;
+			recieveBlock(package);
+			sendInfo2Spv();
+		}
+	}
+	
+	else if(package.contains(LABEL_TXS_TXID))  // es una Tx
+	{
+		bool found = false;
+		string newTxID = package[LABEL_TXS_TXID].get<string>();
+		vector<json>::reverse_iterator ritr2 = jsonTxs.rbegin();
+		for (ritr2; ritr2 < jsonTxs.rend() && !found; ritr2++)
+		{
+			if (newTxID == (*ritr2)[LABEL_TXS_TXID].get<string>())
+			{
+				found = true;
+			}
+		}
+
+		if (!found)
+		{
+			isPackageNew = true;
+			jsonTxs.push_back(package);
 		}
 	}
 
-	else if(package.contains("TxID"))  // es una Tx
-	{
-
-	}
+	return isPackageNew;
 }
