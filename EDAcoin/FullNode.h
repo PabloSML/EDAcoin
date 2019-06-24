@@ -58,7 +58,7 @@ private:
 	list<SPVNode*> filters;
 	vector<MerkleNode*> merkleTrees;
 	
-	list<json> jsonTxs;
+	vector<json> jsonTxs;
 
 	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount);
 	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID);
