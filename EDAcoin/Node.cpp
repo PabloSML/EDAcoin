@@ -191,7 +191,7 @@ do_transaction(string& to, double amount)
 
 
 
-			#error no olvide de hacer esto en lo de la validacion de txs
+			//#error no olvide de hacer esto en lo de la validacion de txs
 			//delete actual_utxo; //elimino el espacio en memoria guardado para la utxo
 
 

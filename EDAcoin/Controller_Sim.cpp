@@ -169,7 +169,7 @@ Controller_Sim::attend_transaction(void)
 		NC->parseTransactionEvent(to_node, from_node, amount);
 	}
 
-
+	model->get_transaction_interface_gui()->attend_transaction();
 }
 
 

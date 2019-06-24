@@ -3,6 +3,11 @@
 #include "FullNode.h"
 #include <math.h>
 
+
+bool is_amount_valid(string& amount);
+
+
+
 Controller_Node::Controller_Node(Subject* creator):Controller(creator),myBlockchainCtrl(nullptr)
 {
 	Subject* subj = this->get_subject_attach();
