@@ -161,3 +161,15 @@ SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToVali
 		cout << "Validate fun recieved uncoherent data" << endl;
 	}
 }
+
+void
+SPVNode::flood(netPckg package)
+{
+	for (Node* N : connections)
+	{
+		if (N->getNodeType() != string("SPV Node"))
+		{
+			((FullNode*)N)->analizePackage(package);
+		}
+	}
+}

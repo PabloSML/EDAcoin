@@ -41,6 +41,9 @@ void Controller_Node::parseTimerEvent(EventData * ev)
 {
 	if (this->is_subject_attached() == true)
 	{
+		if (model->getNodeType() != string("SPV Node"))
+			((FullNode*)model)->flood();
+
 		if (myBlockchainCtrl != nullptr)
 			myBlockchainCtrl->parseTimerEvent(ev);
 	}

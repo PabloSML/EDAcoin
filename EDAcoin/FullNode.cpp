@@ -220,29 +220,32 @@ get_blockChain(void) {
 
 
 void
-FullNode::flood(json package, Node* sender)		
+FullNode::flood(void)		
 {	
-	if (analizePackage(package))
+	while (!floodingQueue.empty())
 	{
+		netPckg temp = floodingQueue.front();
+		floodingQueue.pop();
+
 		for (Node* N : connections)
 		{
-			if ((N->getNodeType() != string("SPV Node")) && (N != sender))
+			if ((N->getNodeType() != string("SPV Node")) && (N != temp.sender))
 			{
-				N->flood(package, this);
+				((FullNode*)N)->analizePackage(temp);
 			}
 		}
 	}
 }
 
 bool
-FullNode::analizePackage(json& package)
+FullNode::analizePackage(netPckg package)
 {
 	bool isPackageNew = false;
 
-	if (package.contains(LABEL_BLOCK_BLOCK_ID))	// es un Bloque
+	if (package.data.contains(LABEL_BLOCK_BLOCK_ID))	// es un Bloque
 	{
 		bool found = false;
-		string newBlockID = package[LABEL_BLOCK_BLOCK_ID].get<string>();
+		string newBlockID = package.data[LABEL_BLOCK_BLOCK_ID].get<string>();
 		vector<Model_Block*>::reverse_iterator ritr = blockChain.rbegin();
 		for (ritr; ritr < blockChain.rend() && !found; ritr++)
 		{
@@ -255,15 +258,16 @@ FullNode::analizePackage(json& package)
 		if (!found)
 		{
 			isPackageNew = true;
-			recieveBlock(package);
+			floodingQueue.push(package);
+			recieveBlock(package.data);
 			sendInfo2Spv();
 		}
 	}
 	
-	else if(package.contains(LABEL_TXS_TXID))  // es una Tx
+	else if(package.data.contains(LABEL_TXS_TXID))  // es una Tx
 	{
 		bool found = false;
-		string newTxID = package[LABEL_TXS_TXID].get<string>();
+		string newTxID = package.data[LABEL_TXS_TXID].get<string>();
 		vector<json>::reverse_iterator ritr2 = jsonTxs.rbegin();
 		for (ritr2; ritr2 < jsonTxs.rend() && !found; ritr2++)
 		{
@@ -276,7 +280,8 @@ FullNode::analizePackage(json& package)
 		if (!found)
 		{
 			isPackageNew = true;
-			jsonTxs.push_back(package);
+			floodingQueue.push(package);
+			jsonTxs.push_back(package.data);
 		}
 	}
 

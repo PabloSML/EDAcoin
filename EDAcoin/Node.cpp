@@ -117,18 +117,6 @@ Node::ping(void)
 		myBlockChainModel->ping();
 }
 
-void
-Node::flood(json package)
-{
-	for (Node* N : connections)
-	{
-		if (N->getNodeType() != string("SPV Node"))
-		{
-			N->flood(package, this);
-		}
-	}
-}
-
 
 json Node::
 do_transaction(string& from, double amount, string& assing_this_TX_ID)

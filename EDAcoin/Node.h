@@ -23,6 +23,11 @@ typedef struct {
 	float posY;
 }pos_t;
 
+typedef struct {
+	json data;
+	Node* sender;
+}netPckg;
+
 class Node : public Subject{
 public:
 	Node();
@@ -50,12 +55,7 @@ public:
 
 	virtual void ping(void);
 
-	void flood(json package);
-	virtual void flood(json package, Node* sender) = 0;
-
-
-
-
+	virtual void flood(void) = 0;
 
 	json do_transaction(string& from, double amount, string& assing_this_TX_ID);
 
