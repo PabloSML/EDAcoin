@@ -1,5 +1,6 @@
 #include "Simulation.h"
 #include "Definitions.h"
+#include "MerkleNode.h"
 
 Simulation::Simulation(ALLEGRO_EVENT_QUEUE* queue)
 {

@@ -121,8 +121,11 @@
     <ClCompile Include="Random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
+    <ClCompile Include="FormatConverter.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
       <Filter>Source Files\Models</Filter>
@@ -259,6 +262,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FormatConverter.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

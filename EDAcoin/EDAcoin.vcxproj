@@ -133,6 +133,7 @@
     <ClInclude Include="Controller_Node.h" />
     <ClInclude Include="Controller_Transaction_GUI.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
+    <ClInclude Include="FormatConverter.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="MinerNode.h" />
     <ClInclude Include="Model_Block.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Controller_Sim.cpp" />
     <ClCompile Include="Controller_Transaction_GUI.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
+    <ClCompile Include="FormatConverter.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Model_Block.cpp" />

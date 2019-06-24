@@ -24,6 +24,7 @@
 #include "Allegro.h"
 #include "Controller.h"
 //**
+#include "FormatConverter.h"
 
 
 using namespace std;
@@ -38,6 +39,7 @@ using json = nlohmann::json;
 static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls, int spvNum, vector<SPVNode*>& spvs, Simulation& sim, Controller_Sim& simCtrl);
 static Graph* P2PNetworkGen(vector<FullNode*>& fulls, vector<SPVNode*>& spvs);
 bool getBlockChainJson(json* dest, const char* file);
+
 
 int main()
 {
@@ -103,6 +105,43 @@ int main()
 	
 }
 
+
+/*
+int main()
+{
+	TransactionS t;
+	t.txID = "AcaVaElID";
+	InputS input;
+	input.blockID = "IDdelBloque1";
+	input.txID = "TrxnID1";
+	t.inputs.push_back(input);
+	input.blockID = "IDdelBloque2";
+	input.txID = "TrxnID2";
+	t.inputs.push_back(input);
+	OutputS output;
+	output.publicID = "PublicID";
+	output.amount = 120;
+	t.outputs.push_back(output);
+	json j = Transactions2Json(t);
+	cout << j << endl;
+	cout << "..............." << endl;
+	t = Json2Transactions(j);
+	cout << "TxID:" << t.txID << endl;
+	cout << "Inputs:" << endl;
+	for (int i = 0; i < t.inputs.size(); i++)
+	{
+		cout << "BlockID:" << t.inputs[i].blockID << endl;
+		cout << "TxID:" << t.inputs[i].txID << endl;
+	}
+	cout << "Outputs:" << endl;
+	for (int i = 0; i < t.outputs.size(); i++)
+	{
+		cout << "PublicID:" << t.outputs[i].publicID << endl;
+		cout << "Amount:" << t.outputs[i].amount << endl;
+	}
+	system("pause");
+}
+*/
 
 bool getBlockChainJson(json* dest, const char* file)
 {
