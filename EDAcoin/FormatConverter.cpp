@@ -74,3 +74,33 @@ json EdaMerkleBlock2Json(EdaMerkleBlockS& b)
 	j["BlockID"] = b.blockID;
 	return j;
 }
+
+EdaMerkleBlockS Json2EdaMerkleBlock(json&j)
+{
+	EdaMerkleBlockS b;
+	b.txCount = j["TxCount"].get<int>();
+	for (int i = 0; i < j["Transactions"].size(); i++)
+	{
+		b.transactions.push_back(Json2Transactions(j["Transactions"][i]));
+	}
+	for (int i = 0; i < j["MerkleValidationData"].size(); i++)
+	{
+		MerkleValidationData tempData;
+		tempData.merklePathLen= j["MerkleValidationData"][i]["merklePathLen"].get<int>();
+		for (int k = 0; k < j["MerkleValidationData"][i]["Step"].size(); k++)
+		{
+			direction dir;
+			if (j["MerkleValidationData"][i]["Step"][k]["Direction"] == "Right")
+				dir = direction::RIGHT;
+			else
+				dir = direction::LEFT;
+			string s = j["MerkleValidationData"][i]["Step"][k]["ID"].get<string>();
+			Step step(s, dir);
+			tempData.merklePath.push_back(step);
+		}
+		b.merklePathDataForTxs.push_back(tempData);
+	}
+	b.blockID = j["BlockID"].get<string>();
+
+	return b;
+}
