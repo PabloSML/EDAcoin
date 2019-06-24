@@ -41,4 +41,7 @@ private:
 	Controller_Transaction_GUI * controller_transaction_gui;
 
 	bool isThisMine(EventData* ev);
+
+
+
 };

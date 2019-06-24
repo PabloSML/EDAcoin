@@ -32,6 +32,8 @@ public:
 
 	Model_Transaction_GUI * get_transaction_interface_gui();
 
+	bool attend_transaction(void);
+
 private:
 	list<Node*> nodes;
 	//list<Model_BoxText*> textBoxes;

@@ -2,6 +2,7 @@
 
 
 
+
 Controller_Sim::Controller_Sim(Simulation* owner) : Controller(owner)
 {
 	Subject* subj = this->get_subject_attach();
@@ -92,6 +93,7 @@ Controller_Sim::parseMouseEvent(EventData* ev)
 
 			if (model->get_transaction_interface_gui()->is_transaction_waiting())
 			{
+				attend_transaction();
 
 			}
 		}
@@ -150,3 +152,5 @@ bool Controller_Sim::shouldModelDie(void)
 {
 	return model->shouldEnd();
 }
+
+
