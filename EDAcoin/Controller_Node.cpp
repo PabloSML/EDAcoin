@@ -90,3 +90,60 @@ bool Controller_Node::clickInMe(EventData* ev)
 	else
 		return false;
 }
+
+
+
+void 
+Controller_Node::parseTransactionEvent(string& to, string& from, string& amount)
+{
+	if (from == model->getNodeID())
+	{
+		if (is_amount_valid)
+		{
+			json new_tx = model->do_transaction(to, stod(amount));
+
+			netPckg temppck = { new_tx, model };
+
+			if (model->getNodeID() != string("SPV Node"))
+			{
+				((FullNode*)model)->analizePackage(temppck);
+			}
+			else
+			{
+				((SPVNode *)model)->flood(temppck);
+			}
+
+		}
+		
+
+	}
+	
+	
+}
+
+
+
+
+
+bool is_amount_valid(string& amount)
+{
+	bool possible_amount = false;
+
+
+	bool is_positive_number = (amount.find_first_not_of("0123456789.") == string::npos);
+
+	size_t apparence_dot = std::count(amount.begin(), amount.end(), '.');
+
+
+
+	if ((apparence_dot <= 1) && is_positive_number)
+	{
+		possible_amount = true;
+	}
+
+
+
+
+
+	return possible_amount;
+}

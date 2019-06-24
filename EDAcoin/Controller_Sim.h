@@ -44,4 +44,8 @@ private:
 
 
 
+	void attend_transaction(void);
+
+
+
 };

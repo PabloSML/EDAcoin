@@ -2,6 +2,9 @@
 
 #include "Labels.h"
 
+#define BLABLA "A" //eliminar luego
+
+
 using json = nlohmann::json;
 
 Node::Node(void):
@@ -12,7 +15,17 @@ Node::Node(void):
 
 	if (this->mine_UTXOs != nullptr)
 	{
-		this->init_ok = true;
+		this->UTXOs_trying_to_use = new list<UTXO*>;
+		
+		if (this->UTXOs_trying_to_use != nullptr)
+		{
+			this->init_ok = true;
+		}
+		else
+		{
+			delete this->mine_UTXOs;
+		}
+		
 	}
 
 }
@@ -29,9 +42,18 @@ Node::Node(string& nodeID, const char* nodeType):
 
 	if (this->mine_UTXOs != nullptr)
 	{
-		this->init_ok = true;
-	}
+		this->UTXOs_trying_to_use = new list<UTXO*>;
 
+		if (this->UTXOs_trying_to_use != nullptr)
+		{
+			this->init_ok = true;
+		}
+		else
+		{
+			delete this->mine_UTXOs;
+		}
+
+	}
 
 }
 
@@ -49,6 +71,13 @@ Node::
 		}
 
 		delete this->mine_UTXOs;
+
+		for (UTXO * actual_utxo : (*(this->UTXOs_trying_to_use)))
+		{
+			delete actual_utxo;
+		}
+
+		delete this->UTXOs_trying_to_use;
 
 
 		init_ok = false;
@@ -118,60 +147,89 @@ Node::ping(void)
 }
 
 
+
+
+
 json Node::
-do_transaction(string& from, double amount, string& assing_this_TX_ID)
+do_transaction(string& to, double amount)
 {
+
+
+
+
+
 	json transaction;
 
-	if (get_amount_wallet() > amount)
+	if (get_amount_wallet() >= amount)
 	{
-		transaction[LABEL_TXS_TXID] = assing_this_TX_ID;
+
+		//aca iria lo del sha256
+		transaction[LABEL_TXS_TXID] = BLABLA;
 
 		double money_using = 0.0;
 
 
-		for (unsigned int i = 0; money_using < amount; i++)
-		{
-			
-			UTXO * actual_utxo = this->take_UTXO_and_update_wallet();
+		bool is_utxo_unused = true;
 
-			transaction[LABEL_TXS_INPUT][i][LABEL_INPUT_BLOCK_ID] = actual_utxo->get_blockID();
-			transaction[LABEL_TXS_INPUT][i][LABEL_INPUT_TX_ID] = actual_utxo->get_txID();
+		for (unsigned int i = 0; (money_using < amount)&&(is_utxo_unused); i++)
+		{
+
+			UTXO * actual_utxo = this->take_UTXO_unused();
+
+			if (actual_utxo != nullptr)
+			{
+				transaction[LABEL_TXS_INPUT][i][LABEL_INPUT_BLOCK_ID] = actual_utxo->get_blockID();
+				transaction[LABEL_TXS_INPUT][i][LABEL_INPUT_TX_ID] = actual_utxo->get_txID();
+
+				money_using += (actual_utxo->get_output()).amount;
+
+			}
+			else
+			{
+				is_utxo_unused = false;
+			}
+
+
+
+			#error no olvide de hacer esto en lo de la validacion de txs
+			//delete actual_utxo; //elimino el espacio en memoria guardado para la utxo
+
+
+		}
+
+
+		if (is_utxo_unused)
+		{
+			transaction[LABEL_TXS_OUTPUT][0][LABEL_OUTPUT_ID] = to;
+			transaction[LABEL_TXS_OUTPUT][0][LABEL_OUTPUT_AMOUNT] = to_string(amount);
+
+			if (money_using > amount)
+			{
+				transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_ID] = this->getNodeID();
+				transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_AMOUNT] = to_string(money_using - amount);
+
+			}
+
+		}
+		else //hubo un error en el medio
+		{
+			transaction.clear;
+		}
+
 		
-	
-			money_using += (actual_utxo->get_output()).amount;
-
-
-			delete actual_utxo; //elimino el espacio en memoria guardado para la utxo
-
-
-		}
-
-
-		transaction[LABEL_TXS_OUTPUT][0][LABEL_OUTPUT_ID] = from;
-		transaction[LABEL_TXS_OUTPUT][0][LABEL_OUTPUT_AMOUNT] = to_string(amount);
-
-		if (money_using > amount)
-		{
-			transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_ID] = this->getNodeID();
-			transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_AMOUNT] = to_string(money_using - amount);
-
-		}
-
 
 	}
 
-	
 
-	
+
+
 	return transaction;
 
 
 
 }
 
-
-
+/*
 
 
 bool
@@ -212,7 +270,7 @@ Node::receive_transaction(json& transaction_UTXO, string& actual_blockID)
 			new_utxo->set_output(new_output);
 
 			(this->mine_UTXOs)->push_back(new_utxo);
-	
+
 
 			this->amount_wallet += new_output.amount;
 
@@ -223,7 +281,7 @@ Node::receive_transaction(json& transaction_UTXO, string& actual_blockID)
 			success_create_tx = false;
 		}
 
-		
+
 
 	}
 	else
@@ -231,14 +289,14 @@ Node::receive_transaction(json& transaction_UTXO, string& actual_blockID)
 		success_create_tx = false;
 	}
 
-	
+
 	return success_create_tx;
 
 
 
 }
 
-
+*/
 
 double Node::get_amount_wallet(void)
 {
@@ -246,18 +304,37 @@ double Node::get_amount_wallet(void)
 }
 
 
-UTXO * 
-Node::take_UTXO_and_update_wallet(void)
+UTXO *
+Node::take_UTXO_unused(void)
 {
-	UTXO * ret_utxo = (this->mine_UTXOs)->back();
-	(this->mine_UTXOs)->pop_back();
+	UTXO* ret_utxo = nullptr;
 
-	OutputS output_utxo = ret_utxo->get_output();
 
-	this->amount_wallet -= output_utxo.amount;
+	if (!this->UTXOs_trying_to_use->empty())
+	{
+		ret_utxo = (this->UTXOs_trying_to_use)->back();
+
+		(this->UTXOs_trying_to_use)->pop_back();
+
+		OutputS output_utxo = ret_utxo->get_output();
+	}
+
+
 
 	return ret_utxo;
-	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 

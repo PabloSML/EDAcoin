@@ -10,7 +10,7 @@ public:
 	~Controller_Node();
 
 	void parseMouseEvent(EventData * ev);
-	//void parseNetworkEvent(EventData * ev);
+	void parseTransactionEvent(string& to, string& from, string& amount);
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
 

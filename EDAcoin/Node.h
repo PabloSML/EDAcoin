@@ -53,9 +53,9 @@ public:
 
 	virtual void flood(void) = 0;
 
-	json do_transaction(string& from, double amount, string& assing_this_TX_ID);
+	json do_transaction(string& to, double amount);
 
-	bool receive_transaction(json& transaction_UTXO, string& actual_blockID);
+//	bool receive_transaction(json& transaction_UTXO, string& actual_blockID);
 
 	double get_amount_wallet(void);
 
@@ -73,7 +73,9 @@ protected:
 
 	private:
 
-	UTXO * take_UTXO_and_update_wallet(void);
+	list<UTXO*> * UTXOs_trying_to_use;
+
+	UTXO * take_UTXO_unused(void);
 };
 
 typedef struct {

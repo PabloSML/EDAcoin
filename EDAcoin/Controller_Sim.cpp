@@ -93,7 +93,7 @@ Controller_Sim::parseMouseEvent(EventData* ev)
 
 			if (model->get_transaction_interface_gui()->is_transaction_waiting())
 			{
-				model->attend_transaction();
+				this->attend_transaction();
 
 			}
 		}
@@ -152,5 +152,26 @@ bool Controller_Sim::shouldModelDie(void)
 {
 	return model->shouldEnd();
 }
+
+
+
+
+void 
+Controller_Sim::attend_transaction(void)
+{
+	string from_node = model->get_transaction_interface_gui()->get_boxtext(TRANS_INTERF_EDITB1_NMBER)->get_actual_text();
+	string to_node = model->get_transaction_interface_gui()->get_boxtext(TRANS_INTERF_EDITB2_NMBER)->get_actual_text();
+	string amount = model->get_transaction_interface_gui()->get_boxtext(TRANS_INTERF_EDITB3_NMBER)->get_actual_text();
+
+
+	for (Controller_Node * NC : this->nodeControllers)
+	{
+		NC->parseTransactionEvent(to_node, from_node, amount);
+	}
+
+
+}
+
+
 
 
