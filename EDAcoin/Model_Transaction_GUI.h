@@ -34,6 +34,11 @@ class Model_Transaction_GUI: public Subject
 		Model_PushButton* get_pushbutton(unsigned int which_pushbutton);
 		Model_BoxText*	  get_boxtext	(unsigned int which_boxttext);
 
+		void receive_transaction(void);
+		void attend_transaction(void);
+
+		bool is_transaction_waiting(void);
+
 	private:
 		vector<Model_PushButton*> * pushbuttons;
 		vector<Model_BoxText*> * boxtexts;
@@ -45,6 +50,9 @@ class Model_Transaction_GUI: public Subject
 		unsigned int pos_y;
 
 		unsigned int margin_btw_buttons;
+
+
+		bool transaction_waiting;
 
 
 		bool init_ok;

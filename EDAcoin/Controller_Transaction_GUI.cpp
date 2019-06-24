@@ -36,16 +36,23 @@ Controller_Transaction_GUI::~Controller_Transaction_GUI(void)
 void
 Controller_Transaction_GUI::parseMouseEvent(EventData* ev)
 {
+
+
 	for (int i = 0; i < (int)pushButtons_controllers.size(); i++)
 	{
 		pushButtons_controllers[i]->parseMouseEvent(ev);
+
+		if (pushButtons_controllers[i]->clickInMe(ev))
+		{
+			model->receive_transaction();
+		}
+
 	}
 
 	for (int i = 0; i < (int)edittexts_controllers.size(); i++)
 	{
 		edittexts_controllers[i]->parseMouseEvent(ev);
 	}
-
 
 	
 }
@@ -101,4 +108,7 @@ Controller_Transaction_GUI::isThisMine(EventData* ev)
 	else
 		return false;
 }
+
+
+
 
