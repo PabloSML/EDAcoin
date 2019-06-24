@@ -69,6 +69,7 @@ Simulation::~Simulation(void)
 		delete transaction_interface;
 		for (Node* N : nodes)
 			delete N;
+		delete adjMatrix;
 	}
 }
 
@@ -94,6 +95,12 @@ Simulation::removeNode(Node* node)
 	}
 
 	return success;
+}
+
+void
+Simulation::addAdjMatrix(Graph* newMatrix)
+{
+	adjMatrix = newMatrix;
 }
 
 /*
@@ -262,6 +269,6 @@ Simulation::attend_transaction(void)
 	}
 
 
-	return true;
 
+	return possible_tx;
 }

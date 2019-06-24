@@ -6,6 +6,7 @@
 #include "MerkleNode.h"
 #include <nlohmann/json.hpp>
 #include <vector>
+#include <queue>
 #include "Definitions.h"
 
 //#include "Blockchain_Service.h"
@@ -43,15 +44,16 @@ public:
 	vector<MerkleNode*> get_merkle_trees(void);
 	vector<Model_Block*> * get_blockChain(void);
 
-	virtual void flood(json package, Node* sender);
+	virtual bool analizePackage(netPckg package);
+	virtual void flood(void);
 
 	virtual void createBlockChainModel(ALLEGRO_EVENT_QUEUE* event_queue);
 
 	void sendInfo2Spv();
 
 protected:
-	virtual bool analizePackage(json& package);
 
+	queue<netPckg> floodingQueue;
 
 private:
 	vector<Model_Block*> blockChain;

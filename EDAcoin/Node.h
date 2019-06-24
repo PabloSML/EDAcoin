@@ -23,6 +23,7 @@ typedef struct {
 	float posY;
 }pos_t;
 
+
 class Node : public Subject{
 public:
 	Node();
@@ -50,12 +51,7 @@ public:
 
 	virtual void ping(void);
 
-	void flood(json package);
-	virtual void flood(json package, Node* sender) = 0;
-
-
-
-
+	virtual void flood(void) = 0;
 
 	json do_transaction(string& from, double amount, string& assing_this_TX_ID);
 
@@ -69,24 +65,18 @@ protected:
 	pos_t pos;
 	list<Node*> connections;
 
-
-
 	Model_Blockchain* myBlockChainModel;
-
-
 
 	list<UTXO*> * mine_UTXOs;
 	double amount_wallet;
 	bool init_ok;
 
-
-
-
 	private:
 
 	UTXO * take_UTXO_and_update_wallet(void);
-
-
-
-
 };
+
+typedef struct {
+	json data;
+	Node* sender;
+}netPckg;
