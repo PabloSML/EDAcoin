@@ -213,7 +213,7 @@ do_transaction(string& to, double amount)
 		}
 		else //hubo un error en el medio
 		{
-			transaction.clear;
+			transaction.clear();
 		}
 
 		

@@ -13,3 +13,5 @@ TransactionS Json2Transactions(json& j);
 
 json EdaMerkleBlock2Json(EdaMerkleBlockS& b);
 
+EdaMerkleBlockS Json2EdaMerkleBlock(json& j);
+

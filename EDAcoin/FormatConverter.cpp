@@ -75,7 +75,7 @@ json EdaMerkleBlock2Json(EdaMerkleBlockS& b)
 	return j;
 }
 
-EdaMerkleBlockS Json2EdaMerkleBlock(json&j)
+EdaMerkleBlockS Json2EdaMerkleBlock(json& j)
 {
 	EdaMerkleBlockS b;
 	b.txCount = j["TxCount"].get<int>();

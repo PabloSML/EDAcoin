@@ -4,7 +4,7 @@
 void 
 SPVNode::notify(json jsonMerkle)
 {
-	EdaMerkleBlockS merkleBlock; // falta el conversor
+	EdaMerkleBlockS merkleBlock = Json2EdaMerkleBlock(jsonMerkle);
 	string incomingID = merkleBlock.blockID;
 	bool found = false;
 	for (vector<EdaMerkleBlockS>::reverse_iterator itr = edaMerkleBlockChain.rbegin(); itr < edaMerkleBlockChain.rend() && !found; itr++)
