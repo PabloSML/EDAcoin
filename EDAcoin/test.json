@@ -585,7 +585,7 @@
     "Txs": [
       {
         "TxID": "9",
-        "TxActor": "SPV Node",
+        "TxActor": "SPVNode1",
         "input": [
           {
             "BlockID": "S",
@@ -602,7 +602,7 @@
       },
       {
         "TxID": "10",
-        "TxActor": "SPV Node",
+        "TxActor": "SPVNode1",
         "input": [
           {
             "BlockID": "S",

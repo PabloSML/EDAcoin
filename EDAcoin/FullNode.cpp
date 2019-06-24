@@ -1,5 +1,6 @@
 #include "FullNode.h"
 #include "Labels.h"
+#include "FormatConverter.h"
 
 void
 FullNode::attachConnection(Node* connection)
@@ -142,14 +143,14 @@ FullNode::sendInfo2Spv()
 		unsigned int txCount = (unsigned int) spvTrans.size();
 		if (txCount) // solo notifica al spv si hay txs que le interesen
 		{
-			
-
 			merkleBlock.txCount = txCount;
 			merkleBlock.transactions = spvTrans;
 			merkleBlock.merklePathDataForTxs = spvMerkleData;
 			merkleBlock.blockID = blockID;
 
-			s->notify(merkleBlock);
+			json jsonMerkle = EdaMerkleBlock2Json(merkleBlock);
+
+			s->notify(jsonMerkle);
 		}
 	}
 }

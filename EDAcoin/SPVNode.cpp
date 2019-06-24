@@ -1,8 +1,10 @@
 #include "SPVNode.h"
+#include "FormatConverter.h"
 
 void 
-SPVNode::notify(EdaMerkleBlockS merkleBlock) // luego recibira un json y debera convertirlo a edaMerkleBlock
+SPVNode::notify(json jsonMerkle)
 {
+	EdaMerkleBlockS merkleBlock; // falta el conversor
 	string incomingID = merkleBlock.blockID;
 	bool found = false;
 	for (vector<EdaMerkleBlockS>::reverse_iterator itr = edaMerkleBlockChain.rbegin(); itr < edaMerkleBlockChain.rend() && !found; itr++)
