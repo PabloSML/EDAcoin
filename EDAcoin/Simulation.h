@@ -3,6 +3,7 @@
 #include <list>
 #include "Subject.h"
 #include "Node.h"
+#include "Graph.h"
 #include "Model_BoxText.h"
 #include "Model_PushButton.h"
 
@@ -17,6 +18,8 @@ public:
 
 	void addNode(Node* node);
 	bool removeNode(Node* node);
+
+	void addAdjMatrix(Graph* newMatrix);
 
 	/*void addTextBox(Model_BoxText* box);
 	bool removeTextBox(Model_BoxText* box);
@@ -36,6 +39,7 @@ public:
 
 private:
 	list<Node*> nodes;
+	Graph* adjMatrix;
 	//list<Model_BoxText*> textBoxes;
 	//list<Model_PushButton*> buttons;
 	bool end;

@@ -93,7 +93,7 @@ Controller_Sim::parseMouseEvent(EventData* ev)
 
 			if (model->get_transaction_interface_gui()->is_transaction_waiting())
 			{
-				attend_transaction();
+				model->attend_transaction();
 
 			}
 		}

@@ -246,12 +246,16 @@ FullNode::analizePackage(netPckg package)
 	{
 		bool found = false;
 		string newBlockID = package.data[LABEL_BLOCK_BLOCK_ID].get<string>();
-		vector<Model_Block*>::reverse_iterator ritr = blockChain.rbegin();
-		for (ritr; ritr < blockChain.rend() && !found; ritr++)
+
+		if (!blockChain.empty())
 		{
-			if (newBlockID == (*ritr)->getBlockID())
+			vector<Model_Block*>::reverse_iterator ritr = blockChain.rbegin();
+			for (ritr; ritr < blockChain.rend() && !found; ritr++)
 			{
-				found = true;
+				if (newBlockID == (*ritr)->getBlockID())
+				{
+					found = true;
+				}
 			}
 		}
 
@@ -268,12 +272,16 @@ FullNode::analizePackage(netPckg package)
 	{
 		bool found = false;
 		string newTxID = package.data[LABEL_TXS_TXID].get<string>();
-		vector<json>::reverse_iterator ritr2 = jsonTxs.rbegin();
-		for (ritr2; ritr2 < jsonTxs.rend() && !found; ritr2++)
+
+		if (!jsonTxs.empty())
 		{
-			if (newTxID == (*ritr2)[LABEL_TXS_TXID].get<string>())
+			vector<json>::reverse_iterator ritr2 = jsonTxs.rbegin();
+			for (ritr2; ritr2 < jsonTxs.rend() && !found; ritr2++)
 			{
-				found = true;
+				if (newTxID == (*ritr2)[LABEL_TXS_TXID].get<string>())
+				{
+					found = true;
+				}
 			}
 		}
 

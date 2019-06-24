@@ -23,10 +23,6 @@ typedef struct {
 	float posY;
 }pos_t;
 
-typedef struct {
-	json data;
-	Node* sender;
-}netPckg;
 
 class Node : public Subject{
 public:
@@ -69,24 +65,18 @@ protected:
 	pos_t pos;
 	list<Node*> connections;
 
-
-
 	Model_Blockchain* myBlockChainModel;
-
-
 
 	list<UTXO*> * mine_UTXOs;
 	double amount_wallet;
 	bool init_ok;
 
-
-
-
 	private:
 
 	UTXO * take_UTXO_and_update_wallet(void);
-
-
-
-
 };
+
+typedef struct {
+	json data;
+	Node* sender;
+}netPckg;

@@ -36,7 +36,7 @@ using json = nlohmann::json;
 
 // Aux Function
 static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls, int spvNum, vector<SPVNode*>& spvs, Simulation& sim, Controller_Sim& simCtrl);
-static void P2PNetworkGen(vector<FullNode*>& fulls, vector<SPVNode*>& spvs);
+static Graph* P2PNetworkGen(vector<FullNode*>& fulls, vector<SPVNode*>& spvs);
 bool getBlockChainJson(json* dest, const char* file);
 
 int main()
@@ -66,7 +66,7 @@ int main()
 
 	nodeFactory(MINERNUM, FULLNUM, fulls, SPVNUM, spvs, sim, simCtrl);
 
-	P2PNetworkGen(fulls, spvs);
+	sim.addAdjMatrix(P2PNetworkGen(fulls, spvs));
 
 	json blockChainJson;
 
@@ -77,12 +77,9 @@ int main()
 		{
 			json tempBlock = blockChainJson[i];			//Por cada bloque del json, se lo manda a los full nodes. 
 			
-			fulls[0]->flood(tempBlock, fulls[0]);
+			netPckg tempPckg{ tempBlock, fulls[0] };
 
-			for (int i = 0; i < SPVNUM; i++)
-			{
-				spvs[i]->pullHeaderfromFullNode();
-			}
+			fulls[0]->analizePackage(tempPckg);
 		}
 	}
 
@@ -150,7 +147,6 @@ static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls,
 				RegularNodeView* tempView = new RegularNodeView(FULL_IMG_PATH);
 				Controller_Node* tempControl = new Controller_Node(tempFull);
 				tempFull->attach(tempView);
-				sim.addNode(tempFull);
 				simCtrl.addNodeController(tempControl);
 				fulls.push_back(tempFull);
 				fullNum--;
@@ -163,7 +159,6 @@ static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls,
 				RegularNodeView* tempView = new RegularNodeView(MINER_IMG_PATH);
 				Controller_Node* tempControl = new Controller_Node(tempMiner);
 				tempMiner->attach(tempView);
-				sim.addNode(tempMiner);
 				simCtrl.addNodeController(tempControl);
 				fulls.push_back(tempMiner);
 				minerNum--;
@@ -177,19 +172,25 @@ static void nodeFactory(int minerNum, int fullNum, vector<FullNode*>& fulls,
 			RegularNodeView* tempView = new RegularNodeView(SPV_IMG_PATH);
 			Controller_Node* tempControl = new Controller_Node(tempSpv);
 			tempSpv->attach(tempView);
-			sim.addNode(tempSpv);
 			simCtrl.addNodeController(tempControl);
 			spvs.push_back(tempSpv);
 			spvNum--;
 		}
 	}
+
+	for (FullNode* F : fulls)	// se agregan a la sim en orden (primero fulls, luego spvs)
+		sim.addNode(F);
+	for (SPVNode* S : spvs)
+		sim.addNode(S);
 }
 
-static void P2PNetworkGen(vector<FullNode*>& fulls, vector<SPVNode*>& spvs)	// por ahora conecta hardcoded, hay que hacer el algoritmo
+static Graph* P2PNetworkGen(vector<FullNode*>& fulls, vector<SPVNode*>& spvs)
 {
 	int fullCount = (int)(fulls.size());
+	int spvCount = (int)(spvs.size());
+	int totalCount = fullCount + spvCount;
 
-	Graph adjMatrix(fullCount);
+	Graph* adjMatrix = new Graph(totalCount);
 
 	for (int i = 0; i < fullCount; i++)		// recorre todos los fulls, eligiendo 2 otros fulls random y conectandolo si no esta conectado (llegando a un maximo de 2 conexiones)
 	{
@@ -203,42 +204,40 @@ static void P2PNetworkGen(vector<FullNode*>& fulls, vector<SPVNode*>& spvs)	// p
 		FullNode* tempNeigh1 = fulls[rndIndex1];
 		FullNode* tempNeigh2 = fulls[rndIndex2];
 
-		if (adjMatrix.countEdges(i) < 2 && !(adjMatrix.isEdge(i, rndIndex1)))
+		if (adjMatrix->countEdges(i) < 2 && !(adjMatrix->isEdge(i, rndIndex1)))
 		{
 			temp->attachConnection(tempNeigh1);
 			tempNeigh1->attachConnection(temp);
-			adjMatrix.setEdge(i, rndIndex1);
+			adjMatrix->setEdge(i, rndIndex1);
 		}
 
-		if (adjMatrix.countEdges(i) < 2 && !(adjMatrix.isEdge(i, rndIndex2)))
+		if (adjMatrix->countEdges(i) < 2 && !(adjMatrix->isEdge(i, rndIndex2)))
 		{
 			temp->attachConnection(tempNeigh2);
 			tempNeigh2->attachConnection(temp);
-			adjMatrix.setEdge(i, rndIndex2);
+			adjMatrix->setEdge(i, rndIndex2);
 		}
 	}
 
 	int randomChecker = randIntBetween(0, fullCount - 1);
 
-	while (adjMatrix.BFSCount(randomChecker) < fullCount)	// si se cumple esta condicion significa que el grafo no es conexo, se elige un full al que no este conectado el checker y se lo conecta. Luego se repite el analisis
+	while (adjMatrix->BFSCount(randomChecker) < fullCount)	// si se cumple esta condicion significa que el grafo no es conexo, se elige un full al que no este conectado el checker y se lo conecta. Luego se repite el analisis
 	{
 		bool found = false;
 		for (int i = 0; i < fullCount && !found; i++)
 		{
-			if ( (randomChecker != i) && !(adjMatrix.isEdge(randomChecker, i)) )
+			if ( (randomChecker != i) && !(adjMatrix->isEdge(randomChecker, i)) )
 			{
 				FullNode* checker = fulls[randomChecker];
 				FullNode* temp = fulls[i];
 
 				checker->attachConnection(temp);
 				temp->attachConnection(checker);
-				adjMatrix.setEdge(randomChecker, i);
+				adjMatrix->setEdge(randomChecker, i);
 				found = true;
 			}
 		}
 	}
-
-	int spvCount = (int)(spvs.size());
 
 	for (int i = 0; i < spvCount; i++)		// se realiza la conexion entre cada spv y dos nodos full aleatorios
 	{
@@ -254,7 +253,12 @@ static void P2PNetworkGen(vector<FullNode*>& fulls, vector<SPVNode*>& spvs)	// p
 
 		temp->attachConnection(tempNeigh1);
 		tempNeigh1->attachConnection(temp);
+		adjMatrix->setEdge(fullCount + i, rndIndex1);
+
 		temp->attachConnection(tempNeigh2);
 		tempNeigh2->attachConnection(temp);
+		adjMatrix->setEdge(fullCount + i, rndIndex2);
 	}
+
+	return adjMatrix;
 }
