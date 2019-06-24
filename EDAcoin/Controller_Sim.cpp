@@ -89,6 +89,11 @@ Controller_Sim::parseMouseEvent(EventData* ev)
 				C->parseMouseEvent(ev);
 			
 			controller_transaction_gui->parseMouseEvent(ev);
+
+			if (model->get_transaction_interface_gui()->is_transaction_waiting())
+			{
+
+			}
 		}
 	}
 	else 

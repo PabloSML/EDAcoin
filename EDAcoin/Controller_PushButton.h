@@ -17,10 +17,10 @@ public:
 	void forwardKeyboardEvent(EventData * ev) {};
 	void forwardMouseEvent(EventData * ev) {};
 
+	bool clickInMe(EventData* ev);
+
 private:
 	Model_PushButton* model;
 	
 	
-	bool clickInMe(EventData* ev);
-
 };

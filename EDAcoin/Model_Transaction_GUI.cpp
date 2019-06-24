@@ -17,6 +17,7 @@ Model_Transaction_GUI(unsigned int num_boxtexts, unsigned int  num_pushbuttons,
 	pos_x(dx),
 	pos_y(dy),
 	init_ok(true),
+	transaction_waiting(false),
 	cant_pushbuttons(num_pushbuttons),
 	cant_boxtexts(num_boxtexts)
 
@@ -240,3 +241,14 @@ Model_Transaction_GUI::get_boxtext(unsigned int which_boxttext)
 
 	return ret;
 }
+
+
+
+void 
+Model_Transaction_GUI::receive_transaction(void) { this->transaction_waiting = true; }
+
+void 
+Model_Transaction_GUI::attend_transaction(void) { this->transaction_waiting = false; }
+
+bool 
+Model_Transaction_GUI::is_transaction_waiting(void) { return this->transaction_waiting; }
