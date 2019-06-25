@@ -64,6 +64,8 @@ FullNode::recieveBlock(json& jsonBlock)
 
 			allAvailableUTXOs.push_back(new_utxo);
 		}
+
+		updateTxList(t);
 	}
 
 	double test = log2(txsCount);
@@ -243,6 +245,21 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 		transactions.push_back(tempTx);
 	}
 }
+
+void
+FullNode::updateTxList(TransactionS& incoming)
+{
+	bool found = false;
+	for (vector<json>::iterator itr = jsonTxs.begin(); itr < jsonTxs.end() && !found; itr++)
+	{
+		if (incoming.txID == (*itr)[LABEL_TXS_TXID].get<string>())
+		{
+			found = true;
+			jsonTxs.erase(itr);
+		}
+	}
+}
+
 
 void FullNode::buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID)
 {

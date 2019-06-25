@@ -53,6 +53,7 @@ private:
 	unsigned long merkleRoot;
 	unsigned int txsCount;
 	vector<TransactionS> transactions;
+	unsigned long nounce;
 
 	unsigned int pos_x;
 	unsigned int pos_y;
