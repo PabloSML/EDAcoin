@@ -30,9 +30,11 @@ public:
 			destroyMerkleTree(M);
 		for (Model_Block* B : blockChain)
 			delete B;
+		for (UTXO* U : allAvailableUTXOs)
+			delete U;
 	}
 
-	void recieveBlock(json& jsonBlock);
+	virtual void recieveBlock(json& jsonBlock);
 
 	vector<json> requestLatestHeaders(string latestID);
 	vector<json> requestAllHeaders(void);
@@ -63,8 +65,11 @@ protected:
 	
 	vector<json> jsonTxs;
 
-private:
+	list<UTXO*> allAvailableUTXOs;
 
 	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount);
+
+private:
+
 	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID);
 };

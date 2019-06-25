@@ -6,6 +6,7 @@
 #include "Definitions.h"
 #include "Subject.h"
 #include "UTXO.h"
+#include "Random.h"
 
 
 //#include "Blockchain_Message.h"

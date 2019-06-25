@@ -28,6 +28,7 @@ public:
 	unsigned int getTxsCount(void) const;
 	vector<TransactionS> get_transactions(void) const;
 	void addTransaction(TransactionS& newTx);
+	bool hasTransactions(void);
 	blockHeader getBlockHeader(void) const; // crea una estructura blockHeader y la devuelve en su nombre
 
 	unsigned int get_pos_x(void);

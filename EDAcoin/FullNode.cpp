@@ -36,9 +36,35 @@ FullNode::recieveBlock(json& jsonBlock)
 
 	buildTxList(transactions, jsonTxs, txsCount);			//Guardo todas las transacciones en el vector de TransactionS.
 
-	vector<string> txIDs;					//Obtengo todos los IDs de las transacciones.
-	for (TransactionS t : transactions)
+	vector<string> txIDs;					//Obtengo todos los IDs de las transacciones para crear el merkle tree
+	for (TransactionS t : transactions)		//Ademas se guardan todas las UTXOs del bloque como disponibles y se eliminan las usadas
+	{
 		txIDs.push_back(t.txID);
+
+		for (InputS& in : t.inputs)
+		{
+			for (UTXO* u : allAvailableUTXOs)
+			{
+				if (in.blockID == u->get_blockID() && in.txID == u->get_txID())
+				{
+					delete u;
+					allAvailableUTXOs.remove(u);
+				}
+			}
+		}
+
+		for (OutputS& out : t.outputs)
+		{
+			UTXO * new_utxo = new UTXO;
+
+			new_utxo->set_reference(blockID, t.txID);
+
+			OutputS new_output_utxo = out;
+			new_utxo->set_output(new_output_utxo);
+
+			allAvailableUTXOs.push_back(new_utxo);
+		}
+	}
 
 	double test = log2(txsCount);
 

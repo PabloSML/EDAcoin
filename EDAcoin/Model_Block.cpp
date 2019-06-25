@@ -54,6 +54,9 @@ get_transactions(void) const { return this->transactions; }
 void
 Model_Block::addTransaction(TransactionS& newTX) { transactions.push_back(newTX); txsCount++; }
 
+bool
+Model_Block::hasTransactions(void) { return !transactions.empty(); }
+
 unsigned int Model_Block::
 get_pos_x(void) { return this->pos_x; }
 

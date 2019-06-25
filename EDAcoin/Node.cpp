@@ -159,7 +159,7 @@ do_transaction(string& to, double amount)
 	{
 
 		//aca iria lo del sha256
-		transaction[LABEL_TXS_TXID] = BLABLA;
+		transaction[LABEL_TXS_TXID] = to_string(generateID((const unsigned char*)to_string(randDoubleBetween(1, pow(2, 10))).c_str()));
 
 		double money_using = 0.0;
 
@@ -269,9 +269,9 @@ Node::update_wallet(TransactionS& tx, string& blockID)
 				{
 					this->amount_wallet -= ((*it)->get_output()).amount; //actualizo mi billetera
 
-					(*this->mine_UTXOs).remove(*it);
-
 					delete (*it);
+
+					(*this->mine_UTXOs).remove(*it);
 
 				}
 				else //se encuentra usada y a la vez no
@@ -290,7 +290,7 @@ Node::update_wallet(TransactionS& tx, string& blockID)
 
 	//en la transaccion soy a quien le pagan?
 
-	for (OutputS out : tx.outputs)
+	for (OutputS& out : tx.outputs)
 	{
 		bool match_utxo = false;
 

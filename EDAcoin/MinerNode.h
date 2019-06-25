@@ -11,6 +11,7 @@ public:
 	}
 	~MinerNode(){}
 
+	virtual void recieveBlock(json& jsonBlock);
 	virtual bool analizePackage(netPckg package);
 
 private:
