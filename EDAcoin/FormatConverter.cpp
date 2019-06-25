@@ -1,5 +1,6 @@
 #include "FormatConverter.h"
 #include <iostream>
+#include <stdint.h>
 
 using namespace std;
 
@@ -28,14 +29,14 @@ TransactionS Json2Transactions(json& j)
 {
 	TransactionS t;
 	t.txID = j["TxID"].get<string>();
-	for (int i = 0; i < j["Inputs"].size(); i++)
+	for (unsigned int i = 0; i < j["Inputs"].size(); i++)
 	{
 		InputS input;
 		input.blockID = j["Inputs"][i]["BlockID"].get<string>();
 		input.txID = j["Inputs"][i]["TxID"].get<string>();
 		t.inputs.push_back(input);
 	}
-	for (int i = 0; i < j["Outputs"].size(); i++)
+	for (unsigned int i = 0; i < j["Outputs"].size(); i++)
 	{
 		OutputS output;
 		output.publicID = j["Outputs"][i]["PublicID"].get<string>();
@@ -79,15 +80,15 @@ EdaMerkleBlockS Json2EdaMerkleBlock(json& j)
 {
 	EdaMerkleBlockS b;
 	b.txCount = j["TxCount"].get<int>();
-	for (int i = 0; i < j["Transactions"].size(); i++)
+	for (unsigned int i = 0; i < j["Transactions"].size(); i++)
 	{
 		b.transactions.push_back(Json2Transactions(j["Transactions"][i]));
 	}
-	for (int i = 0; i < j["MerkleValidationData"].size(); i++)
+	for (unsigned int i = 0; i < j["MerkleValidationData"].size(); i++)
 	{
 		MerkleValidationData tempData;
 		tempData.merklePathLen= j["MerkleValidationData"][i]["merklePathLen"].get<int>();
-		for (int k = 0; k < j["MerkleValidationData"][i]["Step"].size(); k++)
+		for (unsigned int k = 0; k < j["MerkleValidationData"][i]["Step"].size(); k++)
 		{
 			direction dir;
 			if (j["MerkleValidationData"][i]["Step"][k]["Direction"] == "Right")
@@ -122,7 +123,7 @@ json Block2Json(Model_Block& b)
 	j["Image_w"] = b.get_size_x();
 	j["Image_H"] = b.get_size_y();
 	//void* p =(void*) b.getMerkleTreeModel();
-	string str = to_string((long)b.getMerkleTreeModel());
+	string str = to_string((int64_t)b.getMerkleTreeModel());
 	j["MyMerkleTreeModel"] = str;
 	return j;
 }
@@ -133,7 +134,7 @@ Model_Block Json2Block(json& j)
 	unsigned long MerkleRoot = j["MerkleRoot"].get<unsigned long>();
 	unsigned int TxCount = j["TxCount"].get<unsigned int>();
 	vector<TransactionS> t;
-	for (int i = 0; i < j["Transactions"].size(); i++)
+	for (unsigned int i = 0; i < j["Transactions"].size(); i++)
 	{
 		t.push_back(Json2Transactions(j["Transactions"][i]));
 	}
@@ -142,7 +143,7 @@ Model_Block Json2Block(json& j)
 	b.set_pos_y(j["Pos_y"].get<unsigned int>());
 	b.set_size_x(j["Image_w"].get<unsigned int>());
 	b.set_size_y(j["Image_H"].get<unsigned int>());
-	Model_MerkleTree* myMerkleTreeModel = (Model_MerkleTree *)stol(j["MyMerkleTreeModel"].get<string>());
+	Model_MerkleTree* myMerkleTreeModel = (Model_MerkleTree *)stoll(j["MyMerkleTreeModel"].get<string>());
 	b.setMerkleTreeModel(myMerkleTreeModel);
 	return b;
 }

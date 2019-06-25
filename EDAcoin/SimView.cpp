@@ -20,7 +20,7 @@ SimView::update(void* model)
 
 void SimView::drawConnections(vector<pos_t> v, Graph* g)
 {
-	int cantnodes = v.size();
+	int cantnodes =(int) v.size();
 	//int cantE = 0;
 	if (cantnodes != g->getN())
 	{
