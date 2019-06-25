@@ -135,13 +135,12 @@ SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToVali
 {
 	if (headerToValidate.blockID == blockToValidate.blockID) // validacion redundante
 	{
-		unsigned long wantedRoot = headerToValidate.merkleRoot;
+		string wantedRoot = headerToValidate.merkleRoot;
 
 		vector<MerkleValidationData>::iterator dataItr = blockToValidate.merklePathDataForTxs.begin();
 		for (TransactionS& tx : blockToValidate.transactions)
 		{
-			unsigned long obtainedRoot;
-			string ID = tx.txID;	// el ID inicial sera el ID de la transaccion
+			string obtainedRoot = tx.txID; // el ID inicial sera el ID de la transaccion
 			string concat;
 
 			for (Step& stp : dataItr->merklePath)
@@ -149,12 +148,11 @@ SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToVali
 				direction stepDir = stp.getDir();
 
 				if (stepDir == RIGHT)
-					concat = ID + stp.getID();
+					concat = obtainedRoot + stp.getID();
 				else if (stepDir == LEFT)
-					concat = stp.getID() + ID;
+					concat = stp.getID() + obtainedRoot;
 
-				obtainedRoot = generateID((const unsigned char*)concat.c_str());
-				ID = to_string(obtainedRoot);
+				obtainedRoot = to_string(generateID((const unsigned char*)concat.c_str()));
 			}
 
 			if (obtainedRoot == wantedRoot)

@@ -12,7 +12,7 @@ using namespace std;
 
 typedef struct {		// estructura de blockHeader por si sirve
 	string blockID;
-	unsigned long merkleRoot;
+	string merkleRoot;
 }blockHeader;
 
 
@@ -58,6 +58,7 @@ private:
 	string merkleRoot;
 	unsigned int txsCount;
 	vector<TransactionS> transactions;
+	unsigned long nounce;
 
 	unsigned int pos_x;
 	unsigned int pos_y;

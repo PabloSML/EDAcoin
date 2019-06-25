@@ -63,7 +63,8 @@ protected:
 	list<SPVNode*> filters;
 	vector<MerkleNode*> merkleTrees;
 	
-	vector<json> jsonTxs; 
+	vector<json> jsonTxs;
+	void updateTxList(TransactionS& incoming);
 
 	list<UTXO*> allAvailableUTXOs;
 

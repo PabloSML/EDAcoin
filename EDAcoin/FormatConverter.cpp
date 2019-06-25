@@ -130,7 +130,7 @@ json Block2Json(Model_Block& b)
 Model_Block Json2Block(json& j)
 {
 	string BlockId = j["BlockID"].get<string>();
-	unsigned long MerkleRoot = j["MerkleRoot"].get<unsigned long>();
+	string MerkleRoot = j["MerkleRoot"].get<string>();
 	unsigned int TxCount = j["TxCount"].get<unsigned int>();
 	vector<TransactionS> t;
 	for (int i = 0; i < j["Transactions"].size(); i++)
@@ -159,6 +159,6 @@ blockHeader Json2Header(json& j)
 {
 	blockHeader b;
 	b.blockID = j["BlockID"].get<string>();
-	b.merkleRoot = j["MerkleRoot"].get<unsigned long>();
+	b.merkleRoot = j["MerkleRoot"].get<string>();
 	return b;
 }
