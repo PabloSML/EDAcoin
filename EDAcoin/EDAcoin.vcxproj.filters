@@ -133,6 +133,9 @@
     <ClCompile Include="MinerNode.cpp">
       <Filter>Source Files\Blockchain</Filter>
     </ClCompile>
+    <ClCompile Include="Crypto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -268,6 +271,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="FormatConverter.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Crypto.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

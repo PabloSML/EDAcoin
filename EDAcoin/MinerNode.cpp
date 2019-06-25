@@ -52,10 +52,13 @@ MinerNode::analizePackage(netPckg package)
 		if (!found)
 		{
 			//if: validacion del bloque recibido -> lo siguiente
+			haltMining(); // elimina el bloque que se intentaba minar
 			isPackageNew = true;
 			floodingQueue.push(package);
 			recieveBlock(package.data);
 			sendInfo2Spv();
+			if(!jsonTxs.empty())
+				create_new_mining_block(); // restart mining
 		}
 	}
 
@@ -82,10 +85,9 @@ MinerNode::analizePackage(netPckg package)
 			isPackageNew = true;
 			floodingQueue.push(package);
 			jsonTxs.push_back(package.data);
-			if (miningBlock != nullptr && !miningBlock->hasTransactions())	// para la primer tx de todas
+			if (miningBlock == nullptr)	// para la primer tx de todas o si no se creo un block porque no habia txs
 			{
-				TransactionS tempTx = Json2Transactions(package.data);
-				miningBlock->addTransaction(tempTx);
+				create_new_mining_block();
 			}
 		}
 	}
@@ -158,7 +160,6 @@ void
 MinerNode::create_new_mining_block(void)
 {
 	this->miningBlock = new Model_Block;
-	this->mining_tree = new MerkleNode;
 
 	vector<string> txIDs;
 
@@ -185,7 +186,7 @@ MinerNode::create_new_mining_block(void)
 
 	int currentLeaf = 0;
 
-
+	this->mining_tree = new MerkleNode;
 	buildMerkleTree(this->mining_tree, 0, log2(txsCount), txIDs, currentLeaf);					//Se crea el merkle tree.
 	string rootID = createNodeID(this->mining_tree);											//Genera el rootID.
 	(this->mining_tree)->setNodeID(rootID);
@@ -200,3 +201,11 @@ MinerNode::create_new_mining_block(void)
 
 }
 
+void
+MinerNode::haltMining(void)
+{
+	delete miningBlock;
+	destroyMerkleTree(mining_tree);
+	miningBlock = nullptr;
+	mining_tree = nullptr;
+}
