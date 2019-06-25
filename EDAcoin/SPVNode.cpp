@@ -4,7 +4,7 @@
 void 
 SPVNode::notify(json jsonMerkle)
 {
-	EdaMerkleBlockS merkleBlock; // falta el conversor
+	EdaMerkleBlockS merkleBlock = Json2EdaMerkleBlock(jsonMerkle);
 	string incomingID = merkleBlock.blockID;
 	bool found = false;
 	for (vector<EdaMerkleBlockS>::reverse_iterator itr = edaMerkleBlockChain.rbegin(); itr < edaMerkleBlockChain.rend() && !found; itr++)
@@ -30,14 +30,21 @@ SPVNode::pullHeaderfromFullNode()	// analogamente, luego recibira json
 		unsigned int fullHeaderCount = tempFull->requestHeaderCount();
 		if (fullHeaderCount > blockHeaderCount)
 		{
+			vector<json> jsonHeaderReceptor;
 			vector<blockHeader> headerReceptor;
 			if (blockHeaderCount == 0)
-				tempFull->requestAllHeaders(&headerReceptor);
+			{
+				jsonHeaderReceptor = tempFull->requestAllHeaders();
+				for (json& J : jsonHeaderReceptor)
+					headerReceptor.push_back(Json2Header(J));
+			}
 			else
 			{
 				vector<blockHeader>::reverse_iterator itr = blockHeaders.rbegin();	// obtengo un iterador al ultimo header recibido para conseguir su blockID
 				string tempBlockID = itr->blockID;
-				tempFull->requestLatestHeaders(&headerReceptor, tempBlockID);	// luego de esta funcion, la conexion con el full deja de ser necesaria y se pasa a procesar lo recibido
+				jsonHeaderReceptor = tempFull->requestLatestHeaders(tempBlockID);	// luego de esta funcion, la conexion con el full deja de ser necesaria y se pasa a procesar lo recibido
+				for (json& J : jsonHeaderReceptor)
+					headerReceptor.push_back(Json2Header(J));
 			}
 			for (blockHeader& b : headerReceptor)
 			{
@@ -152,6 +159,7 @@ SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToVali
 
 			if (obtainedRoot == wantedRoot)
 				cout << "A transaction has been successfully validated!" << endl;
+				// update wallet
 			else
 				cout << "A transaction validation has returned an error" << endl;
 

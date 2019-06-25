@@ -107,23 +107,21 @@ Controller_Node::parseTransactionEvent(string& to, string& from, string& amount)
 		{
 			json new_tx = model->do_transaction(to, stod(amount));
 
-			netPckg temppck = { new_tx, model };
-
-			if (model->getNodeID() != string("SPV Node"))
+			if (!new_tx.empty())
 			{
-				((FullNode*)model)->analizePackage(temppck);
-			}
-			else
-			{
-				((SPVNode *)model)->flood(temppck);
-			}
+				netPckg temppck = { new_tx, model };
 
+				if (model->getNodeID() != string("SPV Node"))
+				{
+					((FullNode*)model)->analizePackage(temppck);
+				}
+				else
+				{
+					((SPVNode *)model)->flood(temppck);
+				}
+			}
 		}
-		
-
-	}
-	
-	
+	}	
 }
 
 

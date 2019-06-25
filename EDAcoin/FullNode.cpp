@@ -1,6 +1,4 @@
 #include "FullNode.h"
-#include "Labels.h"
-#include "FormatConverter.h"
 
 void
 FullNode::attachConnection(Node* connection)
@@ -55,10 +53,11 @@ FullNode::recieveBlock(json& jsonBlock)
 	blockChain.push_back(newBlock);
 }
 
-void
-FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
+vector<json>
+FullNode::requestLatestHeaders(string latestID)
 {
 	bool found = false;
+	vector<json> tempVector;
 	vector<Model_Block*>::reverse_iterator ritr = blockChain.rbegin();
 	for (ritr; ritr < blockChain.rend() && !found; ritr++)		// primero se busca el match empezando desde los ultimos headers (si el spv ya esta conectado esto supone el metodo mas eficiente de recorrer el vector).
 	{
@@ -72,24 +71,30 @@ FullNode::requestLatestHeaders(vector<blockHeader>* dest, string& latestID)
 		ritr--;	// se corrige el offset que generara el incremento al terminar el ciclo
 		ritr--;	// se vuelve al primer block no conocido (siguiente al conocido)
 
+
 		for (ritr; ritr >= blockChain.rbegin(); ritr--)
 		{
 			blockHeader tempHeader = (*ritr)->getBlockHeader();
-			dest->push_back(tempHeader);
+			tempVector.push_back(Header2Json(tempHeader));
 			if (ritr == blockChain.rbegin())
 				break;
 		}
 	}
+
+	return tempVector;
 }
 
-void
-FullNode::requestAllHeaders(vector<blockHeader>* dest)
+vector<json>
+FullNode::requestAllHeaders(void)
 {
+	vector<json> tempVector;
 	for (Model_Block* B : blockChain)
 	{
 		blockHeader tempHeader = B->getBlockHeader();
-		dest->push_back(tempHeader);
+		json tempJson = Header2Json(tempHeader);
+		tempVector.push_back(tempJson);
 	}
+	return tempVector;
 }
 
 unsigned int 

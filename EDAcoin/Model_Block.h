@@ -27,6 +27,7 @@ public:
 	unsigned long getMerkleRoot(void) const;
 	unsigned int getTxsCount(void) const;
 	vector<TransactionS> get_transactions(void) const;
+	void addTransaction(TransactionS& newTx);
 	blockHeader getBlockHeader(void) const; // crea una estructura blockHeader y la devuelve en su nombre
 
 	unsigned int get_pos_x(void);
@@ -43,6 +44,7 @@ public:
 	void createMerkleTreeModel(MerkleNode* root, ALLEGRO_EVENT_QUEUE* event_queue);
 	void destroyMerkleTreeModel(void);
 	Model_MerkleTree* getMerkleTreeModel(void);
+	void setMerkleTreeModel(Model_MerkleTree* m);
 
 private:
 

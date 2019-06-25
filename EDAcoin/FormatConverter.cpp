@@ -75,7 +75,7 @@ json EdaMerkleBlock2Json(EdaMerkleBlockS& b)
 	return j;
 }
 
-EdaMerkleBlockS Json2EdaMerkleBlock(json&j)
+EdaMerkleBlockS Json2EdaMerkleBlock(json& j)
 {
 	EdaMerkleBlockS b;
 	b.txCount = j["TxCount"].get<int>();
@@ -102,5 +102,63 @@ EdaMerkleBlockS Json2EdaMerkleBlock(json&j)
 	}
 	b.blockID = j["BlockID"].get<string>();
 
+	return b;
+}
+
+json Block2Json(Model_Block& b)
+{
+	json j;
+	j["BlockID"] = b.getBlockID();
+	j["MerkleRoot"] = b.getMerkleRoot();
+	j["TxCount"] = b.getTxsCount();
+	int count = 0;
+	for (TransactionS t : b.get_transactions())
+	{
+		j["Transactions"][count] = Transactions2Json(t);
+		count++;
+	}
+	j["Pos_x"] = b.get_pos_x();
+	j["Pos_y"] = b.get_pos_y();
+	j["Image_w"] = b.get_size_x();
+	j["Image_H"] = b.get_size_y();
+	//void* p =(void*) b.getMerkleTreeModel();
+	string str = to_string((long)b.getMerkleTreeModel());
+	j["MyMerkleTreeModel"] = str;
+	return j;
+}
+
+Model_Block Json2Block(json& j)
+{
+	string BlockId = j["BlockID"].get<string>();
+	unsigned long MerkleRoot = j["MerkleRoot"].get<unsigned long>();
+	unsigned int TxCount = j["TxCount"].get<unsigned int>();
+	vector<TransactionS> t;
+	for (int i = 0; i < j["Transactions"].size(); i++)
+	{
+		t.push_back(Json2Transactions(j["Transactions"][i]));
+	}
+	Model_Block b(BlockId, MerkleRoot, TxCount, t);
+	b.set_pos_x(j["Pos_x"].get<unsigned int>());
+	b.set_pos_y(j["Pos_y"].get<unsigned int>());
+	b.set_size_x(j["Image_w"].get<unsigned int>());
+	b.set_size_y(j["Image_H"].get<unsigned int>());
+	Model_MerkleTree* myMerkleTreeModel = (Model_MerkleTree *)stol(j["MyMerkleTreeModel"].get<string>());
+	b.setMerkleTreeModel(myMerkleTreeModel);
+	return b;
+}
+
+json Header2Json(blockHeader& b)
+{
+	json j;
+	j["BlockID"] = b.blockID;
+	j["MerkleRoot"] = b.merkleRoot;
+	return j;
+}
+
+blockHeader Json2Header(json& j)
+{
+	blockHeader b;
+	b.blockID = j["BlockID"].get<string>();
+	b.merkleRoot = j["MerkleRoot"].get<unsigned long>();
 	return b;
 }
