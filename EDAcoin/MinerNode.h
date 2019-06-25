@@ -5,7 +5,7 @@
 class MinerNode : public FullNode
 {
 public:
-	MinerNode(string& newNodeID) : FullNode(newNodeID, "Miner Node");
+	MinerNode(string& newNodeID);
 	~MinerNode();
 
 	virtual void recieveBlock(json& jsonBlock);
