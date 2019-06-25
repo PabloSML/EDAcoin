@@ -19,14 +19,15 @@ typedef struct {		// estructura de blockHeader por si sirve
 
 class Model_Block : public Subject {
 public:
-	Model_Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions);
+	Model_Block(string& blockID, string& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions);
 	Model_Block();
 	~Model_Block();
 
 	string getBlockID(void) const;
-	unsigned long getMerkleRoot(void) const;
+	string getMerkleRoot(void) const;
 	unsigned int getTxsCount(void) const;
 	vector<TransactionS> get_transactions(void) const;
+	string get_previous_blockID(void);
 	void addTransaction(TransactionS& newTx);
 	bool hasTransactions(void);
 	blockHeader getBlockHeader(void) const; // crea una estructura blockHeader y la devuelve en su nombre
@@ -35,6 +36,7 @@ public:
 	unsigned int get_pos_y(void);
 	unsigned int get_size_x(void);
 	unsigned int get_size_y(void);
+	
 
 	void set_pos_x(unsigned int new_pos_x);
 	void set_pos_y(unsigned int new_pos_y);
@@ -47,10 +49,13 @@ public:
 	Model_MerkleTree* getMerkleTreeModel(void);
 	void setMerkleTreeModel(Model_MerkleTree* m);
 
+	void set_merkle_root(string& new_merkle_root);
+	void set_previous_blockID(string& new_prev_blockID);
 private:
 
 	string blockID;
-	unsigned long merkleRoot;
+	string prev_blockID;
+	string merkleRoot;
 	unsigned int txsCount;
 	vector<TransactionS> transactions;
 
