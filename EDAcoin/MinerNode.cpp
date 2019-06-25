@@ -82,10 +82,9 @@ MinerNode::analizePackage(netPckg package)
 			isPackageNew = true;
 			floodingQueue.push(package);
 			jsonTxs.push_back(package.data);
-			if (miningBlock != nullptr && !miningBlock->hasTransactions())	// para la primer tx de todas
+			if (miningBlock == nullptr)	// para la primer tx de todas o si no se creo un block porque no habia txs
 			{
-				TransactionS tempTx = Json2Transactions(package.data);
-				miningBlock->addTransaction(tempTx);
+				create_new_mining_block();
 			}
 		}
 	}
