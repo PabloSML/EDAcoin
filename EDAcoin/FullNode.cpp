@@ -39,6 +39,15 @@ FullNode::recieveBlock(json& jsonBlock)
 	vector<string> txIDs;					//Obtengo todos los IDs de las transacciones.
 	for (TransactionS t : transactions)
 		txIDs.push_back(t.txID);
+
+	double test = log2(txsCount);
+
+	while (!(floor(test) == ceil(test)))	// si la cantidad de txs no es potencia de 2
+	{
+		txIDs.push_back(string("dummy"));
+		txsCount++;
+		test = log2(txsCount);
+	}
 	int currentLeaf = 0;
 	
 	MerkleNode* root = new MerkleNode;
@@ -47,7 +56,7 @@ FullNode::recieveBlock(json& jsonBlock)
 	root->setNodeID(rootID);
 	merkleTrees.push_back(root);
 	
-	unsigned long numID = stoi(rootID);
+	unsigned long numID = stoul(rootID);
 
 	Model_Block* newBlock = new Model_Block(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
 	blockChain.push_back(newBlock);
