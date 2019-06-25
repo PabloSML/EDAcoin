@@ -105,3 +105,9 @@ Model_Block::getMerkleTreeModel()
 	return myMerkleTreeModel;
 }
 
+void Model_Block::setMerkleTreeModel(Model_MerkleTree* m)
+{
+	this->myMerkleTreeModel = m;
+}
+
+

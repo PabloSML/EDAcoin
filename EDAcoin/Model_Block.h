@@ -43,6 +43,7 @@ public:
 	void createMerkleTreeModel(MerkleNode* root, ALLEGRO_EVENT_QUEUE* event_queue);
 	void destroyMerkleTreeModel(void);
 	Model_MerkleTree* getMerkleTreeModel(void);
+	void setMerkleTreeModel(Model_MerkleTree* m);
 
 private:
 
