@@ -5,7 +5,7 @@
 
 
 
-Model_Block::Model_Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions) :
+Model_Block::Model_Block(string& blockID, string& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions) :
   blockID(blockID), merkleRoot(merkleRoot), txsCount(txsCount), transactions(transactions), myMerkleTreeModel(nullptr)
 {
 	this->pos_x = 0;
@@ -42,7 +42,7 @@ Model_Block::getBlockHeader(void) const
 string Model_Block::
 getBlockID(void) const { return this->blockID; }
 
-unsigned long Model_Block::
+string Model_Block::
 getMerkleRoot(void) const { return this->merkleRoot; }
 
 unsigned int Model_Block::

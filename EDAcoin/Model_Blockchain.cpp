@@ -182,7 +182,7 @@ Model_Blockchain::recountHeaders(void)
 		for (unsigned int i = oldCount; i < blockCount; i++)
 		{
 			string str = (*blockHeaders)[i].blockID;
-			unsigned long merkle_root = (*blockHeaders)[i].merkleRoot;
+			string merkle_root = (*blockHeaders)[i].merkleRoot;
 			unsigned int tx_count = 0;
 			vector<TransactionS> txs;
 

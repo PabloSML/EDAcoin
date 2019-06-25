@@ -123,8 +123,6 @@ MinerNode::recieveBlock(json& jsonBlock)
 	root->setNodeID(rootID);
 	merkleTrees.push_back(root);
 
-	unsigned long numID = stoul(rootID);
-
-	Model_Block* newBlock = new Model_Block(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
+	Model_Block* newBlock = new Model_Block(blockID, rootID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
 	blockChain.push_back(newBlock);
 }

@@ -12,19 +12,19 @@ using namespace std;
 
 typedef struct {		// estructura de blockHeader por si sirve
 	string blockID;
-	unsigned long merkleRoot;
+	string merkleRoot;
 }blockHeader;
 
 
 
 class Model_Block : public Subject {
 public:
-	Model_Block(string& blockID, unsigned long& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions);
+	Model_Block(string& blockID, string& merkleRoot, unsigned int& txsCount, vector<TransactionS>& transactions);
 	Model_Block();
 	~Model_Block();
 
 	string getBlockID(void) const;
-	unsigned long getMerkleRoot(void) const;
+	string getMerkleRoot(void) const;
 	unsigned int getTxsCount(void) const;
 	vector<TransactionS> get_transactions(void) const;
 	void addTransaction(TransactionS& newTx);
@@ -50,7 +50,7 @@ public:
 private:
 
 	string blockID;
-	unsigned long merkleRoot;
+	string merkleRoot;
 	unsigned int txsCount;
 	vector<TransactionS> transactions;
 	unsigned long nounce;
