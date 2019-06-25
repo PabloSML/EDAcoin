@@ -35,6 +35,9 @@ public:
 
 	Model_Transaction_GUI * get_transaction_interface_gui();
 
+	vector<pos_t> getNodesPos(void);
+	Graph* getAdjMatrix(void);
+
 
 private:
 	list<Node*> nodes;

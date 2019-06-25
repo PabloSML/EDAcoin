@@ -59,8 +59,7 @@ int main()
 		ev_data.event_queue = queue;
 
 	Simulation sim(ev_data.event_queue);	// se crea el sujeto Simulation
-	SimView* simulationView = new SimView;
-	sim.attach(simulationView);
+	
 	Controller_Sim simCtrl(&sim);
 
 	vector<FullNode*> fulls;
@@ -69,6 +68,8 @@ int main()
 	nodeFactory(MINERNUM, FULLNUM, fulls, SPVNUM, spvs, sim, simCtrl);
 
 	sim.addAdjMatrix(P2PNetworkGen(fulls, spvs));
+	SimView* simulationView = new SimView;
+	sim.attach(simulationView);
 
 	json blockChainJson;
 
