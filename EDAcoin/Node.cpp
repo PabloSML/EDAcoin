@@ -15,9 +15,9 @@ Node::Node(void):
 
 	if (this->mine_UTXOs != nullptr)
 	{
-		this->UTXOs_trying_to_use = new list<UTXO*>;
+		this->UTXOs_updated_unsed = new list<UTXO*>;
 		
-		if (this->UTXOs_trying_to_use != nullptr)
+		if (this->UTXOs_updated_unsed != nullptr)
 		{
 			this->init_ok = true;
 		}
@@ -42,9 +42,9 @@ Node::Node(string& nodeID, const char* nodeType):
 
 	if (this->mine_UTXOs != nullptr)
 	{
-		this->UTXOs_trying_to_use = new list<UTXO*>;
+		this->UTXOs_updated_unsed = new list<UTXO*>;
 
-		if (this->UTXOs_trying_to_use != nullptr)
+		if (this->UTXOs_updated_unsed != nullptr)
 		{
 			this->init_ok = true;
 		}
@@ -72,12 +72,7 @@ Node::
 
 		delete this->mine_UTXOs;
 
-		for (UTXO * actual_utxo : (*(this->UTXOs_trying_to_use)))
-		{
-			delete actual_utxo;
-		}
-
-		delete this->UTXOs_trying_to_use;
+		delete this->UTXOs_updated_unsed;
 
 
 		init_ok = false;
@@ -220,88 +215,110 @@ do_transaction(string& to, double amount)
 
 	}
 
-
-
-
 	return transaction;
 
-
-
 }
-
-/*
-
-
-bool
-Node::receive_transaction(json& transaction_UTXO, string& actual_blockID)
-{
-	bool success_create_tx = true;
-
-	size_t size_outputs = transaction_UTXO[LABEL_TXS_OUTPUT][LABEL_OUTPUT_ID].size();
-	bool found_me = false;
-
-
-
-
-	unsigned int index;
-
-	for (size_t size = 0; (size < size_outputs) && !found_me; size++)
-	{
-		if (transaction_UTXO[LABEL_TXS_OUTPUT][size][LABEL_OUTPUT_ID] == this->getNodeID())
-		{
-			found_me = true;
-			index = (unsigned int) size;
-		}
-
-	}
-
-	if (found_me)
-	{
-		UTXO * new_utxo = new UTXO;
-
-		if (new_utxo != nullptr)
-		{
-			new_utxo->set_reference(actual_blockID, transaction_UTXO[LABEL_TXS_TXID]);
-
-			OutputS new_output;
-			new_output.amount = stod((transaction_UTXO[LABEL_TXS_OUTPUT][index][LABEL_OUTPUT_AMOUNT]).get<string>());
-			new_output.publicID = this->getNodeID();
-
-			new_utxo->set_output(new_output);
-
-			(this->mine_UTXOs)->push_back(new_utxo);
-
-
-			this->amount_wallet += new_output.amount;
-
-
-		}
-		else
-		{
-			success_create_tx = false;
-		}
-
-
-
-	}
-	else
-	{
-		success_create_tx = false;
-	}
-
-
-	return success_create_tx;
-
-
-
-}
-
-*/
 
 double Node::get_amount_wallet(void)
 {
 	return this->amount_wallet;
 }
+
+
+
+
+
+bool 
+Node::update_wallet(TransactionS& tx, string& blockID)
+{
+	//primero veo si tengo que eliminar utxo's, y si use, si son validas
+
+	bool all_ok = true;
+
+	//verifico si es una utxo mia (osea esta en mi lista de utxos) pero fue una de las que
+	//use (osea NO esta en mi lista de utxo actualizadas no usadas)
+
+
+	//en la transaccion soy quien paga?	
+
+
+	for (InputS in : tx.inputs)
+	{
+		bool match_utxo = false;
+
+		for (list<UTXO*>::iterator it = (*this->mine_UTXOs).begin(); (it != (*this->mine_UTXOs).end())&&(!match_utxo); ++it) {
+			
+			if (((*it)->get_blockID() == in.blockID) && ((*it)->get_txID() == in.txID))
+			{
+				match_utxo = true;
+
+				list<UTXO*> * aux_ptr_list = (this->UTXOs_updated_unsed);
+
+				bool used_tx = true;
+
+				for (list<UTXO*>::iterator it_used = (*aux_ptr_list).begin(); (it_used != (*aux_ptr_list).end())&& used_tx; ++it_used)
+				{
+					if( ((*it_used)->get_blockID() == in.blockID) && ((*it_used)->get_txID() == in.txID))
+					{
+						used_tx = false;
+					}
+
+				}
+
+				if (used_tx)
+				{
+					this->amount_wallet -= ((*it)->get_output()).amount; //actualizo mi billetera
+
+					(*this->mine_UTXOs).remove(*it);
+
+					delete (*it);
+
+				}
+				else //se encuentra usada y a la vez no
+				{
+					all_ok = false;
+				}
+				
+			}
+
+		}
+
+	}
+
+
+
+
+	//en la transaccion soy a quien le pagan?
+
+	for (OutputS out : tx.outputs)
+	{
+		bool match_utxo = false;
+
+		if (out.publicID == this->getNodeID())
+		{
+			UTXO * new_utxo = new UTXO;
+
+			new_utxo->set_reference(blockID, tx.txID);
+	
+			OutputS new_output_utxo = out;
+			new_utxo->set_output(new_output_utxo);
+
+			(*this->UTXOs_updated_unsed).push_back(new_utxo);
+			(*this->mine_UTXOs).push_back(new_utxo);
+
+			this->amount_wallet += out.amount;
+
+		}
+	   
+	}
+
+	return all_ok;
+
+}
+
+
+
+
 
 
 UTXO *
@@ -310,13 +327,12 @@ Node::take_UTXO_unused(void)
 	UTXO* ret_utxo = nullptr;
 
 
-	if (!this->UTXOs_trying_to_use->empty())
+	if (!this->UTXOs_updated_unsed->empty())
 	{
-		ret_utxo = (this->UTXOs_trying_to_use)->back();
+		ret_utxo = (this->UTXOs_updated_unsed)->back();
 
-		(this->UTXOs_trying_to_use)->pop_back();
+		(this->UTXOs_updated_unsed)->pop_back();
 
-		OutputS output_utxo = ret_utxo->get_output();
 	}
 
 
@@ -324,24 +340,6 @@ Node::take_UTXO_unused(void)
 	return ret_utxo;
 
 }
-
-
-
-void 
-Node::update_wallet(TransactionS& tx, string& blockID)
-{
-	
-
-
-
-
-}
-
-
-
-
-
-
 
 
 

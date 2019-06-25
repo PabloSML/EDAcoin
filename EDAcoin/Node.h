@@ -72,13 +72,13 @@ protected:
 	bool init_ok;
 
 
-	void update_wallet(TransactionS& tx, string& blockID);
+	bool update_wallet(TransactionS& tx, string& blockID);
 
 
 
 	private:
 
-	list<UTXO*> * UTXOs_trying_to_use;
+	list<UTXO*> * UTXOs_updated_unsed;
 
 	UTXO * take_UTXO_unused(void);
 };

@@ -158,8 +158,19 @@ SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToVali
 			}
 
 			if (obtainedRoot == wantedRoot)
+			{
 				cout << "A transaction has been successfully validated!" << endl;
-				// update wallet
+				
+				if (this->update_wallet(tx, headerToValidate.blockID))
+				{
+					cout << "Tx loaded perfect!!!!!!" << endl;
+				}
+				else
+				{
+					cout << "SOMETHING FAILDED :(" << endl;
+				}
+				
+			}
 			else
 				cout << "A transaction validation has returned an error" << endl;
 
