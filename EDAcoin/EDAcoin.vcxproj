@@ -184,6 +184,7 @@
     <ClCompile Include="FormatConverter.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MinerNode.cpp" />
     <ClCompile Include="Model_Block.cpp" />
     <ClCompile Include="Model_Blockchain.cpp" />
     <ClCompile Include="Model_BoxText.cpp" />

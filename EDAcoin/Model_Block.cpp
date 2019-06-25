@@ -15,9 +15,12 @@ Model_Block::Model_Block(string& blockID, unsigned long& merkleRoot, unsigned in
 
 }
 
-Model_Block::Model_Block(void) : myMerkleTreeModel(nullptr)
+Model_Block::Model_Block(void) : myMerkleTreeModel(nullptr), blockID(""), merkleRoot(0), txsCount(0)
 {
-
+	this->pos_x = 0;
+	this->pos_y = 0;
+	this->width_image = DEFAULT_WIDTH_BLOCK;
+	this->heigth_image = DEFAULT_HEIGTH_BLOCK;
 }
 
 
@@ -47,6 +50,9 @@ getTxsCount(void) const { return this->txsCount; }
 
 vector<TransactionS> Model_Block::
 get_transactions(void) const { return this->transactions; }
+
+void
+Model_Block::addTransaction(TransactionS& newTX) { transactions.push_back(newTX); txsCount++; }
 
 unsigned int Model_Block::
 get_pos_x(void) { return this->pos_x; }

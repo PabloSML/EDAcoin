@@ -130,6 +130,9 @@
     <ClCompile Include="Node.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
+    <ClCompile Include="MinerNode.cpp">
+      <Filter>Source Files\Blockchain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">

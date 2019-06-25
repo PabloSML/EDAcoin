@@ -8,6 +8,8 @@
 #include <vector>
 #include <queue>
 #include "Definitions.h"
+#include "Labels.h"
+#include "FormatConverter.h"
 
 //#include "Blockchain_Service.h"
 #include "Allegro.h"
@@ -32,8 +34,8 @@ public:
 
 	void recieveBlock(json& jsonBlock);
 
-	void requestLatestHeaders(vector<blockHeader>* dest, string& latestID);
-	void requestAllHeaders(vector<blockHeader>* dest);
+	vector<json> requestLatestHeaders(string latestID);
+	vector<json> requestAllHeaders(void);
 	unsigned int requestHeaderCount();
 
 	virtual void attachConnection(Node* connection);
@@ -55,12 +57,13 @@ protected:
 
 	queue<netPckg> floodingQueue;
 
-private:
 	vector<Model_Block*> blockChain;
 	list<SPVNode*> filters;
 	vector<MerkleNode*> merkleTrees;
 	
 	vector<json> jsonTxs;
+
+private:
 
 	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount);
 	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID);
