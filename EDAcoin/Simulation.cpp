@@ -185,4 +185,20 @@ Simulation::get_transaction_interface_gui()
 	return this->transaction_interface;
 }
 
+vector<pos_t> Simulation::getNodesPos(void)
+{
+	vector<pos_t> v;
+	pos_t pos;
+	for (Node* n : this->nodes)
+	{
+		pos = n->getPos();
+		v.push_back(pos);
+	}
+	return v;
+}
+
+Graph* Simulation::getAdjMatrix(void)
+{
+	return this->adjMatrix;
+}
 

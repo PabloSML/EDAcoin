@@ -5,6 +5,7 @@
 #include <iostream>
 #include <allegro5/allegro.h>
 #include <allegro5\allegro_color.h>
+#include <allegro5/allegro_primitives.h>
 using namespace std;
 
 class SimView : public Observer {
@@ -18,4 +19,5 @@ public:
 
 private:
 	ALLEGRO_DISPLAY* display;
+	void drawConnections(vector<pos_t> v, Graph* g);
 };
