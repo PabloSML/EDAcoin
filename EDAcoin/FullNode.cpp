@@ -64,6 +64,8 @@ FullNode::recieveBlock(json& jsonBlock)
 
 			allAvailableUTXOs.push_back(new_utxo);
 		}
+
+		updateTxList(t);
 	}
 
 	double test = log2(txsCount);
@@ -81,10 +83,8 @@ FullNode::recieveBlock(json& jsonBlock)
 	string rootID = createNodeID(root);											//Genera el rootID.
 	root->setNodeID(rootID);
 	merkleTrees.push_back(root);
-	
-	unsigned long numID = stoul(rootID);
 
-	Model_Block* newBlock = new Model_Block(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
+	Model_Block* newBlock = new Model_Block(blockID, rootID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
 	blockChain.push_back(newBlock);
 }
 
@@ -243,6 +243,21 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 		transactions.push_back(tempTx);
 	}
 }
+
+void
+FullNode::updateTxList(TransactionS& incoming)
+{
+	bool found = false;
+	for (vector<json>::iterator itr = jsonTxs.begin(); itr < jsonTxs.end() && !found; itr++)
+	{
+		if (incoming.txID == (*itr)[LABEL_TXS_TXID].get<string>())
+		{
+			found = true;
+			jsonTxs.erase(itr);
+		}
+	}
+}
+
 
 void FullNode::buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID)
 {

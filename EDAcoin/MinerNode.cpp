@@ -1,5 +1,32 @@
 #include "MinerNode.h"
 
+#include "FormatConverter.h"
+
+MinerNode::MinerNode(string& newNodeID) : FullNode(newNodeID, "Miner Node")
+{
+	miningBlock = nullptr;
+	mining_tree = nullptr;
+}
+
+
+MinerNode::~MinerNode() {
+
+	if (miningBlock != nullptr)
+	{
+		delete miningBlock;
+		miningBlock = nullptr;
+	}
+
+	if (mining_tree != nullptr)
+	{
+		delete mining_tree;
+		mining_tree = nullptr;
+	}
+
+}
+
+
+
 bool
 MinerNode::analizePackage(netPckg package)
 {
@@ -25,10 +52,13 @@ MinerNode::analizePackage(netPckg package)
 		if (!found)
 		{
 			//if: validacion del bloque recibido -> lo siguiente
+			haltMining(); // elimina el bloque que se intentaba minar
 			isPackageNew = true;
 			floodingQueue.push(package);
 			recieveBlock(package.data);
 			sendInfo2Spv();
+			if(!jsonTxs.empty())
+				create_new_mining_block(); // restart mining
 		}
 	}
 
@@ -55,10 +85,9 @@ MinerNode::analizePackage(netPckg package)
 			isPackageNew = true;
 			floodingQueue.push(package);
 			jsonTxs.push_back(package.data);
-			if (miningBlock != nullptr && !miningBlock->hasTransactions())	// para la primer tx de todas
+			if (miningBlock == nullptr)	// para la primer tx de todas o si no se creo un block porque no habia txs
 			{
-				TransactionS tempTx = Json2Transactions(package.data);
-				miningBlock->addTransaction(tempTx);
+				create_new_mining_block();
 			}
 		}
 	}
@@ -123,8 +152,60 @@ MinerNode::recieveBlock(json& jsonBlock)
 	root->setNodeID(rootID);
 	merkleTrees.push_back(root);
 
-	unsigned long numID = stoul(rootID);
-
-	Model_Block* newBlock = new Model_Block(blockID, numID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
+	Model_Block* newBlock = new Model_Block(blockID, rootID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
 	blockChain.push_back(newBlock);
+}
+
+void 
+MinerNode::create_new_mining_block(void)
+{
+	this->miningBlock = new Model_Block;
+
+	vector<string> txIDs;
+
+	for (json tx_json : this->jsonTxs) //se agregan todas las tx pendientes a minar y se actualiza el tx_count
+	{
+		TransactionS new_tx = Json2Transactions(tx_json);
+
+		txIDs.push_back(new_tx.txID);
+
+		(this->miningBlock)->addTransaction(new_tx);
+
+	}
+
+	unsigned int txsCount = this->miningBlock->getTxsCount();
+	
+	double test = log2(txsCount);
+
+	while (!(floor(test) == ceil(test)))	// si la cantidad de txs no es potencia de 2
+	{
+		txIDs.push_back(string("dummy"));
+		txsCount++;
+		test = log2(txsCount);
+	}
+
+	int currentLeaf = 0;
+
+	this->mining_tree = new MerkleNode;
+	buildMerkleTree(this->mining_tree, 0, log2(txsCount), txIDs, currentLeaf);					//Se crea el merkle tree.
+	string rootID = createNodeID(this->mining_tree);											//Genera el rootID.
+	(this->mining_tree)->setNodeID(rootID);
+
+	(this->miningBlock)->set_merkle_root(rootID);
+
+	Model_Block * last_block_mined = (this->blockChain)[(this->blockChain).size() - 1];
+
+	string temp_prev_id = last_block_mined->getBlockID();
+
+	(this->miningBlock)->set_previous_blockID(temp_prev_id);
+
+}
+
+void
+MinerNode::haltMining(void)
+{
+	delete miningBlock;
+	destroyMerkleTree(mining_tree);
+	miningBlock = nullptr;
+	mining_tree = nullptr;
 }

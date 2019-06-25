@@ -64,6 +64,7 @@ protected:
 	vector<MerkleNode*> merkleTrees;
 	
 	vector<json> jsonTxs;
+	void updateTxList(TransactionS& incoming);
 
 	list<UTXO*> allAvailableUTXOs;
 
