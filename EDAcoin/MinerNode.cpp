@@ -52,10 +52,13 @@ MinerNode::analizePackage(netPckg package)
 		if (!found)
 		{
 			//if: validacion del bloque recibido -> lo siguiente
+			haltMining(); // elimina el bloque que se intentaba minar
 			isPackageNew = true;
 			floodingQueue.push(package);
 			recieveBlock(package.data);
 			sendInfo2Spv();
+			if(!jsonTxs.empty())
+				create_new_mining_block(); // restart mining
 		}
 	}
 
@@ -196,4 +199,13 @@ MinerNode::create_new_mining_block(void)
 
 	(this->miningBlock)->set_previous_blockID(temp_prev_id);
 
+}
+
+void
+MinerNode::haltMining(void)
+{
+	delete miningBlock;
+	destroyMerkleTree(mining_tree);
+	miningBlock = nullptr;
+	mining_tree = nullptr;
 }

@@ -20,4 +20,6 @@ private:
 	MerkleNode * mining_tree;
 	json		mining_json;
 
+	void haltMining(void);
+
 };
