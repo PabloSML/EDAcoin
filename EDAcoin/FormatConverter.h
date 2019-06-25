@@ -15,3 +15,10 @@ json EdaMerkleBlock2Json(EdaMerkleBlockS& b);
 
 EdaMerkleBlockS Json2EdaMerkleBlock(json& j);
 
+json Block2Json(Model_Block& b);
+
+Model_Block Json2Block(json& j);
+
+json Header2Json(blockHeader& b);
+
+blockHeader Json2Header(json& j);
