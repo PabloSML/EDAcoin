@@ -103,7 +103,7 @@ Controller_Node::parseTransactionEvent(string& to, string& from, string& amount)
 {
 	if (from == model->getNodeID())
 	{
-		if (is_amount_valid)
+		if (is_amount_valid(amount))
 		{
 			json new_tx = model->do_transaction(to, stod(amount));
 

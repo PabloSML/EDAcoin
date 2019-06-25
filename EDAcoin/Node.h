@@ -71,6 +71,11 @@ protected:
 	double amount_wallet;
 	bool init_ok;
 
+
+	void update_wallet(TransactionS& tx, string& blockID);
+
+
+
 	private:
 
 	list<UTXO*> * UTXOs_trying_to_use;

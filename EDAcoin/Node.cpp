@@ -213,7 +213,7 @@ do_transaction(string& to, double amount)
 		}
 		else //hubo un error en el medio
 		{
-			transaction.clear;
+			transaction.clear();
 		}
 
 		
@@ -327,7 +327,15 @@ Node::take_UTXO_unused(void)
 
 
 
+void 
+Node::update_wallet(TransactionS& tx, string& blockID)
+{
+	
 
+
+
+
+}
 
 
 
