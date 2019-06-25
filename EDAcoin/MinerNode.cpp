@@ -158,6 +158,7 @@ void
 MinerNode::create_new_mining_block(void)
 {
 	this->miningBlock = new Model_Block;
+	this->mining_tree = new MerkleNode;
 
 	vector<string> txIDs;
 
@@ -184,7 +185,7 @@ MinerNode::create_new_mining_block(void)
 
 	int currentLeaf = 0;
 
-	this->mining_tree = new MerkleNode;
+
 	buildMerkleTree(this->mining_tree, 0, log2(txsCount), txIDs, currentLeaf);					//Se crea el merkle tree.
 	string rootID = createNodeID(this->mining_tree);											//Genera el rootID.
 	(this->mining_tree)->setNodeID(rootID);
@@ -198,3 +199,4 @@ MinerNode::create_new_mining_block(void)
 	(this->miningBlock)->set_previous_blockID(temp_prev_id);
 
 }
+
