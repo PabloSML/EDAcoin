@@ -6,7 +6,7 @@
     "Txs": [
       {
         "TxID": "1",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -23,7 +23,7 @@
       },
       {
         "TxID": "2",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -41,7 +41,7 @@
       },
       {
         "TxID": "3",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -59,7 +59,7 @@
       },
       {
         "TxID": "4",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -77,7 +77,7 @@
       },
       {
         "TxID": "5",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -95,7 +95,7 @@
       },
       {
         "TxID": "6",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -113,7 +113,7 @@
       },
       {
         "TxID": "7",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -131,7 +131,7 @@
       },
       {
         "TxID": "8",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -149,7 +149,7 @@
       },
       {
         "TxID": "75",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -166,7 +166,7 @@
       },
       {
         "TxID": "77",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -184,7 +184,7 @@
       },
       {
         "TxID": "54",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -202,7 +202,7 @@
       },
       {
         "TxID": "55",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -220,7 +220,7 @@
       },
       {
         "TxID": "0",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -238,7 +238,7 @@
       },
       {
         "TxID": "30",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -256,7 +256,7 @@
       },
       {
         "TxID": "71",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -274,7 +274,7 @@
       },
       {
         "TxID": "833",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -292,7 +292,7 @@
       },
       {
         "TxID": "111",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -309,7 +309,7 @@
       },
       {
         "TxID": "2222",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -327,7 +327,7 @@
       },
       {
         "TxID": "3333",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -345,7 +345,7 @@
       },
       {
         "TxID": "444",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -363,7 +363,7 @@
       },
       {
         "TxID": "5555",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -381,7 +381,7 @@
       },
       {
         "TxID": "663",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -399,7 +399,7 @@
       },
       {
         "TxID": "237",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -417,7 +417,7 @@
       },
       {
         "TxID": "8039",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -435,7 +435,7 @@
       },
       {
         "TxID": "705",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -452,7 +452,7 @@
       },
       {
         "TxID": "771",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -470,7 +470,7 @@
       },
       {
         "TxID": "542",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -488,7 +488,7 @@
       },
       {
         "TxID": "545",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -506,7 +506,7 @@
       },
       {
         "TxID": "640",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -524,7 +524,7 @@
       },
       {
         "TxID": "3021",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -542,7 +542,7 @@
       },
       {
         "TxID": "7421",
-        "TxActor": "spvnode1",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
@@ -560,23 +560,19 @@
       },
       {
         "TxID": "83213",
-        "TxActor": "spvnode2",
+        "TxActor": "angelDonor",
         "input": [
           {
             "BlockID": "A",
-            "TxID": "7421"
+            "TxID": "ab"
           }
         ],
         "output": [
           {
             "publicKey": "spvnode1",
             "EDACoins": "10"
-          },
-          {
-          	"publicKey": "spvnode2",
-            "EDACoins": "5"
           }
-
+          
         ]
 
       }

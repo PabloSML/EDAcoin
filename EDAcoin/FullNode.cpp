@@ -233,11 +233,17 @@ FullNode::flood(void)
 		netPckg temp = floodingQueue.front();
 		floodingQueue.pop();
 
+		Node* sender = temp.sender;
+		temp.sender = this;
+
+		cout << nodeID << " has flooded " << endl << temp.data << endl << "from " << sender->getNodeID() << endl;
+
 		for (Node* N : connections)
 		{
-			if ((N->getNodeType() != string("SPV Node")) && (N != temp.sender))
+			if ((N->getNodeType() != string("SPV Node")) && (N != sender))
 			{
-				((FullNode*)N)->analizePackage(temp);
+				if (((FullNode*)N)->analizePackage(temp))
+					cout << "And " << N->getNodeID() << " accepted" << endl;
 			}
 		}
 	}

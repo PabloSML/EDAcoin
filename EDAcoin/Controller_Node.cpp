@@ -111,7 +111,7 @@ Controller_Node::parseTransactionEvent(string& to, string& from, string& amount)
 			{
 				netPckg temppck = { new_tx, model };
 
-				if (model->getNodeID() != string("SPV Node"))
+				if (model->getNodeType() != string("SPV Node"))
 				{
 					((FullNode*)model)->analizePackage(temppck);
 				}

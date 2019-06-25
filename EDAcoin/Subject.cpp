@@ -52,6 +52,5 @@ Subject::notifyObservers(void)
 
 Subject::~Subject(void)
 {
-	cout << "~Subject" << endl;
 	dettachAll();
 }
