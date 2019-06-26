@@ -187,9 +187,6 @@ do_transaction(string& to, double amount)
 	if (get_amount_wallet() >= amount)
 	{
 
-		//aca iria lo del sha256
-		transaction[LABEL_TXS_TXID] = to_string(randDoubleBetween(1, pow(2, 10)));
-
 		double money_using = 0.0;
 
 
@@ -234,6 +231,22 @@ do_transaction(string& to, double amount)
 
 			}
 
+
+
+			string tx_input_str = transaction[LABEL_TXS_INPUT].get<string>();
+			vector<byte> signature_hash = getSignature(this->privateKey, tx_input_str);
+
+			string tx_signature_hash = ByteVector2String(signature_hash);
+
+			transaction[LABEL_TXS_SIGNATURE] = tx_signature_hash;
+
+			string tx_str_without_txID = transaction.get<string>();
+
+			string tx_id_hash = HashMessage(tx_str_without_txID);
+
+			transaction[LABEL_TXS_TXID] = tx_id_hash;
+
+
 		}
 		else //hubo un error en el medio
 		{
@@ -241,6 +254,10 @@ do_transaction(string& to, double amount)
 		}
 
 	}
+
+
+
+
 
 	return transaction;
 
