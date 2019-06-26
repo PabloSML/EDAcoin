@@ -226,7 +226,7 @@ do_transaction(string& to, double amount)
 
 			if (money_using > amount)
 			{
-				transaction[LABEL_TXS_OUTPUT][1][LABEL_TXS_PUBKEY] = this->getNodeID();
+				transaction[LABEL_TXS_OUTPUT][1][LABEL_TXS_PUBKEY] = this->getStringPubKey();
 				transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_AMOUNT] = to_string(money_using - amount);
 
 			}

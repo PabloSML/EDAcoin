@@ -182,10 +182,14 @@ Controller_Sim::attend_transaction(void)
 	string to_node = model->get_transaction_interface_gui()->get_boxtext(TRANS_INTERF_EDITB2_NMBER)->get_actual_text();
 	string amount = model->get_transaction_interface_gui()->get_boxtext(TRANS_INTERF_EDITB3_NMBER)->get_actual_text();
 
-
-	for (Controller_Node * NC : this->nodeControllers)
+	if(model->is_node_attached(from_node) && model->is_node_attached(to_node))
 	{
-		NC->parseTransactionEvent(to_node, from_node, amount);
+		string pbkey_to_node = model->get_pbkey_node(to_node);
+
+		for (Controller_Node * NC : this->nodeControllers)
+		{
+			NC->parseTransactionEvent(pbkey_to_node, from_node, amount);
+		}
 	}
 
 	model->get_transaction_interface_gui()->attend_transaction();
