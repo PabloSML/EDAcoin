@@ -33,7 +33,7 @@ void
 FullNode::recieveBlock(json& jsonBlock)
 {
 	string blockID = jsonBlock[LABEL_BLOCK_BLOCK_ID].get<string>();		//Obtengo el BlockID(string) del bloque(json) ingresado.
-	string prevBlockID = jsonBlock["PrevBlockID"].get<string>();
+	string prevBlockID = jsonBlock[LABEL_BLOCK_PREV_BLOCK_ID].get<string>();
 
 	vector<TransactionS> transactions;
 	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];							//Obtengo las transacciones(json) del bloque(json) ingresado.
@@ -229,8 +229,8 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 		unsigned int outputCount = (unsigned int) jsonTxs[i][LABEL_TXS_OUTPUT].size();
 
 		tempTx.txID = jsonTxs[i][LABEL_TXS_TXID].get<string>();			//Guardo el ID de la transaccion dentro de la estructura de TransactionS.
-		tempTx.PubKey = jsonTxs[i]["PublicKey"].get<string>();		//Guardo la public key dentro de la estructura de TransactionS.
-		tempTx.signature = String2ByteVector(jsonTxs[i]["Signature"].get<string>());
+		tempTx.PubKey = jsonTxs[i][LABEL_TXS_PUBKEY].get<string>();		//Guardo la public key dentro de la estructura de TransactionS.
+		tempTx.signature = String2ByteVector(jsonTxs[i][LABEL_TXS_SIGNATURE].get<string>());
 
 		for (unsigned int j = 0; j < inputCount; j++)		//Para cada input, se obtiene el ID del bloque y de la transaccion y se ponen en el vector con todos los inputs.
 		{
