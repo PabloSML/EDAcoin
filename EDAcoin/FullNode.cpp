@@ -33,6 +33,7 @@ void
 FullNode::recieveBlock(json& jsonBlock)
 {
 	string blockID = jsonBlock[LABEL_BLOCK_BLOCK_ID].get<string>();		//Obtengo el BlockID(string) del bloque(json) ingresado.
+	string prevBlockID = jsonBlock["PrevBlockID"].get<string>();
 
 	vector<TransactionS> transactions;
 	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];							//Obtengo las transacciones(json) del bloque(json) ingresado.
@@ -90,6 +91,7 @@ FullNode::recieveBlock(json& jsonBlock)
 	merkleTrees.push_back(root);
 
 	Model_Block* newBlock = new Model_Block(blockID, rootID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
+	newBlock->set_previous_blockID(prevBlockID);
 	blockChain.push_back(newBlock);
 }
 
@@ -157,11 +159,11 @@ FullNode::sendInfo2Spv()
 		EdaMerkleBlockS merkleBlock;
 		vector<TransactionS> spvTrans;
 		vector<MerkleValidationData> spvMerkleData;
-		string spvID = s->getNodeID();
+		string spvPublicKey = s->getStringPubKey();
 		for (TransactionS& t : allTrans)
 		{
-			string txActor = t.txActor;
-			if (txActor == spvID)
+			string publicKey = t.PubKey;
+			if (publicKey == spvPublicKey)
 			{
 				spvTrans.push_back(t);
 				MerkleValidationData tempData;
@@ -174,7 +176,7 @@ FullNode::sendInfo2Spv()
 				bool done = false;
 				for (int i = 0; i < outputCount && !done; i++)
 				{
-					if (t.outputs[i].publicKey == spvID)
+					if (t.outputs[i].publicKey == spvPublicKey)
 					{
 						done = true;
 						spvTrans.push_back(t);
@@ -227,7 +229,8 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 		unsigned int outputCount = (unsigned int) jsonTxs[i][LABEL_TXS_OUTPUT].size();
 
 		tempTx.txID = jsonTxs[i][LABEL_TXS_TXID].get<string>();			//Guardo el ID de la transaccion dentro de la estructura de TransactionS.
-		tempTx.txActor = jsonTxs[i][LABEL_TXS_TXACTOR].get<string>();		//Guardo el nombre del actor dentro de la estructura de TransactionS.
+		tempTx.PubKey = jsonTxs[i]["PublicKey"].get<string>();		//Guardo la public key dentro de la estructura de TransactionS.
+		tempTx.signature = String2ByteVector(jsonTxs[i]["Signature"].get<string>());
 
 		for (unsigned int j = 0; j < inputCount; j++)		//Para cada input, se obtiene el ID del bloque y de la transaccion y se ponen en el vector con todos los inputs.
 		{

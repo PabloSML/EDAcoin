@@ -99,6 +99,7 @@ void
 MinerNode::recieveBlock(json& jsonBlock)
 {
 	string blockID = jsonBlock[LABEL_BLOCK_BLOCK_ID].get<string>();		//Obtengo el BlockID(string) del bloque(json) ingresado.
+	string prevBlockID = jsonBlock["PrevBlockID"].get<string>();
 
 	vector<TransactionS> transactions;
 	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];							//Obtengo las transacciones(json) del bloque(json) ingresado.
@@ -153,6 +154,7 @@ MinerNode::recieveBlock(json& jsonBlock)
 	merkleTrees.push_back(root);
 
 	Model_Block* newBlock = new Model_Block(blockID, rootID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
+	newBlock->set_previous_blockID(prevBlockID);
 	blockChain.push_back(newBlock);
 }
 
@@ -257,6 +259,9 @@ bool
 MinerNode::miningAttempt()
 {
 	bool challengeCompleted = false;
+
+
+
 	return challengeCompleted;
 }
 
