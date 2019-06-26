@@ -53,6 +53,7 @@ public:
 	Model_MerkleTree* getMerkleTreeModel(void);
 	void setMerkleTreeModel(Model_MerkleTree* m);
 
+	void set_blockID(string& new_blockID);
 	void set_merkle_root(string& new_merkle_root);
 	void set_previous_blockID(string& new_prev_blockID);
 	void set_index_block_in_bchn(unsigned long new_index);

@@ -139,6 +139,8 @@ void Model_Block::setMerkleTreeModel(Model_MerkleTree* m)
 }
 
 
+void
+Model_Block::set_blockID(string& new_blockID) { this->blockID = new_blockID;}
 
 
 
