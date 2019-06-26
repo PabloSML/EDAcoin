@@ -41,7 +41,7 @@ RegularNodeView::update(void* model)
 	al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), nodePos.posX, nodePos.posY, NODE_IMG_SIZE, NODE_IMG_SIZE, 0);
 	double amount = nodeModel->get_amount_wallet();
 	ALLEGRO_FONT * font =al_load_ttf_font(TEXTFONT, TEXTSIZE, 0);
-	al_draw_textf(font, al_color_name("yellow"), nodePos.posX + RADIUS, nodePos.posY + RADIUS, ALLEGRO_ALIGN_CENTER, "%f", amount);
+	al_draw_textf(font, al_color_name("yellow"), nodePos.posX + RADIUS, nodePos.posY + RADIUS, ALLEGRO_ALIGN_CENTER, "%.2f", amount);
 	const char* nodeID = (nodeModel->getNodeID()).c_str();
 	al_draw_text(font, al_color_name("yellow"), nodePos.posX , nodePos.posY + NODE_IMG_SIZE, ALLEGRO_ALIGN_LEFT, nodeID);
 }
