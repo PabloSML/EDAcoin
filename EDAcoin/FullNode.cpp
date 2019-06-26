@@ -644,6 +644,15 @@ FullNode::validate_block(Model_Block * block_to_validate)
 	/*
 	A. Se verifica que cumple con el challenge.
 	*/
+	json j = Block2Json(*block_to_validate);
+	string str1 = j[LABEL_BLOCK_BLOCK_ID].get<string>();
+	j.erase(LABEL_BLOCK_BLOCK_ID);
+	string str2 = j.dump();
+	if (str1 != HashMessage(str2))
+	{
+		cout << "Challenge Invalid" << endl;
+		return false;
+	}
 
 
 
