@@ -1,6 +1,7 @@
 #pragma once
 #include "Controller.h"
-#include "Node.h"
+#include "MinerNode.h"
+#include "SPVNode.h"
 #include "Controller_Blockchain.h"
 
 class Controller_Node : public Controller
@@ -11,6 +12,7 @@ public:
 
 	void parseMouseEvent(EventData * ev);
 	void parseTransactionEvent(string& to, string& from, string& amount);
+	void parseNetworkEvent(void);
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
 

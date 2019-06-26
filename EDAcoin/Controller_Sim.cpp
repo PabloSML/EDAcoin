@@ -3,7 +3,8 @@
 
 
 
-Controller_Sim::Controller_Sim(Simulation* owner) : Controller(owner)
+Controller_Sim::Controller_Sim(Simulation* owner, ALLEGRO_TIMER* newEvTimer, ALLEGRO_TIMER* newNetTimer) : Controller(owner),
+evTimer(newEvTimer), netTimer(newNetTimer)
 {
 	Subject* subj = this->get_subject_attach();
 	model = (Simulation *)subj;
@@ -38,9 +39,16 @@ Controller_Sim::dispatcher(EventData* ev)
 	}
 	else if (ev->al_ev->type == ALLEGRO_EVENT_TIMER)
 	{
-		parseTimerEvent(ev);
-		al_set_target_backbuffer(model->getDisplay());
-		model->ping();
+		if (ev->al_ev->timer.source == evTimer)
+		{
+			parseTimerEvent(ev);
+			al_set_target_backbuffer(model->getDisplay());
+			model->ping();
+		}
+		else if(ev->al_ev->timer.source == netTimer)
+		{
+			parseNetworkEvent();
+		}
 	}
 }
 
@@ -116,7 +124,6 @@ Controller_Sim::parseKeyboardEvent(EventData* ev) // nothing
 	{
 		for (Controller_Node* C : nodeControllers)
 			C->forwardKeyboardEvent(ev);
-		//**llamar a forwardkeyboard de node.
 	}
 
 }
@@ -131,6 +138,18 @@ Controller_Sim::parseTimerEvent(EventData* ev)
 
 		controller_transaction_gui->parseTimerEvent(ev);
 
+	}
+}
+
+void
+Controller_Sim::parseNetworkEvent(void)
+{
+	if (this->is_subject_attached() == true)
+	{
+		for (Controller_Node* C : nodeControllers)
+		{
+			C->parseNetworkEvent();
+		}
 	}
 }
 

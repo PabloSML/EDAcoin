@@ -13,7 +13,7 @@ class Controller_Transaction_GUI : public Controller
 		~Controller_Transaction_GUI();
 
 		virtual void parseMouseEvent(EventData * ev);
-		//virtual void parseNetworkEvent(EventData * ev);
+		virtual void parseNetworkEvent(void){}
 		virtual void parseKeyboardEvent(EventData * ev);
 		virtual void parseTimerEvent(EventData * ev);
 

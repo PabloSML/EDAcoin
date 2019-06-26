@@ -1,6 +1,4 @@
 #include "Controller_Node.h"
-#include "SPVNode.h"
-#include "FullNode.h"
 #include <math.h>
 
 
@@ -46,13 +44,28 @@ void Controller_Node::parseTimerEvent(EventData * ev)
 {
 	if (this->is_subject_attached() == true)
 	{
-		if (model->getNodeType() != string("SPV Node"))
-			((FullNode*)model)->flood();
-		else
-			((SPVNode*)model)->pullHeaderfromFullNode();
-
 		if (myBlockchainCtrl != nullptr)
 			myBlockchainCtrl->parseTimerEvent(ev);
+	}
+}
+
+void
+Controller_Node::parseNetworkEvent()
+{
+	if (is_subject_attached())
+	{
+		string nodeType = model->getNodeType();
+		if (nodeType != string("SPV Node"))
+		{
+			if (nodeType == string("Miner Node"))
+			{
+				//if mine
+					//cout << el minero << model->getNodeID() << mino un bloque << endl;
+			}
+			((FullNode*)model)->flood();
+		}
+		else
+			((SPVNode*)model)->pullHeaderfromFullNode();
 	}
 }
 

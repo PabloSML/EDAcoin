@@ -49,8 +49,9 @@ int main()
 	EventData ev_data{ nullptr, nullptr };
 
 
-	ALLEGRO_TIMER* timer = NULL;
-	ALLEGRO_EVENT_QUEUE* queue = initAllegro(timer);
+	ALLEGRO_TIMER* eventTimer = NULL;
+	ALLEGRO_TIMER* networkTimer = NULL;
+	ALLEGRO_EVENT_QUEUE* queue = initAllegro(eventTimer, networkTimer);
 	
 	if (queue == nullptr)
 	{
@@ -62,7 +63,7 @@ int main()
 
 	Simulation sim(ev_data.event_queue);	// se crea el sujeto Simulation
 	
-	Controller_Sim simCtrl(&sim);
+	Controller_Sim simCtrl(&sim, eventTimer, networkTimer);
 
 	vector<FullNode*> fulls;
 	vector<SPVNode*> spvs;
@@ -90,7 +91,8 @@ int main()
 
 	ALLEGRO_EVENT ev;
 	ev_data.al_ev = &ev;
-	al_start_timer(timer);
+	al_start_timer(eventTimer);
+	al_start_timer(networkTimer);
 
 	while (!sim.shouldEnd())
 	{
@@ -101,7 +103,7 @@ int main()
 		}
 	}
 
-	destroyAllegro(ev_data.event_queue, timer);
+	destroyAllegro(ev_data.event_queue, eventTimer, networkTimer);
 
 	return 0;
 

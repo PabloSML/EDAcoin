@@ -7,7 +7,7 @@
 
 #include "Allegro.h"
 
-ALLEGRO_EVENT_QUEUE* initAllegro(ALLEGRO_TIMER*& timer)		//**se puede agregar timer y audio
+ALLEGRO_EVENT_QUEUE* initAllegro(ALLEGRO_TIMER*& eventTimer, ALLEGRO_TIMER*& networkTimer)		//**se puede agregar timer y audio
 {
 	ALLEGRO_EVENT_QUEUE* event_queue;
 	if (!al_init()) { //Primera funcion a llamar antes de empezar a usar allegro.
@@ -15,9 +15,16 @@ ALLEGRO_EVENT_QUEUE* initAllegro(ALLEGRO_TIMER*& timer)		//**se puede agregar ti
 		return nullptr;
 	}
 
-	timer = al_create_timer(1.0/FPS);
+	eventTimer = al_create_timer(EV_REFRESH);
+	networkTimer = al_create_timer(NET_REFRESH);
 
-	if (!timer)
+	if (!eventTimer)
+	{
+		fprintf(stderr, "failed to initialize the timer!\n");
+		return nullptr;
+	}
+
+	if (!networkTimer)
 	{
 		fprintf(stderr, "failed to initialize the timer!\n");
 		return nullptr;
@@ -46,12 +53,13 @@ ALLEGRO_EVENT_QUEUE* initAllegro(ALLEGRO_TIMER*& timer)		//**se puede agregar ti
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source()); //REGISTRAMOS EL TECLADO
 	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
-	al_register_event_source(event_queue, al_get_timer_event_source(timer)); //REGISTRAMOS EL TIMER
+	al_register_event_source(event_queue, al_get_timer_event_source(eventTimer)); //REGISTRAMOS LOS TIMERS
+	al_register_event_source(event_queue, al_get_timer_event_source(networkTimer));
 
 	return event_queue;
 }
 
-void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_TIMER*& timer)
+void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_TIMER*& eventTimer, ALLEGRO_TIMER*& networkTimer)
 {
 	/*
 	al_stop_timer(timer);
@@ -62,7 +70,8 @@ void destroyAllegro(ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_TIMER*& timer)
 	al_uninstall_mouse();
 	*/
 	al_destroy_event_queue(queue);
-	al_destroy_timer(timer);
+	al_destroy_timer(eventTimer);
+	al_destroy_timer(networkTimer);
 }
 
 Allegro::Allegro()
