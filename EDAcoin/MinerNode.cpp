@@ -204,9 +204,9 @@ MinerNode::create_new_mining_block(void)
 void
 MinerNode::haltMining(void)
 {
-	if(miningBlock!=nullptr)
+	if(miningBlock != nullptr)
 		delete miningBlock;
-	if(mining_tree!= nullptr)
+	if(mining_tree != nullptr)
 		destroyMerkleTree(mining_tree);
 	miningBlock = nullptr;
 	mining_tree = nullptr;
