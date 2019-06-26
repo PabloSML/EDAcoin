@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FullNode.h"
+#include "Labels.h"
 
 class MinerNode : public FullNode
 {
@@ -22,6 +23,7 @@ private:
 	MerkleNode * mining_tree;
 	json		mining_json;
 
+	bool passesChallenge(string& hashAttempt);
 	void haltMining(void);
 	TransactionS createFeeTx();
 

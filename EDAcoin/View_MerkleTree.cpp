@@ -1,6 +1,8 @@
 #include "View_MerkleTree.h"
 #include "allegro5/allegro_font.h"
 #include "allegro5/allegro_primitives.h"
+#include <allegro5\allegro_color.h>
+
 
 #include "Model_MerkleTree.h"
 #include "ImagesManager.h"
@@ -71,6 +73,8 @@ static void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigne
 	unsigned int depth, unsigned int level, unsigned int width, unsigned int height, ALLEGRO_FONT * font, ALLEGRO_BITMAP* nodeImg)
 {
 
+	ALLEGRO_COLOR color_node = al_color_name(NODE_COLOR_DEFAULT_INTER);
+
 	if (!(merkleRoot->getLeft() == nullptr))
 	{
 		unsigned int child_pos_x = last_pos_x - width / pow(2, level + 1);
@@ -99,14 +103,23 @@ static void draw_nodes(MerkleNode * merkleRoot, unsigned int last_pos_x, unsigne
 	/*al_draw_scaled_bitmap(nodeImg, 0, 0, al_get_bitmap_width(nodeImg), al_get_bitmap_height(nodeImg), (last_pos_x + MARGIN_X_DISPLAY * (UNIT)) - NODE_RADIUS * (1 + SCALE_LEVEL_SIZE_NODE / level),
 		last_pos_y + MARGIN_Y_DISPLAY * (UNIT) - NODE_RADIUS * (1 + SCALE_LEVEL_SIZE_NODE / level), NODE_RADIUS*(1 + SCALE_LEVEL_SIZE_NODE / level)*2, NODE_RADIUS*(1 + SCALE_LEVEL_SIZE_NODE / level) * 2, 0);  Imagen para el nodo (graciosa)*/
 
-	al_draw_filled_circle(last_pos_x + MARGIN_X_DISPLAY * (UNIT), last_pos_y + MARGIN_Y_DISPLAY * (UNIT), NODE_RADIUS*(1 + SCALE_LEVEL_SIZE_NODE / level), NODE_COLOR);
 
 	if (merkleRoot->isLeaf())
 	{
-		al_draw_text(font, MESSAGE_NODE_COLOR, (float)(last_pos_x + MARGIN_X_DISPLAY * (UNIT)), (float)(last_pos_y + MARGIN_Y_DISPLAY * (UNIT)-(1 + 1 / depth) *DX_TEXT),
-			ALLEGRO_ALIGN_CENTER, (merkleRoot->getNodeID()).c_str());
+		if ((merkleRoot->getNodeID()).c_str() == string(NODE_ID_DUMMY))
+		{
+			color_node = al_color_name(NODE_COLOR_DUMMY);
+		}
+		else
+		{
+			color_node = al_color_name(NODE_COLOR_LEAF_REAL);
+		}
 
 	}
+
+
+	al_draw_filled_circle(last_pos_x + MARGIN_X_DISPLAY * (UNIT), last_pos_y + MARGIN_Y_DISPLAY * (UNIT), NODE_RADIUS*(1 + SCALE_LEVEL_SIZE_NODE / level), color_node);
+
 
 }
 

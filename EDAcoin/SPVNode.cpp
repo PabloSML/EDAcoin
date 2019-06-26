@@ -161,7 +161,7 @@ SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToVali
 				
 				if (this->update_wallet(tx, headerToValidate.blockID))
 				{
-					cout << "Tx loaded perfect!!!!!!" << endl;
+					cout << "Tx loaded perfect!!!!!!  " << nodeID <<endl;
 				}
 				else
 				{

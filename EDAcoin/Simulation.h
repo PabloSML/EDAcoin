@@ -38,6 +38,8 @@ public:
 	vector<pos_t> getNodesPos(void);
 	Graph* getAdjMatrix(void);
 
+	bool is_node_attached(string& node_id_wanted);
+	string get_pbkey_node(string& node_id_wanted);
 
 private:
 	list<Node*> nodes;

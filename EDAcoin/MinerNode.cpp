@@ -1,6 +1,9 @@
 #include "MinerNode.h"
-
 #include "FormatConverter.h"
+
+#define DIFFICULTY 13
+#define BYTE_SIZE 8
+#define MASK 0x10
 
 MinerNode::MinerNode(string& newNodeID) : FullNode(newNodeID, "Miner Node")
 {
@@ -99,7 +102,7 @@ void
 MinerNode::recieveBlock(json& jsonBlock)
 {
 	string blockID = jsonBlock[LABEL_BLOCK_BLOCK_ID].get<string>();		//Obtengo el BlockID(string) del bloque(json) ingresado.
-	string prevBlockID = jsonBlock["PrevBlockID"].get<string>();
+	string prevBlockID = jsonBlock[LABEL_BLOCK_PREV_BLOCK_ID].get<string>();
 
 	vector<TransactionS> transactions;
 	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];							//Obtengo las transacciones(json) del bloque(json) ingresado.
@@ -207,6 +210,8 @@ MinerNode::create_new_mining_block(void)
 
 	unsigned long tempNounce = randIntBetween(0, pow(2, 32) - 1);
 
+	miningBlock->set_index_block_in_bchn((unsigned long)blockChain.size());
+
 	miningBlock->setNounce(tempNounce);
 }
 
@@ -258,17 +263,51 @@ MinerNode::miningAttempt()
 {
 	bool challengeCompleted = false;
 
-	blockHeader headerForHash = miningBlock->getBlockHeader();
-	json jsonHeader2hash = Header2Json(headerForHash);
-	string blockIDLabel = string(LABEL_BLOCK_BLOCK_ID);
-	jsonHeader2hash.erase(blockIDLabel);
-	string stringForHash = jsonHeader2hash.get<string>();
+	if (miningBlock != nullptr)
+	{
+		blockHeader headerForHash = miningBlock->getBlockHeader();
+		headerForHash.nounce++; // cambio el nounce para intentar otro hash
+		json jsonHeader2hash = Header2Json(headerForHash);
+		string blockIDLabel = string(LABEL_BLOCK_BLOCK_ID);
+		jsonHeader2hash.erase(blockIDLabel);
+		string stringForHash = jsonHeader2hash.get<string>();
 
-	string hashAttempt = HashMessage(stringForHash);
+		string hashAttempt = HashMessage(stringForHash);
 
-	//if(passesChallenge(hashAttempt))
-	//	challengeCompleted = true;
+		if(passesChallenge(hashAttempt))
+		{
+			challengeCompleted = true;
+			miningBlock->set_blockID(hashAttempt);
+			blockChain.push_back(miningBlock);
+			mining_json = Block2Json(*miningBlock);
+			netPckg tempPckg = { mining_json, this };
+			analizePackage(tempPckg);
+			miningBlock = nullptr;
+			mining_tree = nullptr;
+			create_new_mining_block();
+		}
+	}
 
 	return challengeCompleted;
 }
 
+bool 
+MinerNode::passesChallenge(string& hashAttempt)
+{
+	bool success = true;
+	int nullBytes = DIFFICULTY / BYTE_SIZE;
+	int nullBits = DIFFICULTY % BYTE_SIZE;
+
+	for (int i = 0; i < nullBytes; i++)
+	{
+		if (hashAttempt[i] != 0)
+			success = false;
+	}
+
+	unsigned char tempMask = MASK >> nullBits;
+
+	if (hashAttempt[nullBytes] > tempMask)
+		success = false;
+
+	return success;
+}

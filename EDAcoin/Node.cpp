@@ -212,9 +212,6 @@ do_transaction(string& to, double amount)
 
 
 
-			//#error no olvide de hacer esto en lo de la validacion de txs
-			//delete actual_utxo; //elimino el espacio en memoria guardado para la utxo
-
 
 		}
 
@@ -226,14 +223,17 @@ do_transaction(string& to, double amount)
 
 			if (money_using > amount)
 			{
-				transaction[LABEL_TXS_OUTPUT][1][LABEL_TXS_PUBKEY] = this->getNodeID();
+				transaction[LABEL_TXS_OUTPUT][1][LABEL_TXS_PUBKEY] = this->getStringPubKey();
 				transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_AMOUNT] = to_string(money_using - amount);
 
 			}
 
 
+			int inputCount = (int)transaction[LABEL_TXS_INPUT].size();
+			string tx_input_str = string("");
+			for (int i = 0; i < inputCount; i++)
+				tx_input_str += transaction[LABEL_TXS_INPUT][i].get<string>();
 
-			string tx_input_str = transaction[LABEL_TXS_INPUT].get<string>();
 			vector<byte> signature_hash = getSignature(this->privateKey, tx_input_str);
 
 			string tx_signature_hash = ByteVector2String(signature_hash);
@@ -253,6 +253,10 @@ do_transaction(string& to, double amount)
 			transaction.clear();
 		}
 
+	}
+	else
+	{
+		cout << "no alcanza para pagar" << endl;
 	}
 
 
@@ -338,8 +342,9 @@ Node::update_wallet(TransactionS& tx, string& blockID)
 	{
 		bool match_utxo = false;
 
-		if (out.publicKey == this->getNodeID())
+		if (out.publicKey == this->getStringPubKey())
 		{
+			cout << "Gano plata " << nodeID << endl;
 			UTXO * new_utxo = new UTXO;
 
 			new_utxo->set_reference(blockID, tx.txID);
