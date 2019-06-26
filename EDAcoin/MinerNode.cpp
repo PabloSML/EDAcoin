@@ -99,6 +99,7 @@ void
 MinerNode::recieveBlock(json& jsonBlock)
 {
 	string blockID = jsonBlock[LABEL_BLOCK_BLOCK_ID].get<string>();		//Obtengo el BlockID(string) del bloque(json) ingresado.
+	string prevBlockID = jsonBlock["PrevBlockID"].get<string>();
 
 	vector<TransactionS> transactions;
 	json jsonTxs = jsonBlock[LABEL_BLOCK_TXS];							//Obtengo las transacciones(json) del bloque(json) ingresado.
@@ -153,6 +154,7 @@ MinerNode::recieveBlock(json& jsonBlock)
 	merkleTrees.push_back(root);
 
 	Model_Block* newBlock = new Model_Block(blockID, rootID, txsCount, transactions);				//Crea el bloque o lo manda al blockchain.
+	newBlock->set_previous_blockID(prevBlockID);
 	blockChain.push_back(newBlock);
 }
 
@@ -203,6 +205,11 @@ MinerNode::create_new_mining_block(void)
 
 	(this->miningBlock)->set_previous_blockID(temp_prev_id);
 
+	unsigned long tempNounce = randIntBetween(0, pow(2, 32) - 1);
+
+	miningBlock->setNounce(tempNounce);
+
+	mining_json = Block2Json(*miningBlock);
 }
 
 void
@@ -232,8 +239,18 @@ MinerNode::createFeeTx()
 	returnTx.inputs.push_back(tempInput);
 	returnTx.outputs.push_back(tempOutput);
 	returnTx.PubKey = Pointer2String(&publicKey);
-	//returnTx.signature =  FALTA
-	//returnTx.txID = FALTA
+	vector<byte> emptySignature;
+	returnTx.signature = emptySignature;
+
+	string tempTxID = string("");
+	string idLabel = string(LABEL_TXS_TXID);
+	json tempJsonTx = Transactions2Json(returnTx);
+	tempJsonTx.erase(idLabel);
+	string tempStringTx = tempJsonTx.get<string>();
+
+	string actualTxID = HashMessage(tempStringTx);
+
+	returnTx.txID = actualTxID;
 
 	return returnTx;
 }
@@ -242,6 +259,9 @@ bool
 MinerNode::miningAttempt()
 {
 	bool challengeCompleted = false;
+
+
+
 	return challengeCompleted;
 }
 

@@ -48,7 +48,7 @@ TransactionS Json2Transactions(json& j)
 	{
 		OutputS output;
 		output.publicKey = j["Outputs"][i]["PublicKey"].get<string>();
-		output.amount = j["Outputs"][i]["Amount"].get<int>();
+		output.amount = j["Outputs"][i]["Amount"].get<double>();
 		t.outputs.push_back(output);
 	}
 	return t;
@@ -118,6 +118,7 @@ json Block2Json(Model_Block& b)
 {
 	json j;
 	j["BlockID"] = b.getBlockID();
+	j["PrevBlockID"] = b.get_previous_blockID();
 	j["MerkleRoot"] = b.getMerkleRoot();
 	j["TxCount"] = b.getTxsCount();
 	int count = 0;
@@ -126,19 +127,23 @@ json Block2Json(Model_Block& b)
 		j["Transactions"][count] = Transactions2Json(t);
 		count++;
 	}
-	j["Pos_x"] = b.get_pos_x();
+	j["Nounce"] = b.getNounce();
+	j["IndexBlock"] = b.get_index_in_blockchain();
+
+	/*j["Pos_x"] = b.get_pos_x();
 	j["Pos_y"] = b.get_pos_y();
 	j["Image_w"] = b.get_size_x();
 	j["Image_H"] = b.get_size_y();
 	//void* p =(void*) b.getMerkleTreeModel();
 	string str = to_string((int64_t)b.getMerkleTreeModel());
-	j["MyMerkleTreeModel"] = str;
+	j["MyMerkleTreeModel"] = str;*/
 	return j;
 }
 
 Model_Block Json2Block(json& j)
 {
 	string BlockId = j["BlockID"].get<string>();
+	string PrevBlockID = j["PrevBlockID"].get<string>();
 	string MerkleRoot = j["MerkleRoot"].get<string>();
 	unsigned int TxCount = j["TxCount"].get<unsigned int>();
 	vector<TransactionS> t;
@@ -147,12 +152,19 @@ Model_Block Json2Block(json& j)
 		t.push_back(Json2Transactions(j["Transactions"][i]));
 	}
 	Model_Block b(BlockId, MerkleRoot, TxCount, t);
+	b.set_previous_blockID(PrevBlockID);
+	//unsigned long nounce = j["Nounce"].get<unsigned long>();
+	//unsigned long index_block = j["IndexBlock"].get<unsigned long>();
+	b.setNounce(j["Nounce"].get<unsigned long>());
+	b.set_index_block_in_bchn(j["IndexBlock"].get<unsigned long>());
+	/*
 	b.set_pos_x(j["Pos_x"].get<unsigned int>());
 	b.set_pos_y(j["Pos_y"].get<unsigned int>());
 	b.set_size_x(j["Image_w"].get<unsigned int>());
 	b.set_size_y(j["Image_H"].get<unsigned int>());
 	Model_MerkleTree* myMerkleTreeModel = (Model_MerkleTree *)stoll(j["MyMerkleTreeModel"].get<string>());
 	b.setMerkleTreeModel(myMerkleTreeModel);
+	*/
 	return b;
 }
 

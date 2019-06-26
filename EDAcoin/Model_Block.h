@@ -30,6 +30,8 @@ public:
 	string get_previous_blockID(void);
 	void addTransaction(TransactionS& newTx);
 	bool hasTransactions(void);
+	unsigned long getNounce(void) const;
+	void setNounce(unsigned long newNounce);
 	blockHeader getBlockHeader(void) const; // crea una estructura blockHeader y la devuelve en su nombre
 	unsigned long get_index_in_blockchain(void);
 
@@ -65,16 +67,17 @@ private:
 	unsigned int txsCount;
 	vector<TransactionS> transactions;
 	unsigned long nounce;
+	unsigned long index_block;
+
+
 
 	unsigned int pos_x;
 	unsigned int pos_y;
-
-
+	
 	unsigned int width_image;
 	unsigned int heigth_image;
 
 	Model_MerkleTree* myMerkleTreeModel;
 
-	unsigned long index_block;
 
 };
