@@ -12,7 +12,10 @@ using namespace std;
 
 typedef struct {		// estructura de blockHeader por si sirve
 	string blockID;
+	string prevBlockID;
 	string merkleRoot;
+	unsigned long nounce;
+	unsigned long index;
 }blockHeader;
 
 

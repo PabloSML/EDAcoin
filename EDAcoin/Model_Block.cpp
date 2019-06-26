@@ -34,7 +34,10 @@ Model_Block::getBlockHeader(void) const
 {
 	blockHeader temp;
 	temp.blockID = blockID;
+	temp.prevBlockID = prev_blockID;
 	temp.merkleRoot = merkleRoot;
+	temp.nounce = nounce;
+	temp.index = index_block;
 	return temp;
 
 }
