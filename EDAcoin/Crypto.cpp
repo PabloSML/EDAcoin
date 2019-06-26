@@ -1,13 +1,36 @@
 #include "Crypto.h"
 
+
+
+
 string ByteVector2String(vector<byte> &dataToPrint)
 {
-	CryptoPP::HexEncoder encoder;
+	/*CryptoPP::HexEncoder encoder;
 	string output;
 	encoder.Attach(new CryptoPP::StringSink(output));
 	encoder.Put(dataToPrint.data(), dataToPrint.size());
 	encoder.MessageEnd();
-	return output;
+	return output;*/
+
+	string str;
+	for (int i = 0; i < dataToPrint.size(); i++)
+	{
+		str += dataToPrint[i];
+	}
+	return str;
+}
+
+
+vector<byte> String2ByteVector(string& str)
+{
+	vector<byte> v;
+	//int i = (int)str.size();
+	for (int i = 0; i < (int)str.size(); i++)
+	{
+		char c = str[i];
+		v.push_back((byte)(str[i]));
+	}
+	return v;
 }
 
 ECDSA<ECP, SHA256>::PrivateKey generatePrivKey()

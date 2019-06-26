@@ -14,6 +14,7 @@
 #include "Model_Blockchain.h"
 #include "View_Blockchain.h"
 #include "Allegro.h"
+#include "Crypto.h"
 
 
 using namespace std;
@@ -60,6 +61,8 @@ public:
 
 	double get_amount_wallet(void);
 
+	string getHashNodeID(void) const;
+
 protected:
 	string nodeID;
 	string nodeType;
@@ -75,13 +78,17 @@ protected:
 
 	bool update_wallet(TransactionS& tx, string& blockID);
 
-
+	ECDSA<ECP, SHA256>::PrivateKey privateKey;
+	ECDSA<ECP, SHA256>::PublicKey publicKey;
+	string hashNodeID;
 
 	private:
 
 	list<UTXO*> * UTXOs_updated_unsed;
 
 	UTXO * take_UTXO_unused(void);
+
+
 };
 
 typedef struct {

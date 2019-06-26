@@ -163,3 +163,5 @@ blockHeader Json2Header(json& j)
 	b.merkleRoot = j["MerkleRoot"].get<string>();
 	return b;
 }
+
+//string Pointer2String(void*)

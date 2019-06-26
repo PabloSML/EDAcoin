@@ -6,7 +6,7 @@
 #include "FullNode.h"
 #include "SPVNode.h"
 #include "MinerNode.h"
-#include <windows.h>
+//#include <windows.h>
 
 #include "Simulation.h"
 #include "RegularNodeView.h"

@@ -9,6 +9,7 @@
 
 #include <string>
 
+//using BOOLEAN = namespaceapi::BOOLEAN;
 using namespace std;
 using namespace CryptoPP;
 
@@ -17,6 +18,7 @@ using namespace CryptoPP;
 
 
 string ByteVector2String(vector<byte> &dataToPrint);
+vector<byte> String2ByteVector(string& str);
 
 ECDSA<ECP, SHA256>::PrivateKey generatePrivKey();
 vector<byte> getSignature(ECDSA<ECP, SHA256>::PrivateKey &privKey, string &data);

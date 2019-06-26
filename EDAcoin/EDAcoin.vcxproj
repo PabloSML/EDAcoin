@@ -105,12 +105,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\ignac\source\repos\PabloSML\EDAcoin\EDAcoin\cryptopp820;C:\Users\lamri\source\repos\EDAcoin\EDAcoin\cryptopp820;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\PabloSmolkin\source\repos\EDAcoin\EDAcoin\cryptopp820;C:\Users\ignac\source\repos\PabloSML\EDAcoin\EDAcoin\cryptopp820;C:\Users\lamri\source\repos\EDAcoin\EDAcoin\cryptopp820;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalDependencies>cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\ignac\source\repos\PabloSML\EDAcoin\EDAcoin\cryptopp820\x64\Output\Debug;C:\Users\lamri\source\repos\EDAcoin\EDAcoin\cryptopp820\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\ignac\source\repos\PabloSML\EDAcoin\EDAcoin\cryptopp820\x64\Output\Debug;C:\Users\lamri\source\repos\EDAcoin\EDAcoin\cryptopp820\x64\Output\Debug;C:\Users\PabloSmolkin\source\repos\EDAcoin\EDAcoin\cryptopp820\x64\Output\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
