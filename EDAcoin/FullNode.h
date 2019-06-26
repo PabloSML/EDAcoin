@@ -70,6 +70,12 @@ protected:
 
 	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount);
 
+	bool is_my_blockchain_ok(Model_Block * new_block_received, unsigned long index_of_new_block);
+
+	void fix_my_blockchain(Model_Block * new_block_received, unsigned long index_of_new_block);
+
+	
+
 private:
 
 	void buildMerkleValidationData(MerkleValidationData& dest, MerkleNode* root, string& txID);
