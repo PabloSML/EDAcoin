@@ -22,7 +22,7 @@ json Transactions2Json(TransactionS& t)
 	count = 0;
 	for (OutputS i : t.outputs)
 	{
-		j["Outputs"][count]["PublicID"] = i.publicID;
+		j["Outputs"][count]["PublicKey"] = i.publicKey;
 		j["Outputs"][count]["Amount"] = i.amount;
 		count++;
 	}
@@ -47,8 +47,8 @@ TransactionS Json2Transactions(json& j)
 	for (unsigned int i = 0; i < j["Outputs"].size(); i++)
 	{
 		OutputS output;
-		output.publicID = j["Outputs"][i]["PublicID"].get<string>();
-		output.amount = j["Outputs"][i]["Amount"].get<double>();
+		output.publicKey = j["Outputs"][i]["PublicKey"].get<string>();
+		output.amount = j["Outputs"][i]["Amount"].get<int>();
 		t.outputs.push_back(output);
 	}
 	return t;

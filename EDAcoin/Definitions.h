@@ -124,6 +124,9 @@ using namespace std;
 #define FONT_NAME_PUSHB_TEXT	    "Font.ttf"
 #define SIZE_FONT_TITLE_PUSHBU		15
 
+//definitions EdaCoin Network
+#define FEE (12.5)
+
 
 typedef struct {
 	string blockID;
@@ -131,7 +134,7 @@ typedef struct {
 }InputS;
 
 typedef struct {
-	string publicID;		//deberia llamarse publickey (o Se puede tomar el hashID?)
+	string publicKey;		//deberia llamarse publickey (o Se puede tomar el hashID?)
 	
 	double amount;
 }OutputS;

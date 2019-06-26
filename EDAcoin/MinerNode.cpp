@@ -163,6 +163,10 @@ MinerNode::create_new_mining_block(void)
 
 	vector<string> txIDs;
 
+	TransactionS feeTx = createFeeTx();
+
+	miningBlock->addTransaction(feeTx);
+
 	for (json tx_json : this->jsonTxs) //se agregan todas las tx pendientes a minar y se actualiza el tx_count
 	{
 		TransactionS new_tx = Json2Transactions(tx_json);
@@ -211,3 +215,33 @@ MinerNode::haltMining(void)
 	miningBlock = nullptr;
 	mining_tree = nullptr;
 }
+
+TransactionS
+MinerNode::createFeeTx()
+{
+	TransactionS returnTx;
+	InputS tempInput;
+	OutputS tempOutput;
+
+	tempInput.blockID = string("");
+	tempInput.txID = string("");
+
+	tempOutput.publicKey = Pointer2String(&publicKey);
+	tempOutput.amount = FEE;
+
+	returnTx.inputs.push_back(tempInput);
+	returnTx.outputs.push_back(tempOutput);
+	returnTx.PubKey = Pointer2String(&publicKey);
+	//returnTx.signature =  FALTA
+	//returnTx.txID = FALTA
+
+	return returnTx;
+}
+
+bool
+MinerNode::miningAttempt()
+{
+	bool challengeCompleted = false;
+	return challengeCompleted;
+}
+
