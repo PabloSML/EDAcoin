@@ -23,6 +23,8 @@ public:
 	string get_txID(void) const;
 	OutputS get_output(void) const;
 
+	bool operator==(UTXO utxo_compare);
+
 private:
 
 	string blockID;
