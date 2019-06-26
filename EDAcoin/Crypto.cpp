@@ -21,7 +21,7 @@ string ByteVector2String(vector<byte> &dataToPrint)
 }
 
 
-vector<byte> String2ByteVector(string& str)
+vector<byte> String2ByteVector(const string& str)
 {
 	vector<byte> v;
 	//int i = (int)str.size();
