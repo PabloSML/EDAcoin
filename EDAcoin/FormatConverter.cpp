@@ -164,4 +164,14 @@ blockHeader Json2Header(json& j)
 	return b;
 }
 
-//string Pointer2String(void*)
+string Pointer2String(void*p)
+{
+	string str = to_string((int64_t)p);
+	return str;
+}
+
+void* String2Pointer(string& str)
+{
+	void* p = (void*)stoll(str);
+	return p;
+}

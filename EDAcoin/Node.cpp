@@ -102,6 +102,12 @@ Node::getHashNodeID(void) const
 	return this->hashNodeID;
 }
 
+string 
+Node::getStringPubKey(void)
+{
+	return Pointer2String(&(this->publicKey));
+}
+
 
 void 
 Node::setNodeID(string& nodeID) 
