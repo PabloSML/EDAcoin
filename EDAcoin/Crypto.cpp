@@ -5,19 +5,19 @@
 
 string ByteVector2String(vector<byte> &dataToPrint)
 {
-	/*CryptoPP::HexEncoder encoder;
+	CryptoPP::HexEncoder encoder;
 	string output;
 	encoder.Attach(new CryptoPP::StringSink(output));
 	encoder.Put(dataToPrint.data(), dataToPrint.size());
 	encoder.MessageEnd();
-	return output;*/
+	return output;
 
-	string str;
+	/*string str;
 	for (int i = 0; i < dataToPrint.size(); i++)
 	{
 		str += dataToPrint[i];
 	}
-	return str;
+	return str;*/
 }
 
 
@@ -25,12 +25,21 @@ vector<byte> String2ByteVector(const string& str)
 {
 	vector<byte> v;
 	//int i = (int)str.size();
-	for (int i = 0; i < (int)str.size(); i++)
+	/*for (int i = 0; i < (int)str.size(); i++)
 	{
 		char c = str[i];
 		v.push_back((byte)(str[i]));
+	}*/
+
+	for (int i = 0; i < (int)str.size(); i++)
+	{
+		char c1 = str[i];
+		char c2 = str[++i];
+		char c3 = (c1 << 4) + c2;
+		v.push_back((byte)c3);
 	}
 	return v;
+
 }
 
 ECDSA<ECP, SHA256>::PrivateKey generatePrivKey()

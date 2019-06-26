@@ -172,6 +172,8 @@ MinerNode::create_new_mining_block(void)
 
 	miningBlock->addTransaction(feeTx);
 
+	txIDs.push_back(feeTx.txID);
+
 	for (json tx_json : this->jsonTxs) //se agregan todas las tx pendientes a minar y se actualiza el tx_count
 	{
 		TransactionS new_tx = Json2Transactions(tx_json);
@@ -249,7 +251,7 @@ MinerNode::createFeeTx()
 	string idLabel = string(LABEL_TXS_TXID);
 	json tempJsonTx = Transactions2Json(returnTx);
 	tempJsonTx.erase(idLabel);
-	string tempStringTx = tempJsonTx.get<string>();
+	string tempStringTx = tempJsonTx.dump();
 
 	string actualTxID = HashMessage(tempStringTx);
 

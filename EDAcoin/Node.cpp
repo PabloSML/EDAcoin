@@ -219,28 +219,25 @@ do_transaction(string& to, double amount)
 		if (is_utxo_unused)
 		{
 			transaction[LABEL_TXS_OUTPUT][0][LABEL_TXS_PUBKEY] = to;
-			transaction[LABEL_TXS_OUTPUT][0][LABEL_OUTPUT_AMOUNT] = to_string(amount);
+			transaction[LABEL_TXS_OUTPUT][0][LABEL_OUTPUT_AMOUNT] = amount;
 
 			if (money_using > amount)
 			{
 				transaction[LABEL_TXS_OUTPUT][1][LABEL_TXS_PUBKEY] = this->getStringPubKey();
-				transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_AMOUNT] = to_string(money_using - amount);
+				transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_AMOUNT] = money_using - amount;
 
 			}
 
+			transaction[LABEL_TXS_PUBKEY] = this->getStringPubKey();
 
-			int inputCount = (int)transaction[LABEL_TXS_INPUT].size();
-			string tx_input_str = string("");
-			for (int i = 0; i < inputCount; i++)
-				tx_input_str += transaction[LABEL_TXS_INPUT][i].get<string>();
-
+			string tx_input_str = transaction[LABEL_TXS_INPUT].dump();
 			vector<byte> signature_hash = getSignature(this->privateKey, tx_input_str);
 
 			string tx_signature_hash = ByteVector2String(signature_hash);
 
 			transaction[LABEL_TXS_SIGNATURE] = tx_signature_hash;
 
-			string tx_str_without_txID = transaction.get<string>();
+			string tx_str_without_txID = transaction.dump();
 
 			string tx_id_hash = HashMessage(tx_str_without_txID);
 
