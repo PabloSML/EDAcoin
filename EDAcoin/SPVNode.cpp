@@ -152,7 +152,7 @@ SPVNode::validateTxs(blockHeader& headerToValidate, EdaMerkleBlockS& blockToVali
 				else if (stepDir == LEFT)
 					concat = stp.getID() + obtainedRoot;
 
-				obtainedRoot = to_string(generateID((const unsigned char*)concat.c_str()));
+				obtainedRoot = HashMessage(concat);
 			}
 
 			if (obtainedRoot == wantedRoot)

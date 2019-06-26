@@ -50,9 +50,7 @@ string createNodeID(MerkleNode* root)
 		if (left->isLeaf() && right->isLeaf())		//Si left y right son nodos hoja, se concatenan los IDs y llama a la funcion generate ID. Luego se pasa en numero obtenido a un string.
 		{
 			string tempStrID = left->getNodeID() + right->getNodeID();
-			const unsigned char* tempCStrID = (const unsigned char*)tempStrID.c_str();
-			unsigned long numID = generateID(tempCStrID);
-			returnStr = to_string(numID);			
+			returnStr = HashMessage(tempStrID);
 		}
 		else
 		{											//En caso contrario, se llama a la funcion en forma recursiva hasta llegar al ultimo nivel donde estan las hojas.
@@ -62,9 +60,7 @@ string createNodeID(MerkleNode* root)
 			right->setNodeID(rightNodeID);
 
 			string tempStrID = leftNodeID + rightNodeID;
-			const unsigned char* tempCStrID = (const unsigned char*)tempStrID.c_str();
-			unsigned long numID = generateID(tempCStrID);
-			returnStr = to_string(numID);
+			returnStr = HashMessage(tempStrID);
 		}
 	}
 	return returnStr;
@@ -106,13 +102,4 @@ bool buildMerklePath(MerkleNode* root, string& txID, vector<Step>& path)
 	}
 	else
 		return false;
-}
-
-unsigned long generateID(const unsigned char* str)
-{
-	unsigned long ID = 0;
-	int c;
-	while (c = *str++)
-		ID = c + (ID << 6) + (ID << 16) - ID;
-	return ID;
 }

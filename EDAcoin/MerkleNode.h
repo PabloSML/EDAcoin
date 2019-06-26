@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Crypto.h"
 using namespace std;
 
 typedef enum {LEFT, RIGHT} direction;
@@ -46,4 +47,3 @@ void buildMerkleTree(MerkleNode* root, int currentLevel, int finalLevel, vector<
 void destroyMerkleTree(MerkleNode* root);
 bool buildMerklePath(MerkleNode* root, string& txID, vector<Step>& path);
 string createNodeID(MerkleNode* root);
-unsigned long generateID(const unsigned char* str);

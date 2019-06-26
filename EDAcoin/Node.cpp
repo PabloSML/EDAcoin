@@ -188,7 +188,7 @@ do_transaction(string& to, double amount)
 	{
 
 		//aca iria lo del sha256
-		transaction[LABEL_TXS_TXID] = to_string(generateID((const unsigned char*)to_string(randDoubleBetween(1, pow(2, 10))).c_str()));
+		transaction[LABEL_TXS_TXID] = to_string(randDoubleBetween(1, pow(2, 10)));
 
 		double money_using = 0.0;
 
