@@ -151,3 +151,18 @@ Model_Block:: set_previous_blockID(string& new_previous_blockID)
 
 void 
 Model_Block::set_index_block_in_bchn(unsigned long new_index) { this->index_block = new_index; }
+
+
+bool
+Model_Block::operator==(Model_Block compare_block)
+{
+	bool are_the_same = true;
+
+	if (this->getBlockID() != compare_block.getBlockID())
+	{
+		are_the_same = false;
+	}
+
+	return are_the_same;
+}
+
