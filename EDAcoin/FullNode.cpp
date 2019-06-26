@@ -496,6 +496,10 @@ FullNode::get_block_by_index(unsigned int index)
 bool 
 FullNode::validate_tx(TransactionS tx_to_validate)
 {
+
+	/* 	Una transacción es válida cuando:	*/
+
+
 	bool is_ok = true;
 
 	UTXO temp;
@@ -511,13 +515,19 @@ FullNode::validate_tx(TransactionS tx_to_validate)
 	json tx_json = Transactions2Json(tx_to_validate);
 	json auxiliar = tx_json;
 
-	string key_to_erase = string(LABEL_TXS_TXID);
-	tx_json.erase(key_to_erase);
+	string key_wanted = string(LABEL_TXS_TXID);
+	tx_json.erase(key_wanted);
 
-	
 	string json_in_string = tx_json.get<string>();
+	string hash_id_generate = HashMessage(json_in_string);
 
-	string hash_id;
+	string hash_original = tx_json[key_wanted].get<string>();
+
+	if (hash_original != hash_id_generate)
+	{
+		is_ok = false;
+	}
+
 
 	if (is_ok)
 	{
@@ -557,13 +567,9 @@ FullNode::validate_tx(TransactionS tx_to_validate)
 		}
 
 
-
-
 	}
 
 
-
-	
 	
 	
 	if (is_ok)
@@ -591,15 +597,90 @@ FullNode::validate_tx(TransactionS tx_to_validate)
 	if (is_ok)
 	{
 
-	/*
-	D. Los unlocking scripts referidos en cada Input Transaction deben
-	efectivamente desbloquear los UTXO referidos en cada una de ellas (es decir
-	la firma debe poder ser validada con la publicKey).
-	*/
+		/*
+		D. Los unlocking scripts referidos en cada Input Transaction deben
+		efectivamente desbloquear los UTXO referidos en cada una de ellas (es decir
+		la firma debe poder ser validada con la publicKey).
+		*/
+	
+		string input_json = tx_json[LABEL_TXS_INPUT].get<string>();
+		string signature_json = tx_json[LABEL_TXS_SIGNATURE].get<string>();
+
+		vector<byte> signature_vbytes = String2ByteVector(signature_json);
+
+		ECDSA<ECP, SHA256>::PublicKey signature = *((ECDSA<ECP, SHA256>::PublicKey *) String2Pointer(signature_json));
+
+		if (!verifySignature(signature, input_json, signature_vbytes))
+		{
+			is_ok = false;
+		}
 
 	}
 
 
 	return is_ok;
+
+}
+
+
+bool
+FullNode::validate_block(Model_Block * block_to_validate)
+{
+
+
+	/*
+	Un bloque (para los nodos Full) o un block header (para los nodos SPV) es válido
+	cuando:
+	*/
+
+	bool is_ok = true;
+
+
+	/*
+	A. Se verifica que cumple con el challenge.
+	*/
+
+
+
+
+
+	if (is_ok)
+	{
+		/*
+		B. El previous block hash coincide con el block hash del bloque anterior.
+		*/
+		unsigned int size_my_bck = (this->blockChain).size();
+
+		Model_Block * last_block_in_bck = (this->blockChain)[size_my_bck - 1];
+
+		string previous_block_id_mine = last_block_in_bck->getBlockID();
+		
+		if (previous_block_id_mine != block_to_validate->get_previous_blockID())
+		{
+			is_ok = false;
+		}
+
+	}
+
+
+	if (is_ok)
+	{
+		/*
+		C. Todas las transacciones son válidas (sólo verificable por los Full y no por los
+		SPV).
+		*/
+
+		unsigned int txs_count = block_to_validate->getTxsCount();
+
+		for (unsigned int index = 0; (index<txs_count) && (is_ok); index++)
+		{
+			is_ok = validate_tx(block_to_validate->get_transactions()[index]);
+		}
+
+
+	}
+
+	return is_ok;
+
 
 }

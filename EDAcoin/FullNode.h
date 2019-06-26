@@ -72,6 +72,7 @@ protected:
 
 	void buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigned int txsCount);
 	bool validate_tx(TransactionS tx_to_validate);
+	bool validate_block(Model_Block * block_to_validate);
 
 	bool check_previous(Model_Block * new_block_received);
 	bool is_valid_fork(FullNode * sender_node);
