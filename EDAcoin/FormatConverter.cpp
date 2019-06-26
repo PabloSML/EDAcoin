@@ -48,7 +48,7 @@ TransactionS Json2Transactions(json& j)
 	{
 		OutputS output;
 		output.publicID = j["Outputs"][i]["PublicID"].get<string>();
-		output.amount = j["Outputs"][i]["Amount"].get<int>();
+		output.amount = j["Outputs"][i]["Amount"].get<double>();
 		t.outputs.push_back(output);
 	}
 	return t;
