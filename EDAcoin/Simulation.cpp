@@ -197,8 +197,44 @@ vector<pos_t> Simulation::getNodesPos(void)
 	return v;
 }
 
+
 Graph* Simulation::getAdjMatrix(void)
 {
 	return this->adjMatrix;
 }
 
+
+
+bool 
+Simulation::is_node_attached(string& node_id_wanted)
+{
+	bool is_there = false;
+
+	for (Node * n : (this->nodes))
+	{
+		if (node_id_wanted == n->getNodeID())
+		{
+			is_there = true;
+			break;
+		}
+	}
+
+	return is_there;
+}
+string 
+Simulation::get_pbkey_node(string& node_id_wanted)
+{
+
+	string ret;
+
+	for (Node * n : (this->nodes))
+	{
+		if (node_id_wanted == n->getNodeID())
+		{
+			ret = n->getStringPubKey();
+			break;
+		}
+	}
+
+	return ret;
+}
