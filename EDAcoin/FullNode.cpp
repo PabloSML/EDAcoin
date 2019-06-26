@@ -1,5 +1,8 @@
 #include "FullNode.h"
 
+#define NOT_FOUND_INDEX_YET -1
+
+
 void
 FullNode::attachConnection(Node* connection)
 {
@@ -388,9 +391,98 @@ FullNode::check_previous(Model_Block * new_block_received)
 	return is_previous_ok;
 }
 
-void fix_my_blockchain(string & id_sender_node)
+bool 
+FullNode::is_valid_fork(FullNode * sender_node)
 {
+	unsigned int size_bck = (unsigned int) (this->blockChain).size();
+
+	bool found_match = false; //indicates if theres is a start of fork
+
+
+	for (unsigned int index_reverse = size_bck - 1; (index_reverse > 0) && !found_match; index_reverse--)
+	{
+		Model_Block sender_block_i = (*sender_node->get_block_by_index(index_reverse));
+
+		Model_Block mine_block_i = (*this->get_block_by_index(index_reverse));
+
+
+		if (mine_block_i == sender_block_i)
+		{
+			found_match = true;
+		}
+	}
+
+	return found_match;
+
+}
+
+
+void
+FullNode::fix_blockchain(FullNode * sender_node)
+{
+	unsigned int size_bck = (unsigned int)(this->blockChain).size();
+
+	int index_match = NOT_FOUND_INDEX_YET;
+
+	for (unsigned int index_reverse = size_bck - 1; (index_reverse > 0) && (index_match == NOT_FOUND_INDEX_YET); index_reverse--)
+	{
+		Model_Block sender_block_i = (*sender_node->get_block_by_index(index_reverse));
+
+		Model_Block mine_block_i = (*this->get_block_by_index(index_reverse));
+
+
+		if (mine_block_i == sender_block_i)
+		{
+			index_match = (int)index_reverse;
+		}
+	}
+
+	if (index_match != NOT_FOUND_INDEX_YET) //tiene una blockchain parcial 
+	{
+		int size_mine_blckch = (int)(this->blockChain).size();
+
+		while (size_mine_blckch == index_match + 1)
+		{
+			(this->blockChain).pop_back();
+			size_mine_blckch = (int)(this->blockChain).size();
+		}
+
+		int size_sender_blckch = (int) sender_node->get_blockChain()->size();
+
+		for (unsigned int index_block = index_match; size_mine_blckch != size_sender_blckch; index_block++)
+		{
+			(this->blockChain).push_back(sender_node->get_block_by_index(index_block));
+		}
+
+
+	}
+	else //blockchain de raiz distintas
+	{
+
+		//copio su blockchain
+
+		int size_mine_blckch = (int)(this->blockChain).size();
+		
+		while (size_mine_blckch == 0)
+		{
+			(this->blockChain).pop_back();
+			size_mine_blckch = (int)(this->blockChain).size();
+		}
+
+		int size_sender_blckch = (int)sender_node->get_blockChain()->size();
+
+		for (unsigned int index_block = 0 ; size_mine_blckch != size_sender_blckch; index_block++)
+		{
+			(this->blockChain).push_back(sender_node->get_block_by_index(index_block));
+		}
+	}
+
+}
 
 
 
+Model_Block* 
+FullNode::get_block_by_index(unsigned int index)
+{
+	return (this->blockChain)[index];
 }
