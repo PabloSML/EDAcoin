@@ -229,8 +229,11 @@ do_transaction(string& to, double amount)
 			}
 
 
+			int inputCount = (int)transaction[LABEL_TXS_INPUT].size();
+			string tx_input_str = string("");
+			for (int i = 0; i < inputCount; i++)
+				tx_input_str += transaction[LABEL_TXS_INPUT][i].get<string>();
 
-			string tx_input_str = transaction[LABEL_TXS_INPUT].get<string>();
 			vector<byte> signature_hash = getSignature(this->privateKey, tx_input_str);
 
 			string tx_signature_hash = ByteVector2String(signature_hash);
@@ -339,8 +342,9 @@ Node::update_wallet(TransactionS& tx, string& blockID)
 	{
 		bool match_utxo = false;
 
-		if (out.publicKey == this->getNodeID())
+		if (out.publicKey == this->getStringPubKey())
 		{
+			cout << "Gano plata " << nodeID << endl;
 			UTXO * new_utxo = new UTXO;
 
 			new_utxo->set_reference(blockID, tx.txID);
