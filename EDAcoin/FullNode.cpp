@@ -500,7 +500,9 @@ bool
 FullNode::validate_tx(TransactionS tx_to_validate)
 {
 
-	/* 	Una transacción es válida cuando:	*/
+	/* 
+	Una transacción es válida cuando:
+	*/
 
 
 	bool is_ok = true;
@@ -652,7 +654,7 @@ FullNode::validate_block(Model_Block * block_to_validate)
 		/*
 		B. El previous block hash coincide con el block hash del bloque anterior.
 		*/
-		unsigned int size_my_bck = (this->blockChain).size();
+		unsigned int size_my_bck = (unsigned int)(this->blockChain).size();
 
 		Model_Block * last_block_in_bck = (this->blockChain)[size_my_bck - 1];
 
