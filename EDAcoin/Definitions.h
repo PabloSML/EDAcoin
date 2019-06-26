@@ -60,7 +60,10 @@ using namespace std;
 
 #define SCALE_LEVEL_SIZE_NODE	3
 #define NODE_RADIUS				12
-#define NODE_COLOR				(al_map_rgb(0,0,204)) // verde oscuro
+#define NODE_COLOR_DEFAULT_INTER	"gray"				// verde oscuro
+#define NODE_COLOR_DUMMY			"yellow"
+#define NODE_COLOR_LEAF_REAL		"blue"
+
 
 #define LINE_COLOR				(al_map_rgb(102,204,255)) // azul claro
 #define LINE_THICKNESS			10
@@ -85,7 +88,7 @@ using namespace std;
 
 #define COLOR_BACKGROUND_BLOCKCHAIN		"white"
 
-
+#define NODE_ID_DUMMY	"dummy"
 
 //definitions transaction interface
 #define TRANS_INTERF_CANT_PUSHB		1
