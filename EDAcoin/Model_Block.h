@@ -55,6 +55,8 @@ public:
 	void set_previous_blockID(string& new_prev_blockID);
 	void set_index_block_in_bchn(unsigned long new_index);
 	
+	bool operator==(Model_Block compare_block);
+
 private:
 
 	string blockID;

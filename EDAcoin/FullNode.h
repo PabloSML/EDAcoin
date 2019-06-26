@@ -55,6 +55,8 @@ public:
 
 	void sendInfo2Spv();
 
+	Model_Block* get_block_by_index(unsigned int index);
+
 protected:
 
 	queue<netPckg> floodingQueue;
@@ -72,7 +74,9 @@ protected:
 
 	bool check_previous(Model_Block * new_block_received);
 
-	void fix_my_blockchain(string & id_sender_node);
+	bool is_valid_fork(FullNode * sender_node);
+
+	void fix_blockchain(FullNode * sender_node);
 
 	
 

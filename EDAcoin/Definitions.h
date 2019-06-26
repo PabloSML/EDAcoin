@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "MerkleNode.h"
+#include "Crypto.h"
 
 using namespace std;
 
@@ -130,13 +131,20 @@ typedef struct {
 }InputS;
 
 typedef struct {
-	string publicID;
+	string publicID;		//deberia llamarse publickey (o Se puede tomar el hashID?)
+	
 	double amount;
 }OutputS;
 
 typedef struct {
 	string txID;
 	string txActor; // seria el nombre de quien hace la tx. (provisional)
+	string PubKey;
+	//string Signature;
+	//**
+	vector<byte> signature;
+	//**
+
 	vector<InputS> inputs;
 	vector<OutputS> outputs;
 }TransactionS;
