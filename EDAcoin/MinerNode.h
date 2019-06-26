@@ -11,7 +11,9 @@ public:
 	virtual void recieveBlock(json& jsonBlock);
 	virtual bool analizePackage(netPckg package);
 
-	virtual void create_new_mining_block(void);
+	void create_new_mining_block(void);
+
+	bool miningAttempt();
 
 
 private:
@@ -21,5 +23,6 @@ private:
 	json		mining_json;
 
 	void haltMining(void);
+	TransactionS createFeeTx();
 
 };

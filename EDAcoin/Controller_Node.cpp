@@ -59,8 +59,8 @@ Controller_Node::parseNetworkEvent()
 		{
 			if (nodeType == string("Miner Node"))
 			{
-				//if mine
-					//cout << el minero << model->getNodeID() << mino un bloque << endl;
+				if(((MinerNode*)model)->miningAttempt())
+					cout << "El minero " << model->getNodeID() << " mino un bloque!!" << endl;
 			}
 			((FullNode*)model)->flood();
 		}

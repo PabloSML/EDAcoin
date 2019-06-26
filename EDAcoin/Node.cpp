@@ -326,7 +326,7 @@ Node::update_wallet(TransactionS& tx, string& blockID)
 	{
 		bool match_utxo = false;
 
-		if (out.publicID == this->getNodeID())
+		if (out.publicKey == this->getNodeID())
 		{
 			UTXO * new_utxo = new UTXO;
 

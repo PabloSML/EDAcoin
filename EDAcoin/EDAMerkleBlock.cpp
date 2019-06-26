@@ -165,7 +165,7 @@ is_output_id(OutputS * output, string output_id)
 {
 	bool is_id_bool = false;
 
-	if (!((output->publicID).compare(output_id)))
+	if (!((output->publicKey).compare(output_id)))
 	{
 		is_id_bool = true;
 	}
