@@ -46,3 +46,21 @@ get_output(void) const {
 	return this->output;
 }
 
+
+bool 
+UTXO::operator==(UTXO utxo_compare)
+{
+	bool is_same = true;
+
+	if (utxo_compare.get_blockID() != this->get_blockID())
+	{
+		is_same = false;
+	}
+
+	if (utxo_compare.get_txID() != this->get_txID())
+	{
+		is_same = false;
+	}
+
+	return is_same;
+}

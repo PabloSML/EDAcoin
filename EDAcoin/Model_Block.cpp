@@ -67,6 +67,12 @@ Model_Block::addTransaction(TransactionS& newTX) { transactions.push_back(newTX)
 bool
 Model_Block::hasTransactions(void) { return !transactions.empty(); }
 
+unsigned long
+Model_Block::getNounce(void) const { return nounce; }
+
+void
+Model_Block::setNounce(unsigned long newNounce) { nounce = newNounce; }
+
 unsigned int Model_Block::
 get_pos_x(void) { return this->pos_x; }
 

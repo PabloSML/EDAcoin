@@ -127,14 +127,13 @@ json Block2Json(Model_Block& b)
 		j["Transactions"][count] = Transactions2Json(t);
 		count++;
 	}
-	
-	j["Pos_x"] = b.get_pos_x();
+	/*j["Pos_x"] = b.get_pos_x();
 	j["Pos_y"] = b.get_pos_y();
 	j["Image_w"] = b.get_size_x();
 	j["Image_H"] = b.get_size_y();
 	//void* p =(void*) b.getMerkleTreeModel();
 	string str = to_string((int64_t)b.getMerkleTreeModel());
-	j["MyMerkleTreeModel"] = str;
+	j["MyMerkleTreeModel"] = str;*/
 	return j;
 }
 

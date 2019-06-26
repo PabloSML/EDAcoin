@@ -1,4 +1,5 @@
 #include "FullNode.h"
+#include "Crypto.h"
 
 #define NOT_FOUND_INDEX_YET -1
 
@@ -327,6 +328,7 @@ FullNode::analizePackage(netPckg package)
 
 		if (!found)
 		{
+			//validate block
 			isPackageNew = true;
 			floodingQueue.push(package);
 			recieveBlock(package.data);
@@ -353,6 +355,7 @@ FullNode::analizePackage(netPckg package)
 
 		if (!found)
 		{
+			//validate tx
 			isPackageNew = true;
 			floodingQueue.push(package);
 			jsonTxs.push_back(package.data);
@@ -486,4 +489,117 @@ Model_Block*
 FullNode::get_block_by_index(unsigned int index)
 {
 	return (this->blockChain)[index];
+}
+
+
+
+bool 
+FullNode::validate_tx(TransactionS tx_to_validate)
+{
+	bool is_ok = true;
+
+	UTXO temp;
+
+	double amount_input = 0.0;
+
+	/*
+	A. El HashID debe verificar (el HashID de la Tx debe ser igual al calculado por el
+	nodo al recibirla).
+	*/
+
+
+	json tx_json = Transactions2Json(tx_to_validate);
+	json auxiliar = tx_json;
+
+	string key_to_erase = string(LABEL_TXS_TXID);
+	tx_json.erase(key_to_erase);
+
+	
+	string json_in_string = tx_json.get<string>();
+
+	string hash_id;
+
+	if (is_ok)
+	{
+		/*
+		B. La UTXO referenciada en el Input Transaction de la Tx debe pertenecer al
+		arreglo de UTXOs o a las transacciones pendientes (esta verificación solo se
+		hace en el caso de los nodos Full. Los SPV siguen verificando en su lugar el
+		Merkle Path).
+
+		*/
+
+
+		for (InputS input_i : tx_to_validate.inputs)
+		{
+			bool found_utxo_input_used = false;
+
+			string in_blck_id = input_i.blockID;
+			string in_tx_id = input_i.txID;
+
+			list<UTXO*>::iterator first_list_av_utxo = (this->allAvailableUTXOs).begin();
+			list<UTXO*>::iterator last_list_av_utxo = (this->allAvailableUTXOs).begin();
+
+			for (list<UTXO*>::iterator itr = first_list_av_utxo; (itr != last_list_av_utxo) && !found_utxo_input_used; itr++)
+			{
+				if (((*itr)->get_blockID() == in_blck_id) && ((*itr)->get_txID() == in_tx_id))
+				{
+					found_utxo_input_used = true;
+					amount_input += (*itr)->get_output().amount;
+				}
+			}
+
+			if (!found_utxo_input_used) //no encontre utxos como entrada
+			{
+				is_ok = false;
+			}
+
+		}
+
+
+
+
+	}
+
+
+
+	
+	
+	
+	if (is_ok)
+	{
+
+		/*
+		C. La suma de los montos de EDACoin de los UTXOs referenciados en los Input
+		Transactions tiene que coincidir con la suma de los montos de EDACoin
+		referenciados en los Output Transactions.
+		*/
+
+		for (OutputS output_i : tx_to_validate.outputs)
+		{
+			amount_input -= output_i.amount;
+		}
+
+		if (!amount_input)
+		{
+			is_ok = false;
+		}
+
+	}
+
+
+	if (is_ok)
+	{
+
+	/*
+	D. Los unlocking scripts referidos en cada Input Transaction deben
+	efectivamente desbloquear los UTXO referidos en cada una de ellas (es decir
+	la firma debe poder ser validada con la publicKey).
+	*/
+
+	}
+
+
+	return is_ok;
+
 }
