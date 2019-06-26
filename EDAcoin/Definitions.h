@@ -137,6 +137,8 @@ typedef struct {
 typedef struct {
 	string txID;
 	string txActor; // seria el nombre de quien hace la tx. (provisional)
+	//string PubKey;
+	//string Signature;
 	vector<InputS> inputs;
 	vector<OutputS> outputs;
 }TransactionS;

@@ -25,3 +25,7 @@ vector<byte> getSignature(ECDSA<ECP, SHA256>::PrivateKey &privKey, string &data)
 bool verifySignature(ECDSA<ECP, SHA256>::PublicKey &pubKey, string &data, vector<byte> &signature);
 void showData(ECDSA<ECP, SHA256>::PrivateKey &pubKey, ECDSA<ECP, SHA256>::PublicKey &privKey, vector<byte> &signature);
 void hexPrint(vector<byte> &dataToPrint);
+
+string HashMessage(string& message);
+bool VerifyHashMessage(string& hash, string& message);
+

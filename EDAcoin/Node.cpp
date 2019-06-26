@@ -60,11 +60,11 @@ Node::Node(string& nodeID, const char* nodeType):
 	}
 	this->privateKey = generatePrivKey();
 	this->privateKey.MakePublicKey(this->publicKey);
-	SHA256 hash;
+	/*SHA256 hash;
 	string digest;
 	StringSource s(nodeID, true, new HashFilter(hash, new HexEncoder(new StringSink(digest))));
-	this->hashNodeID = digest;
-
+	this->hashNodeID = digest;*/
+	this->hashNodeID = HashMessage(nodeID);
 }
 
 
@@ -113,10 +113,12 @@ void
 Node::setNodeID(string& nodeID) 
 { 
 	this->nodeID = nodeID;
-	SHA256 hash;
+	/*SHA256 hash;
 	string digest;
 	StringSource s(nodeID, true, new HashFilter(hash, new HexEncoder(new StringSink(digest))));
-	this->hashNodeID = digest;
+	this->hashNodeID = digest;*/
+	this->hashNodeID = HashMessage(nodeID);
+
 }
 
 string 
