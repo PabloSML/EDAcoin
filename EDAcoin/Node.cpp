@@ -28,6 +28,10 @@ Node::Node(void):
 		
 	}
 
+	this->privateKey = generatePrivKey();
+	this->privateKey.MakePublicKey(this->publicKey);
+	//aca no hace el hash de nodeID
+
 }
 
 
@@ -54,6 +58,12 @@ Node::Node(string& nodeID, const char* nodeType):
 		}
 
 	}
+	this->privateKey = generatePrivKey();
+	this->privateKey.MakePublicKey(this->publicKey);
+	SHA256 hash;
+	string digest;
+	StringSource s(nodeID, true, new HashFilter(hash, new HexEncoder(new StringSink(digest))));
+	this->hashNodeID = digest;
 
 }
 
@@ -86,8 +96,22 @@ Node::
 string 
 Node::getNodeID() const { return nodeID; }
 
+string
+Node::getHashNodeID(void) const
+{
+	return this->hashNodeID;
+}
+
+
 void 
-Node::setNodeID(string& nodeID) { this->nodeID = nodeID; }
+Node::setNodeID(string& nodeID) 
+{ 
+	this->nodeID = nodeID;
+	SHA256 hash;
+	string digest;
+	StringSource s(nodeID, true, new HashFilter(hash, new HexEncoder(new StringSink(digest))));
+	this->hashNodeID = digest;
+}
 
 string 
 Node::getNodeType() const { return nodeType; }
