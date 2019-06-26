@@ -172,7 +172,11 @@ json Header2Json(blockHeader& b)
 {
 	json j;
 	j["BlockID"] = b.blockID;
+	j["PrevBlockID"] = b.prevBlockID;
 	j["MerkleRoot"] = b.merkleRoot;
+	j["Nounce"] = b.nounce;
+	j["IndexBlock"] = b.index;
+
 	return j;
 }
 
@@ -180,7 +184,10 @@ blockHeader Json2Header(json& j)
 {
 	blockHeader b;
 	b.blockID = j["BlockID"].get<string>();
+	b.prevBlockID = j["PrevBlockID"].get<string>();
 	b.merkleRoot = j["MerkleRoot"].get<string>();
+	b.nounce = j["Nounce"].get<unsigned long>();
+	b.index = j["IndexBlock"].get<unsigned int>();
 	return b;
 }
 
