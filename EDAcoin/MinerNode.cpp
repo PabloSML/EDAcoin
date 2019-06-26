@@ -208,8 +208,6 @@ MinerNode::create_new_mining_block(void)
 	unsigned long tempNounce = randIntBetween(0, pow(2, 32) - 1);
 
 	miningBlock->setNounce(tempNounce);
-
-	mining_json = Block2Json(*miningBlock);
 }
 
 void
@@ -260,7 +258,16 @@ MinerNode::miningAttempt()
 {
 	bool challengeCompleted = false;
 
+	blockHeader headerForHash = miningBlock->getBlockHeader();
+	json jsonHeader2hash = Header2Json(headerForHash);
+	string blockIDLabel = string(LABEL_BLOCK_BLOCK_ID);
+	jsonHeader2hash.erase(blockIDLabel);
+	string stringForHash = jsonHeader2hash.get<string>();
 
+	string hashAttempt = HashMessage(stringForHash);
+
+	//if(passesChallenge(hashAttempt))
+	//	challengeCompleted = true;
 
 	return challengeCompleted;
 }
