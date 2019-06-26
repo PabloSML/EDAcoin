@@ -48,7 +48,7 @@ TransactionS Json2Transactions(json& j)
 	{
 		OutputS output;
 		output.publicKey = j["Outputs"][i]["PublicKey"].get<string>();
-		output.amount = j["Outputs"][i]["Amount"].get<int>();
+		output.amount = j["Outputs"][i]["Amount"].get<double>();
 		t.outputs.push_back(output);
 	}
 	return t;
@@ -118,6 +118,7 @@ json Block2Json(Model_Block& b)
 {
 	json j;
 	j["BlockID"] = b.getBlockID();
+	j["PrevBlockID"] = b.get_previous_blockID();
 	j["MerkleRoot"] = b.getMerkleRoot();
 	j["TxCount"] = b.getTxsCount();
 	int count = 0;
@@ -126,6 +127,7 @@ json Block2Json(Model_Block& b)
 		j["Transactions"][count] = Transactions2Json(t);
 		count++;
 	}
+	
 	j["Pos_x"] = b.get_pos_x();
 	j["Pos_y"] = b.get_pos_y();
 	j["Image_w"] = b.get_size_x();
