@@ -203,6 +203,11 @@ MinerNode::create_new_mining_block(void)
 
 	(this->miningBlock)->set_previous_blockID(temp_prev_id);
 
+	unsigned long tempNounce = randIntBetween(0, pow(2, 32) - 1);
+
+	miningBlock->setNounce(tempNounce);
+
+	mining_json = Block2Json(*miningBlock);
 }
 
 void
@@ -232,8 +237,18 @@ MinerNode::createFeeTx()
 	returnTx.inputs.push_back(tempInput);
 	returnTx.outputs.push_back(tempOutput);
 	returnTx.PubKey = Pointer2String(&publicKey);
-	//returnTx.signature =  FALTA
-	//returnTx.txID = FALTA
+	vector<byte> emptySignature;
+	returnTx.signature = emptySignature;
+
+	string tempTxID = string("");
+	string idLabel = string(LABEL_TXS_TXID);
+	json tempJsonTx = Transactions2Json(returnTx);
+	tempJsonTx.erase(idLabel);
+	string tempStringTx = tempJsonTx.get<string>();
+
+	string actualTxID = HashMessage(tempStringTx);
+
+	returnTx.txID = actualTxID;
 
 	return returnTx;
 }
