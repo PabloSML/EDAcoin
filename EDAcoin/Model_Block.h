@@ -31,6 +31,8 @@ public:
 	void addTransaction(TransactionS& newTx);
 	bool hasTransactions(void);
 	blockHeader getBlockHeader(void) const; // crea una estructura blockHeader y la devuelve en su nombre
+	unsigned long get_index_in_blockchain(void);
+
 
 	unsigned int get_pos_x(void);
 	unsigned int get_pos_y(void);
@@ -51,6 +53,8 @@ public:
 
 	void set_merkle_root(string& new_merkle_root);
 	void set_previous_blockID(string& new_prev_blockID);
+	void set_index_block_in_bchn(unsigned long new_index);
+	
 private:
 
 	string blockID;
@@ -68,5 +72,7 @@ private:
 	unsigned int heigth_image;
 
 	Model_MerkleTree* myMerkleTreeModel;
+
+	unsigned long index_block;
 
 };

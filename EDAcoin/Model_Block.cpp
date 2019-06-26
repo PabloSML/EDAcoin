@@ -58,6 +58,9 @@ Model_Block::get_previous_blockID(void)
 	return this->prev_blockID;
 }
 
+unsigned long 
+Model_Block::get_index_in_blockchain(void) { return this->index_block; }
+
 void
 Model_Block::addTransaction(TransactionS& newTX) { transactions.push_back(newTX); txsCount++; }
 
@@ -78,6 +81,8 @@ get_size_x(void) { return this->width_image; }
 
 unsigned int Model_Block::
 get_size_y(void) { return this->heigth_image; }
+
+
 
 void Model_Block::
 set_pos_x(unsigned int new_pos_x) { this->pos_x = new_pos_x; }
@@ -141,4 +146,8 @@ void
 Model_Block:: set_previous_blockID(string& new_previous_blockID)
 {
 	this->prev_blockID = new_previous_blockID;
+
 }
+
+void 
+Model_Block::set_index_block_in_bchn(unsigned long new_index) { this->index_block = new_index; }

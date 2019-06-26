@@ -361,28 +361,36 @@ FullNode::analizePackage(netPckg package)
 
 
 bool 
-FullNode::is_my_blockchain_ok(Model_Block * new_block_received, unsigned long index_of_new_block)
+FullNode::check_previous(Model_Block * new_block_received)
 {
-	bool is_my_blkchn_ok = true;
+	bool is_previous_ok = true;
 
-	if ((this->blockChain).size() -1  < index_of_new_block) //index comienzza en 0
+	unsigned long index_of_new_block = new_block_received->get_index_in_blockchain();
+
+
+	if ((this->blockChain).size() -1  < index_of_new_block) //index comienza en 0
 	{
 		if ((this->blockChain).size() == index_of_new_block )
 		{
-			string last_block_ID = (this->blockChain)[(this->blockChain).size() - 1];
+			string last_block_ID = (this->blockChain)[(this->blockChain).size() - 1]->getBlockID();
 			
 			if (!(new_block_received->get_previous_blockID() == last_block_ID))
 			{
-				is_my_blkchn_ok = false;
+				is_previous_ok = false;
 			}
 		}
 		else
 		{
-			is_my_blkchn_ok = false;
+			is_previous_ok = false;
 		}
 	}
 
-
+	return is_previous_ok;
 }
 
-void fix_my_blockchain(Model_Block * new_block_received, unsigned long index_of_new_block);
+void fix_my_blockchain(string & id_sender_node)
+{
+
+
+
+}
