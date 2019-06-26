@@ -174,9 +174,6 @@ do_transaction(string& to, double amount)
 {
 
 
-
-
-
 	json transaction;
 
 	if (get_amount_wallet() >= amount)
@@ -234,8 +231,6 @@ do_transaction(string& to, double amount)
 		{
 			transaction.clear();
 		}
-
-		
 
 	}
 
@@ -326,6 +321,7 @@ Node::update_wallet(TransactionS& tx, string& blockID)
 	
 			OutputS new_output_utxo = out;
 			new_utxo->set_output(new_output_utxo);
+
 
 			(*this->UTXOs_updated_unsed).push_back(new_utxo);
 			(*this->mine_UTXOs).push_back(new_utxo);
