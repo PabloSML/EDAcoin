@@ -15,6 +15,7 @@
 #include "View_Blockchain.h"
 #include "Allegro.h"
 #include "Crypto.h"
+#include "FormatConverter.h"
 
 
 using namespace std;
@@ -62,6 +63,7 @@ public:
 	double get_amount_wallet(void);
 
 	string getHashNodeID(void) const;
+	string getStringPubKey(void);
 
 protected:
 	string nodeID;

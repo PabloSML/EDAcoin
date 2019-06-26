@@ -8,6 +8,10 @@ json Transactions2Json(TransactionS& t)
 {
 	json j;
 	j["TxID"] = t.txID;
+	//**
+	j["PublicKey"] =t.PubKey;
+	j["Signature"] = ByteVector2String(t.signature);
+	//**
 	int count = 0;
 	for (InputS i : t.inputs)
 	{
@@ -18,7 +22,7 @@ json Transactions2Json(TransactionS& t)
 	count = 0;
 	for (OutputS i : t.outputs)
 	{
-		j["Outputs"][count]["PublicID"] = i.publicID;
+		j["Outputs"][count]["PublicKey"] = i.publicKey;
 		j["Outputs"][count]["Amount"] = i.amount;
 		count++;
 	}
@@ -29,6 +33,10 @@ TransactionS Json2Transactions(json& j)
 {
 	TransactionS t;
 	t.txID = j["TxID"].get<string>();
+	//**
+	t.PubKey = j["PublicKey"].get<string>();
+	t.signature = String2ByteVector(j["Signature"].get<string>());
+	//**
 	for (unsigned int i = 0; i < j["Inputs"].size(); i++)
 	{
 		InputS input;
@@ -39,7 +47,7 @@ TransactionS Json2Transactions(json& j)
 	for (unsigned int i = 0; i < j["Outputs"].size(); i++)
 	{
 		OutputS output;
-		output.publicID = j["Outputs"][i]["PublicID"].get<string>();
+		output.publicKey = j["Outputs"][i]["PublicKey"].get<string>();
 		output.amount = j["Outputs"][i]["Amount"].get<int>();
 		t.outputs.push_back(output);
 	}
@@ -164,4 +172,14 @@ blockHeader Json2Header(json& j)
 	return b;
 }
 
-//string Pointer2String(void*)
+string Pointer2String(void*p)
+{
+	string str = to_string((int64_t)p);
+	return str;
+}
+
+void* String2Pointer(string& str)
+{
+	void* p = (void*)stoll(str);
+	return p;
+}

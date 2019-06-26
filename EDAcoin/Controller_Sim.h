@@ -14,7 +14,7 @@ using namespace std;
 class Controller_Sim : public Controller {
 
 public:
-	Controller_Sim(Simulation* owner);
+	Controller_Sim(Simulation* owner, ALLEGRO_TIMER* evTimer, ALLEGRO_TIMER* netTimer);
 	~Controller_Sim();
 
 	void dispatcher(EventData* ev);
@@ -24,7 +24,7 @@ public:
 	void removeAllNodeCtrl(void);
 
 	virtual void parseMouseEvent(EventData * ev);
-	//virtual void parseNetworkEvent(EventData * ev);
+	virtual void parseNetworkEvent(void);
 	virtual void parseKeyboardEvent(EventData * ev);
 	virtual void parseTimerEvent(EventData * ev);
 
@@ -40,9 +40,10 @@ private:
 	
 	Controller_Transaction_GUI * controller_transaction_gui;
 
+	ALLEGRO_TIMER* evTimer;
+	ALLEGRO_TIMER* netTimer;
+
 	bool isThisMine(EventData* ev);
-
-
 
 	void attend_transaction(void);
 

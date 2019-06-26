@@ -13,7 +13,7 @@ public:
 
 	void parseMouseEvent(EventData * ev);
 	void parseMouseEvent(EventData * ev, MerkleNode* tree);
-	//void parseNetworkEvent(EventData * ev);
+	void parseNetworkEvent(void){}
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
 

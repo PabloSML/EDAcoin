@@ -21,7 +21,7 @@ string ByteVector2String(vector<byte> &dataToPrint)
 }
 
 
-vector<byte> String2ByteVector(string& str)
+vector<byte> String2ByteVector(const string& str)
 {
 	vector<byte> v;
 	//int i = (int)str.size();
@@ -96,4 +96,23 @@ void hexPrint(vector<byte> &dataToPrint)
 	encoder.Put(dataToPrint.data(), dataToPrint.size());
 	encoder.MessageEnd();
 	cout << output << endl;
+}
+
+string HashMessage(string& message)
+{
+	SHA256 hash;
+	string digest;
+	StringSource s(message, true, new HashFilter(hash, new HexEncoder(new StringSink(digest))));
+	return digest;
+}
+
+bool VerifyHashMessage(string& hash, string& message)
+{
+	SHA256 hash_;
+	string digest;
+	StringSource s(message, true, new HashFilter(hash_, new HexEncoder(new StringSink(digest))));
+	if (digest == hash)
+		return true;
+	else
+		return false;
 }

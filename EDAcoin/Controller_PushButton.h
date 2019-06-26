@@ -11,7 +11,7 @@ public:
 	~Controller_PushButton();
 
 	void parseMouseEvent(EventData * ev);
-	//void parseNetworkEvent(EventData * ev);
+	void parseNetworkEvent(void){}
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
 	void forwardKeyboardEvent(EventData * ev) {};

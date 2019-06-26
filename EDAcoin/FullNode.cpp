@@ -70,6 +70,7 @@ FullNode::recieveBlock(json& jsonBlock)
 		}
 
 		updateTxList(t);
+		update_wallet(t, blockID);
 	}
 
 	double test = log2(txsCount);
@@ -173,7 +174,7 @@ FullNode::sendInfo2Spv()
 				bool done = false;
 				for (int i = 0; i < outputCount && !done; i++)
 				{
-					if (t.outputs[i].publicID == spvID)
+					if (t.outputs[i].publicKey == spvID)
 					{
 						done = true;
 						spvTrans.push_back(t);
@@ -236,10 +237,10 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 			tempTx.inputs.push_back(tempInput);
 		}
 		
-		for (unsigned int j = 0; j < outputCount; j++)		//Para cada output, se obtiene el publicID y el monto y se ponen en el vector con todos los outputs.
+		for (unsigned int j = 0; j < outputCount; j++)		//Para cada output, se obtiene el publicKey y el monto y se ponen en el vector con todos los outputs.
 		{
 			OutputS tempOutput;
-			tempOutput.publicID = jsonTxs[i][LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_ID].get<string>();
+			tempOutput.publicKey = jsonTxs[i][LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_ID].get<string>();
 			tempOutput.amount = stoi(jsonTxs[i][LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_AMOUNT].get<string>());
 			tempTx.outputs.push_back(tempOutput);
 		}

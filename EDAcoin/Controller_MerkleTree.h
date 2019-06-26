@@ -10,7 +10,7 @@ public:
 	~Controller_MerkleTree();
 
 	void parseMouseEvent(EventData * ev);
-	//void parseNetworkEvent(EventData * ev);
+	void parseNetworkEvent(void){}
 	void parseKeyboardEvent(EventData * ev);
 	void parseTimerEvent(EventData * ev);
 

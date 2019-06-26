@@ -22,3 +22,7 @@ Model_Block Json2Block(json& j);
 json Header2Json(blockHeader& b);
 
 blockHeader Json2Header(json& j);
+
+string Pointer2String(void*p);
+
+void* String2Pointer(string& str);
