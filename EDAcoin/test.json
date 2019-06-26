@@ -3,7 +3,7 @@
     "BlockID": "A",
     "PrevBlockID": "B",
     "MerkleRoot": "??",
-    "TxsCount": "32",
+    "TxsCount": 32,
     "Nounce": "0",
     "Index": "0",
     "Txs": [

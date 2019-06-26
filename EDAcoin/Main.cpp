@@ -82,7 +82,15 @@ int main()
 		for (int i = 0; (i < size); i++)
 		{
 			json tempBlock = blockChainJson[i];			//Por cada bloque del json, se lo manda a los full nodes. 
+			unsigned long txCount = tempBlock[LABEL_BLOCK_TXS_COUNT].get<unsigned long>();
 			
+			for (int i = 0; i < txCount; i++)
+			{
+				int rndIndex = randIntBetween(0, (int)spvs.size() - 1);
+				string tempPubKey = spvs[rndIndex]->getStringPubKey();
+				tempBlock[LABEL_BLOCK_TXS][i][LABEL_TXS_OUTPUT][0][LABEL_TXS_PUBKEY] = tempPubKey;
+			}
+
 			netPckg tempPckg{ tempBlock, fulls[0] };
 
 			fulls[0]->analizePackage(tempPckg);
