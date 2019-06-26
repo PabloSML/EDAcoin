@@ -1,29 +1,30 @@
 #include "FormatConverter.h"
 #include <iostream>
 #include <stdint.h>
+#include "Labels.h"
 
 using namespace std;
 
 json Transactions2Json(TransactionS& t)
 {
 	json j;
-	j["TxID"] = t.txID;
+	j[LABEL_TXS_TXID] = t.txID;
 	//**
-	j["PublicKey"] =t.PubKey;
-	j["Signature"] = ByteVector2String(t.signature);
+	j[LABEL_TXS_PUBKEY] =t.PubKey;
+	j[LABEL_TXS_SIGNATURE] = ByteVector2String(t.signature);
 	//**
 	int count = 0;
 	for (InputS i : t.inputs)
 	{
-		j["Inputs"][count]["BlockID"] = i.blockID;
-		j["Inputs"][count]["TxID"] = i.txID;
+		j[LABEL_TXS_INPUT][count][LABEL_BLOCK_BLOCK_ID] = i.blockID;
+		j[LABEL_TXS_INPUT][count][LABEL_TXS_TXID] = i.txID;
 		count++;
 	}
 	count = 0;
 	for (OutputS i : t.outputs)
 	{
-		j["Outputs"][count]["PublicKey"] = i.publicKey;
-		j["Outputs"][count]["Amount"] = i.amount;
+		j[LABEL_TXS_OUTPUT][count][LABEL_TXS_PUBKEY] = i.publicKey;
+		j[LABEL_TXS_OUTPUT][count][LABEL_TXS_AMOUNT] = i.amount;
 		count++;
 	}
 	return j;
@@ -32,23 +33,23 @@ json Transactions2Json(TransactionS& t)
 TransactionS Json2Transactions(json& j)
 {
 	TransactionS t;
-	t.txID = j["TxID"].get<string>();
+	t.txID = j[LABEL_TXS_TXID].get<string>();
 	//**
-	t.PubKey = j["PublicKey"].get<string>();
-	t.signature = String2ByteVector(j["Signature"].get<string>());
+	t.PubKey = j[LABEL_TXS_PUBKEY].get<string>();
+	t.signature = String2ByteVector(j[LABEL_TXS_SIGNATURE].get<string>());
 	//**
-	for (unsigned int i = 0; i < j["Inputs"].size(); i++)
+	for (unsigned int i = 0; i < j[LABEL_TXS_INPUT].size(); i++)
 	{
 		InputS input;
-		input.blockID = j["Inputs"][i]["BlockID"].get<string>();
-		input.txID = j["Inputs"][i]["TxID"].get<string>();
+		input.blockID = j[LABEL_TXS_INPUT][i][LABEL_BLOCK_BLOCK_ID].get<string>();
+		input.txID = j[LABEL_TXS_INPUT][i][LABEL_TXS_TXID].get<string>();
 		t.inputs.push_back(input);
 	}
-	for (unsigned int i = 0; i < j["Outputs"].size(); i++)
+	for (unsigned int i = 0; i < j[LABEL_TXS_OUTPUT].size(); i++)
 	{
 		OutputS output;
-		output.publicKey = j["Outputs"][i]["PublicKey"].get<string>();
-		output.amount = j["Outputs"][i]["Amount"].get<double>();
+		output.publicKey = j[LABEL_TXS_OUTPUT][i][LABEL_TXS_PUBKEY].get<string>();
+		output.amount = j[LABEL_TXS_OUTPUT][i][LABEL_TXS_AMOUNT].get<double>();
 		t.outputs.push_back(output);
 	}
 	return t;
@@ -57,59 +58,59 @@ TransactionS Json2Transactions(json& j)
 json EdaMerkleBlock2Json(EdaMerkleBlockS& b)
 {
 	json j;
-	j["TxCount"] = b.txCount;
+	j[LABEL_BLOCK_TXS_COUNT] = b.txCount;
 	int count = 0;
 	for (TransactionS t : b.transactions)
 	{
-		j["Transactions"][count] = Transactions2Json(t);
+		j[LABEL_BLOCK_TXS][count] = Transactions2Json(t);
 		count++;
 	}
 	count = 0;
 	for (MerkleValidationData v : b.merklePathDataForTxs)
 	{
-		j["MerkleValidationData"][count]["merklePathLen"] = v.merklePathLen;
+		j[LABEL_EDABLOCK_MERKLEDATA][count][LABEL_EDABLOCK_PATHLENGTH] = v.merklePathLen;
 		int count2 = 0;
 		for (Step s : b.merklePathDataForTxs[count].merklePath)
 		{
-			j["MerkleValidationData"][count]["Step"][count2]["ID"] = s.getID();
+			j[LABEL_EDABLOCK_MERKLEDATA][count][LABEL_EDABLOCK_STEP][count2][LABEL_EDABLOCK_ID] = s.getID();
 			if(s.getDir()==direction::RIGHT)
-				j["MerkleValidationData"][count]["Step"][count2]["Direction"] = "Right";
+				j[LABEL_EDABLOCK_MERKLEDATA][count][LABEL_EDABLOCK_STEP][count2][LABEL_EDABLOCK_DIR] = LABEL_EDABLOCK_DIR_R;
 			else
-				j["MerkleValidationData"][count]["Step"][count2]["Direction"] = "Left";
+				j[LABEL_EDABLOCK_MERKLEDATA][count][LABEL_EDABLOCK_STEP][count2][LABEL_EDABLOCK_DIR] = LABEL_EDABLOCK_DIR_L;
 			count2++;
 		}
 		count++;
 	}
-	j["BlockID"] = b.blockID;
+	j[LABEL_BLOCK_BLOCK_ID] = b.blockID;
 	return j;
 }
 
 EdaMerkleBlockS Json2EdaMerkleBlock(json& j)
 {
 	EdaMerkleBlockS b;
-	b.txCount = j["TxCount"].get<int>();
-	for (unsigned int i = 0; i < j["Transactions"].size(); i++)
+	b.txCount = j[LABEL_BLOCK_TXS_COUNT].get<int>();
+	for (unsigned int i = 0; i < j[LABEL_BLOCK_TXS].size(); i++)
 	{
-		b.transactions.push_back(Json2Transactions(j["Transactions"][i]));
+		b.transactions.push_back(Json2Transactions(j[LABEL_BLOCK_TXS][i]));
 	}
-	for (unsigned int i = 0; i < j["MerkleValidationData"].size(); i++)
+	for (unsigned int i = 0; i < j[LABEL_EDABLOCK_MERKLEDATA].size(); i++)
 	{
 		MerkleValidationData tempData;
-		tempData.merklePathLen= j["MerkleValidationData"][i]["merklePathLen"].get<int>();
-		for (unsigned int k = 0; k < j["MerkleValidationData"][i]["Step"].size(); k++)
+		tempData.merklePathLen= j[LABEL_EDABLOCK_MERKLEDATA][i][LABEL_EDABLOCK_PATHLENGTH].get<int>();
+		for (unsigned int k = 0; k < j[LABEL_EDABLOCK_MERKLEDATA][i][LABEL_EDABLOCK_STEP].size(); k++)
 		{
 			direction dir;
-			if (j["MerkleValidationData"][i]["Step"][k]["Direction"] == "Right")
+			if (j[LABEL_EDABLOCK_MERKLEDATA][i][LABEL_EDABLOCK_STEP][k][LABEL_EDABLOCK_DIR] == LABEL_EDABLOCK_DIR_R)
 				dir = direction::RIGHT;
 			else
 				dir = direction::LEFT;
-			string s = j["MerkleValidationData"][i]["Step"][k]["ID"].get<string>();
+			string s = j[LABEL_EDABLOCK_MERKLEDATA][i][LABEL_EDABLOCK_STEP][k][LABEL_EDABLOCK_ID].get<string>();
 			Step step(s, dir);
 			tempData.merklePath.push_back(step);
 		}
 		b.merklePathDataForTxs.push_back(tempData);
 	}
-	b.blockID = j["BlockID"].get<string>();
+	b.blockID = j[LABEL_BLOCK_BLOCK_ID].get<string>();
 
 	return b;
 }
@@ -117,18 +118,18 @@ EdaMerkleBlockS Json2EdaMerkleBlock(json& j)
 json Block2Json(Model_Block& b)
 {
 	json j;
-	j["BlockID"] = b.getBlockID();
-	j["PrevBlockID"] = b.get_previous_blockID();
-	j["MerkleRoot"] = b.getMerkleRoot();
-	j["TxCount"] = b.getTxsCount();
+	j[LABEL_BLOCK_BLOCK_ID] = b.getBlockID();
+	j[LABEL_BLOCK_PREV_BLOCK_ID] = b.get_previous_blockID();
+	j[LABEL_BLOCK_MERKLE_ROOT] = b.getMerkleRoot();
+	j[LABEL_BLOCK_TXS_COUNT] = b.getTxsCount();
 	int count = 0;
 	for (TransactionS t : b.get_transactions())
 	{
-		j["Transactions"][count] = Transactions2Json(t);
+		j[LABEL_BLOCK_TXS][count] = Transactions2Json(t);
 		count++;
 	}
-	j["Nounce"] = b.getNounce();
-	j["IndexBlock"] = b.get_index_in_blockchain();
+	j[LABEL_BLOCK_NOUNCE] = b.getNounce();
+	j[LABEL_BLOCK_INDEX] = b.get_index_in_blockchain();
 
 	/*j["Pos_x"] = b.get_pos_x();
 	j["Pos_y"] = b.get_pos_y();
@@ -142,21 +143,21 @@ json Block2Json(Model_Block& b)
 
 Model_Block Json2Block(json& j)
 {
-	string BlockId = j["BlockID"].get<string>();
-	string PrevBlockID = j["PrevBlockID"].get<string>();
-	string MerkleRoot = j["MerkleRoot"].get<string>();
-	unsigned int TxCount = j["TxCount"].get<unsigned int>();
+	string BlockId = j[LABEL_BLOCK_BLOCK_ID].get<string>();
+	string PrevBlockID = j[LABEL_BLOCK_PREV_BLOCK_ID].get<string>();
+	string MerkleRoot = j[LABEL_BLOCK_MERKLE_ROOT].get<string>();
+	unsigned int TxCount = j[LABEL_BLOCK_TXS_COUNT].get<unsigned int>();
 	vector<TransactionS> t;
-	for (unsigned int i = 0; i < j["Transactions"].size(); i++)
+	for (unsigned int i = 0; i < j[LABEL_BLOCK_TXS].size(); i++)
 	{
-		t.push_back(Json2Transactions(j["Transactions"][i]));
+		t.push_back(Json2Transactions(j[LABEL_BLOCK_TXS][i]));
 	}
 	Model_Block b(BlockId, MerkleRoot, TxCount, t);
 	b.set_previous_blockID(PrevBlockID);
-	//unsigned long nounce = j["Nounce"].get<unsigned long>();
-	//unsigned long index_block = j["IndexBlock"].get<unsigned long>();
-	b.setNounce(j["Nounce"].get<unsigned long>());
-	b.set_index_block_in_bchn(j["IndexBlock"].get<unsigned long>());
+	//unsigned long nounce = j[LABEL_BLOCK_NOUNCE].get<unsigned long>();
+	//unsigned long index_block = j[LABEL_BLOCK_INDEX].get<unsigned long>();
+	b.setNounce(j[LABEL_BLOCK_NOUNCE].get<unsigned long>());
+	b.set_index_block_in_bchn(j[LABEL_BLOCK_INDEX].get<unsigned long>());
 	/*
 	b.set_pos_x(j["Pos_x"].get<unsigned int>());
 	b.set_pos_y(j["Pos_y"].get<unsigned int>());
@@ -171,11 +172,11 @@ Model_Block Json2Block(json& j)
 json Header2Json(blockHeader& b)
 {
 	json j;
-	j["BlockID"] = b.blockID;
-	j["PrevBlockID"] = b.prevBlockID;
-	j["MerkleRoot"] = b.merkleRoot;
-	j["Nounce"] = b.nounce;
-	j["IndexBlock"] = b.index;
+	j[LABEL_BLOCK_BLOCK_ID] = b.blockID;
+	j[LABEL_BLOCK_PREV_BLOCK_ID] = b.prevBlockID;
+	j[LABEL_BLOCK_MERKLE_ROOT] = b.merkleRoot;
+	j[LABEL_BLOCK_NOUNCE] = b.nounce;
+	j[LABEL_BLOCK_INDEX] = b.index;
 
 	return j;
 }
@@ -183,11 +184,11 @@ json Header2Json(blockHeader& b)
 blockHeader Json2Header(json& j)
 {
 	blockHeader b;
-	b.blockID = j["BlockID"].get<string>();
-	b.prevBlockID = j["PrevBlockID"].get<string>();
-	b.merkleRoot = j["MerkleRoot"].get<string>();
-	b.nounce = j["Nounce"].get<unsigned long>();
-	b.index = j["IndexBlock"].get<unsigned int>();
+	b.blockID = j[LABEL_BLOCK_BLOCK_ID].get<string>();
+	b.prevBlockID = j[LABEL_BLOCK_PREV_BLOCK_ID].get<string>();
+	b.merkleRoot = j[LABEL_BLOCK_MERKLE_ROOT].get<string>();
+	b.nounce = j[LABEL_BLOCK_NOUNCE].get<unsigned long>();
+	b.index = j[LABEL_BLOCK_INDEX].get<unsigned int>();
 	return b;
 }
 

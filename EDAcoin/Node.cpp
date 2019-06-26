@@ -221,12 +221,12 @@ do_transaction(string& to, double amount)
 
 		if (is_utxo_unused)
 		{
-			transaction[LABEL_TXS_OUTPUT][0][LABEL_OUTPUT_ID] = to;
+			transaction[LABEL_TXS_OUTPUT][0][LABEL_TXS_PUBKEY] = to;
 			transaction[LABEL_TXS_OUTPUT][0][LABEL_OUTPUT_AMOUNT] = to_string(amount);
 
 			if (money_using > amount)
 			{
-				transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_ID] = this->getNodeID();
+				transaction[LABEL_TXS_OUTPUT][1][LABEL_TXS_PUBKEY] = this->getNodeID();
 				transaction[LABEL_TXS_OUTPUT][1][LABEL_OUTPUT_AMOUNT] = to_string(money_using - amount);
 
 			}

@@ -243,7 +243,7 @@ FullNode::buildTxList(vector<TransactionS>& transactions, json& jsonTxs, unsigne
 		for (unsigned int j = 0; j < outputCount; j++)		//Para cada output, se obtiene el publicKey y el monto y se ponen en el vector con todos los outputs.
 		{
 			OutputS tempOutput;
-			tempOutput.publicKey = jsonTxs[i][LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_ID].get<string>();
+			tempOutput.publicKey = jsonTxs[i][LABEL_TXS_OUTPUT][j][LABEL_TXS_PUBKEY].get<string>();
 			tempOutput.amount = stoi(jsonTxs[i][LABEL_TXS_OUTPUT][j][LABEL_OUTPUT_AMOUNT].get<string>());
 			tempTx.outputs.push_back(tempOutput);
 		}
