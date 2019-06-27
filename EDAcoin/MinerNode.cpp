@@ -1,9 +1,9 @@
 #include "MinerNode.h"
 #include "FormatConverter.h"
 
-#define DIFFICULTY 13
+#define DIFFICULTY 2
 #define BYTE_SIZE 8
-#define MASK 0x10
+#define MASK 0x80
 
 MinerNode::MinerNode(string& newNodeID) : FullNode(newNodeID, "Miner Node")
 {
@@ -265,16 +265,22 @@ MinerNode::miningAttempt()
 {
 	bool challengeCompleted = false;
 
+
 	if (miningBlock != nullptr)
 	{
+		//cout << "Mining attempt by " << nodeID << endl;
 		blockHeader headerForHash = miningBlock->getBlockHeader();
 		headerForHash.nounce++; // cambio el nounce para intentar otro hash
+		if (headerForHash.nounce > pow(2, 31))
+			headerForHash.nounce = 2;
 		json jsonHeader2hash = Header2Json(headerForHash);
 		string blockIDLabel = string(LABEL_BLOCK_BLOCK_ID);
 		jsonHeader2hash.erase(blockIDLabel);
-		string stringForHash = jsonHeader2hash.get<string>();
+		string stringForHash = jsonHeader2hash.dump();
 
 		string hashAttempt = HashMessage(stringForHash);
+
+		//cout << hashAttempt << "by " << nodeID << endl;
 
 		if(passesChallenge(hashAttempt))
 		{
